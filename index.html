@@ -172,21 +172,28 @@ footer :focus-visible { outline-color: #fff; }
 .mobile-menu a { display: block; padding: 13px 4px; font-weight: 600; border-bottom: 1px solid var(--line); }
 .mobile-menu .btn { margin-top: 18px; width: 100%; border-bottom: none; }
 
-/* ============================================================ HERO */
-.hero { padding: 172px 0 96px; position: relative; overflow: hidden; }
-.hero::before {
-  content: ""; position: absolute; top: -260px; right: -260px;
-  width: 560px; height: 560px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(248,99,44,.10) 0%, rgba(248,99,44,0) 66%);
-  pointer-events: none;
+/* ============================================================ HERO (drone video) */
+.hero {
+  position: relative; overflow: hidden; isolation: isolate;
+  min-height: min(100svh, 940px); display: flex; flex-direction: column;
+  background: #0E0E10; color: #fff;
 }
-.hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 72px; align-items: center; position: relative; }
+.hero-media { position: absolute; inset: 0; z-index: -1; }
+.hero-video { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* weighted to the copy side so the footage stays visible on the right */
+.hero-scrim {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(10,10,12,.90) 0%, rgba(10,10,12,.74) 34%, rgba(10,10,12,.30) 64%, rgba(10,10,12,.10) 100%),
+    linear-gradient(180deg, rgba(10,10,12,.30) 0%, rgba(10,10,12,0) 22%, rgba(10,10,12,0) 60%, rgba(10,10,12,.55) 100%);
+}
+.hero-in { position: relative; flex: 1; width: 100%; display: flex; flex-direction: column; justify-content: center; padding-top: 148px; padding-bottom: 84px; }
+.hero-copy { max-width: 640px; }
 .hero-chip {
   display: inline-flex; align-items: center; gap: 10px;
-  background: rgba(255,255,255,.8); backdrop-filter: blur(8px);
-  border: 1px solid var(--line);
-  box-shadow: 0 2px 10px rgba(15,15,16,.05);
-  color: var(--ink); font-size: 12px; font-weight: 700;
+  background: rgba(255,255,255,.10); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.22);
+  color: #fff; font-size: 12px; font-weight: 700;
   letter-spacing: .14em; text-transform: uppercase;
   border-radius: 999px; padding: 9px 18px; margin-bottom: 26px;
 }
@@ -196,66 +203,49 @@ footer :focus-visible { outline-color: #fff; }
   background: #34C759; animation: ping 2.2s cubic-bezier(0,0,.2,1) infinite;
 }
 @keyframes ping { 0% { transform: scale(1); opacity: .5; } 70%, 100% { transform: scale(2.8); opacity: 0; } }
-@keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(248,99,44,.45);} 50% { box-shadow: 0 0 0 7px rgba(248,99,44,0);} }
-.hero h1 { margin-bottom: 24px; }
+.hero h1 { color: #fff; margin-bottom: 22px; text-wrap: balance; text-shadow: 0 2px 28px rgba(0,0,0,.30); }
 .hero h1 .accent { color: var(--orange); position: relative; white-space: nowrap; }
-.hero h1 .accent svg { position: absolute; left: 0; bottom: -10px; width: 100%; height: 12px; color: var(--orange-line); }
-.hero .lead { margin-bottom: 36px; }
+.hero h1 .accent svg { position: absolute; left: 0; bottom: -10px; width: 100%; height: 12px; color: rgba(248,99,44,.55); }
+.hero .lead { color: rgba(255,255,255,.86); max-width: 540px; margin-bottom: 34px; text-shadow: 0 1px 18px rgba(0,0,0,.35); }
 .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
-.cta-note { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 44px; }
-.hero-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 28px; max-width: 640px; }
-.hero-stat { display: flex; align-items: center; gap: 15px; }
+.hero .btn-ghost { color: #fff; border-color: rgba(255,255,255,.42); }
+.hero .btn-ghost:hover { background: #fff; border-color: #fff; color: var(--ink); }
+.cta-note { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.72); }
+
+/* caption + pause control, bottom right of the footage */
+.hero-cap { position: absolute; right: 24px; bottom: 24px; display: flex; align-items: center; gap: 10px; }
+.hero-cap-t {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12.5px; font-weight: 700; color: #fff;
+  background: rgba(12,12,14,.45); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.18); border-radius: 999px; padding: 8px 14px;
+}
+.hero-cap-t svg { width: 15px; height: 15px; color: #FFA477; }
+.hero-play {
+  width: 38px; height: 38px; border-radius: 50%; flex: none;
+  display: grid; place-items: center; color: #fff;
+  background: rgba(12,12,14,.45); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.22); transition: background .2s, border-color .2s;
+}
+.hero-play:hover { background: rgba(12,12,14,.7); border-color: rgba(255,255,255,.5); }
+.hero-play svg { width: 16px; height: 16px; fill: currentColor; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.hero-play .i-play, .hero-play[aria-pressed="true"] .i-pause { display: none; }
+.hero-play[aria-pressed="true"] .i-play { display: block; }
+
+/* stats strip along the bottom edge */
+.hero-strip { position: relative; background: rgba(12,12,14,.62); backdrop-filter: blur(14px); border-top: 1px solid rgba(255,255,255,.14); }
+.hero-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.hero-stat { display: flex; align-items: center; gap: 14px; padding: 22px 22px; border-left: 1px solid rgba(255,255,255,.12); }
+.hero-stat:first-child { border-left: 0; padding-left: 0; }
 .hs-ic {
   width: 44px; height: 44px; border-radius: 13px; flex: none;
   background: linear-gradient(135deg, #FF8A50 0%, var(--orange) 58%, #EF5216 100%);
   color: #fff; display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 6px 14px rgba(248,99,44,.22), inset 0 1px 0 rgba(255,255,255,.28);
+  box-shadow: 0 6px 14px rgba(248,99,44,.28), inset 0 1px 0 rgba(255,255,255,.28);
 }
-.hs-ic svg { width: 21px; height: 21px; }
-.hero-stat .num { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); line-height: 1.2; }
-.hero-stat .lbl { font-size: 13px; color: var(--muted); font-weight: 500; margin-top: 1px; }
-
-/* hero dashboard card */
-.dash {
-  background: #fff; border: 1px solid var(--line); border-radius: 26px;
-  box-shadow: var(--shadow-lg); padding: 28px; position: relative;
-}
-.dash-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
-.dash-head .t { font-weight: 800; font-size: 15px; }
-.dash-head .s { font-size: 12.5px; color: var(--muted); }
-.live-pill { display: inline-flex; align-items: center; gap: 7px; background: #E9F8F1; color: var(--green); font-size: 12px; font-weight: 800; padding: 6px 14px; border-radius: 999px; }
-.live-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
-.dash-main {
-  background: linear-gradient(135deg, var(--orange) 0%, #FF8B54 100%);
-  border-radius: 18px; padding: 24px; color: #fff; margin-bottom: 16px; position: relative; overflow: hidden;
-}
-.dash-main::after {
-  content:""; position:absolute; right:-42px; top:-42px; width: 170px; height:170px; border-radius:50%;
-  background: rgba(255,255,255,.14);
-}
-.dash-main .lbl { font-size: 12.5px; font-weight: 600; opacity: .9; }
-.dash-main .kw { font-size: 2.5rem; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; }
-.dash-main .kw small { font-size: 1.05rem; font-weight: 700; }
-.dash-bar { height: 9px; background: rgba(255,255,255,.28); border-radius: 99px; margin-top: 16px; overflow: hidden; }
-.dash-bar i { display: block; height: 100%; width: 74%; background: #fff; border-radius: 99px; animation: fill 2.4s var(--ease); }
-@keyframes fill { from { width: 8%; } }
-.dash-main .cap { display:flex; justify-content: space-between; font-size: 12px; margin-top: 8px; opacity: .92; font-weight: 600;}
-.dash-cells { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-.dash-cell { border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
-.dash-cell .v { font-weight: 900; font-size: 1.18rem; letter-spacing:-0.02em; }
-.dash-cell .v em { color: inherit; font-style: normal; }
-.dash-cell .l { font-size: 11.5px; color: var(--muted); font-weight: 500; }
-.dash-foot { display: flex; align-items: center; gap: 9px; margin-top: 16px; font-size: 12.5px; color: var(--muted); font-weight: 600; }
-.dash-foot svg { width: 16px; height: 16px; color: var(--orange); }
-.float-chip {
-  position: absolute; background:#fff; border:1px solid var(--line); border-radius: 14px;
-  box-shadow: var(--shadow); padding: 12px 16px; display:flex; align-items:center; gap:10px; font-size:13px; font-weight:700;
-}
-.float-chip svg { width: 20px; height: 20px; color: var(--orange); }
-.float-chip .sub { display:block; font-size:11px; color:var(--muted); font-weight:600; }
-.chip-a { top: -22px; left: -30px; animation: bob 5s ease-in-out infinite; }
-.chip-b { bottom: -20px; right: -18px; animation: bob 5s ease-in-out 1.2s infinite; }
-@keyframes bob { 0%,100% { transform: translateY(0);} 50% { transform: translateY(-9px);} }
+.hs-ic svg { width: 20px; height: 20px; }
+.hero-stat .num { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em; color: #fff; line-height: 1.2; }
+.hero-stat .lbl { font-size: 13px; color: rgba(255,255,255,.72); font-weight: 500; margin-top: 1px; }
 
 /* ============================================================ TRUST BAR */
 .trust { border-block: 1px solid var(--line); padding: 26px 0; background: var(--orange-mist); }
@@ -263,27 +253,9 @@ footer :focus-visible { outline-color: #fff; }
 .trust-item { display: flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 700; color: var(--ink); opacity: .85; }
 .trust-item svg { width: 20px; height: 20px; color: var(--orange); flex: none; }
 
-/* ============================================================ SHOWCASE */
+/* ============================================================ PHOTO FRAME (team photo) */
 .showcase { position: relative; border-radius: 28px; overflow: hidden; box-shadow: var(--shadow-lg); }
-.showcase img, .showcase video { width: 100%; height: clamp(320px, 46vw, 540px); object-fit: cover; display: block; }
-.showcase-grad { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,11,.72) 0%, rgba(10,10,11,.12) 48%, rgba(10,10,11,0) 65%); }
-.showcase-cap { position: absolute; left: 34px; bottom: 30px; color: #fff; }
-.showcase-chip {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--orange); color: #fff; font-size: 12px; font-weight: 700;
-  letter-spacing: .08em; text-transform: uppercase; padding: 7px 15px; border-radius: 999px; margin-bottom: 14px;
-}
-.showcase-chip svg { width: 15px; height: 15px; }
-.showcase-cap .t { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; }
-.showcase-cap .s { font-size: 13.5px; opacity: .88; margin-top: 3px; }
-.showcase-stats { position: absolute; right: 34px; bottom: 30px; display: flex; gap: 12px; }
-.showcase-stats > div {
-  background: rgba(255,255,255,.14); backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,.28); border-radius: 14px;
-  padding: 11px 20px; color: #fff; text-align: center;
-}
-.showcase-stats b { display: block; font-size: 1.18rem; font-weight: 700; letter-spacing: -0.01em; }
-.showcase-stats span { font-size: 11px; opacity: .88; font-weight: 600; }
+.showcase img { width: 100%; height: clamp(320px, 46vw, 540px); object-fit: cover; display: block; }
 
 /* ============================================================ MODELS (PPA vs CAPEX) */
 .models { display: grid; grid-template-columns: 1.08fr .92fr; gap: 28px; align-items: stretch; }
@@ -758,8 +730,9 @@ footer::before {
   position: fixed; right: 20px; bottom: 20px; z-index: 99; display: flex; align-items: center; gap: 10px;
   background: var(--orange); color: #fff; border: 0; border-radius: 999px;
   padding: 9px 18px 9px 9px; box-shadow: 0 8px 26px rgba(0,0,0,.24);
-  transition: transform .18s ease, box-shadow .18s ease, bottom .3s var(--ease);
+  transition: transform .18s ease, box-shadow .18s ease, bottom .3s var(--ease), opacity .25s ease, visibility .25s;
 }
+.launcher.is-hidden { opacity: 0; visibility: hidden; transform: translateY(12px); }
 .launcher__ava { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; flex: none; }
 .launcher__txt { text-align: left; line-height: 1.15; }
 .launcher__txt small { display: block; font-size: 11px; opacity: .8; }
@@ -777,39 +750,50 @@ footer::before {
 
 /* ============================================================ RESPONSIVE */
 @media (max-width: 1024px) {
-  .hero-grid, .rate-wrap, .quote-grid { grid-template-columns: 1fr; }
+  .rate-wrap, .quote-grid { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr 1fr; }
   .projects, .benefits { grid-template-columns: 1fr 1fr; }
   .models { grid-template-columns: 1fr; }
   .quote-aside { position: static; }
   .foot-grid { grid-template-columns: 1fr 1fr; }
-  .chip-a { left: 0; } .chip-b { right: 0; }
 }
-@media (max-width: 720px) {
+@media (max-width: 1100px) {
+  .nav-links .nav-phone { display: none; }
+}
+@media (max-width: 900px) {
   .nav-links { display: none; }
   .nav-burger { display: flex; }
+  .nav-call { display: flex; width: 42px; height: 42px; border-radius: 12px; background: var(--orange-soft); color: var(--orange); align-items: center; justify-content: center; }
+  .nav-call svg { width: 19px; height: 19px; }
+}
+@media (max-width: 900px) and (min-width: 721px) {
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .hero-stat:nth-child(odd) { border-left: 0; padding-left: 0; }
+  .hero-stat:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,.12); }
+}
+@media (max-width: 720px) {
   .section { padding: 72px 0; }
-  .hero { padding: 130px 0 64px; }
+  .hero { min-height: 0; }
+  .hero-in { padding-top: 116px; padding-bottom: 96px; }
+  .hero-scrim { background: linear-gradient(180deg, rgba(10,10,12,.62) 0%, rgba(10,10,12,.74) 55%, rgba(10,10,12,.84) 100%); }
+  .hero-cap { left: 24px; right: 24px; bottom: 26px; justify-content: space-between; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .hero-stat { padding: 16px 12px; gap: 11px; }
+  .hero-stat:nth-child(odd) { border-left: 0; padding-left: 0; }
+  .hero-stat:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,.12); }
+  .hs-ic { width: 38px; height: 38px; border-radius: 11px; }
+  .hs-ic svg { width: 18px; height: 18px; }
+  .hero-stat .num { font-size: 1.12rem; }
+  .hero-stat .lbl { font-size: 12px; }
   .steps, .projects, .benefits, .model-pick, .frow { grid-template-columns: 1fr; }
   .qform { padding: 30px 22px; }
   .compare { overflow-x: auto; }
   .compare table { min-width: 620px; }
-  .hero-stats { gap: 16px 14px; }
-  .hs-ic { width: 38px; height: 38px; border-radius: 11px; }
-  .hs-ic svg { width: 18px; height: 18px; }
-  .hero-stat { gap: 11px; }
-  .hero-stat .num { font-size: 1.15rem; }
   .hero-ctas .btn { flex: 1 1 auto; }
-  .showcase-stats { display: none; }
-  .showcase-cap { left: 20px; bottom: 20px; }
-  .showcase-cap .t { font-size: 1.1rem; }
   .foot-grid { grid-template-columns: 1fr; gap: 32px; }
   .foot-cta .btn { width: 100%; }
-  .float-chip { display: none; }
   .calc-tiles { grid-template-columns: 1fr; }
   .calc-slider-head { flex-direction: column; align-items: flex-start; gap: 2px; }
-  .nav-call { display: flex; width: 42px; height: 42px; border-radius: 12px; background: var(--orange-soft); color: var(--orange); align-items: center; justify-content: center; }
-  .nav-call svg { width: 19px; height: 19px; }
   .mobile-cta {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 98;
     display: flex; gap: 10px;
@@ -1121,63 +1105,50 @@ footer::before {
 
 <!-- ============================================================ HERO -->
 <section class="hero">
-  <div class="container hero-grid">
-    <div>
+  <div class="hero-media" aria-hidden="true">
+    <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg">
+      <source src="assets/hero-aerial.mp4" type="video/mp4">
+    </video>
+    <div class="hero-scrim"></div>
+  </div>
+
+  <div class="container hero-in">
+    <div class="hero-copy">
       <div class="hero-chip"><span class="chip-dot" aria-hidden="true"></span> Solar as a Service</div>
       <h1>Solar power for your business. <span class="accent">Zero upfront.<svg viewBox="0 0 200 12" preserveAspectRatio="none" fill="none"><path d="M3 9C50 3 150 3 197 8" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></span></h1>
-      <p class="lead">We fund, install and operate commercial solar on your roof under a Solar PPA. You buy the power it produces at a fixed rate below your grid rate, locked in for the full term. Prefer to own the system? We do capex installations too.</p>
+      <p class="lead">We fund, install and operate commercial solar on your roof. You buy the power it makes at a fixed rate below your grid rate, locked in for the full term. Prefer to own it? We do capex installs too.</p>
       <div class="hero-ctas">
         <a href="#quote" class="btn btn-primary btn-lg">See your PPA rate <svg class="ic"><use href="#i-arrow"/></svg></a>
         <a href="#models" class="btn btn-ghost btn-lg">Compare PPA and capex</a>
       </div>
       <p class="cta-note">Free site assessment. Response within one business day. No obligation.</p>
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <div class="hs-ic"><svg class="ic"><use href="#i-euro-down"/></svg></div>
-          <div><div class="num">€0</div><div class="lbl">Upfront cost on a PPA</div></div>
-        </div>
-        <div class="hero-stat">
-          <div class="hs-ic"><svg class="ic"><use href="#i-meter"/></svg></div>
-          <div><div class="num">Up to 50%</div><div class="lbl">Below grid rates, day one</div></div>
-        </div>
-        <div class="hero-stat">
-          <div class="hs-ic"><svg class="ic"><use href="#i-clock"/></svg></div>
-          <div><div class="num">25yr</div><div class="lbl">Panel performance warranty</div></div>
-        </div>
-        <div class="hero-stat">
-          <div class="hs-ic"><svg class="ic"><use href="#i-shield"/></svg></div>
-          <div><div class="num">SEAI</div><div class="lbl">Registered installer</div></div>
-        </div>
-      </div>
     </div>
+    <div class="hero-cap">
+      <span class="hero-cap-t"><svg class="ic"><use href="#i-panel-sun"/></svg> Aura Energy install, Dublin</span>
+      <button type="button" class="hero-play" id="heroPlay" aria-label="Pause background video" aria-pressed="false">
+        <svg viewBox="0 0 24 24" class="i-pause" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg>
+        <svg viewBox="0 0 24 24" class="i-play" aria-hidden="true"><path d="M7 5l12 7-12 7z"/></svg>
+      </button>
+    </div>
+  </div>
 
-    <div style="position:relative">
-      <div class="float-chip chip-a">
-        <svg class="ic"><use href="#i-euro-down"/></svg>
-        <div>Rate locked below grid<span class="sub">For the full PPA term</span></div>
+  <div class="hero-strip">
+    <div class="container hero-stats">
+      <div class="hero-stat">
+        <div class="hs-ic"><svg class="ic"><use href="#i-euro-down"/></svg></div>
+        <div><div class="num">€0</div><div class="lbl">Upfront cost on a PPA</div></div>
       </div>
-      <div class="dash reveal">
-        <div class="dash-head">
-          <div><div class="t">Distribution Warehouse, Co. Kildare</div><div class="s">48 kW rooftop array · Solar PPA</div></div>
-          <!-- OWNER: change EXAMPLE back to LIVE only if this card is fed by real monitoring data from a real named site -->
-          <span class="live-pill"><span class="dot"></span>EXAMPLE</span>
-        </div>
-        <div class="dash-main">
-          <div class="lbl">Current output</div>
-          <div class="kw">35.5 <small>kW</small></div>
-          <div class="dash-bar"><i></i></div>
-          <div class="cap"><span>74% of capacity</span><span>Smart inverter</span></div>
-        </div>
-        <div class="dash-cells">
-          <div class="dash-cell"><div class="v">74<em>%</em></div><div class="l">Self-sufficiency</div></div>
-          <div class="dash-cell"><div class="v"><em>€</em>6.2k</div><div class="l">Saved this year</div></div>
-          <div class="dash-cell"><div class="v">31<em>t</em></div><div class="l">CO₂ avoided</div></div>
-        </div>
-        <div class="dash-foot"><svg class="ic"><use href="#i-monitor"/></svg> Every Aura system includes live cloud monitoring</div>
+      <div class="hero-stat">
+        <div class="hs-ic"><svg class="ic"><use href="#i-meter"/></svg></div>
+        <div><div class="num">Up to 50%</div><div class="lbl">Below grid rates, day one</div></div>
       </div>
-      <div class="float-chip chip-b">
-        <svg class="ic"><use href="#i-shield"/></svg>
-        <div>Maintenance included<span class="sub">We own the risk, not you</span></div>
+      <div class="hero-stat">
+        <div class="hs-ic"><svg class="ic"><use href="#i-clock"/></svg></div>
+        <div><div class="num">25yr</div><div class="lbl">Panel performance warranty</div></div>
+      </div>
+      <div class="hero-stat">
+        <div class="hs-ic"><svg class="ic"><use href="#i-shield"/></svg></div>
+        <div><div class="num">SEAI</div><div class="lbl">Registered installer</div></div>
       </div>
     </div>
   </div>
@@ -1194,31 +1165,8 @@ footer::before {
   </div>
 </div>
 
-<!-- ============================================================ SHOWCASE -->
-<section class="section-sm" style="padding-bottom:0">
-  <div class="container">
-    <div class="showcase reveal">
-      <video autoplay muted loop playsinline preload="metadata" poster="assets/aerial-wide.jpg" aria-label="Aerial drone footage of an Aura Energy rooftop solar installation in Dublin">
-        <source src="assets/hero-aerial.mp4" type="video/mp4">
-        <img src="assets/aerial-wide.jpg" width="1600" height="1200" loading="lazy" decoding="async" alt="Aerial drone view of an Aura Energy rooftop solar installation overlooking Dublin">
-      </video>
-      <div class="showcase-grad"></div>
-      <div class="showcase-cap">
-        <span class="showcase-chip"><svg class="ic"><use href="#i-panel-sun"/></svg> Live install</span>
-        <div class="t">Commercial rooftop, Dublin</div>
-        <div class="s">Designed, installed and monitored by Aura Energy</div>
-      </div>
-      <div class="showcase-stats">
-        <div><b>€0</b><span>Upfront</span></div>
-        <div><b>1–3</b><span>Days on site</span></div>
-        <div><b>25yr</b><span>Warranty</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============================================================ MODELS: PPA vs CAPEX -->
-<section class="section" id="models" style="padding-top:48px">
+<section class="section" id="models">
   <div class="container">
     <div class="section-head center reveal">
       <div class="kicker">Two ways to go solar</div>
@@ -2140,7 +2088,7 @@ footer::before {
   <a href="#quote" class="btn btn-primary" style="flex:1">Get a free quote</a>
 </div>
 
-<button class="launcher" type="button" id="launcher" aria-label="Chat with Aura AI">
+<button class="launcher is-hidden" type="button" id="launcher" aria-label="Chat with Aura AI">
   <span class="launcher__ava"><img class="avaimg" src="assets/aura-ai.jpg" alt="" width="360" height="360"></span>
   <span class="launcher__txt"><small>Chat with</small><b>Aura AI</b></span>
 </button>
@@ -2555,6 +2503,29 @@ document.querySelectorAll('.faq').forEach(d => {
   render();
 })();
 
+// ---- hero video: pause control, respects reduced motion, idles off screen ----
+(() => {
+  const v = document.getElementById('heroVideo'), btn = document.getElementById('heroPlay');
+  if (!v || !btn) return;
+  let userPaused = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const sync = () => {
+    btn.setAttribute('aria-pressed', String(userPaused));
+    btn.setAttribute('aria-label', userPaused ? 'Play background video' : 'Pause background video');
+  };
+  const play = () => { const p = v.play(); if (p) p.catch(() => {}); };
+  if (userPaused) v.pause();
+  sync();
+  btn.addEventListener('click', () => {
+    userPaused = !userPaused;
+    userPaused ? v.pause() : play();
+    sync();
+  });
+  new IntersectionObserver(([e]) => {
+    if (userPaused) return;
+    e.isIntersecting ? play() : v.pause();
+  }, { threshold: 0.05 }).observe(v);
+})();
+
 // ---- mobile CTA bar: hide while the quote section is on screen ----
 const mcta = document.getElementById('mobileCta');
 const quoteSec = document.getElementById('quote');
@@ -2603,6 +2574,11 @@ const launcher = document.getElementById('launcher');
 launcher.addEventListener('click', () => {
   document.querySelector('.agentframe').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
 });
+// the launcher stays out of the way until the hero has been scrolled past
+const heroSec = document.querySelector('.hero');
+if (heroSec) new IntersectionObserver(([e]) => launcher.classList.toggle('is-hidden', e.isIntersecting), { rootMargin: '0px 0px -60% 0px' })
+  .observe(heroSec);
+else launcher.classList.remove('is-hidden');
 // on mobile, drop the launcher to the corner whenever the CTA bar slides away
 const mobileCtaBar = document.getElementById('mobileCta');
 if (mobileCtaBar) new MutationObserver(() => launcher.classList.toggle('low', mobileCtaBar.classList.contains('hidden')))

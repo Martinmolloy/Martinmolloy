@@ -8,7 +8,7 @@
 <link rel="canonical" href="https://auraenergy.ie/" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
 <meta name="theme-color" content="#F8632C" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%23F8632C'/%3E%3Cpath d='M22.5 7L11.5 22h6.2l-2.2 11 11-15h-6.2z' fill='white'/%3E%3C/svg%3E" /><meta name="description" content="Solar PPA Ireland: zero upfront commercial solar for Irish business. We fund, install and operate the system, you pay a fixed rate below grid. SEAI registered." />
+<meta name="description" content="Solar PPA Ireland: zero upfront commercial solar for Irish business. We fund, install and operate the system, you pay a fixed rate below grid. SEAI registered." />
 
 <!-- Open Graph -->
 <meta property="og:site_name" content="Aura Energy" />
@@ -123,7 +123,8 @@ p  { color: var(--muted); }
   outline-offset: 3px;
 }
 .model-ppa :focus-visible,
-.grant :focus-visible,
+.own-card :focus-visible,
+.grant-live :focus-visible,
 footer :focus-visible { outline-color: #fff; }
 .field input:focus-visible,
 .field select:focus-visible,
@@ -400,23 +401,6 @@ footer :focus-visible { outline-color: #fff; }
 .benefit h3 { font-size: 1.08rem; margin-bottom: 9px; }
 .benefit p { font-size: 14.5px; }
 
-/* ============================================================ GRANTS CTA */
-.grant {
-  background: linear-gradient(140deg, #131316 0%, #29292E 100%);
-  border-radius: 28px; padding: 64px; color: #fff; position: relative; overflow: hidden;
-  display: grid; grid-template-columns: 1.2fr .8fr; gap: 48px; align-items: center;
-}
-.grant::after { content:""; position: absolute; right: -110px; top: -110px; width: 340px; height: 340px; border-radius: 50%; background: rgba(248,99,44,.22); filter: blur(10px);}
-.grant h2 { color: #fff; margin-bottom: 16px; }
-.grant p { color: rgba(255,255,255,.78); max-width: 520px; }
-.grant .kicker { color: #FFA477; }
-.grant .kicker::before { background: #FFA477; }
-.grant-list { position: relative; z-index: 1; display: grid; gap: 16px; }
-.grant-item { display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 16px; padding: 18px 20px; }
-.grant-item svg { width: 22px; height: 22px; color: #FFA477; flex: none; margin-top: 2px;}
-.grant-item .t { font-weight: 800; font-size: 14.5px; }
-.grant-item .d { font-size: 13px; color: rgba(255,255,255,.72); }
-.grant .btn { margin-top: 28px; }
 
 /* ============================================================ FAQ */
 .faq-wrap { max-width: 820px; margin: 0 auto; }
@@ -477,7 +461,7 @@ footer :focus-visible { outline-color: #fff; }
   border: 1.5px solid var(--line); border-radius: 14px; padding: 16px 14px;
   cursor: pointer; transition: all .2s; display: block; margin: 0;
 }
-.model-pick input { position: absolute; opacity: 0; }
+.model-pick input { position: absolute; top: 0; left: 0; width: 1px; height: 1px; opacity: 0; }
 .model-pick .t { font-weight: 800; font-size: 13.5px; display: flex; align-items: center; gap: 8px; margin-bottom: 4px;}
 .model-pick .t svg { width: 17px; height: 17px; color: var(--orange); flex:none; }
 .model-pick .d { font-size: 11.5px; color: var(--muted); font-weight: 500; line-height: 1.45; }
@@ -555,15 +539,8 @@ footer::before {
   .reveal { opacity: 1; transform: none; }
 }
 
-/* ============================================================ SAVINGS CALCULATOR */
-.calc-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
-.calc-points { display: grid; gap: 26px; margin-top: 38px; }
-.calc-point { display: flex; gap: 18px; }
-.calc-point .icon-tile { flex: none; width: 48px; height: 48px; }
-.calc-point h3 { font-size: 1.04rem; margin-bottom: 5px; }
-.calc-point p { font-size: 14.5px; }
+/* ============================================================ SLIDERS & TILES (roof estimator) */
 
-.calc-card { background: #fff; border: 1px solid var(--line); border-radius: 26px; padding: 40px; box-shadow: var(--shadow-lg); }
 .calc-slider-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
 .calc-label { font-size: 14px; font-weight: 700; }
 .calc-readout { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.02em; white-space: nowrap; font-variant-numeric: tabular-nums; }
@@ -590,7 +567,6 @@ footer::before {
 .calc-slider::-moz-range-track { height: 6px; border-radius: 999px; background: transparent; }
 .calc-slider:focus { outline: none; }
 .calc-slider:focus-visible { box-shadow: 0 0 0 5px rgba(248,99,44,.20); }
-.calc-scale { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); font-weight: 600; margin-bottom: 30px; }
 
 .calc-tiles { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 14px; }
 .calc-tile { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 18px 16px; }
@@ -599,9 +575,148 @@ footer::before {
 .calc-tile-l { font-size: 12px; color: var(--muted); font-weight: 600; margin-top: 4px; }
 .calc-tile-primary { background: var(--orange-soft); border-color: var(--orange-line); }
 .calc-tile-primary .calc-tile-v { font-size: 1.8rem; color: var(--orange-text); }
-.calc-note { font-size: 12.5px; color: var(--muted); margin-top: 18px; }
-.calc-cta { width: 100%; margin-top: 22px; }
 
+
+/* ============================================================ OWNERSHIP STATEMENT */
+.statement { font-size: clamp(2rem, 4.6vw, 3.5rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1.08; max-width: 21ch; }
+.statement span { color: #8A8A90; }
+.own-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: start; margin-top: 56px; }
+.own-card {
+  background: linear-gradient(140deg, #131316 0%, #29292E 100%);
+  border-radius: 26px; padding: 40px; color: #fff; position: relative; overflow: hidden;
+}
+.own-card::after { content:""; position: absolute; right: -120px; top: -120px; width: 300px; height: 300px; border-radius: 50%; background: rgba(248,99,44,.20); filter: blur(10px); pointer-events: none; }
+.own-card h3 { color: #fff; font-size: 1.4rem; margin: 22px 0 12px; position: relative; }
+.own-card p { color: rgba(255,255,255,.76); font-size: 15px; position: relative; }
+.own-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; color: #FFA477; font-weight: 700; font-size: 14.5px; position: relative; }
+.own-link svg { width: 16px; height: 16px; transition: transform .2s var(--ease); }
+.own-link:hover svg { transform: translateX(3px); }
+
+/* ============================================================ CHIP RAIL (sector pickers) */
+.chip-rail { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip-rail button {
+  position: relative; overflow: hidden;
+  background: #fff; border: 1.5px solid var(--line); border-radius: 999px;
+  padding: 9px 18px; font-size: 14px; font-weight: 700; color: var(--ink);
+  transition: border-color .2s, background .2s, color .2s;
+}
+.chip-rail button:hover { border-color: var(--orange-line); color: var(--orange-text); }
+.chip-rail button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.sec-rail.is-rotating button[aria-pressed="true"]::after {
+  content:""; position: absolute; left: 0; bottom: 0; height: 3px; width: 100%;
+  background: var(--orange); transform-origin: left center; transform: scaleX(0);
+  animation: secdwell 5200ms linear forwards;
+}
+@keyframes secdwell { to { transform: scaleX(1); } }
+
+/* ============================================================ SECTOR SHOWCASE */
+.sec-rail { margin-bottom: 34px; }
+.sec-stage { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; }
+.sec-art { position: relative; aspect-ratio: 8 / 5; background: #fff; border: 1px solid var(--line); border-radius: 26px; overflow: hidden; box-shadow: var(--shadow); }
+.sec-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .45s var(--ease); }
+.sec-art img.is-on { opacity: 1; }
+.sec-idx { display: block; font-size: 12.5px; font-weight: 700; letter-spacing: .12em; color: var(--orange-text); margin-bottom: 12px; font-variant-numeric: tabular-nums; }
+.sec-copy h3 { font-size: clamp(1.6rem, 2.8vw, 2.15rem); margin-bottom: 14px; }
+.sec-copy p { font-size: 15.5px; max-width: 46ch; min-height: 5em; }
+.sec-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 26px 0 30px; }
+.sec-facts > div { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 14px 16px; }
+.sec-facts dt { font-size: 12px; font-weight: 600; color: var(--muted); }
+.sec-facts dd { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.02em; margin-top: 2px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* ============================================================ ROOF ESTIMATOR */
+.est-card { background: #fff; border: 1px solid var(--line); border-radius: 26px; padding: 40px; box-shadow: var(--shadow-lg); }
+.est-secs { padding-bottom: 28px; margin-bottom: 32px; border-bottom: 1px solid var(--line); }
+.est-stage { display: grid; grid-template-columns: 1fr 1.05fr; gap: 44px; align-items: center; }
+.est-lbl { font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+.est-num { font-weight: 900; font-size: clamp(2.6rem, 5.6vw, 4.2rem); letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+.est-num small { font-size: 1rem; font-weight: 700; letter-spacing: 0; color: var(--muted); margin-left: 8px; }
+.est-facts { font-size: 13px; font-weight: 600; color: var(--muted); margin-top: 14px; }
+.est-tiles { margin-top: 26px; }
+.massview { position: relative; width: 100%; aspect-ratio: 16 / 11; max-height: 360px; background: var(--orange-mist); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; touch-action: pan-y; }
+.massview canvas { width: 100%; height: 100%; display: block; cursor: grab; }
+.massview canvas:active { cursor: grabbing; }
+.massview canvas:focus-visible { outline: 3px solid var(--orange); outline-offset: -3px; }
+.massview-hint {
+  position: absolute; left: 14px; bottom: 12px; pointer-events: none;
+  font-size: 11.5px; font-weight: 700; color: var(--muted);
+  background: #fff; border: 1px solid var(--line); padding: 5px 11px; border-radius: 999px;
+  transition: opacity .3s;
+}
+.massview.is-touched .massview-hint { opacity: 0; }
+.roofcap { font-size: 12.5px; font-weight: 600; color: var(--muted); text-align: center; margin-top: 10px; }
+.est-controls { margin-top: 34px; padding-top: 30px; border-top: 1px solid var(--line); display: grid; gap: 28px; }
+.est-roof { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.roof-seg { display: inline-flex; flex-wrap: wrap; gap: 2px; background: var(--orange-mist); border: 1px solid var(--line); border-radius: 999px; padding: 4px; }
+.roof-seg button { background: none; border: 0; border-radius: 999px; padding: 9px 16px; font-size: 14px; font-weight: 600; color: var(--muted); transition: color .2s, background .2s, box-shadow .2s; }
+.roof-seg button:hover { color: var(--ink); }
+.roof-seg button[aria-pressed="true"] { background: #fff; color: var(--ink); font-weight: 700; box-shadow: 0 1px 3px rgba(15,15,16,.10), 0 0 0 1px rgba(15,15,16,.04); }
+.roof-seg .u { color: var(--orange-text); font-weight: 600; }
+.est-sliders { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.est-sliders .calc-slider-head { margin-bottom: 14px; }
+.est-sliders .calc-readout { font-size: 1.05rem; }
+.est-capture { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 34px; padding-top: 30px; border-top: 1px solid var(--line); }
+.est-capture input[type=email] {
+  flex: 1 1 240px; min-width: 0; padding: 14px 20px; border: 1.5px solid var(--line); border-radius: 999px;
+  font: inherit; font-size: 15px; color: var(--ink); background: #fff; transition: border-color .2s, box-shadow .2s;
+}
+.est-capture input[type=email]:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 4px rgba(248,99,44,.13); }
+.est-note { font-size: 12.5px; color: var(--muted); margin-top: 16px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* ============================================================ GRANT DETAIL */
+.grant-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.grant-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 28px; display: flex; flex-direction: column; transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s; }
+.grant-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--orange-line); }
+.grant-amt { align-self: flex-start; background: var(--orange-soft); color: var(--orange-text); border: 1px solid var(--orange-line); font-size: 13px; font-weight: 800; padding: 6px 14px; border-radius: 999px; white-space: nowrap; }
+.grant-card h3 { font-size: 1.12rem; margin: 20px 0 10px; }
+.grant-card > p { font-size: 14.5px; }
+.grant-card ul { list-style: none; display: grid; gap: 10px; padding-top: 20px; align-content: start; }
+.grant-card ul::before { content: ""; display: block; height: 1px; background: var(--line); margin: 0 0 8px; }
+.grant-card li { display: flex; gap: 10px; font-size: 13.5px; line-height: 1.5; color: var(--ink); }
+.grant-card li svg { width: 18px; height: 18px; color: var(--orange); flex: none; margin-top: 2px; }
+.grant-live {
+  margin-top: 22px; background: linear-gradient(140deg, #131316 0%, #29292E 100%);
+  border-radius: 26px; padding: 40px 44px; color: #fff; position: relative; overflow: hidden;
+  display: grid; grid-template-columns: auto 1fr; gap: 48px; align-items: center;
+}
+.grant-live::after { content:""; position: absolute; left: -110px; bottom: -130px; width: 320px; height: 320px; border-radius: 50%; background: rgba(248,99,44,.20); filter: blur(10px); pointer-events: none; }
+.grant-live > div { position: relative; z-index: 1; }
+.grant-live-k { display: block; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #FFA477; margin-bottom: 10px; }
+.grant-live-n { display: block; font-size: clamp(2.2rem, 4.4vw, 3.2rem); font-weight: 900; letter-spacing: -0.035em; line-height: 1; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.grant-live p { color: rgba(255,255,255,.76); font-size: 15px; }
+.grant-live p b { color: #fff; }
+.grant-live .btn { margin-top: 22px; }
+.grant-note { font-size: 12px; color: var(--muted); margin-top: 16px; }
+
+@media (max-width: 1024px) {
+  .own-grid, .sec-stage, .est-stage { grid-template-columns: 1fr; gap: 32px; }
+  .grant-cards { grid-template-columns: 1fr; }
+  .grant-live { grid-template-columns: 1fr; gap: 18px; }
+  .est-sliders { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .chip-rail { flex-wrap: nowrap; overflow-x: auto; margin-inline: -24px; padding-inline: 24px; scrollbar-width: none; }
+  .chip-rail::-webkit-scrollbar { display: none; }
+  .chip-rail button { flex: none; }
+  .est-secs { margin-inline: -20px; padding-inline: 20px; }
+  .est-card { padding: 28px 20px; }
+  .est-sliders { grid-template-columns: 1fr; gap: 24px; }
+  .est-sliders .calc-slider-head { flex-direction: row; align-items: baseline; }
+  .est-capture .btn { flex: 1 1 100%; }
+  .est-roof { flex-direction: column; align-items: stretch; gap: 10px; }
+  .roof-seg { display: grid; grid-template-columns: 1fr; border-radius: 16px; }
+  .roof-seg button { border-radius: 12px; padding: 11px 16px; text-align: left; }
+  .own-card, .grant-live { padding: 30px 24px; }
+  .sec-facts { gap: 8px; }
+  .sec-facts > div { padding: 12px; }
+  .sec-facts dd { font-size: 1.05rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sec-rail.is-rotating button[aria-pressed="true"]::after { animation: none; }
+  .sec-art img { transition: none; }
+}
+.est-sent { display: flex; gap: 10px; align-items: center; color: var(--green); font-weight: 700; font-size: 15px; }
+.est-sent svg { width: 22px; height: 22px; flex: none; }
 
 /* ============================================================ AURA MARK */
 .logo-glyph { width: 26px; height: 26px; flex: none; }
@@ -662,8 +777,7 @@ footer::before {
 
 /* ============================================================ RESPONSIVE */
 @media (max-width: 1024px) {
-  .hero-grid, .rate-wrap, .quote-grid, .grant, .calc-wrap { grid-template-columns: 1fr; }
-  .grant { padding: 44px 32px; }
+  .hero-grid, .rate-wrap, .quote-grid { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr 1fr; }
   .projects, .benefits { grid-template-columns: 1fr 1fr; }
   .models { grid-template-columns: 1fr; }
@@ -692,7 +806,6 @@ footer::before {
   .foot-grid { grid-template-columns: 1fr; gap: 32px; }
   .foot-cta .btn { width: 100%; }
   .float-chip { display: none; }
-  .calc-card { padding: 30px 22px; }
   .calc-tiles { grid-template-columns: 1fr; }
   .calc-slider-head { flex-direction: column; align-items: flex-start; gap: 2px; }
   .nav-call { display: flex; width: 42px; height: 42px; border-radius: 12px; background: var(--orange-soft); color: var(--orange); align-items: center; justify-content: center; }
@@ -758,7 +871,7 @@ footer::before {
         {
           "@type": "Question",
           "name": "How much cheaper is the PPA rate than my grid rate?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Typically up to 30% below your current unit rate, depending on your site, roof, consumption profile and the term you choose. Because the rate is fixed, the gap usually widens over time as grid prices rise. We'll quote your exact rate after a free site assessment, with a clear side-by-side of what you pay now versus what you'd pay under the PPA." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Typically up to 50% below your current unit rate (for example, 16c against a 32c day rate), depending on your site, roof, consumption profile and the term you choose. Because the rate is fixed, the gap usually widens over time as grid prices rise. We'll quote your exact rate after a free site assessment, with a clear side-by-side of what you pay now versus what you'd pay under the PPA." }
         },
         {
           "@type": "Question",
@@ -979,7 +1092,7 @@ footer::before {
     <nav class="nav-links" aria-label="Main">
       <a href="#models">Solar PPA</a>
       <a href="#how">How it works</a>
-      <a href="#calculator">Calculator</a>
+      <a href="#calculator">Estimator</a>
       <a href="#projects">Projects</a>
       <a href="#faq">FAQ</a>
       <a href="tel:+353833945937" class="nav-phone"><svg class="ic"><use href="#i-phone"/></svg>+353 83 394 5937</a>
@@ -996,7 +1109,7 @@ footer::before {
 <div class="mobile-menu" id="mobileMenu">
   <a href="#models">Solar PPA</a>
   <a href="#how">How it works</a>
-  <a href="#calculator">Calculator</a>
+  <a href="#calculator">Estimator</a>
   <a href="#projects">Projects</a>
   <a href="#why">Why solar</a>
   <a href="#faq">FAQ</a>
@@ -1025,7 +1138,7 @@ footer::before {
         </div>
         <div class="hero-stat">
           <div class="hs-ic"><svg class="ic"><use href="#i-meter"/></svg></div>
-          <div><div class="num">Up to 30%</div><div class="lbl">Below grid rates, day one</div></div>
+          <div><div class="num">Up to 50%</div><div class="lbl">Below grid rates, day one</div></div>
         </div>
         <div class="hero-stat">
           <div class="hs-ic"><svg class="ic"><use href="#i-clock"/></svg></div>
@@ -1123,7 +1236,7 @@ footer::before {
         <div class="price">€0 <small>upfront, ever</small></div>
         <ul>
           <li><svg class="ic"><use href="#i-check"/></svg> We fund, design, install, insure and operate the entire system on your roof</li>
-          <li><svg class="ic"><use href="#i-check"/></svg> You buy the solar power at a fixed rate, up to 30% below your grid rate from day one</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> You buy the solar power at a fixed rate, up to 50% below your grid rate from day one</li>
           <li><svg class="ic"><use href="#i-check"/></svg> All maintenance, monitoring and performance risk stays with us for the full term</li>
           <li><svg class="ic"><use href="#i-check"/></svg> Off balance sheet: no debt, no capex approval, no impact on borrowing capacity</li>
           <li><svg class="ic"><use href="#i-check"/></svg> System transfers to you at the end of the term, or buy it out early at any point</li>
@@ -1210,8 +1323,28 @@ footer::before {
   </div>
 </section>
 
+<!-- ============================================================ OWNERSHIP STATEMENT -->
+<section class="section" id="ownership">
+  <div class="container">
+    <div class="kicker reveal">Why Aura</div>
+    <h2 class="statement reveal">A commercial roof in Ireland returns about 950&nbsp;kWh for every kilowatt on it, <span>every year, for twenty-five years.</span></h2>
+    <div class="own-grid">
+      <div class="reveal">
+        <p class="lead">Aura Energy exists because that number is reliable and the capital to unlock it usually isn't. So we put up the capital instead, take the performance risk, and sell you the output.</p>
+        <a href="#calculator" class="btn btn-primary" style="margin-top:30px">Run the numbers <svg class="ic"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="own-card reveal">
+        <div class="icon-tile"><svg class="ic"><use href="#i-shield"/></svg></div>
+        <h3>We own the asset, so we own the risk</h3>
+        <p>Installation is delivered by vetted Irish subcontractors under our design and our supervision. Aura funds the build from its own balance sheet. There is no fund, syndicate or lender between you and us. If the array underperforms, the shortfall is ours, not a line item on your bill.</p>
+        <a href="#faq" class="own-link">Read the FAQ <svg class="ic"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============================================================ RATE COMPARISON -->
-<section class="section">
+<section class="section" style="padding-top:0">
   <div class="container rate-wrap">
     <div class="reveal">
       <div class="kicker">The PPA advantage</div>
@@ -1236,67 +1369,106 @@ footer::before {
     <div class="rate-card reveal">
       <div class="kicker" style="margin-bottom:26px">Illustrative unit rate (c/kWh)</div>
       <div class="rate-row">
-        <div class="top"><span>Typical commercial grid rate</span><span class="val">~38c</span></div>
+        <div class="top"><span>Typical commercial grid rate</span><span class="val">~32c</span></div>
         <div class="rate-track"><div class="rate-fill rate-grid-fill" data-w="100%"></div></div>
       </div>
       <div class="rate-row">
-        <div class="top"><span style="color:var(--orange-text)">Aura Solar PPA rate</span><span class="val" style="color:var(--orange-text)">from ~27c</span></div>
-        <div class="rate-track"><div class="rate-fill rate-ppa-fill" data-w="71%"></div></div>
+        <div class="top"><span style="color:var(--orange-text)">Aura Solar PPA rate</span><span class="val" style="color:var(--orange-text)">from ~16c</span></div>
+        <div class="rate-track"><div class="rate-fill rate-ppa-fill" data-w="50%"></div></div>
       </div>
-      <div class="rate-badge"><svg class="ic"><use href="#i-check"/></svg> Up to 30% cheaper, fixed for the term</div>
+      <div class="rate-badge"><svg class="ic"><use href="#i-check"/></svg> Up to 50% cheaper, fixed for the term</div>
       <p class="rate-note">Example for illustration. Your actual PPA rate depends on site, system size and term. We'll quote your exact rate after a free site assessment.</p>
     </div>
   </div>
 </section>
 
-<!-- ============================================================ SAVINGS CALCULATOR -->
+<!-- ============================================================ ROOF ESTIMATOR -->
 <section class="section" id="calculator" style="padding-top:0">
-  <div class="container calc-wrap">
-    <div class="reveal">
-      <div class="kicker">Savings calculator</div>
-      <h2 style="margin-bottom:16px">See what your roof could save</h2>
-      <p class="lead">Move the slider to your monthly electricity spend and see an instant estimate: what a Solar PPA could save you each year, the system size your usage suggests, and the carbon you would avoid.</p>
-      <div class="calc-points">
-        <div class="calc-point">
-          <div class="icon-tile"><svg class="ic"><use href="#i-euro-down"/></svg></div>
-          <div><h3>Savings from day one</h3><p>A PPA rate fixed below your grid rate means the saving lands on your very first bill, with no payback period to wait out.</p></div>
-        </div>
-        <div class="calc-point">
-          <div class="icon-tile"><svg class="ic"><use href="#i-shield"/></svg></div>
-          <div><h3>No capital at risk</h3><p>We fund, insure and maintain the system for the full term. You only ever pay for the power it actually produces.</p></div>
-        </div>
-        <div class="calc-point">
-          <div class="icon-tile"><svg class="ic"><use href="#i-clock"/></svg></div>
-          <div><h3>Exact numbers, fast</h3><p>Request a quote and we confirm your actual rate, system size and savings within one business day, backed by a free site survey.</p></div>
-        </div>
-      </div>
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="kicker">Roof estimator</div>
+      <h2>See what your roof could save</h2>
+      <p class="lead">Pick your sector and roof, then set the roof area, your day rate and how much electricity you use. The estimate updates as you go: what the array generates, what it saves you, and how much of your power it covers.</p>
     </div>
-
-    <div class="calc-card reveal">
-      <div class="calc-slider-head">
-        <label class="calc-label" for="calcSpend">Your monthly electricity spend</label>
-        <span class="calc-readout" id="calcReadout">€3,000 / month</span>
-      </div>
-      <input class="calc-slider" type="range" id="calcSpend" name="calcSpend" min="500" max="25000" step="250" value="3000" aria-describedby="calcNote">
-      <div class="calc-scale" aria-hidden="true"><span>€500</span><span>€25,000</span></div>
-
-      <div class="calc-tiles" aria-live="polite">
-        <div class="calc-tile calc-tile-primary">
-          <div class="calc-tile-v"><span id="calcSaving">€4,168</span></div>
-          <div class="calc-tile-l">Estimated annual saving</div>
-        </div>
-        <div class="calc-tile">
-          <div class="calc-tile-v"><span id="calcSize">40</span> <small>kWp</small></div>
-          <div class="calc-tile-l">Indicative system size</div>
-        </div>
-        <div class="calc-tile">
-          <div class="calc-tile-v"><span id="calcCo2">12.5</span> <small>t</small></div>
-          <div class="calc-tile-l">CO₂ avoided / year</div>
-        </div>
+    <div class="est-card reveal">
+      <div class="chip-rail est-secs" id="estSecs" role="group" aria-label="Sector">
+        <button type="button" data-sector="industrial" aria-pressed="true">Manufacturing</button>
+        <button type="button" data-sector="warehouse" aria-pressed="false">Warehousing</button>
+        <button type="button" data-sector="agri" aria-pressed="false">Agri &amp; Food</button>
+        <button type="button" data-sector="school" aria-pressed="false">Public sector</button>
+        <button type="button" data-sector="hospital" aria-pressed="false">Hospital</button>
+        <button type="button" data-sector="university" aria-pressed="false">University</button>
+        <button type="button" data-sector="airport" aria-pressed="false">Airport</button>
+        <button type="button" data-sector="residential" aria-pressed="false">Residential</button>
       </div>
 
-      <p class="calc-note" id="calcNote">Illustrative figures based on typical assumptions: a grid rate of ~38c per kWh, a Solar PPA rate of ~27c, and solar covering around 40% of annual consumption at Irish yields. Your exact rate, system size and savings are confirmed after a free site survey.</p>
-      <a href="#quote" class="btn btn-primary btn-lg calc-cta">Get my exact rate <svg class="ic"><use href="#i-arrow"/></svg></a>
+      <div class="est-stage">
+        <div aria-live="polite">
+          <div class="est-lbl">Estimated generation</div>
+          <div class="est-num"><span id="outKwh">0</span><small>kWh / year</small></div>
+          <div class="est-facts" id="outFacts"></div>
+          <div class="calc-tiles est-tiles">
+            <div class="calc-tile calc-tile-primary">
+              <div class="calc-tile-v" id="outYear">€0</div>
+              <div class="calc-tile-l">Saved per year</div>
+            </div>
+            <div class="calc-tile">
+              <div class="calc-tile-v" id="outTerm">€0</div>
+              <div class="calc-tile-l">Over a 20-year term</div>
+            </div>
+            <div class="calc-tile">
+              <div class="calc-tile-v" id="outShare">0%</div>
+              <div class="calc-tile-l">Of your electricity</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="massview" id="massWrap">
+            <canvas id="massCv" tabindex="0" role="img" aria-label="Rotatable 3D sketch of the selected building type with the modelled rooftop array. Use the left and right arrow keys to turn it."></canvas>
+            <span class="massview-hint">Drag to spin</span>
+          </div>
+          <p class="roofcap" id="roofCap"></p>
+        </div>
+      </div>
+
+      <div class="est-controls">
+        <div class="est-roof">
+          <span class="calc-label" id="roofLbl">Roof type</span>
+          <div class="roof-seg" id="segRoof" role="group" aria-labelledby="roofLbl">
+            <button type="button" data-roof="flat" aria-pressed="true">Flat <span class="u">· 10° ballast</span></button>
+            <button type="button" data-roof="south" aria-pressed="false">Pitched south <span class="u">· 25°</span></button>
+            <button type="button" data-roof="ew" aria-pressed="false">Pitched east–west <span class="u">· 15°</span></button>
+          </div>
+        </div>
+        <div class="est-sliders">
+          <div>
+            <div class="calc-slider-head"><label class="calc-label" for="rngArea">Usable roof area</label><span class="calc-readout" id="valArea">2,400 m²</span></div>
+            <input class="calc-slider" type="range" id="rngArea" min="200" max="20000" step="100" value="2400">
+          </div>
+          <div>
+            <div class="calc-slider-head"><label class="calc-label" for="rngGrid">Your day rate</label><span class="calc-readout" id="valGrid">€0.32 / kWh</span></div>
+            <input class="calc-slider" type="range" id="rngGrid" min="18" max="55" step="1" value="32">
+          </div>
+          <div>
+            <div class="calc-slider-head"><label class="calc-label" for="rngUse">Annual consumption</label><span class="calc-readout" id="valUse">900,000 kWh</span></div>
+            <input class="calc-slider" type="range" id="rngUse" min="50" max="6000" step="10" value="900">
+          </div>
+        </div>
+      </div>
+
+      <form class="est-capture" id="estForm" action="https://formsubmit.co/info@auraenergy.ie" method="POST">
+        <input type="hidden" name="_subject" value="New roof estimate request | auraenergy.ie">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://auraenergy.ie/?sent=estimate#calculator">
+        <input type="hidden" name="Estimate" id="estSummary" value="">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+        <label class="sr-only" for="estEmail">Work email for the full estimate</label>
+        <input type="email" name="email" id="estEmail" placeholder="you@company.ie" required autocomplete="email">
+        <button class="btn btn-primary" type="submit">Email my estimate</button>
+        <a href="#quote" class="btn btn-ghost">Book a free site survey</a>
+      </form>
+      <p class="est-note">Estimate ±15%. Yield modelled at 950 kWh per kWp per year, adjusted for roof type, with 5.5 m² of usable roof per kWp. Savings count self-consumed units only, at your day rate less the Aura PPA rate of €0.16/kWh, held flat for the term. A free site survey replaces every figure here.</p>
     </div>
   </div>
 </section>
@@ -1421,38 +1593,39 @@ footer::before {
     <div class="section-head reveal">
       <div class="kicker">Who we work with</div>
       <h2>Built around how your sector uses power</h2>
-      <p class="lead">Solar economics come down to one thing: using the power while your roof is producing it. These are the sectors where the numbers work hardest.</p>
+      <p class="lead">Solar economics come down to one thing: using the power while your roof is producing it. Here's how that plays out sector by sector.</p>
     </div>
-    <div class="benefits">
-      <div class="benefit reveal">
-        <div class="icon-tile"><svg class="ic"><use href="#i-capex"/></svg></div>
-        <h3>Logistics and warehousing</h3>
-        <p>Large, uncluttered roofs over daytime operations: the ideal solar site. Run sorting, cold storage and dock charging on your own power, and turn an idle roof into a cost hedge.</p>
+    <div class="chip-rail sec-rail reveal" id="secRail" role="group" aria-label="Sector">
+      <button type="button" data-sector="industrial" aria-pressed="true">Manufacturing</button>
+      <button type="button" data-sector="warehouse" aria-pressed="false">Warehousing</button>
+      <button type="button" data-sector="agri" aria-pressed="false">Agri &amp; Food</button>
+      <button type="button" data-sector="school" aria-pressed="false">Public sector</button>
+      <button type="button" data-sector="hospital" aria-pressed="false">Hospital</button>
+      <button type="button" data-sector="university" aria-pressed="false">University</button>
+      <button type="button" data-sector="airport" aria-pressed="false">Airport</button>
+      <button type="button" data-sector="residential" aria-pressed="false">Residential</button>
+    </div>
+    <div class="sec-stage reveal" id="secStage">
+      <div class="sec-art">
+        <img class="is-on" data-sector-img="industrial" src="assets/sectors/industrial.jpg" width="800" height="500" loading="lazy" decoding="async" alt="Line drawing of a sawtooth-roofed factory with rooftop solar">
+        <img data-sector-img="warehouse" src="assets/sectors/warehouse.jpg" width="800" height="500" loading="lazy" decoding="async" alt="Line drawing of a distribution warehouse with a full rooftop array">
+        <img data-sector-img="agri" src="assets/sectors/agri.jpg" width="800" height="500" loading="lazy" decoding="async" alt="Line drawing of a farm and food processing yard with rooftop solar">
+        <img data-sector-img="school" src="assets/sectors/school.jpg" width="800" height="500" loading="lazy" decoding="async" alt="Line drawing of a school with rooftop solar and a solar canopy">
+        <img data-sector-img="hospital" src="assets/sectors/hospital.jpg" width="800" height="500" loading="lazy" decoding="async" alt="Line drawing of a hospital with rooftop solar">
+        <img data-sector-img="university" src="assets/sectors/university.jpg" width="800" height="500" loading="lazy" decoding="async" alt="Line drawing of a university campus with rooftop solar">
+        <img data-sector-img="airport" src="assets/sectors/airport.jpg" width="800" height="500" loading="lazy" decoding="async" alt="Line drawing of an airport terminal with a long rooftop array">
+        <img data-sector-img="residential" src="assets/sectors/residential.jpg" width="800" height="500" loading="lazy" decoding="async" alt="Line drawing of apartment blocks with rooftop solar">
       </div>
-      <div class="benefit reveal">
-        <div class="icon-tile"><svg class="ic"><use href="#i-meter"/></svg></div>
-        <h3>Manufacturing</h3>
-        <p>Steady daytime load is the best match solar can get. Offset production-hour consumption at a fixed rate and take energy volatility out of your unit economics.</p>
-      </div>
-      <div class="benefit reveal">
-        <div class="icon-tile"><svg class="ic"><use href="#i-leaf"/></svg></div>
-        <h3>Agriculture and food</h3>
-        <p>Refrigeration, milking and processing run through daylight hours. Capex buyers may qualify for TAMS support; on a PPA it's €0 upfront either way.</p>
-      </div>
-      <div class="benefit reveal">
-        <div class="icon-tile"><svg class="ic"><use href="#i-euro-down"/></svg></div>
-        <h3>Retail</h3>
-        <p>Trading hours track the sun. Lighting, refrigeration and HVAC draw hardest exactly when the roof produces most, so self-consumption stays high all year.</p>
-      </div>
-      <div class="benefit reveal">
-        <div class="icon-tile"><svg class="ic"><use href="#i-sun"/></svg></div>
-        <h3>Hospitality and leisure</h3>
-        <p>Kitchens, laundry, pools and summer occupancy peak with the sun. Cut one of your biggest controllable costs without touching the guest experience.</p>
-      </div>
-      <div class="benefit reveal">
-        <div class="icon-tile"><svg class="ic"><use href="#i-monitor"/></svg></div>
-        <h3>Offices and healthcare</h3>
-        <p>Year-round daytime baseload from IT, ventilation and equipment. Predictable consumption makes for a precise system design and a dependable saving.</p>
+      <div class="sec-copy" aria-live="polite">
+        <span class="sec-idx" id="secIdx">01 / 08</span>
+        <h3 id="secName">Manufacturing &amp; Industrial</h3>
+        <p id="secCopy">Single-shift plants draw hard through the middle of the day, which is exactly when the array is at full output. Most of what the roof makes never reaches the meter.</p>
+        <dl class="sec-facts">
+          <div><dt>Typical roof</dt><dd id="secArea">2,400 m²</dd></div>
+          <div><dt>Used on site</dt><dd id="secUse">78%</dd></div>
+          <div><dt>Indicative array</dt><dd id="secKwp">436 kWp</dd></div>
+        </dl>
+        <a class="btn btn-primary" href="#calculator" id="secCta">Model this roof <svg class="ic"><use href="#i-arrow"/></svg></a>
       </div>
     </div>
   </div>
@@ -1530,30 +1703,56 @@ footer::before {
 </section>
 
 <!-- ============================================================ GRANTS -->
-<section class="section-sm">
+<section class="section-sm" id="grants">
   <div class="container">
-    <div class="grant reveal">
+    <div class="section-head reveal">
+      <div class="kicker">Grants &amp; incentives</div>
+      <h2>The State pays for part of the roof</h2>
+      <p class="lead">Irish commercial solar carries real public funding. Which scheme applies depends on what you are and how big the array is, and only one grant can land on any one system. As an SEAI registered installer, we handle the applications end to end.</p>
+    </div>
+    <div class="grant-cards">
+      <article class="grant-card reveal">
+        <span class="grant-amt">Up to €162,600</span>
+        <h3>SEAI Non-Domestic Microgen</h3>
+        <p>The main commercial scheme. Paid per kWp on a sliding scale, so the rate falls as the array gets bigger, up to a 1,000&nbsp;kWp system.</p>
+        <ul>
+          <li><svg class="ic"><use href="#i-check"/></svg> Businesses, farms, schools, public and community bodies</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> €300/kWp to 20&nbsp;kWp, €200/kWp to 200, €150/kWp above</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> Registered installer, grant approved before works start</li>
+        </ul>
+      </article>
+      <article class="grant-card reveal">
+        <span class="grant-amt">60% of cost</span>
+        <h3>TAMS 3 Solar Capital Investment</h3>
+        <p>The farm route, run by the Department of Agriculture rather than SEAI. Better value than the SEAI scheme on smaller arrays.</p>
+        <ul>
+          <li><svg class="ic"><use href="#i-check"/></svg> 60% of eligible cost, 80% for young farmers under 40</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> €90,000 investment ceiling, so €54,000 maximum</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> Cannot be combined with the SEAI grant on the same system</li>
+        </ul>
+      </article>
+      <article class="grant-card reveal">
+        <span class="grant-amt">100% in year one</span>
+        <h3>Accelerated Capital Allowance</h3>
+        <p>A tax measure rather than a grant. Write the full cost off against trading profits in the year you buy, instead of spreading it over eight years.</p>
+        <ul>
+          <li><svg class="ic"><use href="#i-check"/></svg> Companies, sole traders and farmers paying Irish tax</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> Equipment must be listed on the Triple E register</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> Sits alongside a grant, it is not an either/or</li>
+        </ul>
+      </article>
+    </div>
+    <div class="grant-live reveal">
       <div>
-        <div class="kicker">Going the capex route?</div>
-        <h2>Grant funding can cut your net cost</h2>
-        <p>As an SEAI registered installer, we identify the schemes your business qualifies for and handle the applications end to end. On a PPA, you don't need grants at all: it's €0 either way.</p>
+        <span class="grant-live-k">On the roof you're estimating</span>
+        <span class="grant-live-n" id="grantAmt">€0</span>
+      </div>
+      <div>
+        <p id="grantCopy"></p>
         <a href="#quote" class="btn btn-primary">Check your eligibility <svg class="ic"><use href="#i-arrow"/></svg></a>
       </div>
-      <div class="grant-list">
-        <div class="grant-item">
-          <svg class="ic"><use href="#i-capex"/></svg>
-          <div><div class="t">SEAI Non-Domestic Microgen &amp; EXEED</div><div class="d">Support for commercial rooftop solar and energy-efficient design projects.</div></div>
-        </div>
-        <div class="grant-item">
-          <svg class="ic"><use href="#i-leaf"/></svg>
-          <div><div class="t">TAMS for agricultural businesses</div><div class="d">Targeted grant support for solar on farms, covering a substantial share of costs.</div></div>
-        </div>
-        <div class="grant-item">
-          <svg class="ic"><use href="#i-euro-down"/></svg>
-          <div><div class="t">Accelerated Capital Allowances</div><div class="d">Write off 100% of qualifying solar equipment against profits in year one.</div></div>
-        </div>
-      </div>
     </div>
+    <p class="grant-note">Scheme rates as published by SEAI and the Department of Agriculture, checked September 2026. Grant terms, ceilings and eligibility change, and approval must normally be in place before any works begin. Treat these figures as indicative.</p>
   </div>
 </section>
 
@@ -1627,7 +1826,7 @@ footer::before {
       </details>
       <details class="faq reveal">
         <summary>How much cheaper is the PPA rate than my grid rate? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-        <div class="faq-body">Typically up to 30% below your current unit rate, depending on your site, roof, consumption profile and the term you choose. Because the rate is fixed, the gap usually widens over time as grid prices rise. We'll quote your exact rate after a free site assessment, with a clear side-by-side of what you pay now versus what you'd pay under the PPA.</div>
+        <div class="faq-body">Typically up to 50% below your current unit rate (for example, 16c against a 32c day rate), depending on your site, roof, consumption profile and the term you choose. Because the rate is fixed, the gap usually widens over time as grid prices rise. We'll quote your exact rate after a free site assessment, with a clear side-by-side of what you pay now versus what you'd pay under the PPA.</div>
       </details>
       <details class="faq reveal">
         <summary>Who owns the solar panels? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
@@ -1913,7 +2112,7 @@ footer::before {
       </div>
       <div class="foot-col">
         <h3>Resources</h3>
-        <a href="#calculator">Savings calculator</a>
+        <a href="#calculator">Roof estimator</a>
         <a href="#why">Why solar</a>
         <a href="#faq">FAQ</a>
         <a href="#quote">Get a quote</a>
@@ -1984,73 +2183,376 @@ document.querySelectorAll('.faq').forEach(d => {
   });
 });
 
-// ---- savings calculator ----
+// ---- roof estimator, sector showcase and grant figure (shared model) ----
 (() => {
-  const slider  = document.getElementById('calcSpend');
-  const readout = document.getElementById('calcReadout');
-  const elSave  = document.getElementById('calcSaving');
-  const elSize  = document.getElementById('calcSize');
-  const elCo2   = document.getElementById('calcCo2');
-  if (!slider || !readout || !elSave || !elSize || !elCo2) return;
+  const $ = id => document.getElementById(id);
+  if (!$('estSecs')) return;
+  const eur = new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+  const num = new Intl.NumberFormat('en-IE');
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const GRID = 0.38, PPA = 0.27, SHARE = 0.40, YIELD = 950, CO2KG = 0.33, DUR = 400;
+  const SECTORS = {
+    industrial:  { name: 'Manufacturing & Industrial', selfUse: .78, area: 2400,  use: 900,
+      copy: 'Single-shift plants draw hard through the middle of the day, which is exactly when the array is at full output. Most of what the roof makes never reaches the meter.' },
+    warehouse:   { name: 'Warehousing & Logistics',    selfUse: .54, area: 9000,  use: 1100,
+      copy: 'Enormous roof, modest load. The array is sized to the demand rather than the deck, and the spare roof is there when chillers, EV charging or automation arrive.' },
+    agri:        { name: 'Agri & Food Production',     selfUse: .66, area: 3200,  use: 1400,
+      copy: 'Refrigeration, milking and processing run a steady baseload right through daylight, so a high share of generation is consumed on site all year.' },
+    school:      { name: 'Schools & Public Sector',    selfUse: .41, area: 900,   use: 190,
+      copy: 'Term-time demand fits the array well; the summer shutdown does not. We size for the teaching year and settle the surplus rather than overbuild.' },
+    hospital:    { name: 'Hospitals & Healthcare',     selfUse: .84, area: 3800,  use: 2600,
+      copy: 'The one building type that never switches off. Continuous theatre, imaging and HVAC load means almost every generated unit is used where it is made.' },
+    university:  { name: 'Universities & Campuses',    selfUse: .62, area: 4200,  use: 1900,
+      copy: 'Several roofs, one meter hierarchy. Labs and data rooms hold a baseload under the teaching peaks, and a campus can host phased arrays building by building.' },
+    airport:     { name: 'Airports & Transport Hubs',  selfUse: .71, area: 12000, use: 5200,
+      copy: 'Long terminal roofs, apron lighting and ground power make a large and unusually flat demand curve. Glare and approach-path studies are part of our design work.' },
+    residential: { name: 'Apartments & Build to Rent', selfUse: .46, area: 1600,  use: 420,
+      copy: 'Landlord supply first: lifts, corridors, car parks and pumps. The PPA sits with the management company, so residents see lower service charges, not a new contract.' }
+  };
+  const ORDER = Object.keys(SECTORS);
+  const ROOF = {
+    flat:  { f: .93, cap: 'flat roof, ballasted at 10°' },
+    south: { f: 1.0, cap: 'pitched south, 25°' },
+    ew:    { f: .86, cap: 'pitched east–west, 15°' }
+  };
+  // same assumptions as the est-note text: 950 kWh/kWp, 5.5 m² per kWp, PPA 16c, 20-year term
+  const YIELD = 950, M2_PER_KWP = 5.5, PPA = 0.16, CO2KG = 0.29, TERM = 20, CAPEX_KWP = 950;
 
-  const fmt = n => Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const state = { sector: 'industrial', roof: 'flat', area: 2400, grid: 32, use: 900 };
 
-  const model = monthly => {
-    const solarKWh = (monthly * 12 / GRID) * SHARE;
-    return {
-      saving: solarKWh * (GRID - PPA),
-      kwp: Math.max(1, Math.round(solarKWh / YIELD)),
-      co2: solarKWh * CO2KG / 1000
+  // ---- SEAI Non-Domestic Microgen, banded per kWp ----
+  const NDMG_CAP = 1000;
+  const ndmg = kwp => {
+    let k = Math.max(0, Math.min(kwp, NDMG_CAP)), g = 0, b;
+    if (k <= 0) return 0;
+    g += 900; k -= 1;                          // first kWp
+    b = Math.min(k, 19);  g += b * 300; k -= b; // 2 to 20 kWp
+    b = Math.min(k, 180); g += b * 200; k -= b; // 21 to 200 kWp
+    b = Math.min(k, 800); g += b * 150;         // 201 to 1,000 kWp
+    return g;
+  };
+
+  // ---- 3D massing viewer: tiny orthographic renderer, no libraries ----
+  const VIEW = { yaw: -0.62, pitch: 0.60, spin: true, drag: false, idle: 0, fill: 0, key: 'industrial' };
+  const MASS = {
+    industrial: [
+      { x: 0, z: 0, w: 130, d: 74, h: 20, roof: 'saw', teeth: 5, panels: 1 },
+      { x: -84, z: 8, w: 34, d: 44, h: 32, roof: 'flat' },
+      { x: 64, z: -28, w: 9, d: 9, h: 56, roof: 'flat' }
+    ],
+    warehouse: [
+      { x: 0, z: 0, w: 158, d: 100, h: 26, roof: 'flat', panels: 1 },
+      { x: -96, z: 22, w: 30, d: 30, h: 20, roof: 'flat' }
+    ],
+    agri: [
+      { x: -18, z: 0, w: 78, d: 42, h: 16, roof: 'pitch', panels: 1 },
+      { x: 52, z: 8, w: 50, d: 32, h: 13, roof: 'pitch', panels: 1 },
+      { x: 40, z: -34, w: 20, d: 20, h: 46, roof: 'flat', shape: 'cyl' }
+    ],
+    school: [
+      { x: -26, z: 0, w: 90, d: 36, h: 22, roof: 'flat', panels: 1 },
+      { x: 40, z: 20, w: 44, d: 52, h: 22, roof: 'flat', panels: 1 }
+    ],
+    hospital: [
+      { x: -14, z: 0, w: 60, d: 42, h: 56, roof: 'flat', panels: 1 },
+      { x: 52, z: 10, w: 56, d: 36, h: 26, roof: 'flat', panels: 1 },
+      { x: -70, z: 16, w: 34, d: 28, h: 20, roof: 'flat', panels: 1 }
+    ],
+    university: [
+      { x: -56, z: 0, w: 56, d: 40, h: 34, roof: 'flat', panels: 1 },
+      { x: 16, z: -14, w: 48, d: 34, h: 44, roof: 'flat', panels: 1 },
+      { x: 70, z: 22, w: 52, d: 38, h: 26, roof: 'flat', panels: 1 }
+    ],
+    airport: [
+      { x: 0, z: 0, w: 190, d: 58, h: 22, roof: 'flat', panels: 1 },
+      { x: -72, z: -44, w: 14, d: 14, h: 74, roof: 'flat' },
+      { x: 74, z: 34, w: 44, d: 26, h: 14, roof: 'flat', panels: 1 }
+    ],
+    residential: [
+      { x: -34, z: 0, w: 46, d: 36, h: 52, roof: 'flat', panels: 1 },
+      { x: 26, z: 12, w: 42, d: 34, h: 44, roof: 'flat', panels: 1 },
+      { x: 78, z: -10, w: 34, d: 30, h: 36, roof: 'flat', panels: 1 }
+    ]
+  };
+  const vsub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+  const vcross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  const vnorm = a => { const l = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; };
+  const lerp3 = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
+
+  // one quad on a roof plane, split into a cols x rows panel grid
+  const gridOn = (q, cols, rows, frac, out, par) => {
+    const want = Math.round(cols * rows * frac);
+    // modules are coplanar with the roof, so lift them a hair along its normal
+    const nm = vnorm(vcross(vsub(q[1], q[0]), vsub(q[3], q[0]))), E = 0.45;
+    const off = p => [p[0] + nm[0] * E, p[1] + nm[1] * E, p[2] + nm[2] * E];
+    const at = (u, v) => lerp3(lerp3(q[0], q[1], u), lerp3(q[3], q[2], u), v);
+    let n = 0;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        if (n++ >= want) return;
+        const i = 0.055, du = 1 / cols, dv = 1 / rows;
+        const u0 = c * du + du * i, u1 = (c + 1) * du - du * i, v0 = r * dv + dv * i, v1 = (r + 1) * dv - dv * i;
+        out.push({ p: [off(at(u0, v0)), off(at(u1, v0)), off(at(u1, v1)), off(at(u0, v1))], t: 'panel', par });
+      }
+    }
+  };
+
+  const buildFaces = (blocks, frac) => {
+    const F = [];
+    blocks.forEach(b => {
+      const x0 = b.x - b.w / 2, x1 = b.x + b.w / 2, z0 = b.z - b.d / 2, z1 = b.z + b.d / 2, h = b.h;
+      if (b.shape === 'cyl') {
+        const N = 14, R = b.w / 2, top = [];
+        let prev = null;
+        for (let i = 0; i <= N; i++) {
+          const a = i / N * Math.PI * 2, cur = [b.x + Math.cos(a) * R, b.z + Math.sin(a) * R];
+          if (prev) F.push({ p: [[prev[0], 0, prev[1]], [cur[0], 0, cur[1]], [cur[0], h, cur[1]], [prev[0], h, prev[1]]], t: 'wall' });
+          if (i < N) top.push([cur[0], h, cur[1]]);
+          prev = cur;
+        }
+        F.push({ p: top, t: 'roof' });
+        return;
+      }
+      F.push({ p: [[x0, 0, z1], [x1, 0, z1], [x1, h, z1], [x0, h, z1]], t: 'wall' });
+      F.push({ p: [[x1, 0, z0], [x0, 0, z0], [x0, h, z0], [x1, h, z0]], t: 'wall' });
+      F.push({ p: [[x1, 0, z1], [x1, 0, z0], [x1, h, z0], [x1, h, z1]], t: 'wall' });
+      F.push({ p: [[x0, 0, z0], [x0, 0, z1], [x0, h, z1], [x0, h, z0]], t: 'wall' });
+      if (b.roof === 'saw') {
+        const n = b.teeth || 4, tw = (x1 - x0) / n, rise = b.d * 0.34;
+        for (let k = 0; k < n; k++) {
+          const a0 = x0 + k * tw, a1 = a0 + tw;
+          F.push({ p: [[a0, h, z0], [a1, h, z0], [a1, h + rise, z0], [a0, h + rise, z0]], t: 'glass' });
+          const slope = [[a0, h + rise, z0], [a1, h + rise, z0], [a1, h, z1], [a0, h, z1]];
+          F.push({ p: slope, t: 'roof' });
+          if (b.panels) gridOn(slope, 3, 4, frac, F, F.length - 1);
+          F.push({ p: [[a0, h, z0], [a0, h + rise, z0], [a0, h, z1]], t: 'roof' });
+          F.push({ p: [[a1, h, z0], [a1, h + rise, z0], [a1, h, z1]], t: 'roof' });
+        }
+      } else if (b.roof === 'pitch') {
+        const ridge = h + b.d * 0.26, zm = (z0 + z1) / 2;
+        const s1 = [[x0, h, z1], [x1, h, z1], [x1, ridge, zm], [x0, ridge, zm]];
+        F.push({ p: s1, t: 'roof' });
+        const pid = F.length - 1;
+        F.push({ p: [[x1, h, z0], [x0, h, z0], [x0, ridge, zm], [x1, ridge, zm]], t: 'roof' });
+        F.push({ p: [[x0, h, z0], [x0, h, z1], [x0, ridge, zm]], t: 'wall' });
+        F.push({ p: [[x1, h, z1], [x1, h, z0], [x1, ridge, zm]], t: 'wall' });
+        if (b.panels) gridOn(s1, 5, 3, frac, F, pid);
+      } else {
+        const flat = [[x0, h, z1], [x1, h, z1], [x1, h, z0], [x0, h, z0]];
+        F.push({ p: flat, t: 'roof' });
+        if (b.panels) gridOn(flat, Math.max(3, Math.round(b.w / 16)), Math.max(2, Math.round(b.d / 16)), frac, F, F.length - 1);
+      }
+    });
+    return F;
+  };
+
+  const cv = $('massCv');
+  const drawMass = () => {
+    const wrap = cv.parentNode, W = wrap.clientWidth, H = wrap.clientHeight;
+    if (!W || !H) return;
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    if (cv.width !== Math.round(W * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
+    const g = cv.getContext('2d');
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.clearRect(0, 0, W, H);
+
+    const F = buildFaces(MASS[VIEW.key], VIEW.fill);
+    const cy = Math.cos(VIEW.yaw), sy = Math.sin(VIEW.yaw), cp = Math.cos(VIEW.pitch), sp = Math.sin(VIEW.pitch);
+    const project = p => {
+      const x = p[0] * cy - p[2] * sy, z = p[0] * sy + p[2] * cy, y = p[1];
+      return { x, y: -y * cp + z * sp, d: y * sp + z * cp };
     };
+    const proj = F.map(f => {
+      const pts = f.p.map(project);
+      return { f, pts, d: pts.reduce((s, q) => s + q.d, 0) / pts.length };
+    });
+    let minx = 1e9, maxx = -1e9, miny = 1e9, maxy = -1e9;
+    proj.forEach(o => o.pts.forEach(q => {
+      minx = Math.min(minx, q.x); maxx = Math.max(maxx, q.x);
+      miny = Math.min(miny, q.y); maxy = Math.max(maxy, q.y);
+    }));
+    const sc = Math.min(W / (maxx - minx + 24), H / (maxy - miny + 24)) * 0.88;
+    const ox = W / 2 - (minx + maxx) / 2 * sc, oy = H / 2 - (miny + maxy) / 2 * sc;
+
+    // a big roof spans a wide depth range, so anchor each panel to its parent roof
+    proj.forEach(o => {
+      if (o.f.t === 'panel' && o.f.par != null && proj[o.f.par]) o.d = proj[o.f.par].d + 1 + o.d * 1e-4;
+    });
+    proj.sort((a, b) => a.d - b.d);
+
+    const L = vnorm([-0.45, 0.82, 0.36]);
+    proj.forEach(o => {
+      const P = o.f.p;
+      const nrm = vnorm(vcross(vsub(P[1], P[0]), vsub(P[2], P[0])));
+      const lit = Math.abs(nrm[0] * L[0] + nrm[1] * L[1] + nrm[2] * L[2]);
+      const k = 0.58 + 0.42 * lit;
+      let fill;
+      if (o.f.t === 'panel') fill = '#F8632C';
+      else if (o.f.t === 'glass') fill = 'rgba(150,175,196,' + (0.42 + 0.3 * k) + ')';
+      else { const v = Math.round(255 * k * (o.f.t === 'roof' ? 0.94 : 1)); fill = 'rgb(' + v + ',' + v + ',' + v + ')'; }
+      g.beginPath();
+      o.pts.forEach((q, i) => { const X = q.x * sc + ox, Y = q.y * sc + oy; i ? g.lineTo(X, Y) : g.moveTo(X, Y); });
+      g.closePath();
+      g.globalAlpha = o.f.t === 'panel' ? 0.80 + 0.20 * lit : 1;
+      g.fillStyle = fill; g.fill();
+      g.globalAlpha = 1;
+      if (o.f.t !== 'panel') { g.lineWidth = 0.9; g.strokeStyle = 'rgba(17,17,19,.40)'; g.stroke(); }
+    });
   };
 
-  let shown = model(+slider.value);
-  let raf = null;
-
-  const paint = v => {
-    elSave.textContent = '€' + fmt(v.saving);
-    elSize.textContent = fmt(v.kwp);
-    elCo2.textContent  = v.co2.toFixed(1);
-  };
-
-  const tween = target => {
-    const from = { saving: shown.saving, kwp: shown.kwp, co2: shown.co2 };
-    let t0 = null;
-    if (raf) cancelAnimationFrame(raf);
-    const step = ts => {
-      if (t0 === null) t0 = ts;
-      const p = Math.min((ts - t0) / DUR, 1);
-      const e = 1 - Math.pow(1 - p, 3);
-      shown = {
-        saving: from.saving + (target.saving - from.saving) * e,
-        kwp:    from.kwp    + (target.kwp    - from.kwp)    * e,
-        co2:    from.co2    + (target.co2    - from.co2)    * e
-      };
-      paint(shown);
-      raf = p < 1 ? requestAnimationFrame(step) : null;
+  // drag to spin, drift when idle
+  (() => {
+    let last = null, seen = false, t0 = 0;
+    cv.addEventListener('pointerdown', e => {
+      VIEW.drag = true; VIEW.spin = false; VIEW.idle = 0; last = e.clientX;
+      $('massWrap').classList.add('is-touched');
+      cv.setPointerCapture(e.pointerId);
+    });
+    cv.addEventListener('pointermove', e => {
+      if (!VIEW.drag) return;
+      VIEW.yaw += (e.clientX - last) * 0.011; last = e.clientX; drawMass();
+    });
+    const up = () => { VIEW.drag = false; VIEW.idle = 0; };
+    cv.addEventListener('pointerup', up);
+    cv.addEventListener('pointercancel', up);
+    cv.addEventListener('keydown', e => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      VIEW.yaw += e.key === 'ArrowLeft' ? -0.12 : 0.12; VIEW.spin = false; VIEW.idle = 0;
+      drawMass(); e.preventDefault();
+    });
+    new IntersectionObserver(([e]) => { seen = e.isIntersecting; }, { threshold: 0.15 }).observe(cv);
+    const loop = t => {
+      const dt = t0 ? Math.min(60, t - t0) : 16; t0 = t;
+      if (seen && !reduceMotion && !VIEW.drag) {
+        if (!VIEW.spin) { VIEW.idle += dt; if (VIEW.idle > 2600) VIEW.spin = true; }
+        if (VIEW.spin) { VIEW.yaw += dt * 0.00016; drawMass(); }
+      }
+      requestAnimationFrame(loop);
     };
-    raf = requestAnimationFrame(step);
+    requestAnimationFrame(loop);
+    addEventListener('resize', drawMass);
+  })();
+
+  // ---- sliders ----
+  const sliders = [['rngArea', 'area'], ['rngGrid', 'grid'], ['rngUse', 'use']].map(([id, key]) => ({ el: $(id), key }));
+  const fillSlider = s => {
+    const p = (+s.value - +s.min) / (+s.max - +s.min) * 100;
+    s.style.background = 'linear-gradient(to right, var(--orange) 0%, var(--orange) ' + p + '%, var(--orange-mist) ' + p + '%, var(--orange-mist) 100%)';
   };
 
-  const fill = () => {
-    const p = (+slider.value - +slider.min) / (+slider.max - +slider.min) * 100;
-    slider.style.background =
-      'linear-gradient(to right, var(--orange) 0%, var(--orange) ' + p + '%, var(--orange-mist) ' + p + '%, var(--orange-mist) 100%)';
+  const render = () => {
+    const sec = SECTORS[state.sector];
+    const kwp = state.area / M2_PER_KWP;
+    const gen = kwp * YIELD * ROOF[state.roof].f;
+    const siteUse = state.use * 1000;
+    const selfKwh = Math.min(gen * sec.selfUse, siteUse);
+    const saveYr = Math.max(0, selfKwh * (state.grid / 100 - PPA));
+    const share = siteUse ? Math.min(100, Math.round(selfKwh / siteUse * 100)) : 0;
+
+    $('outKwh').textContent = num.format(Math.round(gen));
+    $('outFacts').textContent = num.format(Math.round(kwp)) + ' kWp installed · ' + num.format(Math.round(gen * CO2KG / 1000)) + ' t CO₂ avoided / yr · ' + ROOF[state.roof].cap;
+    $('outYear').textContent = eur.format(Math.round(saveYr));
+    $('outTerm').textContent = eur.format(Math.round(saveYr * TERM));
+    $('outShare').textContent = share + '%';
+    $('roofCap').textContent = num.format(state.area) + ' m² usable · ' + num.format(Math.round(kwp)) + ' kWp modelled';
+    $('valArea').textContent = num.format(state.area) + ' m²';
+    $('valGrid').textContent = '€' + (state.grid / 100).toFixed(2) + ' / kWh';
+    $('valUse').textContent = num.format(siteUse) + ' kWh';
+    $('rngArea').setAttribute('aria-valuetext', num.format(state.area) + ' square metres');
+    $('rngGrid').setAttribute('aria-valuetext', state.grid + ' cent per kWh');
+    $('rngUse').setAttribute('aria-valuetext', num.format(siteUse) + ' kWh a year');
+    sliders.forEach(s => fillSlider(s.el));
+
+    // the summary rides along with the estimate email; it's gone once the form shows its thank-you
+    const summary = $('estSummary');
+    if (summary) summary.value = sec.name + ' · ' + ROOF[state.roof].cap + ' · ' + num.format(state.area) + ' m² · day rate €' +
+      (state.grid / 100).toFixed(2) + ' · ' + num.format(siteUse) + ' kWh/yr use → ' + num.format(Math.round(kwp)) + ' kWp, ' +
+      num.format(Math.round(gen)) + ' kWh/yr, saves ' + eur.format(Math.round(saveYr)) + '/yr';
+
+    // grant on the roof being estimated
+    const grant = ndmg(kwp), capex = kwp * CAPEX_KWP;
+    $('grantAmt').textContent = eur.format(Math.round(grant));
+    $('grantCopy').innerHTML =
+      'A <b>' + num.format(Math.round(kwp)) + ' kWp</b> array draws roughly <b>' + eur.format(Math.round(grant)) + '</b> from the SEAI scheme.' +
+      (kwp > NDMG_CAP ? ' The scheme stops at ' + num.format(NDMG_CAP) + ' kWp, so the rest of this array is unfunded.' : '') +
+      ' On a PPA the grant is ours to claim, because we own the array, and it is already priced into your unit rate. ' +
+      'Buy outright and you claim it yourself, which takes an indicative net cost from <b>' + eur.format(Math.round(capex)) +
+      '</b> to <b>' + eur.format(Math.round(capex - grant)) + '</b> before any capital allowance.';
+
+    VIEW.key = state.sector;
+    VIEW.fill = Math.max(0.12, Math.min(1, state.area / sec.area));
+    drawMass();
   };
 
-  const update = animate => {
-    const monthly = +slider.value;
-    readout.textContent = '€' + fmt(monthly) + ' / month';
-    slider.setAttribute('aria-valuetext', '€' + fmt(monthly) + ' per month');
-    fill();
-    const target = model(monthly);
-    if (animate) { tween(target); } else { shown = target; paint(shown); }
+  sliders.forEach(s => s.el.addEventListener('input', () => { state[s.key] = +s.el.value; render(); }));
+
+  document.querySelectorAll('#segRoof button').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('#segRoof button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    state.roof = b.dataset.roof; render();
+  }));
+
+  // ---- sector showcase ----
+  const rail = $('secRail'), stage = $('secStage');
+  const showSector = key => {
+    const s = SECTORS[key];
+    rail.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.sector === key)));
+    stage.querySelectorAll('[data-sector-img]').forEach(im => im.classList.toggle('is-on', im.dataset.sectorImg === key));
+    $('secIdx').textContent = String(ORDER.indexOf(key) + 1).padStart(2, '0') + ' / ' + String(ORDER.length).padStart(2, '0');
+    $('secName').textContent = s.name;
+    $('secCopy').textContent = s.copy;
+    $('secArea').textContent = num.format(s.area) + ' m²';
+    $('secUse').textContent = Math.round(s.selfUse * 100) + '%';
+    $('secKwp').textContent = num.format(Math.round(s.area / M2_PER_KWP)) + ' kWp';
+    $('secCta').dataset.sector = key;
   };
 
-  slider.addEventListener('input', () => update(true));
-  update(false);
+  // picking a sector in the estimator loads that sector's typical roof and load
+  const setEstSector = key => {
+    const s = SECTORS[key];
+    Object.assign(state, { sector: key, area: s.area, use: s.use });
+    $('rngArea').value = s.area; $('rngUse').value = s.use;
+    document.querySelectorAll('#estSecs button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.sector === key)));
+    render();
+  };
+  document.querySelectorAll('#estSecs button').forEach(b => b.addEventListener('click', () => setEstSector(b.dataset.sector)));
+
+  // the showcase cycles on its own until someone takes the wheel
+  let secTimer = null, secVisible = false, secHover = false, secStopped = reduceMotion;
+  const armRotate = () => {
+    clearTimeout(secTimer);
+    rail.classList.remove('is-rotating');
+    if (secStopped || !secVisible || secHover) return;
+    void rail.offsetWidth; // restart the progress sweep
+    rail.classList.add('is-rotating');
+    secTimer = setTimeout(() => {
+      const cur = rail.querySelector('[aria-pressed="true"]').dataset.sector;
+      showSector(ORDER[(ORDER.indexOf(cur) + 1) % ORDER.length]);
+      armRotate();
+    }, 5200);
+  };
+  const stopRotate = () => { secStopped = true; clearTimeout(secTimer); rail.classList.remove('is-rotating'); };
+  rail.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { stopRotate(); showSector(b.dataset.sector); }));
+  [rail, stage].forEach(n => {
+    n.addEventListener('mouseenter', () => { secHover = true; armRotate(); });
+    n.addEventListener('mouseleave', () => { secHover = false; armRotate(); });
+    n.addEventListener('focusin', stopRotate);
+  });
+  new IntersectionObserver(([e]) => { secVisible = e.isIntersecting; armRotate(); }, { threshold: 0.3 }).observe(stage);
+  $('secCta').addEventListener('click', () => { stopRotate(); setEstSector($('secCta').dataset.sector || 'industrial'); });
+
+  // estimate email: no double submits, and a branded state when FormSubmit sends people back
+  const estForm = $('estForm');
+  estForm.addEventListener('submit', () => {
+    const b = estForm.querySelector('button[type="submit"]');
+    b.disabled = true; b.textContent = 'Sending…';
+  });
+  if (new URLSearchParams(location.search).get('sent') === 'estimate') {
+    estForm.innerHTML = '<p class="est-sent"><svg class="ic"><use href="#i-check"/></svg> Thanks, your estimate request is with the team. We will email the full modelled estimate within one business day.</p>';
+    history.replaceState(null, '', location.pathname + '#calculator');
+  }
+
+  showSector('industrial');
+  render();
 })();
 
 // ---- mobile CTA bar: hide while the quote section is on screen ----

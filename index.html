@@ -18,16 +18,16 @@
 <meta property="og:title" content="Solar PPA Ireland | Zero Upfront Commercial Solar | Aura Energy" />
 <meta property="og:description" content="Zero upfront solar PPA and capex installations for Irish businesses. Pay less per unit from day one." />
 <!-- og:image is an absolute URL; it resolves once the site is live at https://auraenergy.ie/ -->
-<meta property="og:image" content="https://auraenergy.ie/assets/aerial-wide.jpg" />
-<meta property="og:image:width" content="1600" />
-<meta property="og:image:height" content="1200" />
+<meta property="og:image" content="https://auraenergy.ie/assets/seam-roof.jpg" />
+<meta property="og:image:width" content="1400" />
+<meta property="og:image:height" content="1050" />
 <meta property="og:image:alt" content="Aerial view of an Aura Energy commercial rooftop solar installation" />
 
 <!-- Twitter / X card -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Solar PPA Ireland | Zero Upfront Commercial Solar | Aura Energy" />
 <meta name="twitter:description" content="Zero upfront solar PPA and capex installations for Irish businesses. Pay less per unit from day one." />
-<meta name="twitter:image" content="https://auraenergy.ie/assets/aerial-wide.jpg" />
+<meta name="twitter:image" content="https://auraenergy.ie/assets/seam-roof.jpg" />
 <meta name="twitter:image:alt" content="Aerial view of an Aura Energy commercial rooftop solar installation" />
 <style>
 /* ============================================================
@@ -179,7 +179,7 @@ footer :focus-visible { outline-color: #fff; }
   background: #0E0E10; color: #fff;
 }
 .hero-media { position: absolute; inset: 0; z-index: -1; }
-.hero-video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; display: block; }
 /* weighted to the copy side so the footage stays visible on the right */
 .hero-scrim {
   position: absolute; inset: 0;
@@ -212,7 +212,7 @@ footer :focus-visible { outline-color: #fff; }
 .hero .btn-ghost:hover { background: #fff; border-color: #fff; color: var(--ink); }
 .cta-note { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.72); }
 
-/* caption + pause control, bottom right of the footage */
+/* photo caption, bottom right */
 .hero-cap { position: absolute; right: 24px; bottom: 24px; display: flex; align-items: center; gap: 10px; }
 .hero-cap-t {
   display: inline-flex; align-items: center; gap: 8px;
@@ -221,16 +221,6 @@ footer :focus-visible { outline-color: #fff; }
   border: 1px solid rgba(255,255,255,.18); border-radius: 999px; padding: 8px 14px;
 }
 .hero-cap-t svg { width: 15px; height: 15px; color: #FFA477; }
-.hero-play {
-  width: 38px; height: 38px; border-radius: 50%; flex: none;
-  display: grid; place-items: center; color: #fff;
-  background: rgba(12,12,14,.45); backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,.22); transition: background .2s, border-color .2s;
-}
-.hero-play:hover { background: rgba(12,12,14,.7); border-color: rgba(255,255,255,.5); }
-.hero-play svg { width: 16px; height: 16px; fill: currentColor; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
-.hero-play .i-play, .hero-play[aria-pressed="true"] .i-pause { display: none; }
-.hero-play[aria-pressed="true"] .i-play { display: block; }
 
 /* stats strip along the bottom edge */
 .hero-strip { position: relative; background: rgba(12,12,14,.62); backdrop-filter: blur(14px); border-top: 1px solid rgba(255,255,255,.14); }
@@ -349,6 +339,7 @@ footer :focus-visible { outline-color: #fff; }
 .project-img .ph span { font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .85; }
 .project-img .tag { position: absolute; top: 16px; left: 16px; z-index: 2; background: rgba(255,255,255,.94); color: var(--ink); font-size: 12px; font-weight: 800; padding: 6px 14px; border-radius: 999px; }
 .project-body { padding: 26px; }
+.project-body .tag { display: inline-block; background: var(--orange-soft); color: var(--orange-text); border: 1px solid var(--orange-line); font-size: 12px; font-weight: 800; padding: 5px 13px; border-radius: 999px; margin-bottom: 16px; }
 .project-body h3 { font-size: 1.08rem; margin-bottom: 8px; }
 .project-body p { font-size: 14px; margin-bottom: 20px; }
 .project-meta { display: flex; border-top: 1px solid var(--line); padding-top: 18px; gap: 24px; }
@@ -583,15 +574,12 @@ footer::before {
 
 /* ============================================================ SECTOR SHOWCASE */
 .sec-rail { margin-bottom: 34px; }
-.sec-stage { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; }
-.sec-art { position: relative; aspect-ratio: 8 / 5; background: #fff; border: 1px solid var(--line); border-radius: 26px; overflow: hidden; box-shadow: var(--shadow); }
-.sec-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .45s var(--ease); }
-.sec-art img.is-on { opacity: 1; }
+.sec-stage { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; background: #fff; border: 1px solid var(--line); border-radius: 26px; padding: 44px; box-shadow: var(--shadow); }
 .sec-idx { display: block; font-size: 12.5px; font-weight: 700; letter-spacing: .12em; color: var(--orange-text); margin-bottom: 12px; font-variant-numeric: tabular-nums; }
 .sec-copy h3 { font-size: clamp(1.6rem, 2.8vw, 2.15rem); margin-bottom: 14px; }
 .sec-copy p { font-size: 15.5px; max-width: 46ch; min-height: 5em; }
-.sec-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 26px 0 30px; }
-.sec-facts > div { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 14px 16px; }
+.sec-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 0 0 26px; }
+.sec-facts > div { background: var(--orange-mist); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 14px 16px; }
 .sec-facts dt { font-size: 12px; font-weight: 600; color: var(--muted); }
 .sec-facts dd { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.02em; margin-top: 2px; white-space: nowrap; font-variant-numeric: tabular-nums; }
 
@@ -678,14 +666,13 @@ footer::before {
   .est-roof { flex-direction: column; align-items: stretch; gap: 10px; }
   .roof-seg { display: grid; grid-template-columns: 1fr; border-radius: 16px; }
   .roof-seg button { border-radius: 12px; padding: 11px 16px; text-align: left; }
-  .own-card, .grant-live { padding: 30px 24px; }
+  .own-card, .grant-live, .sec-stage { padding: 30px 24px; }
   .sec-facts { gap: 8px; }
   .sec-facts > div { padding: 12px; }
   .sec-facts dd { font-size: 1.05rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .sec-rail.is-rotating button[aria-pressed="true"]::after { animation: none; }
-  .sec-art img { transition: none; }
 }
 .est-sent { display: flex; gap: 10px; align-items: center; color: var(--green); font-weight: 700; font-size: 15px; }
 .est-sent svg { width: 22px; height: 22px; flex: none; }
@@ -757,9 +744,6 @@ footer::before {
   .quote-aside { position: static; }
   .foot-grid { grid-template-columns: 1fr 1fr; }
 }
-@media (max-width: 1100px) {
-  .nav-links .nav-phone { display: none; }
-}
 @media (max-width: 900px) {
   .nav-links { display: none; }
   .nav-burger { display: flex; }
@@ -826,7 +810,7 @@ footer::before {
       "@id": "https://auraenergy.ie/#business",
       "name": "Aura Energy",
       "url": "https://auraenergy.ie/",
-      "image": "https://auraenergy.ie/assets/aerial-wide.jpg",
+      "image": "https://auraenergy.ie/assets/seam-roof.jpg",
       "email": "info@auraenergy.ie",
       "telephone": "+353 83 394 5937",
       "description": "Commercial solar company based in Dublin, Ireland, serving businesses nationwide. Aura Energy funds, installs and operates rooftop solar through a Solar PPA (solar as a service), and also delivers capex solar installations.",
@@ -1079,7 +1063,7 @@ footer::before {
       <a href="#calculator">Estimator</a>
       <a href="#projects">Projects</a>
       <a href="#faq">FAQ</a>
-      <a href="tel:+353833945937" class="nav-phone"><svg class="ic"><use href="#i-phone"/></svg>+353 83 394 5937</a>
+      <a href="tel:+353833945937" class="nav-phone" title="+353 83 394 5937"><svg class="ic"><use href="#i-phone"/></svg>Call now</a>
       <a href="#quote" class="btn btn-primary">Get a quote</a>
     </nav>
     <div style="display:flex;align-items:center;gap:8px">
@@ -1097,7 +1081,7 @@ footer::before {
   <a href="#projects">Projects</a>
   <a href="#why">Why solar</a>
   <a href="#faq">FAQ</a>
-  <a href="tel:+353833945937">Call +353 83 394 5937</a>
+  <a href="tel:+353833945937">Call now</a>
   <a href="#quote" class="btn btn-primary">Get a quote</a>
 </div>
 
@@ -1105,10 +1089,8 @@ footer::before {
 
 <!-- ============================================================ HERO -->
 <section class="hero">
-  <div class="hero-media" aria-hidden="true">
-    <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg">
-      <source src="assets/hero-aerial.mp4" type="video/mp4">
-    </video>
+  <div class="hero-media">
+    <img class="hero-video" src="assets/seam-roof.jpg" width="1400" height="1050" fetchpriority="high" decoding="async" alt="Solar arrays on the standing-seam roof of an industrial unit in Co. Dublin, seen from above">
     <div class="hero-scrim"></div>
   </div>
 
@@ -1124,11 +1106,7 @@ footer::before {
       <p class="cta-note">Free site assessment. Response within one business day. No obligation.</p>
     </div>
     <div class="hero-cap">
-      <span class="hero-cap-t"><svg class="ic"><use href="#i-panel-sun"/></svg> Aura Energy install, Dublin</span>
-      <button type="button" class="hero-play" id="heroPlay" aria-label="Pause background video" aria-pressed="false">
-        <svg viewBox="0 0 24 24" class="i-pause" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg>
-        <svg viewBox="0 0 24 24" class="i-play" aria-hidden="true"><path d="M7 5l12 7-12 7z"/></svg>
-      </button>
+      <span class="hero-cap-t"><svg class="ic"><use href="#i-panel-sun"/></svg> Industrial Unit, Co. Dublin</span>
     </div>
   </div>
 
@@ -1430,14 +1408,10 @@ footer::before {
       <p class="lead">Irish businesses already cutting their bills with Aura Energy systems, from warehouses to farms.</p>
     </div>
     <div class="projects">
-      <!-- Save your project photos in assets/ with these filenames and they appear automatically -->
+      <!-- Photos removed for now. To bring one back, add a .project-img block above .project-body -->
       <article class="project reveal">
-        <div class="project-img">
-          <span class="tag">Logistics</span>
-          <div class="ph"><svg class="ic"><use href="#i-photo"/></svg><span>Project photo</span></div>
-          <img src="assets/warehouse-roof.jpg" width="1200" height="900" loading="lazy" decoding="async" alt="Rooftop solar array on a warehouse roof" onerror="this.remove()">
-        </div>
         <div class="project-body">
+          <span class="tag">Logistics</span>
           <h3>Distribution Warehouse, Co. Kildare</h3>
           <p>48 kW rooftop array on a pitched warehouse roof. Covers 70% of daytime electricity demand under a long-term PPA.</p>
           <!-- PLACEHOLDER metrics: verify kWh figures against metered data before publishing.
@@ -1450,12 +1424,8 @@ footer::before {
         </div>
       </article>
       <article class="project reveal">
-        <div class="project-img">
-          <span class="tag">Retail</span>
-          <div class="ph"><svg class="ic"><use href="#i-photo"/></svg><span>Project photo</span></div>
-          <img src="assets/flat-roof-panels.jpg" width="1200" height="900" loading="lazy" decoding="async" alt="Top-down view of solar panels on a flat commercial roof" onerror="this.remove()">
-        </div>
         <div class="project-body">
+          <span class="tag">Retail</span>
           <h3>Retail Park Unit, Co. Dublin</h3>
           <p>Flat-roof install on a large-format retail unit, with smart metering and a real-time consumption dashboard.</p>
           <div class="project-meta">
@@ -1466,12 +1436,8 @@ footer::before {
         </div>
       </article>
       <article class="project reveal">
-        <div class="project-img">
-          <span class="tag">Agriculture</span>
-          <div class="ph"><svg class="ic"><use href="#i-photo"/></svg><span>Project photo</span></div>
-          <img src="assets/farm-roof.jpg" width="1200" height="900" loading="lazy" decoding="async" alt="Solar panels on farm buildings" onerror="this.remove()">
-        </div>
         <div class="project-body">
+          <span class="tag">Agriculture</span>
           <h3>Agricultural Enterprise, Co. Meath</h3>
           <p>Pitched-roof system across two farm buildings, powering refrigeration and processing equipment year-round.</p>
           <div class="project-meta">
@@ -1482,12 +1448,8 @@ footer::before {
         </div>
       </article>
       <article class="project reveal">
-        <div class="project-img">
-          <span class="tag">Industrial</span>
-          <div class="ph"><svg class="ic"><use href="#i-photo"/></svg><span>Project photo</span></div>
-          <img src="assets/seam-roof.jpg" width="1200" height="900" loading="lazy" decoding="async" alt="Top-down view of solar arrays clamp-mounted on a standing-seam industrial roof" onerror="this.remove()">
-        </div>
         <div class="project-body">
+          <span class="tag">Industrial</span>
           <h3>Industrial Unit, Co. Dublin</h3>
           <p>Clamp-mounted arrays on a standing-seam roof, no roof penetrations, with cabling sized for future expansion as demand grows.</p>
           <!-- PLACEHOLDER metrics: verify against metered data before publishing (~900 kWh per kWp per year). -->
@@ -1499,12 +1461,8 @@ footer::before {
         </div>
       </article>
       <article class="project reveal">
-        <div class="project-img">
-          <span class="tag">Office</span>
-          <div class="ph"><svg class="ic"><use href="#i-photo"/></svg><span>Project photo</span></div>
-          <img src="assets/flat-roof-office.jpg" width="1200" height="900" loading="lazy" decoding="async" alt="Aerial view of solar panels on a flat office roof and adjoining pitched roof" onerror="this.remove()">
-        </div>
         <div class="project-body">
+          <span class="tag">Office</span>
           <h3>Office Building, Co. Dublin</h3>
           <p>Ballasted flat-roof system paired with a pitched-roof array, matched to daytime office loads for maximum self-consumption.</p>
           <!-- PLACEHOLDER metrics: verify against metered data before publishing (~900 kWh per kWp per year). -->
@@ -1554,20 +1512,12 @@ footer::before {
       <button type="button" data-sector="residential" aria-pressed="false">Residential</button>
     </div>
     <div class="sec-stage reveal" id="secStage">
-      <div class="sec-art">
-        <img class="is-on" data-sector-img="industrial" src="assets/sectors/industrial.jpg" width="800" height="500" loading="lazy" decoding="async" alt="Line drawing of a sawtooth-roofed factory with rooftop solar">
-        <img data-sector-img="warehouse" src="assets/sectors/warehouse.jpg" width="800" height="500" loading="lazy" decoding="async" alt="Line drawing of a distribution warehouse with a full rooftop array">
-        <img data-sector-img="agri" src="assets/sectors/agri.jpg" width="800" height="500" loading="lazy" decoding="async" alt="Line drawing of a farm and food processing yard with rooftop solar">
-        <img data-sector-img="school" src="assets/sectors/school.jpg" width="800" height="500" loading="lazy" decoding="async" alt="Line drawing of a school with rooftop solar and a solar canopy">
-        <img data-sector-img="hospital" src="assets/sectors/hospital.jpg" width="800" height="500" loading="lazy" decoding="async" alt="Line drawing of a hospital with rooftop solar">
-        <img data-sector-img="university" src="assets/sectors/university.jpg" width="800" height="500" loading="lazy" decoding="async" alt="Line drawing of a university campus with rooftop solar">
-        <img data-sector-img="airport" src="assets/sectors/airport.jpg" width="800" height="500" loading="lazy" decoding="async" alt="Line drawing of an airport terminal with a long rooftop array">
-        <img data-sector-img="residential" src="assets/sectors/residential.jpg" width="800" height="500" loading="lazy" decoding="async" alt="Line drawing of apartment blocks with rooftop solar">
-      </div>
       <div class="sec-copy" aria-live="polite">
         <span class="sec-idx" id="secIdx">01 / 08</span>
         <h3 id="secName">Manufacturing &amp; Industrial</h3>
         <p id="secCopy">Single-shift plants draw hard through the middle of the day, which is exactly when the array is at full output. Most of what the roof makes never reaches the meter.</p>
+        </div>
+      <div class="sec-side">
         <dl class="sec-facts">
           <div><dt>Typical roof</dt><dd id="secArea">2,400 m²</dd></div>
           <div><dt>Used on site</dt><dd id="secUse">78%</dd></div>
@@ -1857,9 +1807,9 @@ footer::before {
           <div class="icon-tile"><svg class="ic"><use href="#i-mail"/></svg></div>
           <div><div class="l">Email</div><div class="v">info@auraenergy.ie</div></div>
         </a>
-        <a class="contact-row" href="tel:+353833945937">
+        <a class="contact-row" href="tel:+353833945937" title="+353 83 394 5937">
           <div class="icon-tile"><svg class="ic"><use href="#i-phone"/></svg></div>
-          <div><div class="l">Phone</div><div class="v">+353 83 394 5937</div></div>
+          <div><div class="l">Phone</div><div class="v">Call us now</div></div>
         </a>
         <div class="contact-row">
           <div class="icon-tile"><svg class="ic"><use href="#i-pin"/></svg></div>
@@ -1993,7 +1943,7 @@ footer::before {
       </fieldset>
 
       <button type="submit" class="btn btn-primary btn-lg">Request my free quote <svg class="ic"><use href="#i-arrow"/></svg></button>
-      <p class="form-note">Prefer to talk? Call <a href="tel:+353833945937">+353 83 394 5937</a> or email <a href="mailto:info@auraenergy.ie">info@auraenergy.ie</a>. We'll never share your details, and we only use them to prepare your quote.</p>
+      <p class="form-note">Prefer to talk? <a href="tel:+353833945937" title="+353 83 394 5937">Give us a call</a> or email <a href="mailto:info@auraenergy.ie">info@auraenergy.ie</a>. We'll never share your details, and we only use them to prepare your quote.</p>
     </form>
   </div>
 </section>
@@ -2036,7 +1986,7 @@ footer::before {
       </div>
       <div class="foot-cta-btns">
         <a href="#quote" class="btn btn-primary btn-lg">Get your free quote <svg class="ic"><use href="#i-arrow"/></svg></a>
-        <a href="tel:+353833945937" class="btn btn-outline-light btn-lg"><svg class="ic"><use href="#i-phone"/></svg> +353 83 394 5937</a>
+        <a href="tel:+353833945937" class="btn btn-outline-light btn-lg" title="+353 83 394 5937"><svg class="ic"><use href="#i-phone"/></svg> Call now</a>
       </div>
     </div>
     <div class="foot-grid">
@@ -2068,7 +2018,7 @@ footer::before {
       <div class="foot-col foot-contact">
         <h3>Contact</h3>
         <a href="mailto:info@auraenergy.ie"><span class="f-ic"><svg class="ic"><use href="#i-mail"/></svg></span> info@auraenergy.ie</a>
-        <a href="tel:+353833945937"><span class="f-ic"><svg class="ic"><use href="#i-phone"/></svg></span> +353 83 394 5937</a>
+        <a href="tel:+353833945937" title="+353 83 394 5937"><span class="f-ic"><svg class="ic"><use href="#i-phone"/></svg></span> Call us</a>
         <a href="#quote"><span class="f-ic"><svg class="ic"><use href="#i-pin"/></svg></span> Dublin, Ireland · Nationwide</a>
       </div>
     </div>
@@ -2444,7 +2394,6 @@ document.querySelectorAll('.faq').forEach(d => {
   const showSector = key => {
     const s = SECTORS[key];
     rail.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.sector === key)));
-    stage.querySelectorAll('[data-sector-img]').forEach(im => im.classList.toggle('is-on', im.dataset.sectorImg === key));
     $('secIdx').textContent = String(ORDER.indexOf(key) + 1).padStart(2, '0') + ' / ' + String(ORDER.length).padStart(2, '0');
     $('secName').textContent = s.name;
     $('secCopy').textContent = s.copy;
@@ -2503,29 +2452,6 @@ document.querySelectorAll('.faq').forEach(d => {
   render();
 })();
 
-// ---- hero video: pause control, respects reduced motion, idles off screen ----
-(() => {
-  const v = document.getElementById('heroVideo'), btn = document.getElementById('heroPlay');
-  if (!v || !btn) return;
-  let userPaused = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const sync = () => {
-    btn.setAttribute('aria-pressed', String(userPaused));
-    btn.setAttribute('aria-label', userPaused ? 'Play background video' : 'Pause background video');
-  };
-  const play = () => { const p = v.play(); if (p) p.catch(() => {}); };
-  if (userPaused) v.pause();
-  sync();
-  btn.addEventListener('click', () => {
-    userPaused = !userPaused;
-    userPaused ? v.pause() : play();
-    sync();
-  });
-  new IntersectionObserver(([e]) => {
-    if (userPaused) return;
-    e.isIntersecting ? play() : v.pause();
-  }, { threshold: 0.05 }).observe(v);
-})();
-
 // ---- mobile CTA bar: hide while the quote section is on screen ----
 const mcta = document.getElementById('mobileCta');
 const quoteSec = document.getElementById('quote');
@@ -2559,7 +2485,7 @@ if (new URLSearchParams(location.search).get('sent') === '1') {
       '<div class="form-success"><svg class="ic"><use href="#i-check"/></svg><div>' +
       '<h3>Request received</h3>' +
       '<p>Thanks, your details are with the team. We will come back within one business day with your free assessment, including your indicative PPA rate and a capex price side by side.</p>' +
-      '<p style="margin-top:10px">Need us sooner? Call <a href="tel:+353833945937">+353 83 394 5937</a>.</p>' +
+      '<p style="margin-top:10px">Need us sooner? <a href="tel:+353833945937">Give us a call</a>.</p>' +
       '</div></div>';
     history.replaceState(null, '', location.pathname + '#quote');
   }

@@ -91,10 +91,8 @@ p  { color: var(--muted); }
   font-size: 12.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
   color: var(--orange-text); margin-bottom: 18px;
 }
-.kicker::before { content:""; width: 22px; height: 2px; background: var(--orange); border-radius: 2px; }
 .section-head { max-width: 720px; margin-bottom: 56px; }
 .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
-.section-head.center .kicker::before { display:none; }
 .section-head h2 { margin-bottom: 16px; }
 
 /* ---------- buttons ---------- */
@@ -1064,11 +1062,11 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
     </symbol>
     <!-- PPA contract: document with bolt (duotone) -->
     <symbol id="i-ppa" viewBox="0 0 24 24">
-      <path d="M6 3.5h8.5L19 8v12.5H6z" fill="currentColor" opacity=".14" stroke="none"/>
-      <path d="M6 3.5h8.5L19 8v12.5H6z"/><path d="M14.5 3.5V8H19"/>
-      <path d="M13 10.2l-3.4 4.5h2.6l-1.2 3.8 4-5h-2.5z" fill="currentColor" stroke="none"/>
+      <circle cx="12" cy="12" r="6.3" fill="currentColor" opacity=".18" stroke="none"/>
+      <circle cx="12" cy="12" r="6.3"/>
+      <path d="M13.5 7.4L9 13.2h3.1l-1.5 3.9 4.6-6h-3.1z" fill="currentColor" stroke="none"/>
+      <path d="M12 2v1.6M12 20.4V22M2 12h1.6M20.4 12H22M4.9 4.9l1.15 1.15M17.95 17.95l1.15 1.15M4.9 19.1l1.15-1.15M17.95 6.05l1.15-1.15"/>
     </symbol>
-    <!-- capex: building (duotone) -->
     <symbol id="i-capex" viewBox="0 0 24 24">
       <path d="M6 20.5V8.4l6-3.9 6 3.9v12.1z" fill="currentColor" opacity=".12" stroke="none"/>
       <path d="M3.5 20.5h17"/><path d="M6 20.5V8.4l6-3.9 6 3.9v12.1"/>

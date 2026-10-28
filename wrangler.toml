@@ -1,0 +1,5 @@
+# Cloudflare Pages: the website is public/, and functions/ holds the Aura AI chat endpoint.
+name = "aura-energy"
+pages_build_output_dir = "public"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]

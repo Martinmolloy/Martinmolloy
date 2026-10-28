@@ -4,11 +4,15 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Solar PPA Ireland | Zero Upfront Commercial Solar | Aura Energy</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Cg fill=%27%23F8632C%27%3E%3Cpath d=%27M4 24 12 6h3l-8 18z%27/%3E%3Cpath d=%27M11 24 19 6h3l-8 18z%27/%3E%3Cpath d=%27M18 24 26 6h3l-8 18z%27/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<link rel="preload" as="image" type="image/webp" href="assets/seam-roof.webp" imagesrcset="assets/seam-roof-800.webp 800w, assets/seam-roof.webp 1400w" imagesizes="100vw" fetchpriority="high" />
 <link rel="canonical" href="https://auraenergy.ie/" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
 <meta name="theme-color" content="#F8632C" />
-<meta name="description" content="Solar PPA Ireland: zero upfront commercial solar for Irish business. We fund, install and operate the system, you pay a fixed rate below grid. SEAI registered." />
+<meta name="description" content="Zero upfront commercial solar for Irish businesses. Our Solar PPA cuts your unit rate by up to 50%, or buy outright with SEAI grants. Free site assessment." />
 
 <!-- Open Graph -->
 <meta property="og:site_name" content="Aura Energy" />
@@ -16,25 +20,26 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://auraenergy.ie/" />
 <meta property="og:title" content="Solar PPA Ireland | Zero Upfront Commercial Solar | Aura Energy" />
-<meta property="og:description" content="Zero upfront solar PPA and capex installations for Irish businesses. Pay less per unit from day one." />
+<meta property="og:description" content="Zero upfront Solar PPA and capex solar for Irish businesses. Pay up to 50% less per unit from day one. Free site assessment." />
 <!-- og:image is an absolute URL; it resolves once the site is live at https://auraenergy.ie/ -->
 <meta property="og:image" content="https://auraenergy.ie/assets/seam-roof.jpg" />
 <meta property="og:image:width" content="1400" />
 <meta property="og:image:height" content="1050" />
-<meta property="og:image:alt" content="Aerial view of an Aura Energy commercial rooftop solar installation" />
+<meta property="og:image:alt" content="Solar arrays on the roof of an industrial unit in Co. Dublin, installed by Aura Energy" />
 
 <!-- Twitter / X card -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Solar PPA Ireland | Zero Upfront Commercial Solar | Aura Energy" />
-<meta name="twitter:description" content="Zero upfront solar PPA and capex installations for Irish businesses. Pay less per unit from day one." />
+<meta name="twitter:description" content="Zero upfront Solar PPA and capex solar for Irish businesses. Pay up to 50% less per unit from day one. Free site assessment." />
 <meta name="twitter:image" content="https://auraenergy.ie/assets/seam-roof.jpg" />
-<meta name="twitter:image:alt" content="Aerial view of an Aura Energy commercial rooftop solar installation" />
+<meta name="twitter:image:alt" content="Solar arrays on the roof of an industrial unit in Co. Dublin, installed by Aura Energy" />
 <style>
 /* ============================================================
    AURA ENERGY design system
-   Palette: Fuse-style — pure white, neutral ink #111, Fuse orange #F8632C
+   Palette: Fuse-style, pure white, neutral ink #111, Fuse orange #F8632C
 ============================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
 }
@@ -179,6 +184,7 @@ footer :focus-visible { outline-color: #fff; }
   background: #0E0E10; color: #fff;
 }
 .hero-media { position: absolute; inset: 0; z-index: -1; }
+.hero-media picture { position: absolute; inset: 0; }
 .hero-video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; display: block; }
 /* weighted to the copy side so the footage stays visible on the right */
 .hero-scrim {
@@ -574,11 +580,14 @@ footer::before {
 
 /* ============================================================ SECTOR SHOWCASE */
 .sec-rail { margin-bottom: 34px; }
-.sec-stage { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; background: #fff; border: 1px solid var(--line); border-radius: 26px; padding: 44px; box-shadow: var(--shadow); }
+.sec-stage { display: grid; grid-template-columns: 1.25fr 1fr; gap: 44px; align-items: center; background: #fff; border: 1px solid var(--line); border-radius: 26px; padding: 26px 40px 26px 26px; box-shadow: var(--shadow); }
+.sec-art { position: relative; aspect-ratio: 16 / 10; border-radius: 18px; overflow: hidden; background: radial-gradient(120% 90% at 50% 45%, #FFFFFF 0%, #F6F6F7 70%, #EFEFF1 100%); border: 1px solid var(--line); }
+.sec-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity .45s var(--ease); }
+.sec-art img.is-on { opacity: 1; }
 .sec-idx { display: block; font-size: 12.5px; font-weight: 700; letter-spacing: .12em; color: var(--orange-text); margin-bottom: 12px; font-variant-numeric: tabular-nums; }
 .sec-copy h3 { font-size: clamp(1.6rem, 2.8vw, 2.15rem); margin-bottom: 14px; }
-.sec-copy p { font-size: 15.5px; max-width: 46ch; min-height: 5em; }
-.sec-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 0 0 26px; }
+.sec-copy p { font-size: 15.5px; max-width: 46ch; min-height: 6.6em; }
+.sec-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 22px 0 26px; }
 .sec-facts > div { background: var(--orange-mist); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 14px 16px; }
 .sec-facts dt { font-size: 12px; font-weight: 600; color: var(--muted); }
 .sec-facts dd { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.02em; margin-top: 2px; white-space: nowrap; font-variant-numeric: tabular-nums; }
@@ -624,6 +633,9 @@ footer::before {
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 /* ============================================================ GRANT DETAIL */
+.grant-flag { display: flex; gap: 12px; align-items: flex-start; background: var(--orange-soft); border: 1px solid var(--orange-line); border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 22px; color: var(--ink); font-size: 14.5px; }
+.grant-flag svg { width: 20px; height: 20px; color: var(--orange-text); flex: none; margin-top: 2px; }
+.grant-flag b { font-weight: 800; }
 .grant-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .grant-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 28px; display: flex; flex-direction: column; transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s; }
 .grant-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--orange-line); }
@@ -666,16 +678,45 @@ footer::before {
   .est-roof { flex-direction: column; align-items: stretch; gap: 10px; }
   .roof-seg { display: grid; grid-template-columns: 1fr; border-radius: 16px; }
   .roof-seg button { border-radius: 12px; padding: 11px 16px; text-align: left; }
-  .own-card, .grant-live, .sec-stage { padding: 30px 24px; }
+  .own-card, .grant-live { padding: 30px 24px; }
+  .sec-stage { padding: 14px 14px 26px; }
+  .sec-copy { padding: 0 8px; }
+  .sec-copy p { min-height: 0; }
   .sec-facts { gap: 8px; }
   .sec-facts > div { padding: 12px; }
   .sec-facts dd { font-size: 1.05rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .sec-rail.is-rotating button[aria-pressed="true"]::after { animation: none; }
+  .sec-art img { transition: none; }
 }
 .est-sent { display: flex; gap: 10px; align-items: center; color: var(--green); font-weight: 700; font-size: 15px; }
 .est-sent svg { width: 22px; height: 22px; flex: none; }
+
+/* ============================================================ INVESTORS */
+.inv-sec { background: linear-gradient(140deg, #131316 0%, #26262B 100%); color: #fff; position: relative; overflow: hidden; }
+.inv-sec::after { content: ""; position: absolute; right: -160px; top: -160px; width: 420px; height: 420px; border-radius: 50%; background: rgba(248,99,44,.16); filter: blur(10px); pointer-events: none; }
+.inv-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 64px; align-items: start; position: relative; z-index: 1; }
+.inv-sec .kicker { color: #FFA477; }
+.inv-sec .kicker::before { background: #FFA477; }
+.inv-sec h2 { color: #fff; margin-bottom: 16px; }
+.inv-sec .lead { color: rgba(255,255,255,.76); }
+.inv-points { list-style: none; display: grid; gap: 22px; margin-top: 36px; }
+.inv-points li { display: flex; gap: 16px; }
+.inv-points .icon-tile { flex: none; width: 46px; height: 46px; border-radius: 14px; }
+.inv-points .icon-tile svg { width: 22px; height: 22px; }
+.inv-points h3 { color: #fff; font-size: 1.04rem; margin-bottom: 4px; }
+.inv-points p { color: rgba(255,255,255,.7); font-size: 14.5px; }
+.inv-form { background: #fff; color: var(--ink); border-radius: 26px; padding: 36px; box-shadow: 0 24px 70px rgba(0,0,0,.35); }
+.inv-form h3 { font-size: 1.3rem; margin-bottom: 6px; }
+.inv-form-intro { font-size: 14.5px; margin-bottom: 22px; }
+.inv-form .btn { width: 100%; margin-top: 4px; }
+.inv-legal { font-size: 11.5px; line-height: 1.55; margin-top: 16px; color: var(--muted); }
+.inv-form :focus-visible { outline-color: var(--orange); }
+.inv-sent { display: flex; gap: 12px; align-items: flex-start; }
+.inv-sent svg { width: 26px; height: 26px; color: var(--green); flex: none; margin-top: 2px; }
+@media (max-width: 1024px) { .inv-grid { grid-template-columns: 1fr; gap: 40px; } }
+@media (max-width: 720px) { .inv-form { padding: 28px 20px; } }
 
 /* ============================================================ AURA MARK */
 .logo-glyph { width: 26px; height: 26px; flex: none; }
@@ -696,9 +737,6 @@ footer::before {
 .agent__id b { display: block; font-weight: 700; font-size: 15px; letter-spacing: -.01em; line-height: 1.3; }
 .agent__id span { display: flex; align-items: center; gap: 6px; font-size: 12px; color: rgba(241,238,231,.6); line-height: 1.3; }
 .agent__id i { width: 7px; height: 7px; border-radius: 50%; background: #4ADE80; font-style: normal; }
-.agent__modes { margin-left: auto; display: inline-flex; background: rgba(241,238,231,.08); border-radius: 999px; padding: 3px; }
-.agent__modes button { background: none; border: 0; border-radius: 999px; padding: .45em 1.05em; font-size: 13.5px; color: rgba(241,238,231,.65); }
-.agent__modes button[aria-pressed="true"] { background: var(--orange); color: #fff; font-weight: 700; }
 .agent__stage { padding: clamp(30px,5vw,54px) 24px; text-align: center; }
 .agent__orb { width: 104px; height: 104px; margin: 0 auto 22px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 2px rgba(248,99,44,.45); }
 .agent__q { font-weight: 700; font-size: clamp(19px,2.4vw,25px); letter-spacing: -.02em; color: #F1EEE7; line-height: 1.25; }
@@ -711,6 +749,42 @@ footer::before {
 .agent__start:hover { background: var(--orange-deep); }
 .agent__start:active { transform: translateY(1px) scale(.995); }
 .avaimg { width: 100%; height: 100%; object-fit: cover; display: block; }
+.agent__reset { margin-left: auto; background: rgba(241,238,231,.08); border: 1px solid rgba(241,238,231,.16); color: rgba(241,238,231,.85); border-radius: 999px; padding: 6px 14px; font-size: 13px; font-weight: 600; transition: background .2s, color .2s; }
+.agent__reset:hover { background: rgba(241,238,231,.16); color: #fff; }
+.agent__sub { color: rgba(241,238,231,.62); font-size: 14.5px; margin-top: 8px; }
+.agent__chat { display: flex; flex-direction: column; }
+.agent__log { height: min(52vh, 420px); overflow-y: auto; padding: 18px 16px 10px; display: flex; flex-direction: column; gap: 12px; overscroll-behavior: contain; }
+.msg { max-width: 86%; padding: 10px 14px; border-radius: 16px; font-size: 14.5px; line-height: 1.55; overflow-wrap: anywhere; }
+.msg p { color: inherit; }
+.msg p + p, .msg p + ul, .msg ul + p { margin-top: 8px; }
+.msg ul { padding-left: 18px; }
+.msg li + li { margin-top: 3px; }
+.msg strong { font-weight: 700; }
+.msg a { color: #FFA477; text-decoration: underline; text-underline-offset: 2px; }
+.msg--ai { align-self: flex-start; background: rgba(241,238,231,.08); color: #F1EEE7; border-bottom-left-radius: 6px; }
+.msg--me { align-self: flex-end; background: var(--orange); color: #fff; border-bottom-right-radius: 6px; white-space: pre-wrap; }
+.msg--typing { display: inline-flex; gap: 5px; padding: 15px 16px; }
+.msg--typing i { width: 7px; height: 7px; border-radius: 50%; background: rgba(241,238,231,.6); animation: typing 1.2s infinite ease-in-out; }
+.msg--typing i:nth-child(2) { animation-delay: .18s; }
+.msg--typing i:nth-child(3) { animation-delay: .36s; }
+@keyframes typing { 0%, 80%, 100% { opacity: .25; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-3px); } }
+.agent__chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 2px 16px 12px; }
+.agent__chips button { background: transparent; border: 1px solid rgba(241,238,231,.22); color: rgba(241,238,231,.88); border-radius: 999px; padding: 7px 13px; font-size: 13px; font-weight: 600; transition: border-color .2s, background .2s, color .2s; }
+.agent__chips button:hover { border-color: var(--orange); background: rgba(248,99,44,.14); color: #fff; }
+.agent__form { display: flex; align-items: flex-end; gap: 8px; margin: 0 12px; padding: 7px; background: rgba(241,238,231,.06); border: 1px solid rgba(241,238,231,.16); border-radius: 18px; transition: border-color .2s; }
+.agent__form:focus-within { border-color: rgba(248,99,44,.75); }
+.agent__form textarea { flex: 1; min-width: 0; resize: none; background: transparent; border: 0; color: #F1EEE7; font: inherit; font-size: 15px; line-height: 1.45; padding: 9px 8px; max-height: 120px; outline: none; }
+.agent__form textarea::placeholder { color: rgba(241,238,231,.45); }
+.agent__send, .agent__mic { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; border: 0; transition: background .2s, color .2s, opacity .2s; }
+.agent__send { background: var(--orange); color: #fff; }
+.agent__send:hover { background: var(--orange-deep); }
+.agent__send:disabled { opacity: .45; cursor: default; }
+.agent__mic { background: rgba(241,238,231,.1); color: #F1EEE7; }
+.agent__mic:hover { background: rgba(241,238,231,.18); }
+.agent__mic[aria-pressed="true"] { background: #fff; color: var(--orange); animation: listening 1.4s infinite; }
+@keyframes listening { 0%, 100% { box-shadow: 0 0 0 0 rgba(248,99,44,.5); } 50% { box-shadow: 0 0 0 7px rgba(248,99,44,0); } }
+.agent__send svg, .agent__mic svg { width: 18px; height: 18px; }
+p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: center; padding: 10px 16px 14px; }
 
 /* floating launcher */
 .launcher {
@@ -744,7 +818,7 @@ footer::before {
   .quote-aside { position: static; }
   .foot-grid { grid-template-columns: 1fr 1fr; }
 }
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .nav-links { display: none; }
   .nav-burger { display: flex; }
   .nav-call { display: flex; width: 42px; height: 42px; border-radius: 12px; background: var(--orange-soft); color: var(--orange); align-items: center; justify-content: center; }
@@ -796,14 +870,34 @@ footer::before {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "WebSite",
+      "@id": "https://auraenergy.ie/#website",
+      "url": "https://auraenergy.ie/",
+      "name": "Aura Energy",
+      "inLanguage": "en-IE",
+      "publisher": {
+        "@id": "https://auraenergy.ie/#organization"
+      }
+    },
+    {
       "@type": "Organization",
       "@id": "https://auraenergy.ie/#organization",
       "name": "Aura Energy",
       "url": "https://auraenergy.ie/",
       "email": "info@auraenergy.ie",
       "telephone": "+353 83 394 5937",
-      "areaServed": { "@type": "Country", "name": "Ireland" },
-      "sameAs": []
+      "areaServed": {
+        "@type": "Country",
+        "name": "Ireland"
+      },
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://auraenergy.ie/assets/aura-logo.png",
+        "width": 600,
+        "height": 600
+      },
+      "image": "https://auraenergy.ie/assets/seam-roof.jpg",
+      "description": "Aura Energy funds, installs and operates commercial rooftop solar for Irish businesses under a Solar PPA, and designs and builds systems for businesses that prefer to buy outright."
     },
     {
       "@type": "ProfessionalService",
@@ -814,8 +908,19 @@ footer::before {
       "email": "info@auraenergy.ie",
       "telephone": "+353 83 394 5937",
       "description": "Commercial solar company based in Dublin, Ireland, serving businesses nationwide. Aura Energy funds, installs and operates rooftop solar through a Solar PPA (solar as a service), and also delivers capex solar installations.",
-      "address": { "@type": "PostalAddress", "addressLocality": "Dublin", "addressCountry": "IE" },
-      "areaServed": { "@type": "Country", "name": "Ireland" }
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dublin",
+        "addressCountry": "IE"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Ireland"
+      },
+      "logo": "https://auraenergy.ie/assets/aura-logo.png",
+      "parentOrganization": {
+        "@id": "https://auraenergy.ie/#organization"
+      }
     },
     {
       "@type": "Service",
@@ -824,8 +929,28 @@ footer::before {
       "serviceType": "Solar Power Purchase Agreement",
       "url": "https://auraenergy.ie/#models",
       "description": "Solar as a service for commercial premises in Ireland. Aura Energy funds, installs, owns and operates a rooftop solar system at no upfront cost, and the business buys the electricity it produces at a fixed rate per kWh set below its grid rate, with maintenance, monitoring and insurance included for the full term.",
-      "provider": { "@id": "https://auraenergy.ie/#organization" },
-      "areaServed": { "@type": "Country", "name": "Ireland" }
+      "provider": {
+        "@id": "https://auraenergy.ie/#organization"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Ireland"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://auraenergy.ie/#capex",
+      "name": "Commercial solar installation (capex)",
+      "serviceType": "Commercial solar PV installation",
+      "url": "https://auraenergy.ie/#models",
+      "description": "Design and installation of commercial rooftop solar PV systems for Irish businesses that want to own the system outright, with SEAI grant applications handled and an optional operations and maintenance package.",
+      "provider": {
+        "@id": "https://auraenergy.ie/#organization"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Ireland"
+      }
     },
     {
       "@type": "FAQPage",
@@ -833,93 +958,59 @@ footer::before {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What exactly is a Solar PPA?",
-          "acceptedAnswer": { "@type": "Answer", "text": "A Power Purchase Agreement is solar as a service. Aura Energy funds, installs, owns and operates a solar system on your roof at no cost to you. You simply agree to buy the electricity it produces at a fixed rate per kWh, set below what you currently pay the grid. You save money from day one without spending a cent, and we take care of everything else." }
+          "name": "What is a Solar PPA?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We fund, install, own and maintain a solar system on your roof. You buy the electricity it produces at a fixed rate per kWh, set below your grid rate, so you save from day one with nothing to pay upfront."
+          }
         },
         {
           "@type": "Question",
-          "name": "How much cheaper is the PPA rate than my grid rate?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Typically up to 50% below your current unit rate (for example, 16c against a 32c day rate), depending on your site, roof, consumption profile and the term you choose. Because the rate is fixed, the gap usually widens over time as grid prices rise. We'll quote your exact rate after a free site assessment, with a clear side-by-side of what you pay now versus what you'd pay under the PPA." }
+          "name": "How much will we save?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Typically up to 50% on every unit the system supplies, for example 16c against a 32c day rate. We confirm your exact rate after a free site assessment, side by side with what you pay now."
+          }
         },
         {
           "@type": "Question",
-          "name": "Who owns the solar panels?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Under the PPA, Aura Energy owns and is fully responsible for the system during the agreement, including insurance, maintenance and performance. At the end of the term, ownership transfers to your business. If you'd rather own from day one, choose our capex option and the system is yours the moment it's commissioned." }
+          "name": "Who looks after the system, and what if it underperforms?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We do. Under the PPA we own, insure, monitor and maintain the system for the full term, and you only pay for the electricity it actually produces."
+          }
         },
         {
           "@type": "Question",
-          "name": "What happens at the end of the PPA term?",
-          "acceptedAnswer": { "@type": "Answer", "text": "The system transfers to your business, and from then on every kWh it generates is free. Solar panels carry 25-year performance warranties and typically keep producing well beyond that, so you'll enjoy many years of zero-cost power after the term ends. You can also buy out the system early at any point during the agreement." }
+          "name": "What happens at the end of the term, or if we move?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "At the end of the term the system transfers to your business and its power is free from then on. If you sell or move, the agreement can pass to the new occupier, or you can buy the system out."
+          }
         },
         {
           "@type": "Question",
-          "name": "What if the system underperforms or breaks down?",
-          "acceptedAnswer": { "@type": "Answer", "text": "That's our problem, not yours. It's the core of the PPA model. You only pay for electricity the system actually produces. We monitor every system remotely, and our smart monitoring flags issues automatically, often before anyone on-site notices. Repairs, replacements and insurance are all covered by us for the full term." }
+          "name": "Should we choose the PPA or buy the system?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Choose the PPA to save without spending capital or carrying maintenance risk. Buy outright if you have the capital and want the biggest lifetime return, helped by SEAI grants and the Accelerated Capital Allowance. We quote both side by side."
+          }
         },
         {
           "@type": "Question",
-          "name": "Does a PPA affect my balance sheet or borrowing?",
-          "acceptedAnswer": { "@type": "Answer", "text": "A PPA is an operating arrangement, not a loan or a lease of equipment you own, so there's no debt on your balance sheet and no capex approval needed. You're simply buying electricity, the same as you do today, just cheaper. (As with any contract, your accountant can confirm treatment for your specific circumstances.)" }
+          "name": "How long does it take, and do we need planning permission?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most sites go from survey to switch-on in 6 to 10 weeks, with 1 to 3 days on site. Most commercial rooftop systems are exempt from planning permission, and we handle planning and ESB Networks paperwork where it's needed."
+          }
         },
         {
           "@type": "Question",
-          "name": "Should I choose the PPA or a capex purchase?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Choose the PPA if you want savings without spending capital, prefer someone else to carry the maintenance and performance risk, or want to keep your balance sheet clean. Choose capex if you have capital available and want the maximum lifetime return. You'll own the asset, keep 100% of the power, and can use SEAI grants and Accelerated Capital Allowances. We'll quote both side by side so the numbers make the decision easy." }
-        },
-        {
-          "@type": "Question",
-          "name": "Does solar actually work in Ireland's climate?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Solar PV generates from daylight, not direct sunshine, and Ireland gets 1,100–1,400 hours of sunshine a year. A well-designed commercial system in Ireland typically offsets 30–70% of daytime electricity demand. Panel efficiency actually benefits from our cooler temperatures." }
-        },
-        {
-          "@type": "Question",
-          "name": "How long does it take to get up and running?",
-          "acceptedAnswer": { "@type": "Answer", "text": "From initial survey to go-live is typically 6–10 weeks for most commercial sites, including design, ESB Networks notification, and planning where required. The on-site installation itself usually takes just 1–3 days, with minimal disruption to your operations." }
-        },
-        {
-          "@type": "Question",
-          "name": "Do I need planning permission?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Most rooftop commercial solar in Ireland is exempt from planning permission under the Planning and Development Regulations, provided the system meets size and siting criteria. Where planning is needed, we manage the entire process on your behalf as part of the project." }
-        },
-        {
-          "@type": "Question",
-          "name": "What if I don't own the building?",
-          "acceptedAnswer": { "@type": "Answer", "text": "PPAs work for tenants too. We'll need your landlord's consent for the roof, and we regularly structure agreements that work for both parties (landlords often welcome the upgrade, since it adds value to the building). Tell us your situation in the quote form and we'll advise on the best structure." }
-        },
-        {
-          "@type": "Question",
-          "name": "What happens if I sell the building or the business?",
-          "acceptedAnswer": { "@type": "Answer", "text": "The PPA can transfer to the new owner or occupier. A below-market electricity rate is an asset that typically makes the property more attractive, not less. Alternatively, you can buy out the system as part of the sale. We'll work with you to find the cleanest outcome." }
-        },
-        {
-          "@type": "Question",
-          "name": "Can excess electricity be sold back to the grid?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Under Ireland's Clean Export Guarantee, surplus generation can be exported and paid for. That said, we design systems to maximise self-consumption first, because using your own solar power is worth far more than exporting it." }
-        },
-        {
-          "@type": "Question",
-          "name": "What maintenance is required?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Very little. Rain keeps panels clean in the Irish climate, and there are no moving parts. Under the PPA it's all handled by us anyway: remote monitoring, annual inspections, inverter care and any repairs. Capex customers can add our O&M package for the same peace of mind." }
-        },
-        {
-          "@type": "Question",
-          "name": "Who funds the system, and what if Aura Energy isn't around in year 15?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Fair question, and one every business should ask a PPA provider. Each agreement is structured so the system and the contract can transfer to another qualified operator if ever required, and your rate and terms are protected in the contract itself, not dependent on any one company. The panels are on your roof either way: they keep generating regardless. We'll happily walk your solicitor or accountant through the agreement before you sign." }
-        },
-        {
-          "@type": "Question",
-          "name": "My roof is 20 years old. Can it still take solar?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Often, yes. Our free survey includes a structural and condition check, and we won't put panels on a roof that isn't fit to carry them for the term. If cladding or membrane work is due in the next few years, it usually makes sense to do that first, and we can coordinate with your roofing contractor. If repairs are ever needed mid-term, the agreement covers lifting and reinstating the panels, so you're never locked out of maintaining your own building." }
-        },
-        {
-          "@type": "Question",
-          "name": "Will we get stuck in a grid connection queue?",
-          "acceptedAnswer": { "@type": "Answer", "text": "For typical commercial rooftop systems, no. The multi-year queues you read about apply to large utility-scale projects. Rooftop systems at this scale go through ESB Networks' standard notification and application processes, which we submit at the very start of your project so the paperwork runs in parallel with design and procurement. Timelines vary by system size and site, and we'll give you a realistic programme up front." }
-        },
-        {
-          "@type": "Question",
-          "name": "What if our electricity use falls, or the site is quiet for part of the year?",
-          "acceptedAnswer": { "@type": "Answer", "text": "We size the system against your actual consumption data, deliberately conservatively, so the roof serves your dependable base load rather than your best month. Any surplus can still be exported under the Clean Export Guarantee. And if your circumstances change materially, say you downsize or relocate, the agreement includes practical options: transfer to a new occupier, early buyout, or restructuring. We'd rather design for reality than argue about it later." }
+          "name": "We rent our building. Can we still go solar?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, with your landlord's consent for the roof. We regularly set up agreements that work for both sides, and landlords often welcome the upgrade."
+          }
         }
       ]
     }
@@ -1063,6 +1154,7 @@ footer::before {
       <a href="#calculator">Estimator</a>
       <a href="#projects">Projects</a>
       <a href="#faq">FAQ</a>
+      <a href="#investors">Investors</a>
       <a href="tel:+353833945937" class="nav-phone" title="+353 83 394 5937"><svg class="ic"><use href="#i-phone"/></svg>Call now</a>
       <a href="#quote" class="btn btn-primary">Get a quote</a>
     </nav>
@@ -1081,6 +1173,7 @@ footer::before {
   <a href="#projects">Projects</a>
   <a href="#why">Why solar</a>
   <a href="#faq">FAQ</a>
+  <a href="#investors">Investors</a>
   <a href="tel:+353833945937">Call now</a>
   <a href="#quote" class="btn btn-primary">Get a quote</a>
 </div>
@@ -1090,7 +1183,10 @@ footer::before {
 <!-- ============================================================ HERO -->
 <section class="hero">
   <div class="hero-media">
-    <img class="hero-video" src="assets/seam-roof.jpg" width="1400" height="1050" fetchpriority="high" decoding="async" alt="Solar arrays on the standing-seam roof of an industrial unit in Co. Dublin, seen from above">
+    <picture>
+      <source type="image/webp" srcset="assets/seam-roof-800.webp 800w, assets/seam-roof.webp 1400w" sizes="100vw">
+      <img class="hero-video" src="assets/seam-roof.jpg" srcset="assets/seam-roof-800.jpg 800w, assets/seam-roof.jpg 1400w" sizes="100vw" width="1400" height="1050" fetchpriority="high" decoding="async" alt="Solar arrays on the standing-seam roof of an industrial unit in Co. Dublin, seen from above">
+    </picture>
     <div class="hero-scrim"></div>
   </div>
 
@@ -1179,7 +1275,7 @@ footer::before {
         <div class="price">You own it <small>from day one</small></div>
         <ul>
           <li><svg class="ic"><use href="#i-check"/></svg> Maximum lifetime savings: 100% of the generated power is yours, free</li>
-          <li><svg class="ic"><use href="#i-check"/></svg> Typical payback of 4–6 years, then decades of near-zero-cost electricity</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> Typical payback of 4 to 6 years, then decades of near-zero-cost electricity</li>
           <li><svg class="ic"><use href="#i-check"/></svg> SEAI grant support and Accelerated Capital Allowances can reduce net cost</li>
           <li><svg class="ic"><use href="#i-check"/></svg> Adds asset value to your property and balance sheet</li>
           <li><svg class="ic"><use href="#i-check"/></svg> Optional O&amp;M package: we keep monitoring and maintaining it for you</li>
@@ -1215,7 +1311,7 @@ footer::before {
     <div class="section-head reveal">
       <div class="kicker">How it works</div>
       <h2>From first call to first savings in four steps</h2>
-      <p class="lead">We handle everything: survey, design, funding, grid paperwork and installation. Most sites go live in 6–10 weeks. On a PPA, you don't pay a cent until the system is generating, and from then on you pay less per unit.</p>
+      <p class="lead">We handle everything: survey, design, funding, grid paperwork and installation. Most sites go live in 6 to 10 weeks. On a PPA, you don't pay a cent until the system is generating, and from then on you pay less per unit.</p>
     </div>
     <div class="steps">
       <div class="step reveal">
@@ -1233,7 +1329,7 @@ footer::before {
       <div class="step reveal">
         <span class="n">Install</span>
         <div class="icon-tile"><svg class="ic"><use href="#i-install"/></svg></div>
-        <h3>On site in 1–3 days</h3>
+        <h3>On site in 1 to 3 days</h3>
         <p>Certified engineers, minimal disruption to your operations. Fully grid-compliant, ESB-notified and insured throughout.</p>
       </div>
       <div class="step reveal">
@@ -1363,7 +1459,7 @@ footer::before {
           <div class="roof-seg" id="segRoof" role="group" aria-labelledby="roofLbl">
             <button type="button" data-roof="flat" aria-pressed="true">Flat <span class="u">· 10° ballast</span></button>
             <button type="button" data-roof="south" aria-pressed="false">Pitched south <span class="u">· 25°</span></button>
-            <button type="button" data-roof="ew" aria-pressed="false">Pitched east–west <span class="u">· 15°</span></button>
+            <button type="button" data-roof="ew" aria-pressed="false">Pitched east-west <span class="u">· 15°</span></button>
           </div>
         </div>
         <div class="est-sliders">
@@ -1382,7 +1478,7 @@ footer::before {
         </div>
       </div>
 
-      <form class="est-capture" id="estForm" action="https://formsubmit.co/info@auraenergy.ie" method="POST">
+      <form class="est-capture" id="estForm" action="https://formsubmit.co/martin@swarmsolar.co.uk" method="POST">
         <input type="hidden" name="_subject" value="New roof estimate request | auraenergy.ie">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
@@ -1512,12 +1608,20 @@ footer::before {
       <button type="button" data-sector="residential" aria-pressed="false">Residential</button>
     </div>
     <div class="sec-stage reveal" id="secStage">
+      <div class="sec-art">
+        <img class="is-on" data-sector-img="industrial" src="assets/sectors/industrial.svg" width="1600" height="1000" loading="lazy" decoding="async" alt="Manufacturing plant with solar panels on its sawtooth roof">
+        <img data-sector-img="warehouse" src="assets/sectors/warehouse.svg" width="1600" height="1000" loading="lazy" decoding="async" alt="Distribution warehouse with a large rooftop solar array and lorries at the loading docks">
+        <img data-sector-img="agri" src="assets/sectors/agri.svg" width="1600" height="1000" loading="lazy" decoding="async" alt="Farm and food production buildings with solar panels on the shed roofs, beside two grain silos">
+        <img data-sector-img="school" src="assets/sectors/school.svg" width="1600" height="1000" loading="lazy" decoding="async" alt="School buildings and sports hall with solar panels on their flat roofs">
+        <img data-sector-img="hospital" src="assets/sectors/hospital.svg" width="1600" height="1000" loading="lazy" decoding="async" alt="Hospital campus with a helipad and solar panels across its roofs">
+        <img data-sector-img="university" src="assets/sectors/university.svg" width="1600" height="1000" loading="lazy" decoding="async" alt="University campus with solar panels on three buildings and a solar car park">
+        <img data-sector-img="airport" src="assets/sectors/airport.svg" width="1600" height="1000" loading="lazy" decoding="async" alt="Airport terminal with a long rooftop solar array, a control tower and a solar car park">
+        <img data-sector-img="residential" src="assets/sectors/residential.svg" width="1600" height="1000" loading="lazy" decoding="async" alt="Apartment blocks with balconies and solar panels on their roofs">
+      </div>
       <div class="sec-copy" aria-live="polite">
         <span class="sec-idx" id="secIdx">01 / 08</span>
         <h3 id="secName">Manufacturing &amp; Industrial</h3>
         <p id="secCopy">Single-shift plants draw hard through the middle of the day, which is exactly when the array is at full output. Most of what the roof makes never reaches the meter.</p>
-        </div>
-      <div class="sec-side">
         <dl class="sec-facts">
           <div><dt>Typical roof</dt><dd id="secArea">2,400 m²</dd></div>
           <div><dt>Used on site</dt><dd id="secUse">78%</dd></div>
@@ -1606,37 +1710,38 @@ footer::before {
     <div class="section-head reveal">
       <div class="kicker">Grants &amp; incentives</div>
       <h2>The State pays for part of the roof</h2>
-      <p class="lead">Irish commercial solar carries real public funding. Which scheme applies depends on what you are and how big the array is, and only one grant can land on any one system. As an SEAI registered installer, we handle the applications end to end.</p>
+      <p class="lead">Irish commercial solar carries real public funding. Which scheme applies depends on what you are and how big the system is, and only one grant can go on any one system. As an SEAI registered installer, we handle the applications end to end.</p>
     </div>
+    <p class="grant-flag reveal"><svg class="ic"><use href="#i-euro-down"/></svg> <span><b>Enhanced rates now open.</b> SEAI has roughly doubled its business solar grant for new applications made between 6 October 2026 and 6 July 2027.</span></p>
     <div class="grant-cards">
       <article class="grant-card reveal">
-        <span class="grant-amt">Up to €162,600</span>
+        <span class="grant-amt">Up to €325,200</span>
         <h3>SEAI Non-Domestic Microgen</h3>
-        <p>The main commercial scheme. Paid per kWp on a sliding scale, so the rate falls as the array gets bigger, up to a 1,000&nbsp;kWp system.</p>
+        <p>The main business scheme. Paid per kWp on a sliding scale, so the rate per kWp falls as the system gets bigger, for systems up to 1,000&nbsp;kWp.</p>
         <ul>
-          <li><svg class="ic"><use href="#i-check"/></svg> Businesses, farms, schools, public and community bodies</li>
-          <li><svg class="ic"><use href="#i-check"/></svg> €300/kWp to 20&nbsp;kWp, €200/kWp to 200, €150/kWp above</li>
-          <li><svg class="ic"><use href="#i-check"/></svg> Registered installer, grant approved before works start</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> Businesses, farms, schools, community centres and non-profits</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> €600/kWp from 7 to 20&nbsp;kWp, €400/kWp to 200&nbsp;kWp, €300/kWp to 1,000&nbsp;kWp</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> SEAI-registered installer, with approval in place before materials are bought or work starts</li>
         </ul>
       </article>
       <article class="grant-card reveal">
-        <span class="grant-amt">60% of cost</span>
+        <span class="grant-amt">60% grant</span>
         <h3>TAMS 3 Solar Capital Investment</h3>
-        <p>The farm route, run by the Department of Agriculture rather than SEAI. Better value than the SEAI scheme on smaller arrays.</p>
+        <p>The farm route, run by the Department of Agriculture rather than SEAI. Pays 60% of approved costs up to a €90,000 investment ceiling per holding, so up to €54,000 in grant.</p>
         <ul>
-          <li><svg class="ic"><use href="#i-check"/></svg> 60% of eligible cost, 80% for young farmers under 40</li>
-          <li><svg class="ic"><use href="#i-check"/></svg> €90,000 investment ceiling, so €54,000 maximum</li>
-          <li><svg class="ic"><use href="#i-check"/></svg> Cannot be combined with the SEAI grant on the same system</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> Systems up to 62&nbsp;kWp, with batteries up to half the panel capacity</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> Sized to the farm's own yearly use, which can include one farm dwelling</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> Can't be combined with the SEAI grant on the same system</li>
         </ul>
       </article>
       <article class="grant-card reveal">
         <span class="grant-amt">100% in year one</span>
         <h3>Accelerated Capital Allowance</h3>
-        <p>A tax measure rather than a grant. Write the full cost off against trading profits in the year you buy, instead of spreading it over eight years.</p>
+        <p>A tax measure rather than a grant. Write the full cost off against trading profits in the year the system starts working, instead of over eight years. Runs to 31 December 2030.</p>
         <ul>
-          <li><svg class="ic"><use href="#i-check"/></svg> Companies, sole traders and farmers paying Irish tax</li>
-          <li><svg class="ic"><use href="#i-check"/></svg> Equipment must be listed on the Triple E register</li>
-          <li><svg class="ic"><use href="#i-check"/></svg> Sits alongside a grant, it is not an either/or</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> Companies, sole traders and other businesses paying Irish tax</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> The panel model must be on SEAI's Triple E register</li>
+          <li><svg class="ic"><use href="#i-check"/></svg> Claimed on your cost after any grant</li>
         </ul>
       </article>
     </div>
@@ -1650,7 +1755,7 @@ footer::before {
         <a href="#quote" class="btn btn-primary">Check your eligibility <svg class="ic"><use href="#i-arrow"/></svg></a>
       </div>
     </div>
-    <p class="grant-note">Scheme rates as published by SEAI and the Department of Agriculture, checked September 2026. Grant terms, ceilings and eligibility change, and approval must normally be in place before any works begin. Treat these figures as indicative.</p>
+    <p class="grant-note">SEAI figures are the enhanced rates for new applications made from 6 October 2026 to 6 July 2027; SEAI offers are valid for 8 months. TAMS terms are from the Department of Agriculture's TAMS 3 Solar terms and conditions (June 2026). Checked October 2026. Schemes change and approval must be in place before work starts, so treat these figures as indicative.</p>
   </div>
 </section>
 
@@ -1683,9 +1788,10 @@ footer::before {
 </section>
 
 <!-- ============================================================ ABOUT / TEAM
-     PLACEHOLDER SECTION: every [bracketed] item must be replaced with real,
-     verified details before publishing. The section hides itself until a
-     real photo exists at assets/team.jpg. Delete the section if not ready. -->
+     Switched off until it has real details: replace every [bracketed] item with
+     verified facts, add the photo at assets/team.jpg, then remove this comment's
+     opening and closing markers so the section shows. Kept as a comment so search
+     engines never index placeholder text.
 <section class="section steps-bg" id="about">
   <div class="container rate-wrap">
     <div class="reveal">
@@ -1708,88 +1814,44 @@ footer::before {
     </div>
   </div>
 </section>
+-->
 
 <!-- ============================================================ FAQ -->
 <section class="section" id="faq">
   <div class="container">
     <div class="section-head center reveal">
       <div class="kicker">Common questions</div>
-      <h2>Everything businesses ask before switching</h2>
-      <p class="lead" style="margin:0 auto">Straight answers to the questions Irish business owners ask us most. Don't see yours? <a href="#quote" style="color:var(--orange-text);font-weight:700">Ask the team directly</a>.</p>
+      <h2>Quick answers before you switch</h2>
+      <p class="lead" style="margin:0 auto">The questions Irish businesses ask us most. Don't see yours? <a href="#quote" style="color:var(--orange-text);font-weight:700">Ask the team directly</a>.</p>
     </div>
     <div class="faq-wrap">
       <details class="faq reveal">
-        <summary>What exactly is a Solar PPA? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-        <div class="faq-body">A Power Purchase Agreement is solar as a service. Aura Energy funds, installs, owns and operates a solar system on your roof at no cost to you. You simply agree to buy the electricity it produces at a fixed rate per kWh, set below what you currently pay the grid. You save money from day one without spending a cent, and we take care of everything else.</div>
+        <summary>What is a Solar PPA? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+        <div class="faq-body">We fund, install, own and maintain a solar system on your roof. You buy the electricity it produces at a fixed rate per kWh, set below your grid rate, so you save from day one with nothing to pay upfront.</div>
       </details>
       <details class="faq reveal">
-        <summary>How much cheaper is the PPA rate than my grid rate? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-        <div class="faq-body">Typically up to 50% below your current unit rate (for example, 16c against a 32c day rate), depending on your site, roof, consumption profile and the term you choose. Because the rate is fixed, the gap usually widens over time as grid prices rise. We'll quote your exact rate after a free site assessment, with a clear side-by-side of what you pay now versus what you'd pay under the PPA.</div>
+        <summary>How much will we save? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+        <div class="faq-body">Typically up to 50% on every unit the system supplies, for example 16c against a 32c day rate. We confirm your exact rate after a free site assessment, side by side with what you pay now.</div>
       </details>
       <details class="faq reveal">
-        <summary>Who owns the solar panels? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-        <div class="faq-body">Under the PPA, Aura Energy owns and is fully responsible for the system during the agreement, including insurance, maintenance and performance. At the end of the term, ownership transfers to your business. If you'd rather own from day one, choose our capex option and the system is yours the moment it's commissioned.</div>
+        <summary>Who looks after the system, and what if it underperforms? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+        <div class="faq-body">We do. Under the PPA we own, insure, monitor and maintain the system for the full term, and you only pay for the electricity it actually produces.</div>
       </details>
       <details class="faq reveal">
-        <summary>What happens at the end of the PPA term? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-        <div class="faq-body">The system transfers to your business, and from then on every kWh it generates is free. Solar panels carry 25-year performance warranties and typically keep producing well beyond that, so you'll enjoy many years of zero-cost power after the term ends. You can also buy out the system early at any point during the agreement.</div>
+        <summary>What happens at the end of the term, or if we move? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+        <div class="faq-body">At the end of the term the system transfers to your business and its power is free from then on. If you sell or move, the agreement can pass to the new occupier, or you can buy the system out.</div>
       </details>
       <details class="faq reveal">
-        <summary>What if the system underperforms or breaks down? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-        <div class="faq-body">That's our problem, not yours. It's the core of the PPA model. You only pay for electricity the system actually produces. We monitor every system remotely, and our smart monitoring flags issues automatically, often before anyone on-site notices. Repairs, replacements and insurance are all covered by us for the full term.</div>
+        <summary>Should we choose the PPA or buy the system? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+        <div class="faq-body">Choose the PPA to save without spending capital or carrying maintenance risk. Buy outright if you have the capital and want the biggest lifetime return, helped by SEAI grants and the Accelerated Capital Allowance. We quote both side by side.</div>
       </details>
       <details class="faq reveal">
-        <summary>Does a PPA affect my balance sheet or borrowing? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-        <div class="faq-body">A PPA is an operating arrangement, not a loan or a lease of equipment you own, so there's no debt on your balance sheet and no capex approval needed. You're simply buying electricity, the same as you do today, just cheaper. (As with any contract, your accountant can confirm treatment for your specific circumstances.)</div>
+        <summary>How long does it take, and do we need planning permission? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+        <div class="faq-body">Most sites go from survey to switch-on in 6 to 10 weeks, with 1 to 3 days on site. Most commercial rooftop systems are exempt from planning permission, and we handle planning and ESB Networks paperwork where it's needed.</div>
       </details>
       <details class="faq reveal">
-        <summary>Should I choose the PPA or a capex purchase? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-        <div class="faq-body">Choose the <strong>PPA</strong> if you want savings without spending capital, prefer someone else to carry the maintenance and performance risk, or want to keep your balance sheet clean. Choose <strong>capex</strong> if you have capital available and want the maximum lifetime return. You'll own the asset, keep 100% of the power, and can use SEAI grants and Accelerated Capital Allowances. We'll quote both side by side so the numbers make the decision easy.</div>
-      </details>
-      <details class="faq reveal">
-        <summary>Does solar actually work in Ireland's climate? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-        <div class="faq-body">Yes. Solar PV generates from daylight, not direct sunshine, and Ireland gets 1,100–1,400 hours of sunshine a year. A well-designed commercial system in Ireland typically offsets 30–70% of daytime electricity demand. Panel efficiency actually benefits from our cooler temperatures.</div>
-      </details>
-      <details class="faq reveal">
-        <summary>How long does it take to get up and running? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-        <div class="faq-body">From initial survey to go-live is typically 6–10 weeks for most commercial sites, including design, ESB Networks notification, and planning where required. The on-site installation itself usually takes just 1–3 days, with minimal disruption to your operations.</div>
-      </details>
-      <details class="faq reveal">
-        <summary>Do I need planning permission? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-        <div class="faq-body">Most rooftop commercial solar in Ireland is exempt from planning permission under the Planning and Development Regulations, provided the system meets size and siting criteria. Where planning is needed, we manage the entire process on your behalf as part of the project.</div>
-      </details>
-      <details class="faq reveal">
-        <summary>What if I don't own the building? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-        <div class="faq-body">PPAs work for tenants too. We'll need your landlord's consent for the roof, and we regularly structure agreements that work for both parties (landlords often welcome the upgrade, since it adds value to the building). Tell us your situation in the quote form and we'll advise on the best structure.</div>
-      </details>
-      <details class="faq reveal">
-        <summary>What happens if I sell the building or the business? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-        <div class="faq-body">The PPA can transfer to the new owner or occupier. A below-market electricity rate is an asset that typically makes the property more attractive, not less. Alternatively, you can buy out the system as part of the sale. We'll work with you to find the cleanest outcome.</div>
-      </details>
-      <details class="faq reveal">
-        <summary>Can excess electricity be sold back to the grid? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-        <div class="faq-body">Yes. Under Ireland's Clean Export Guarantee, surplus generation can be exported and paid for. That said, we design systems to maximise self-consumption first, because using your own solar power is worth far more than exporting it.</div>
-      </details>
-      <details class="faq reveal">
-        <summary>What maintenance is required? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-        <div class="faq-body">Very little. Rain keeps panels clean in the Irish climate, and there are no moving parts. Under the PPA it's all handled by us anyway: remote monitoring, annual inspections, inverter care and any repairs. Capex customers can add our O&amp;M package for the same peace of mind.</div>
-      </details>
-      <!-- OWNER: confirm the funding/continuity wording in the next answer matches your actual contract and funding structure before publishing. Do not name funding partners unless agreed in writing. -->
-      <details class="faq reveal">
-        <summary>Who funds the system, and what if Aura Energy isn't around in year 15? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-        <div class="faq-body">Fair question, and one every business should ask a PPA provider. Each agreement is structured so the system and the contract can transfer to another qualified operator if ever required, and your rate and terms are protected in the contract itself, not dependent on any one company. The panels are on your roof either way: they keep generating regardless. We'll happily walk your solicitor or accountant through the agreement before you sign.</div>
-      </details>
-      <details class="faq reveal">
-        <summary>My roof is 20 years old. Can it still take solar? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-        <div class="faq-body">Often, yes. Our free survey includes a structural and condition check, and we won't put panels on a roof that isn't fit to carry them for the term. If cladding or membrane work is due in the next few years, it usually makes sense to do that first, and we can coordinate with your roofing contractor. If repairs are ever needed mid-term, the agreement covers lifting and reinstating the panels, so you're never locked out of maintaining your own building.</div>
-      </details>
-      <details class="faq reveal">
-        <summary>Will we get stuck in a grid connection queue? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-        <div class="faq-body">For typical commercial rooftop systems, no. The multi-year queues you read about apply to large utility-scale projects. Rooftop systems at this scale go through ESB Networks' standard notification and application processes, which we submit at the very start of your project so the paperwork runs in parallel with design and procurement. Timelines vary by system size and site, and we'll give you a realistic programme up front.</div>
-      </details>
-      <details class="faq reveal">
-        <summary>What if our electricity use falls, or the site is quiet for part of the year? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
-        <div class="faq-body">We size the system against your actual consumption data, deliberately conservatively, so the roof serves your dependable base load rather than your best month. Any surplus can still be exported under the Clean Export Guarantee. And if your circumstances change materially, say you downsize or relocate, the agreement includes practical options: transfer to a new occupier, early buyout, or restructuring. We'd rather design for reality than argue about it later.</div>
+        <summary>We rent our building. Can we still go solar? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
+        <div class="faq-body">Yes, with your landlord's consent for the roof. We regularly set up agreements that work for both sides, and landlords often welcome the upgrade.</div>
       </details>
     </div>
   </div>
@@ -1819,9 +1881,9 @@ footer::before {
       <div class="quote-promise"><svg class="ic"><use href="#i-clock"/></svg> Response within one business day. No obligation, no hard sell.</div>
     </div>
 
-    <!-- FormSubmit delivers submissions to info@auraenergy.ie.
+    <!-- FormSubmit delivers submissions to martin@swarmsolar.co.uk (reply-to is the visitor's email).
          The first submission triggers a one-time activation email; click the link in it once. -->
-    <form class="qform reveal" action="https://formsubmit.co/info@auraenergy.ie" method="POST">
+    <form class="qform reveal" action="https://formsubmit.co/martin@swarmsolar.co.uk" method="POST">
       <input type="hidden" name="_subject" value="New quote request | auraenergy.ie">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_captcha" value="false">
@@ -1897,8 +1959,8 @@ footer::before {
             <label for="spend">Monthly electricity spend</label>
             <select id="spend" name="Monthly spend" required>
               <option value="" selected disabled>Select range…</option>
-              <option>Under €1,000</option><option>€1,000–€2,500</option><option>€2,500–€5,000</option>
-              <option>€5,000–€10,000</option><option>€10,000–€25,000</option><option>Over €25,000</option>
+              <option>Under €1,000</option><option>€1,000 to €2,500</option><option>€2,500 to €5,000</option>
+              <option>€5,000 to €10,000</option><option>€10,000 to €25,000</option><option>Over €25,000</option>
             </select>
           </div>
         </div>
@@ -1931,7 +1993,7 @@ footer::before {
             <select id="timeframe" name="Timeframe">
               <option value="" selected disabled>Select…</option>
               <option>As soon as possible</option><option>Next 3 months</option>
-              <option>3–6 months</option><option>6–12 months</option><option>Just researching</option>
+              <option>3 to 6 months</option><option>6 to 12 months</option><option>Just researching</option>
             </select>
           </div>
         </div>
@@ -1948,26 +2010,104 @@ footer::before {
   </div>
 </section>
 
+<!-- ============================================================ INVESTORS -->
+<section class="section inv-sec" id="investors">
+  <div class="container inv-grid">
+    <div class="inv-copy reveal">
+      <div class="kicker">For investors</div>
+      <h2>Invest in contracted Irish solar</h2>
+      <p class="lead">Aura funds, builds and runs solar on Irish business roofs, then sells the power to each business under a long-term PPA at a fixed price per kWh. Every site we switch on becomes a contracted income stream backed by a real, working asset.</p>
+      <ul class="inv-points">
+        <li><div class="icon-tile"><svg class="ic"><use href="#i-handshake"/></svg></div><div><h3>Contracted income</h3><p>Long-term PPAs at a fixed rate, paid by the business that uses the power.</p></div></li>
+        <li><div class="icon-tile"><svg class="ic"><use href="#i-panel-sun"/></svg></div><div><h3>Real, monitored assets</h3><p>Tier-1 panels and inverters, insured and monitored, with maintenance carried by Aura for the full term.</p></div></li>
+        <li><div class="icon-tile"><svg class="ic"><use href="#i-meter"/></svg></div><div><h3>Demand on site</h3><p>We focus on businesses that use most of their power in daylight, so most of what each roof produces is used where it's made.</p></div></li>
+        <li><div class="icon-tile"><svg class="ic"><use href="#i-leaf"/></svg></div><div><h3>Policy tailwind</h3><p>Ireland's Climate Action Plan targets 80% renewable electricity and 8&nbsp;GW of solar by 2030.</p></div></li>
+      </ul>
+    </div>
+    <form class="inv-form reveal" id="invForm" action="https://formsubmit.co/martin@swarmsolar.co.uk" method="POST">
+      <input type="hidden" name="_subject" value="New investor enquiry | auraenergy.ie">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://auraenergy.ie/?sent=investor#investors">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <h3>Register your interest</h3>
+      <p class="inv-form-intro">Tell us a little about yourself and we'll come back with more detail on the portfolio and how investors can take part.</p>
+      <div class="frow">
+        <div class="field"><label for="invName">Name</label><input id="invName" name="Name" type="text" required autocomplete="name"></div>
+        <div class="field"><label for="invEmail">Email</label><input id="invEmail" name="email" type="email" required autocomplete="email"></div>
+      </div>
+      <div class="frow">
+        <div class="field"><label for="invType">I am</label>
+          <select id="invType" name="Investor type" required>
+            <option value="">Choose one</option>
+            <option>An individual investor</option>
+            <option>A family office</option>
+            <option>A fund or institution</option>
+            <option>A lender</option>
+            <option>A strategic partner</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="field"><label for="invSize">Indicative amount <em>(optional)</em></label>
+          <select id="invSize" name="Indicative amount">
+            <option value="">Prefer not to say</option>
+            <option>Under €100,000</option>
+            <option>€100,000 to €500,000</option>
+            <option>€500,000 to €2 million</option>
+            <option>Over €2 million</option>
+          </select>
+        </div>
+      </div>
+      <div class="frow single">
+        <div class="field"><label for="invOrg">Organisation <em>(optional)</em></label><input id="invOrg" name="Organisation" type="text" autocomplete="organization"></div>
+      </div>
+      <div class="frow single">
+        <div class="field"><label for="invMsg">Message <em>(optional)</em></label><textarea id="invMsg" name="Message" rows="3"></textarea></div>
+      </div>
+      <button type="submit" class="btn btn-primary">Register interest <svg class="ic"><use href="#i-arrow"/></svg></button>
+      <p class="inv-legal">This section is general information only. It is not an offer to sell, or a solicitation of an offer to buy, any security or investment, and it is not financial advice. Any investment would be made only on the basis of formal documentation, may be limited to certain types of investor, and puts your capital at risk.</p>
+    </form>
+  </div>
+</section>
+
 <!-- ============================================================ AURA AI -->
 <section class="section-sm agent-sec" id="assistant">
   <div class="container">
     <div class="agentframe">
-      <div class="agent">
+      <div class="agent" id="agent">
         <div class="agent__bar">
           <span class="agent__ava"><img class="avaimg" src="assets/aura-ai.jpg" alt="" width="360" height="360"></span>
-          <span class="agent__id"><b>Aura AI</b><span><i></i> Ready</span></span>
-          <span class="agent__modes" role="group" aria-label="Conversation mode">
-            <button type="button" data-mode="voice" aria-pressed="false">Voice</button>
-            <button type="button" data-mode="video" aria-pressed="true">Video</button>
-          </span>
+          <span class="agent__id"><b>Aura AI</b><span><i></i> <span id="agentStatus">Ready</span></span></span>
+          <button type="button" class="agent__reset" id="agentReset" hidden>New chat</button>
         </div>
-        <div class="agent__stage">
+        <div class="agent__stage" id="agentIntro">
           <div class="agent__orb"><img class="avaimg" src="assets/aura-ai.jpg" alt="Aura AI assistant" width="360" height="360" loading="lazy"></div>
           <p class="agent__q">Ready to talk about your roof?</p>
+          <p class="agent__sub">Ask about the Solar PPA, savings, grants or how it all works.</p>
           <button class="agent__start" type="button" id="agentStart">
-            <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5a2.2 2.2 0 0 1 2.2 2.2v4a2.2 2.2 0 0 1-4.4 0v-4A2.2 2.2 0 0 1 8 1.5z" fill="currentColor"/><path d="M3.5 7.6a4.5 4.5 0 0 0 9 0M8 12.1v2.4" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.2 3.6c-.5.4-1.3.1-1.3-.6V16H6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Start conversation
           </button>
+        </div>
+        <div class="agent__chat" id="agentChat" hidden>
+          <div class="agent__log" id="agentLog" role="log" aria-live="polite" aria-label="Conversation with Aura AI"></div>
+          <div class="agent__chips" id="agentChips">
+            <button type="button">How does a Solar PPA work?</button>
+            <button type="button">What grants can we get?</button>
+            <button type="button">How much could we save?</button>
+            <button type="button">How long does it take?</button>
+          </div>
+          <form class="agent__form" id="agentForm">
+            <label class="sr-only" for="agentInput">Your question for Aura AI</label>
+            <textarea id="agentInput" rows="1" maxlength="1000" placeholder="Ask about solar for your business" autocomplete="off"></textarea>
+            <button type="button" class="agent__mic" id="agentMic" aria-label="Speak your question" aria-pressed="false" hidden>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <button type="submit" class="agent__send" id="agentSend" aria-label="Send">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </form>
+          <p class="agent__note">Aura AI can make mistakes. Figures are indicative until a free site survey.</p>
         </div>
       </div>
     </div>
@@ -2007,6 +2147,7 @@ footer::before {
         <a href="#models">Capex installs</a>
         <a href="#how">How it works</a>
         <a href="#projects">Projects</a>
+        <a href="#investors">Investors</a>
       </div>
       <div class="foot-col">
         <h3>Resources</h3>
@@ -2111,23 +2252,25 @@ document.querySelectorAll('.faq').forEach(d => {
   const ROOF = {
     flat:  { f: .93, cap: 'flat roof, ballasted at 10°' },
     south: { f: 1.0, cap: 'pitched south, 25°' },
-    ew:    { f: .86, cap: 'pitched east–west, 15°' }
+    ew:    { f: .86, cap: 'pitched east-west, 15°' }
   };
   // same assumptions as the est-note text: 950 kWh/kWp, 5.5 m² per kWp, PPA 16c, 20-year term
   const YIELD = 950, M2_PER_KWP = 5.5, PPA = 0.16, CO2KG = 0.29, TERM = 20, CAPEX_KWP = 950;
 
   const state = { sector: 'industrial', roof: 'flat', area: 2400, grid: 32, use: 900 };
 
-  // ---- SEAI Non-Domestic Microgen, banded per kWp ----
-  const NDMG_CAP = 1000;
+  // ---- SEAI Non-Domestic Microgen: enhanced rates for new applications 6 Oct 2026 to 6 Jul 2027 ----
+  // €4,800 for the first 6 kWp, then €600/kWp to 20 kWp, €400/kWp to 200 kWp and €300/kWp to 1,000 kWp
+  // (€325,200 at 1,000 kWp). The estimator's smallest roof is ~36 kWp, so the split inside the first
+  // 6 kWp never matters here. SEAI describes the enhanced grant as up to 45% of eligible costs, so the
+  // estimate is capped at 45% of the modelled cost to stay on the safe side.
+  const NDMG_CAP = 1000, NDMG_SHARE = 0.45;
   const ndmg = kwp => {
-    let k = Math.max(0, Math.min(kwp, NDMG_CAP)), g = 0, b;
-    if (k <= 0) return 0;
-    g += 900; k -= 1;                          // first kWp
-    b = Math.min(k, 19);  g += b * 300; k -= b; // 2 to 20 kWp
-    b = Math.min(k, 180); g += b * 200; k -= b; // 21 to 200 kWp
-    b = Math.min(k, 800); g += b * 150;         // 201 to 1,000 kWp
-    return g;
+    const k = Math.max(0, Math.min(kwp, NDMG_CAP));
+    return Math.min(k, 6) / 6 * 4800
+      + Math.max(0, Math.min(k, 20) - 6) * 600
+      + Math.max(0, Math.min(k, 200) - 20) * 400
+      + Math.max(0, k - 200) * 300;
   };
 
   // ---- 3D massing viewer: tiny orthographic renderer, no libraries ----
@@ -2368,14 +2511,15 @@ document.querySelectorAll('.faq').forEach(d => {
       num.format(Math.round(gen)) + ' kWh/yr, saves ' + eur.format(Math.round(saveYr)) + '/yr';
 
     // grant on the roof being estimated
-    const grant = ndmg(kwp), capex = kwp * CAPEX_KWP;
+    const capex = kwp * CAPEX_KWP, banded = ndmg(kwp), grant = Math.min(banded, capex * NDMG_SHARE);
     $('grantAmt').textContent = eur.format(Math.round(grant));
     $('grantCopy').innerHTML =
-      'A <b>' + num.format(Math.round(kwp)) + ' kWp</b> array draws roughly <b>' + eur.format(Math.round(grant)) + '</b> from the SEAI scheme.' +
-      (kwp > NDMG_CAP ? ' The scheme stops at ' + num.format(NDMG_CAP) + ' kWp, so the rest of this array is unfunded.' : '') +
-      ' On a PPA the grant is ours to claim, because we own the array, and it is already priced into your unit rate. ' +
-      'Buy outright and you claim it yourself, which takes an indicative net cost from <b>' + eur.format(Math.round(capex)) +
-      '</b> to <b>' + eur.format(Math.round(capex - grant)) + '</b> before any capital allowance.';
+      'A <b>' + num.format(Math.round(kwp)) + ' kWp</b> system would qualify for roughly <b>' + eur.format(Math.round(grant)) + '</b> at SEAI\'s enhanced rates' +
+      (grant < banded ? ', capped at 45% of the modelled cost' : '') + '.' +
+      (kwp > NDMG_CAP ? ' The grant stops at ' + num.format(NDMG_CAP) + ' kWp, so the rest of this system is unfunded.' : '') +
+      ' On a PPA there is nothing to pay upfront, so you don\'t need a grant to make the numbers work. ' +
+      'Buy outright and the grant comes off your cost: an indicative <b>' + eur.format(Math.round(capex)) +
+      '</b> falls to <b>' + eur.format(Math.round(capex - grant)) + '</b> before any capital allowance.';
 
     VIEW.key = state.sector;
     VIEW.fill = Math.max(0.12, Math.min(1, state.area / sec.area));
@@ -2400,6 +2544,7 @@ document.querySelectorAll('.faq').forEach(d => {
     $('secArea').textContent = num.format(s.area) + ' m²';
     $('secUse').textContent = Math.round(s.selfUse * 100) + '%';
     $('secKwp').textContent = num.format(Math.round(s.area / M2_PER_KWP)) + ' kWp';
+    stage.querySelectorAll('[data-sector-img]').forEach(im => im.classList.toggle('is-on', im.dataset.sectorImg === key));
     $('secCta').dataset.sector = key;
   };
 
@@ -2491,14 +2636,219 @@ if (new URLSearchParams(location.search).get('sent') === '1') {
   }
 }
 
-// ---- Aura AI ----
-document.querySelectorAll('.agent__modes button').forEach(b => b.addEventListener('click', () => {
-  document.querySelectorAll('.agent__modes button').forEach(x => x.setAttribute('aria-pressed', 'false'));
-  b.setAttribute('aria-pressed', 'true');
-}));
+// ---- investor form: no double submits, branded state when FormSubmit sends people back ----
+const invForm = document.getElementById('invForm');
+if (invForm) {
+  invForm.addEventListener('submit', () => {
+    const b = invForm.querySelector('button[type="submit"]');
+    if (b) { b.disabled = true; b.textContent = 'Sending…'; }
+  });
+  if (new URLSearchParams(location.search).get('sent') === 'investor') {
+    invForm.innerHTML = '<div class="inv-sent"><svg class="ic"><use href="#i-check"/></svg><div><h3>Thanks, we have your details</h3>' +
+      '<p class="inv-form-intro" style="margin:6px 0 0">We will be in touch with more on the portfolio and how investors can take part.</p></div></div>';
+    history.replaceState(null, '', location.pathname + '#investors');
+  }
+}
+
+// ---- Aura AI chat (backend: functions/api/chat.js) ----
+const auraChat = (() => {
+  const $ = id => document.getElementById(id);
+  const intro = $('agentIntro'), chat = $('agentChat'), log = $('agentLog'), form = $('agentForm'),
+        input = $('agentInput'), send = $('agentSend'), mic = $('agentMic'), chips = $('agentChips'),
+        status = $('agentStatus'), reset = $('agentReset');
+  if (!chat) return null;
+  const GREETING = "Hi, I'm Aura AI. Ask me anything about solar for your business: how the Solar PPA works, what you could save, grants, or how long it takes.";
+  const QUOTE = '<a href="#quote">get a free quote</a>';
+  const CALL = 'the <a href="tel:+353833945937">Call now</a> button';
+  const FALLBACK = {
+    offline: "Aura AI isn't connected on this page yet. The team can still help: " + QUOTE + ' or use ' + CALL + '.',
+    busy: "Sorry, I'm a little busy right now. Please try again in a moment, or " + QUOTE + ' and the team will come back to you.',
+    too_long: 'That message is a bit long for me. Could you shorten it to a few sentences?',
+    refusal: "I can't help with that one, but I'm happy to answer questions about solar for your business. For anything else, use " + CALL + '.',
+    error: 'Sorry, something went wrong on my side. Please try again, or ' + QUOTE + ' and the team will help.',
+  };
+  const history = [];
+  let busy = false, inflight = null;
+
+  const escapeHtml = s => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  // A small, safe subset of markdown: paragraphs, bullet lines and **bold**. The text is escaped first.
+  const format = text => {
+    const out = [];
+    let para = [], list = null;
+    const bold = s => s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    const flushPara = () => { if (para.length) { out.push('<p>' + bold(para.join('<br>')) + '</p>'); para = []; } };
+    const flushList = () => { if (list) { out.push('<ul>' + list.map(li => '<li>' + bold(li) + '</li>').join('') + '</ul>'); list = null; } };
+    for (const raw of escapeHtml(text.trim()).split('\n')) {
+      const line = raw.trim();
+      const item = line.match(/^(?:[-*•]|\d+[.)])\s+(.*)$/);
+      if (!line) { flushPara(); flushList(); }
+      else if (item) { flushPara(); (list = list || []).push(item[1]); }
+      else { flushList(); para.push(line); }
+    }
+    flushPara(); flushList();
+    return out.join('');
+  };
+
+  const atBottom = () => log.scrollHeight - log.scrollTop - log.clientHeight < 80;
+  const bubble = role => {
+    const el = document.createElement('div');
+    el.className = 'msg ' + (role === 'user' ? 'msg--me' : 'msg--ai');
+    log.appendChild(el);
+    log.scrollTop = log.scrollHeight;
+    return el;
+  };
+  const show = (el, html) => {
+    const stick = atBottom();
+    el.classList.remove('msg--typing');
+    el.removeAttribute('aria-label');
+    el.innerHTML = html;
+    if (stick) log.scrollTop = log.scrollHeight;
+  };
+  const autosize = () => { input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight, 120) + 'px'; };
+  const greet = () => { show(bubble('assistant'), format(GREETING)); chips.hidden = false; };
+
+  const open = focus => {
+    if (chat.hidden) {
+      intro.hidden = true;
+      chat.hidden = false;
+      reset.hidden = false;
+      greet();
+    }
+    if (focus) input.focus({ preventScroll: true });
+  };
+
+  const fail = code => Object.assign(new Error(code), { code });
+
+  async function ask(text) {
+    text = text.trim();
+    if (!text || busy) return;
+    open(false);
+    busy = true;
+    send.disabled = true;
+    chips.hidden = true;
+    status.textContent = 'Typing…';
+    bubble('user').textContent = text;
+    history.push({ role: 'user', content: text });
+    input.value = '';
+    autosize();
+    const reply = bubble('assistant');
+    reply.classList.add('msg--typing');
+    reply.setAttribute('aria-label', 'Aura AI is typing');
+    reply.innerHTML = '<i></i><i></i><i></i>';
+    reply.setAttribute('aria-busy', 'true');
+    const controller = inflight = new AbortController();
+    let answer = '', stop = null;
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history.slice(-16) }),
+        signal: controller.signal,
+      });
+      const type = res.headers.get('Content-Type') || '';
+      if (!res.ok || !type.includes('text/event-stream')) {
+        let code = 'offline';
+        if (type.includes('application/json')) {
+          const err = await res.json().catch(() => ({}));
+          code = err.error === 'busy' || err.error === 'too_long' ? err.error : err.error === 'unavailable' ? 'offline' : 'error';
+        }
+        throw fail(code);
+      }
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      for (;;) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        let cut;
+        while ((cut = buffer.indexOf('\n\n')) !== -1) {
+          const chunk = buffer.slice(0, cut);
+          buffer = buffer.slice(cut + 2);
+          if (!chunk.startsWith('data: ')) continue;
+          const event = JSON.parse(chunk.slice(6));
+          if (event.error) throw fail(event.error === 'busy' ? 'busy' : 'error');
+          if (typeof event.text === 'string') { answer += event.text; show(reply, format(answer)); }
+          if (event.done) stop = event.stop;
+        }
+      }
+      if (stop === 'refusal') throw fail('refusal');
+      if (!stop || !answer.trim()) throw fail('error');
+      if (stop === 'max_tokens') { answer += '…'; show(reply, format(answer)); }
+      history.push({ role: 'assistant', content: answer });
+    } catch (err) {
+      if (controller.signal.aborted) return;
+      history.pop(); // forget the unanswered question so the next one starts cleanly
+      show(reply, '<p>' + (FALLBACK[err.code] || FALLBACK[err instanceof TypeError ? 'offline' : 'error']) + '</p>');
+    } finally {
+      if (inflight === controller) {
+        inflight = null;
+        busy = false;
+        send.disabled = false;
+        status.textContent = 'Ready';
+      }
+      reply.removeAttribute('aria-busy');
+    }
+  }
+
+  $('agentStart').addEventListener('click', () => open(true));
+  chips.addEventListener('click', e => { const b = e.target.closest('button'); if (b) ask(b.textContent); });
+  form.addEventListener('submit', e => { e.preventDefault(); ask(input.value); });
+  input.addEventListener('input', autosize);
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); ask(input.value); }
+  });
+  reset.addEventListener('click', () => {
+    if (inflight) inflight.abort();
+    inflight = null;
+    busy = false;
+    send.disabled = false;
+    status.textContent = 'Ready';
+    history.length = 0;
+    log.innerHTML = '';
+    greet();
+    input.focus({ preventScroll: true });
+  });
+
+  // Voice input, where the browser has speech recognition built in (Chrome, Edge, Safari).
+  const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (Recognition) {
+    mic.hidden = false;
+    let rec = null;
+    mic.addEventListener('click', () => {
+      if (rec) { rec.stop(); return; }
+      rec = new Recognition();
+      rec.lang = 'en-IE';
+      rec.interimResults = true;
+      let heard = '';
+      rec.onresult = e => {
+        let interim = '';
+        for (let i = e.resultIndex; i < e.results.length; i++) {
+          if (e.results[i].isFinal) heard += e.results[i][0].transcript;
+          else interim += e.results[i][0].transcript;
+        }
+        input.value = (heard + interim).trim();
+        autosize();
+      };
+      rec.onend = () => {
+        rec = null;
+        mic.setAttribute('aria-pressed', 'false');
+        mic.setAttribute('aria-label', 'Speak your question');
+        if (heard.trim()) ask(heard);
+      };
+      mic.setAttribute('aria-pressed', 'true');
+      mic.setAttribute('aria-label', 'Stop listening');
+      try { rec.start(); } catch { rec = null; mic.setAttribute('aria-pressed', 'false'); }
+    });
+  }
+
+  return { open };
+})();
+
 const launcher = document.getElementById('launcher');
 launcher.addEventListener('click', () => {
   document.querySelector('.agentframe').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
+  if (auraChat) auraChat.open(true);
 });
 // the launcher stays out of the way until the hero has been scrolled past
 const heroSec = document.querySelector('.hero');

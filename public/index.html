@@ -481,6 +481,8 @@ footer::before {
 }
 .foot-contact .f-ic svg { width: 16px; height: 16px; color: #FFA477; }
 .social-row { display: flex; align-items: center; gap: 12px; margin-top: 24px; }
+.social-row + .social-row { margin-top: 12px; }
+.social-row a[aria-disabled="true"] { pointer-events: none; }
 .social {
   display: inline-flex; width: 42px; height: 42px; border-radius: 12px;
   background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14);
@@ -488,6 +490,7 @@ footer::before {
 }
 .social:hover { background: var(--orange); border-color: var(--orange); transform: translateY(-2px); }
 .social svg { width: 18px; height: 18px; fill: #fff; stroke: none; }
+.social .social-x { width: 16px; height: 16px; }
 .social-lbl { font-size: 13px; color: rgba(255,255,255,.55); font-weight: 600; transition: color .2s; }
 .social-lbl:hover { color: #fff; }
 .foot-bottom { border-top: 1px solid rgba(255,255,255,.12); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 13px; color: rgba(255,255,255,.55); }
@@ -698,87 +701,45 @@ footer::before {
 .est-sent { display: flex; gap: 10px; align-items: center; color: var(--green); font-weight: 700; font-size: 15px; }
 .est-sent svg { width: 22px; height: 22px; flex: none; }
 
-/* ============================================================ ONE PANEL, ONE DAY (interactive) */
-.sp-sec { background: #0E0E0F; color: #fff; position: relative; overflow: hidden; }
-.sp-sec::before {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-  background-size: 48px 48px;
-  -webkit-mask-image: radial-gradient(ellipse at 50% 35%, #000 25%, transparent 72%); mask-image: radial-gradient(ellipse at 50% 35%, #000 25%, transparent 72%);
-}
-.sp-sec .container { position: relative; }
-.sp-sec .kicker { color: #FFA477; }
-.sp-sec .kicker::before { background: #FE5000; }
-.sp-sec h2 { color: #fff; }
-.sp-sec .lead { color: rgba(255,255,255,.7); }
-.sp-sec :focus-visible { outline-color: #fff; }
-.sp-card { border: 1px solid rgba(255,255,255,.1); border-radius: 26px; padding: clamp(18px, 3vw, 34px); background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.012)); }
-.sp-main { display: grid; grid-template-columns: 1.5fr 1fr; grid-template-areas: "scene read" "time time"; column-gap: clamp(22px, 3.4vw, 48px); align-items: center; }
-.sp-scene { grid-area: scene; }
+/* ============================================================ ONE PANEL, ONE DAY (interactive, built on the estimator's styles) */
+.sp-card { display: grid; grid-template-columns: 1.08fr 1fr; grid-template-areas: "view read" "ctrl ctrl" "note note"; column-gap: 44px; align-items: center; }
+.sp-view-col { grid-area: view; }
 .sp-read { grid-area: read; }
-.sp-timeline { grid-area: time; }
-.sp-scene { position: relative; aspect-ratio: 640 / 470; min-width: 0; }
-.sp-sky { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.sp-mono, .sp-sky text { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-.sp-sky text { fill: rgba(255,255,255,.4); font-size: 11px; font-weight: 600; letter-spacing: .08em; }
-.sp-grid line { stroke: rgba(255,255,255,.09); stroke-dasharray: 2 6; }
-.sp-grid text { text-anchor: end; }
-.sp-compass text { text-anchor: middle; }
-.sp-horizon { stroke: rgba(255,255,255,.3); }
-.sp-ground line { stroke: rgba(255,255,255,.055); }
-.sp-track { fill: none; stroke: rgba(255,255,255,.3); stroke-width: 1.5; stroke-dasharray: 3 6; }
-.sp-track-past { fill: none; stroke: #FE5000; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-.sp-sun { fill: #FFC72C; }
-.sp-sun-ring { fill: none; stroke: rgba(255,199,44,.4); stroke-width: 2; }
-.sp-panel-wrap { position: absolute; left: 50%; bottom: 1%; width: 62%; transform: translateX(-50%); perspective: 760px; }
-.sp-panel { width: 100%; height: auto; transform: rotateX(55deg); transform-origin: 50% 100%; filter: drop-shadow(0 28px 22px rgba(0,0,0,.65)); }
-.sp-eyebrow { font-size: 11.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.5); }
-.sp-clock { font-size: 15px; color: rgba(255,255,255,.75); margin-top: 6px; font-variant-numeric: tabular-nums; }
-.sp-power { display: flex; align-items: baseline; gap: 8px; margin-top: 10px; }
-.sp-power b { font-size: clamp(58px, 7vw, 92px); line-height: .95; font-weight: 800; letter-spacing: -.04em; color: #FFC72C; font-variant-numeric: tabular-nums; }
-.sp-power span { font-size: 22px; font-weight: 700; color: rgba(255,255,255,.7); }
-.sp-power-l { color: rgba(255,255,255,.6); font-size: 14px; margin-top: 6px; }
-.sp-meter { height: 4px; border-radius: 4px; background: rgba(255,255,255,.1); margin: 18px 0 22px; overflow: hidden; }
-.sp-meter i { display: block; height: 100%; background: linear-gradient(90deg, #FE5000, #FFC72C); transform-origin: 0 50%; transform: scaleX(0); }
-.sp-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 20px; }
-.sp-stats dt { font-size: 10.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.45); }
-.sp-stats dd { font-size: 17px; font-weight: 700; color: #fff; margin-top: 3px; font-variant-numeric: tabular-nums; }
-.sp-roof { margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.1); font-size: 14px; color: rgba(255,255,255,.65); }
-.sp-roof b { color: #fff; font-variant-numeric: tabular-nums; }
-.sp-timeline { margin-top: clamp(20px, 3vw, 30px); }
-.sp-curve { position: relative; height: 86px; padding: 0 13px; }
-.sp-curve svg { width: 100%; height: 100%; overflow: visible; }
-.sp-now-tag { position: absolute; top: -8px; transform: translateX(-50%); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #0E0E0F; background: rgba(255,255,255,.88); padding: 3px 6px; border-radius: 4px; line-height: 1; }
-.sp-slider { -webkit-appearance: none; appearance: none; display: block; width: 100%; height: 26px; margin: -13px 0 0; background: transparent; cursor: pointer; position: relative; }
-.sp-slider::-webkit-slider-runnable-track { height: 3px; border-radius: 3px; background: rgba(255,255,255,.16); }
-.sp-slider::-moz-range-track { height: 3px; border-radius: 3px; background: rgba(255,255,255,.16); }
-.sp-slider::-webkit-slider-thumb {
-  -webkit-appearance: none; appearance: none; width: 26px; height: 26px; margin-top: -11.5px; border-radius: 50%;
-  background: #FFC72C; border: 5px solid #0E0E0F; box-shadow: 0 0 0 2px #FFC72C, 0 0 26px rgba(255,199,44,.55);
-}
-.sp-slider::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: #FFC72C; border: 5px solid #0E0E0F; box-shadow: 0 0 0 2px #FFC72C, 0 0 26px rgba(255,199,44,.55); }
-.sp-slider:focus { outline: none; }
-.sp-slider:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 2px #FFC72C, 0 0 0 7px rgba(255,255,255,.4); }
-.sp-slider:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 2px #FFC72C, 0 0 0 7px rgba(255,255,255,.4); }
-.sp-hours { position: relative; height: 16px; margin: 6px 13px 0; font-size: 10.5px; font-weight: 600; color: rgba(255,255,255,.42); }
+.sp-card .est-controls { grid-area: ctrl; }
+.sp-card .est-note { grid-area: note; }
+.sp-view { position: relative; aspect-ratio: 16 / 11; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; touch-action: pan-y; cursor: grab; user-select: none; background: radial-gradient(120% 95% at 50% 0%, #fff 0%, var(--orange-mist) 72%); }
+.sp-view:active { cursor: grabbing; }
+.sp-sky { position: absolute; inset: 0; width: 100%; height: 100%; }
+.sp-sky text { font-size: 13px; font-weight: 700; fill: var(--muted); font-variant-numeric: tabular-nums; }
+.sp-horizon { stroke: #DCDCE1; stroke-width: 1.5; }
+.sp-arc { fill: none; stroke: #C9C9D0; stroke-width: 1.6; stroke-dasharray: 1.5 6; stroke-linecap: round; }
+.sp-arc-past { fill: none; stroke: var(--orange); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.sp-panel-wrap { position: absolute; left: 50%; bottom: 6%; width: 68%; transform: translateX(-50%); perspective: 1000px; pointer-events: none; }
+.sp-panel { display: block; width: 100%; height: auto; transform: rotateX(46deg); transform-origin: 50% 100%; filter: drop-shadow(0 18px 18px rgba(17,17,19,.22)); }
+.sp-roof { font-size: 13.5px; color: var(--muted); margin-top: 18px; }
+.sp-roof b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.sp-play { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1.5px solid var(--line); color: var(--ink); border-radius: 999px; padding: 9px 18px; font-size: 14px; font-weight: 700; transition: border-color .2s; }
+.sp-play:hover { border-color: var(--ink); }
+.sp-play svg { width: 11px; height: 11px; fill: currentColor; }
+.sp-time .calc-slider-head { margin-bottom: 4px; }
+.sp-curve { position: relative; height: 64px; padding: 0 13px; margin-bottom: -15px; touch-action: pan-y; cursor: pointer; }
+.sp-curve svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.sp-now-tag { position: absolute; top: -12px; transform: translateX(-50%); font-size: 11px; font-weight: 700; line-height: 1.4; color: var(--muted); background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; }
+.sp-hours { position: relative; height: 16px; margin: 0 13px; font-size: 11.5px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
 .sp-hours span { position: absolute; top: 0; transform: translateX(-50%); }
-.sp-controls { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 18px; }
-.sp-days { display: flex; gap: 8px; flex-wrap: wrap; }
-.sp-days button, .sp-play {
-  background: transparent; border: 1px solid rgba(255,255,255,.22); color: rgba(255,255,255,.85);
-  border-radius: 999px; padding: 8px 16px; font-size: 13.5px; font-weight: 700; transition: background .2s, border-color .2s, color .2s;
+@media (max-width: 1024px) {
+  .sp-card { grid-template-columns: 1fr; grid-template-areas: "view" "ctrl" "read" "note"; }
+  .sp-card .est-controls { margin-top: 26px; padding-top: 24px; }
+  .sp-read { margin-top: 30px; padding-top: 28px; border-top: 1px solid var(--line); }
 }
-.sp-days button:hover { border-color: rgba(255,255,255,.55); color: #fff; }
-.sp-days button[aria-pressed="true"] { background: #fff; border-color: #fff; color: #0E0E0F; }
-.sp-play { display: inline-flex; align-items: center; gap: 8px; background: #FE5000; border-color: #FE5000; color: #0E0E0F; }
-.sp-play:hover { background: #FF6B2A; border-color: #FF6B2A; }
-.sp-play svg { width: 13px; height: 13px; fill: currentColor; }
-.sp-note { margin-top: 18px; font-size: 12.5px; line-height: 1.6; color: rgba(255,255,255,.45); max-width: 780px; }
-@media (max-width: 900px) {
-  .sp-main { grid-template-columns: 1fr; grid-template-areas: "scene" "time" "read"; }
-  .sp-timeline { margin: 6px 0 28px; }
+@media (max-width: 720px) {
+  .sp-read .calc-tiles { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .sp-read .calc-tile { padding: 12px 10px; }
+  .sp-read .calc-tile-v { font-size: 1.05rem; }
+  .sp-read .calc-tile-primary .calc-tile-v { font-size: 1.15rem; }
+  .sp-play { margin-left: 0; }
+  .sp-hours span:nth-child(even) { display: none; }
 }
-@media (max-width: 520px) { .sp-stats dd { font-size: 15.5px; } .sp-days button, .sp-play { padding: 8px 13px; font-size: 13px; } }
 
 /* ============================================================ AURA MARK */
 .logo { color: var(--ink); }
@@ -798,6 +759,7 @@ footer::before {
 .agent__bar { display: flex; align-items: center; gap: 11px; padding: 13px 14px; border-bottom: 1px solid rgba(241,238,231,.1); }
 .agent__ava { width: 34px; height: 34px; border-radius: 50%; flex: none; overflow: hidden; }
 .agent__id b { display: block; font-weight: 700; font-size: 15px; letter-spacing: -.01em; line-height: 1.3; }
+.agent__id .agent__tag { display: inline-block; vertical-align: 1px; margin-left: 6px; font-size: 10.5px; font-weight: 700; letter-spacing: .04em; line-height: 1.5; color: rgba(241,238,231,.75); border: 1px solid rgba(241,238,231,.25); border-radius: 999px; padding: 0 7px; }
 .agent__id span { display: flex; align-items: center; gap: 6px; font-size: 12px; color: rgba(241,238,231,.6); line-height: 1.3; }
 .agent__id i { width: 7px; height: 7px; border-radius: 50%; background: #4ADE80; font-style: normal; }
 .agent__stage { padding: clamp(30px,5vw,54px) 24px; text-align: center; }
@@ -1217,6 +1179,8 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
     <!-- Aura icon, heavy cut (the brand's app icon stripes, for small sizes) -->
     <symbol id="aura-stripes" viewBox="0 0 148 100"><path fill="#FE5000" d="M0 100 L44.44 0 L68 0 L23.56 100 Z M40 100 L84.44 0 L108 0 L63.56 100 Z M80 100 L124.44 0 L148 0 L103.56 100 Z"/></symbol>
     <!-- linkedin (filled) -->
+    <!-- X (filled) -->
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></symbol>
     <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M4.98 3.5a2.49 2.49 0 11-.02 4.98 2.49 2.49 0 01.02-4.98zM3 9h4v12H3zM9.5 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.9 2.6 4.9 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.2 1.4-2.2 2.9V21h-4z"/></symbol>
   </defs>
 </svg>
@@ -1441,113 +1405,110 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
 </section>
 
 <!-- ============================================================ ONE PANEL, ONE DAY (interactive, model in the script below) -->
-<section class="section sp-sec" id="panel">
+<section class="section steps-bg" id="panel">
   <div class="container">
     <div class="section-head reveal">
       <div class="kicker">Solar, hour by hour</div>
       <h2>Watch one panel work through an Irish day</h2>
-      <p class="lead">Drag the sun across the sky to see what a single 550&nbsp;W panel on a Dublin roof makes, hour by hour, and how much the season changes it.</p>
+      <p class="lead">Drag the sun through the day to see what a single 550&nbsp;W panel on a Dublin roof makes, hour by hour, and how much the season changes it.</p>
     </div>
-    <div class="sp-card reveal">
-      <div class="sp-main">
-        <div class="sp-scene" aria-hidden="true">
-          <svg class="sp-sky" viewBox="0 0 640 470">
+    <div class="est-card sp-card reveal">
+      <div class="sp-view-col">
+        <div class="sp-view" aria-hidden="true">
+          <svg class="sp-sky" viewBox="0 0 560 385">
             <defs>
-              <radialGradient id="spGlow"><stop offset="0" stop-color="#FFC72C" stop-opacity=".5"/><stop offset=".35" stop-color="#FE5000" stop-opacity=".2"/><stop offset="1" stop-color="#FE5000" stop-opacity="0"/></radialGradient>
-              <radialGradient id="spDusk" cx="50%" cy="100%" r="100%"><stop offset="0" stop-color="#FE5000" stop-opacity=".55"/><stop offset="1" stop-color="#FE5000" stop-opacity="0"/></radialGradient>
-              <radialGradient id="spGround" cx="50%" cy="0%" r="100%"><stop offset="0" stop-color="#fff" stop-opacity=".07"/><stop offset=".7" stop-color="#fff" stop-opacity="0"/></radialGradient>
-              <linearGradient id="spFadeX" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000"/><stop offset=".16" stop-color="#fff"/><stop offset=".84" stop-color="#fff"/><stop offset="1" stop-color="#000"/></linearGradient>
-              <mask id="spFade" maskUnits="userSpaceOnUse" x="0" y="0" width="640" height="470"><rect width="640" height="470" fill="url(#spFadeX)"/></mask>
+              <radialGradient id="spSunFill" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#FFC36B"/><stop offset="1" stop-color="#F8632C"/></radialGradient>
+              <radialGradient id="spHalo"><stop offset="0" stop-color="#F8632C" stop-opacity=".22"/><stop offset="1" stop-color="#F8632C" stop-opacity="0"/></radialGradient>
+              <radialGradient id="spShadow"><stop offset="0" stop-color="#111113" stop-opacity=".2"/><stop offset="1" stop-color="#111113" stop-opacity="0"/></radialGradient>
             </defs>
-            <g mask="url(#spFade)">
-              <g class="sp-grid"><line x1="0" x2="640" y1="229" y2="229"/><line x1="0" x2="640" y1="178" y2="178"/><line x1="0" x2="640" y1="127" y2="127"/><line x1="0" x2="640" y1="76" y2="76"/></g>
-              <rect x="0" y="280" width="640" height="190" fill="url(#spGround)"/>
-              <g class="sp-ground">
-                <line x1="320" y1="280" x2="-420" y2="470"/><line x1="320" y1="280" x2="-140" y2="470"/><line x1="320" y1="280" x2="100" y2="470"/>
-                <line x1="320" y1="280" x2="320" y2="470"/><line x1="320" y1="280" x2="540" y2="470"/><line x1="320" y1="280" x2="780" y2="470"/><line x1="320" y1="280" x2="1060" y2="470"/>
-                <line x1="0" y1="318" x2="640" y2="318"/><line x1="0" y1="362" x2="640" y2="362"/><line x1="0" y1="420" x2="640" y2="420"/>
-              </g>
-              <line class="sp-horizon" x1="0" x2="640" y1="280" y2="280"/>
-            </g>
-            <g class="sp-grid"><text x="638" y="224">15°</text><text x="638" y="173">30°</text><text x="638" y="122">45°</text><text x="638" y="71">60°</text></g>
-            <ellipse id="spDusk" cx="320" cy="280" rx="230" ry="50" fill="url(#spDusk)" opacity="0"/>
-            <circle id="spSunGlow" cx="320" cy="120" r="120" fill="url(#spGlow)" opacity="0"/>
-            <path id="spTrack" class="sp-track"/>
-            <path id="spTrackPast" class="sp-track-past"/>
-            <g class="sp-compass"><text x="127" y="300">E</text><text x="224" y="300">SE</text><text x="320" y="300">S</text><text x="416" y="300">SW</text><text x="513" y="300">W</text></g>
-            <g id="spSun" opacity="0"><circle class="sp-sun-ring" r="18"/><circle class="sp-sun" r="10"/></g>
+            <ellipse id="spShade" cx="280" cy="366" rx="190" ry="16" fill="url(#spShadow)"/>
+            <line class="sp-horizon" x1="18" x2="542" y1="210" y2="210"/>
+            <path id="spArc" class="sp-arc"/>
+            <path id="spArcPast" class="sp-arc-past"/>
+            <text id="spRiseT" y="202" text-anchor="end"></text>
+            <text id="spSetT" y="202" text-anchor="start"></text>
+            <g id="spSun" opacity="0"><circle r="40" fill="url(#spHalo)"/><circle r="12.5" fill="url(#spSunFill)" stroke="#fff" stroke-width="3"/></g>
           </svg>
           <div class="sp-panel-wrap">
             <svg class="sp-panel" viewBox="0 0 448 228">
               <defs>
-                <linearGradient id="spCellFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1A2640"/><stop offset="1" stop-color="#0A101D"/></linearGradient>
+                <linearGradient id="spCellFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1B2742"/><stop offset="1" stop-color="#0B111E"/></linearGradient>
                 <pattern id="spCellsL" x="7" y="7" width="18.06" height="35.87" patternUnits="userSpaceOnUse">
                   <rect width="16.86" height="34.67" rx="1.2" fill="url(#spCellFill)"/>
-                  <path d="M0 5.8h16.86M0 11.6h16.86M0 17.3h16.86M0 23.1h16.86M0 28.9h16.86" stroke="#AAB9D2" stroke-opacity=".2" stroke-width=".45"/>
+                  <path d="M0 5.8h16.86M0 11.6h16.86M0 17.3h16.86M0 23.1h16.86M0 28.9h16.86" stroke="#B4C2D8" stroke-opacity=".26" stroke-width=".45"/>
                 </pattern>
                 <pattern id="spCellsR" x="225.52" y="7" width="18.06" height="35.87" patternUnits="userSpaceOnUse">
                   <rect width="16.86" height="34.67" rx="1.2" fill="url(#spCellFill)"/>
-                  <path d="M0 5.8h16.86M0 11.6h16.86M0 17.3h16.86M0 23.1h16.86M0 28.9h16.86" stroke="#AAB9D2" stroke-opacity=".2" stroke-width=".45"/>
+                  <path d="M0 5.8h16.86M0 11.6h16.86M0 17.3h16.86M0 23.1h16.86M0 28.9h16.86" stroke="#B4C2D8" stroke-opacity=".26" stroke-width=".45"/>
                 </pattern>
-                <radialGradient id="spEnergy" cx="50%" cy="42%" r="72%"><stop offset="0" stop-color="#FFD86B" stop-opacity=".9"/><stop offset=".4" stop-color="#FE5000" stop-opacity=".55"/><stop offset="1" stop-color="#FE5000" stop-opacity="0"/></radialGradient>
+                <linearGradient id="spGloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".1"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
                 <linearGradient id="spSheen" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="448" y2="228">
-                  <stop offset=".38" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".2"/><stop offset=".62" stop-color="#fff" stop-opacity="0"/>
+                  <stop offset=".36" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".26"/><stop offset=".64" stop-color="#fff" stop-opacity="0"/>
                 </linearGradient>
               </defs>
-              <rect width="448" height="228" rx="7" fill="#2B2F36"/>
-              <rect x="3" y="3" width="442" height="222" rx="5" fill="#14171C"/>
-              <rect x="6" y="6" width="436" height="216" rx="2" fill="#04060A"/>
+              <rect width="448" height="228" rx="6" fill="#24272D"/>
+              <rect x="3" y="3" width="442" height="222" rx="4" fill="#15171B"/>
+              <rect x="6" y="6" width="436" height="216" rx="2" fill="#05070B"/>
               <rect x="7" y="7" width="216.72" height="215.22" fill="url(#spCellsL)"/>
               <rect x="225.52" y="7" width="216.72" height="215.22" fill="url(#spCellsR)"/>
-              <rect id="spPanelGlow" x="6" y="6" width="436" height="216" fill="url(#spEnergy)" opacity="0" style="mix-blend-mode:screen"/>
+              <rect x="6" y="6" width="436" height="216" fill="url(#spGloss)"/>
               <rect id="spPanelSheen" x="6" y="6" width="436" height="216" fill="url(#spSheen)" opacity="0"/>
-              <path d="M8 1.6H440" stroke="#fff" stroke-opacity=".22"/>
+              <path d="M6 1.4H442" stroke="#fff" stroke-opacity=".35"/>
             </svg>
           </div>
         </div>
-        <div class="sp-read">
-          <p class="sp-eyebrow sp-mono"><span id="spDayName">Today</span> · Dublin · Clear sky</p>
-          <p class="sp-clock"><span id="spClock">12:00</span> Irish time</p>
-          <div class="sp-power"><b id="spWatts">0</b><span>W</span></div>
-          <p class="sp-power-l">from one 550&nbsp;W panel at this moment</p>
-          <div class="sp-meter" aria-hidden="true"><i id="spMeter"></i></div>
-          <dl class="sp-stats">
-            <div><dt class="sp-mono">Sun height</dt><dd id="spElev">0°</dd></div>
-            <div><dt class="sp-mono">Sunrise to sunset</dt><dd id="spDaylight">-</dd></div>
-            <div><dt class="sp-mono">So far today</dt><dd id="spSoFar">0 kWh</dd></div>
-            <div><dt class="sp-mono">The whole day</dt><dd id="spTotal">0 kWh</dd></div>
-          </dl>
-          <p class="sp-roof">On a typical 250&nbsp;kWp business roof, about 450 of these panels: <b id="spRoof">0 kW</b> right now.</p>
+        <p class="roofcap" id="spCap"></p>
+      </div>
+      <div class="sp-read">
+        <div class="est-lbl">Panel output at <span id="spClock">12:00</span></div>
+        <div class="est-num"><span id="spWatts">0</span><small>watts</small></div>
+        <div class="est-facts" id="spFacts"></div>
+        <div class="calc-tiles est-tiles">
+          <div class="calc-tile calc-tile-primary">
+            <div class="calc-tile-v" id="spTotal">0 kWh</div>
+            <div class="calc-tile-l">The whole day</div>
+          </div>
+          <div class="calc-tile">
+            <div class="calc-tile-v" id="spSoFar">0 kWh</div>
+            <div class="calc-tile-l">Made so far</div>
+          </div>
+          <div class="calc-tile">
+            <div class="calc-tile-v" id="spElev">0°</div>
+            <div class="calc-tile-l">Sun height</div>
+          </div>
         </div>
-      <div class="sp-timeline">
-        <div class="sp-curve">
-          <svg viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <linearGradient id="spAreaFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FE5000" stop-opacity=".6"/><stop offset="1" stop-color="#FE5000" stop-opacity="0"/></linearGradient>
-              <clipPath id="spPastClip"><rect id="spPastRect" x="-2" y="-10" width="0" height="120"/></clipPath>
-            </defs>
-            <path id="spAreaAll" fill="url(#spAreaFill)" opacity=".25"/>
-            <path id="spAreaPast" fill="url(#spAreaFill)" clip-path="url(#spPastClip)"/>
-            <path id="spLine" fill="none" stroke="#FE5000" stroke-width="2" vector-effect="non-scaling-stroke"/>
-            <line id="spNow" y1="0" y2="100" stroke="#fff" stroke-opacity=".55" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"/>
-            <line id="spCursor" y1="0" y2="100" stroke="#FFC72C" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
-          </svg>
-          <span class="sp-now-tag sp-mono" id="spNowTag" hidden>Now</span>
-        </div>
-        <label class="sr-only" for="spSlider">Time of day</label>
-        <input class="sp-slider" type="range" id="spSlider" min="240" max="1380" step="5" value="720">
-        <div class="sp-hours sp-mono" aria-hidden="true"><span style="left:15.79%">06:00</span><span style="left:31.58%">09:00</span><span style="left:47.37%">12:00</span><span style="left:63.16%">15:00</span><span style="left:78.95%">18:00</span><span style="left:94.74%">21:00</span></div>
-        <div class="sp-controls">
-          <div class="sp-days" role="group" aria-label="Which day">
+        <p class="sp-roof">A 250&nbsp;kWp business roof, about 450 of these panels, would be making <b id="spRoof">0 kW</b>.</p>
+      </div>
+      <div class="est-controls">
+        <div class="est-roof">
+          <span class="calc-label" id="spDayLbl">Day</span>
+          <div class="roof-seg" role="group" aria-labelledby="spDayLbl">
             <button type="button" data-day="today" aria-pressed="true">Today</button>
-            <button type="button" data-day="summer" aria-pressed="false">Longest day</button>
-            <button type="button" data-day="winter" aria-pressed="false">Shortest day</button>
+            <button type="button" data-day="summer" aria-pressed="false">Longest day <span class="u">· 21 June</span></button>
+            <button type="button" data-day="winter" aria-pressed="false">Shortest day <span class="u">· 21 December</span></button>
           </div>
           <button type="button" class="sp-play" id="spPlay"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 1.2v9.6L10.5 6z"/></svg><span>Play the day</span></button>
         </div>
+        <div class="sp-time">
+          <div class="calc-slider-head"><label class="calc-label" for="spSlider">Time of day</label><span class="calc-readout" id="spTime">12:00</span></div>
+          <div class="sp-curve" aria-hidden="true">
+            <svg viewBox="0 0 1000 100" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="spAreaFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F8632C" stop-opacity=".32"/><stop offset="1" stop-color="#F8632C" stop-opacity="0"/></linearGradient>
+                <clipPath id="spPastClip"><rect id="spPastRect" x="-2" y="-10" width="0" height="120"/></clipPath>
+              </defs>
+              <path id="spAreaAll" fill="url(#spAreaFill)" opacity=".35"/>
+              <path id="spAreaPast" fill="url(#spAreaFill)" clip-path="url(#spPastClip)"/>
+              <path id="spLine" fill="none" stroke="#F8632C" stroke-width="2" vector-effect="non-scaling-stroke"/>
+              <line id="spNow" y1="0" y2="100" stroke="#5C5D60" stroke-opacity=".5" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <span class="sp-now-tag" id="spNowTag" hidden>Now</span>
+          </div>
+          <input class="calc-slider" type="range" id="spSlider" min="240" max="1380" step="5" value="720">
+          <div class="sp-hours" aria-hidden="true"><span style="left:10.53%">06:00</span><span style="left:26.32%">09:00</span><span style="left:42.11%">12:00</span><span style="left:57.89%">15:00</span><span style="left:73.68%">18:00</span><span style="left:89.47%">21:00</span></div>
+        </div>
       </div>
-      </div>
-      <p class="sp-note">Modelled for a south-facing panel tilted at 30° in Dublin, under a clear sky. Cloud lowers these figures: across a typical Irish year a commercial roof makes about 950&nbsp;kWh per kWp, the figure our estimator and quotes use.</p>
+      <p class="est-note">Modelled for a south-facing panel tilted at 30° in Dublin, under a clear sky. Cloud lowers these figures: across a typical Irish year a commercial roof makes about 950&nbsp;kWh per kWp, the figure our estimator and quotes use.</p>
     </div>
   </div>
 </section>
@@ -2198,13 +2159,13 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
       <div class="agent" id="agent">
         <div class="agent__bar">
           <span class="agent__ava"><img class="avaimg" src="assets/aura-ai.svg" alt="" width="400" height="400"></span>
-          <span class="agent__id"><b>Aura AI</b><span><i></i> <span id="agentStatus">Ready</span></span></span>
+          <span class="agent__id"><b>Aura AI <span class="agent__tag">AI assistant</span></b><span><i></i> <span id="agentStatus">Ready</span></span></span>
           <button type="button" class="agent__reset" id="agentReset" hidden>New chat</button>
         </div>
         <div class="agent__stage" id="agentIntro">
           <div class="agent__orb"><img class="avaimg" src="assets/aura-ai.svg" alt="Aura AI assistant" width="400" height="400" loading="lazy"></div>
           <p class="agent__q">Ready to talk about your roof?</p>
-          <p class="agent__sub">Ask about the Solar PPA, savings, grants or how it all works.</p>
+          <p class="agent__sub">I'm an AI assistant. Ask about the Solar PPA, savings, grants or how it all works.</p>
           <button class="agent__start" type="button" id="agentStart">
             <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.2 3.6c-.5.4-1.3.1-1.3-.6V16H6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Start conversation
@@ -2259,6 +2220,14 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
             <svg viewBox="0 0 24 24"><use href="#i-linkedin"/></svg>
           </a>
           <a class="social-lbl" href="https://www.linkedin.com/company/aurenergy/" target="_blank" rel="noopener">Follow us on LinkedIn</a>
+        </div>
+        <!-- TODO: X profile address. Put it in both links below in place of "#", remove the two
+             aria-disabled attributes, and add it to "sameAs" in the structured data at the top. -->
+        <div class="social-row">
+          <a class="social" href="#" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" aria-disabled="true">
+            <svg class="social-x" viewBox="0 0 24 24"><use href="#i-x"/></svg>
+          </a>
+          <a class="social-lbl" href="#" target="_blank" rel="noopener" aria-disabled="true">Follow us on X</a>
         </div>
       </div>
       <div class="foot-col">
@@ -2761,8 +2730,9 @@ function sendEnquiry(form, onSent) {
   const pad = n => String(n).padStart(2, '0');
   const clock = m => { const r = Math.round(m); return pad(Math.floor(r / 60) % 24) + ':' + pad(r % 60); };
   const kwh = v => (v < 1 ? v.toFixed(2) : v.toFixed(1)) + ' kWh';
-  const X = az => 20 + (az - 40) * 600 / 280;    // compass bearing to sky x (NE to NW)
-  const Y = el => 280 - el * 3.4;                 // elevation to sky y (horizon at 280)
+  const along = t => (t - T0) / (T1 - T0);
+  const X = t => 30 + along(t) * 500;             // the sky shares the slider's time axis
+  const Y = el => 210 - el / 62 * 170;            // sun height above the horizon line
 
   // Irish summer time: last Sunday in March to last Sunday in October, changing at 01:00 UTC
   const lastSunday = (y, m) => { const d = new Date(Date.UTC(y, m + 1, 0)); return d.getUTCDate() - d.getUTCDay(); };
@@ -2819,12 +2789,13 @@ function sendEnquiry(form, onSent) {
       if (el > high) { high = el; day.noon = t; }
       prev = el;
     }
-    // the sun's path across the sky while it is up
+    // the sun's arc across the sky while it is up
     day.path = [];
     for (let t = day.rise; t <= day.set; t += STEP) {
-      const s = sunAt(day, t);
-      if (s.el >= 0) day.path.push([t, X(s.az), Y(s.el)]);
+      const el = Math.max(0, sunAt(day, t).el);
+      day.path.push([t, X(t), Y(el)]);
     }
+    day.path.push([day.set, X(day.set), Y(0)]);
     return day;
   }
 
@@ -2843,60 +2814,64 @@ function sendEnquiry(form, onSent) {
     key === 'summer' ? makeDay(now.y, 5, 21, 'Longest day') :
     key === 'winter' ? makeDay(now.y, 11, 21, 'Shortest day') : makeDay(now.y, now.m, now.d, 'Today'));
 
-  const sun = $('spSun'), glow = $('spSunGlow'), dusk = $('spDusk'), trackPast = $('spTrackPast');
-  const panelGlow = $('spPanelGlow'), sheen = $('spPanelSheen'), sheenGrad = $('spSheen');
-  const cursor = $('spCursor'), pastRect = $('spPastRect'), meter = $('spMeter');
-  const toX = t => (t - T0) / (T1 - T0) * 1000;
+  const sun = $('spSun'), arcPast = $('spArcPast'), shade = $('spShade');
+  const sheen = $('spPanelSheen'), sheenGrad = $('spSheen'), pastRect = $('spPastRect');
+  const pts = list => list.map(p => p[1].toFixed(1) + ' ' + p[2].toFixed(1)).join('L');
   let day = getDay('today'), current = T0;
 
   function showDay(key) {
     day = getDay(key);
-    const pts = day.path.map(p => p[1].toFixed(1) + ' ' + p[2].toFixed(1));
-    $('spTrack').setAttribute('d', pts.length ? 'M' + pts.join('L') : '');
-    const curve = day.watts.map((w, i) => (i * STEP / (T1 - T0) * 1000).toFixed(1) + ' ' + (100 - w / RATED * 92).toFixed(2));
+    $('spArc').setAttribute('d', 'M' + pts(day.path));
+    const first = Math.max(0, day.watts.findIndex(w => w > 0) - 1);
+    const last = Math.min(day.watts.length - 1, day.watts.length - day.watts.slice().reverse().findIndex(w => w > 0));
+    const curve = day.watts.slice(first, last + 1).map((w, i) => ((first + i) * STEP / (T1 - T0) * 1000).toFixed(1) + ' ' + (100 - w / RATED * 94).toFixed(2));
+    const area = 'M' + curve[0].split(' ')[0] + ' 100L' + curve.join('L') + 'L' + curve[curve.length - 1].split(' ')[0] + ' 100Z';
     $('spLine').setAttribute('d', 'M' + curve.join('L'));
-    $('spAreaAll').setAttribute('d', 'M0 100L' + curve.join('L') + 'L1000 100Z');
-    $('spAreaPast').setAttribute('d', 'M0 100L' + curve.join('L') + 'L1000 100Z');
-    $('spDayName').textContent = day.name + ', ' + day.label;
-    $('spDaylight').textContent = clock(day.rise) + ' to ' + clock(day.set);
+    $('spAreaAll').setAttribute('d', area);
+    $('spAreaPast').setAttribute('d', area);
+    $('spRiseT').setAttribute('x', (X(day.rise) - 10).toFixed(1));
+    $('spRiseT').textContent = clock(day.rise);
+    $('spSetT').setAttribute('x', (X(day.set) + 10).toFixed(1));
+    $('spSetT').textContent = clock(day.set);
+    $('spFacts').textContent = 'One 550 W panel · ' + day.name + ', ' + day.label + ' · Dublin, clear sky';
+    $('spCap').textContent = 'Sunrise ' + clock(day.rise) + ' · sunset ' + clock(day.set) + ' · Irish time';
     $('spTotal').textContent = kwh(day.total);
     const showNow = key === 'today' && now.t >= T0 && now.t <= T1;
-    $('spNow').setAttribute('x1', toX(now.t)); $('spNow').setAttribute('x2', toX(now.t));
+    $('spNow').setAttribute('x1', along(now.t) * 1000); $('spNow').setAttribute('x2', along(now.t) * 1000);
     $('spNow').style.display = showNow ? '' : 'none';
     $('spNowTag').hidden = !showNow;
-    $('spNowTag').style.left = 'calc(13px + (100% - 26px) * ' + ((now.t - T0) / (T1 - T0)).toFixed(4) + ')';
-    document.querySelectorAll('.sp-days button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.day === key)));
+    $('spNowTag').style.left = 'calc(13px + (100% - 26px) * ' + along(now.t).toFixed(4) + ')';
+    document.querySelectorAll('#panel .roof-seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.day === key)));
     draw(current);
   }
 
   function draw(t) {
     current = Math.max(T0, Math.min(T1, t));
-    const s = sunAt(day, current), w = wattsAt(s), share = w / RATED, up = s.el > 0;
-    // sky
-    sun.setAttribute('transform', 'translate(' + X(s.az).toFixed(1) + ' ' + Y(Math.max(s.el, -3)).toFixed(1) + ')');
+    const s = sunAt(day, current), w = wattsAt(s), up = s.el > 0, share = w / RATED;
+    // sky: the sun on its arc, the arc it has travelled, the panel's soft shadow drifting away from it
+    sun.setAttribute('transform', 'translate(' + X(current).toFixed(1) + ' ' + Y(Math.max(s.el, 0)).toFixed(1) + ')');
     sun.setAttribute('opacity', up ? 1 : 0);
-    glow.setAttribute('cx', X(s.az).toFixed(1)); glow.setAttribute('cy', Y(Math.max(s.el, 0)).toFixed(1));
-    glow.setAttribute('opacity', up ? Math.min(1, 0.35 + s.el / 40).toFixed(2) : 0);
-    dusk.setAttribute('cx', X(s.az).toFixed(1));
-    dusk.setAttribute('opacity', Math.max(0, 1 - Math.abs(s.el) / 8).toFixed(2));
-    const past = day.path.filter(p => p[0] <= current).map(p => p[1].toFixed(1) + ' ' + p[2].toFixed(1));
-    if (up && past.length) past.push(X(s.az).toFixed(1) + ' ' + Y(s.el).toFixed(1));
-    trackPast.setAttribute('d', past.length > 1 ? 'M' + past.join('L') : '');
-    // panel: glows with output, and the light sweeps across the glass with the sun
-    panelGlow.setAttribute('opacity', (share * 0.6).toFixed(3));
-    sheen.setAttribute('opacity', up ? (0.35 + share * 0.65).toFixed(2) : 0);
-    sheenGrad.setAttribute('gradientTransform', 'translate(' + ((s.az - 180) / 140 * 300).toFixed(1) + ' 0)');
-    // readout
+    const past = day.path.filter(p => p[0] <= current);
+    if (up && past.length) past.push([current, X(current), Y(s.el)]);
+    arcPast.setAttribute('d', past.length > 1 ? 'M' + pts(past) : '');
+    shade.setAttribute('cx', (280 - (X(current) - 280) * 0.14).toFixed(1));
+    shade.setAttribute('opacity', up ? (0.45 + share * 0.55).toFixed(2) : 0.35);
+    // glass: the light sweeps across with the sun and brightens with output
+    sheen.setAttribute('opacity', up ? (0.3 + share * 0.7).toFixed(2) : 0);
+    sheenGrad.setAttribute('gradientTransform', 'translate(' + ((X(current) - 280) / 250 * 320).toFixed(1) + ' 0)');
+    // numbers
     const i = Math.round((current - T0) / STEP);
     $('spClock').textContent = clock(current);
+    $('spTime').textContent = clock(current);
     $('spWatts').textContent = Math.round(w);
-    meter.style.transform = 'scaleX(' + share.toFixed(3) + ')';
-    $('spElev').textContent = up ? Math.round(s.el) + '°' : 'Below the horizon';
+    $('spElev').textContent = up ? Math.round(s.el) + '°' : 'Set';
     $('spSoFar').textContent = kwh(day.energy[Math.min(i, day.energy.length - 1)]);
-    $('spRoof').textContent = Math.round(w * ROOF_PANELS / 1000) + ' kW';
-    cursor.setAttribute('x1', toX(current)); cursor.setAttribute('x2', toX(current));
-    pastRect.setAttribute('width', toX(current) + 2);
+    $('spRoof').textContent = Math.round(w * ROOF_PANELS / 1000) + '\u00a0kW';
+    // chart and slider
+    pastRect.setAttribute('width', (along(current) * 1000 + 2).toFixed(1));
     slider.value = Math.round(current / STEP) * STEP;
+    const p = (along(current) * 100).toFixed(2);
+    slider.style.background = 'linear-gradient(to right, var(--orange) 0%, var(--orange) ' + p + '%, var(--orange-mist) ' + p + '%, var(--orange-mist) 100%)';
     slider.setAttribute('aria-valuetext', clock(current) + ', ' + Math.round(w) + ' watts');
   }
 
@@ -2923,12 +2898,19 @@ function sendEnquiry(form, onSent) {
   playBtn.addEventListener('click', () => {
     if (anim) return stop();
     const from = Math.max(T0, day.rise - 20), to = Math.min(T1, day.set + 20);
-    const start = current >= to - STEP || current < from ? from : current;
+    const start = current < from || to - current < (to - from) / 4 ? from : current;   // near the end, replay from sunrise
     playBtn.querySelector('span').textContent = 'Pause';
     sweep(start, to, 9000 * (to - start) / (to - from), stop);
   });
   slider.addEventListener('input', () => { stop(); draw(+slider.value); });
-  document.querySelectorAll('.sp-days button').forEach(b => b.addEventListener('click', () => { stop(); showDay(b.dataset.day); }));
+  const scrub = (el, toShare) => {
+    const at = e => { const r = el.getBoundingClientRect(); draw(T0 + Math.max(0, Math.min(1, toShare(e.clientX - r.left, r.width))) * (T1 - T0)); };
+    el.addEventListener('pointerdown', e => { stop(); el.setPointerCapture(e.pointerId); at(e); });
+    el.addEventListener('pointermove', e => { if (el.hasPointerCapture(e.pointerId)) at(e); });
+  };
+  scrub(document.querySelector('#panel .sp-view'), (x, width) => (x / width * 560 - 30) / 500);
+  scrub(document.querySelector('#panel .sp-curve'), (x, width) => (x - 13) / (width - 26));
+  document.querySelectorAll('#panel .roof-seg button').forEach(b => b.addEventListener('click', () => { stop(); showDay(b.dataset.day); }));
 
   // start at the time in Dublin now if the sun is up, otherwise at midday
   const startAt = now.t >= T0 && now.t <= T1 && sunAt(day, now.t).el > 0 ? now.t : day.noon;
@@ -2981,7 +2963,7 @@ const auraChat = (() => {
         input = $('agentInput'), send = $('agentSend'), mic = $('agentMic'), chips = $('agentChips'),
         status = $('agentStatus'), reset = $('agentReset');
   if (!chat) return null;
-  const GREETING = "Hi, I'm Aura AI. Ask me anything about solar for your business: how the Solar PPA works, what you could save, grants, or how long it takes.";
+  const GREETING = "Hi, I'm Aura AI, Aura Energy's AI assistant. Ask me anything about solar for your business: how the Solar PPA works, what you could save, grants, or how long it takes.";
   const QUOTE = '<a href="#quote">get a free quote</a>';
   const CALL = 'the <a href="tel:+353833945937">Call now</a> button';
   const FALLBACK = {

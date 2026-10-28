@@ -438,6 +438,10 @@ footer :focus-visible { outline-color: #fff; }
 .qform .btn { width: 100%; margin-top: 6px; }
 .form-note { text-align: center; font-size: 12.5px; color: var(--muted); margin-top: 16px; }
 .form-note a { color: var(--orange-text); font-weight: 700; }
+.form-error { margin-top: 14px; font-size: 14.5px; font-weight: 600; color: #B42318; }
+.form-error a { color: inherit; text-decoration: underline; }
+.est-capture .form-error { flex-basis: 100%; margin-top: 0; }
+.form-success h3:focus, .est-sent:focus { outline: none; }
 .form-success { display: flex; gap: 14px; align-items: flex-start; background: #E9F8F1; border: 1px solid #BFE8D6; border-radius: var(--radius-sm); padding: 24px 26px; }
 .form-success svg { width: 26px; height: 26px; color: var(--green); flex: none; margin-top: 2px; }
 .form-success h3 { font-size: 1.1rem; margin-bottom: 6px; }
@@ -484,7 +488,8 @@ footer::before {
 }
 .social:hover { background: var(--orange); border-color: var(--orange); transform: translateY(-2px); }
 .social svg { width: 18px; height: 18px; fill: #fff; stroke: none; }
-.social-lbl { font-size: 13px; color: rgba(255,255,255,.55); font-weight: 600; }
+.social-lbl { font-size: 13px; color: rgba(255,255,255,.55); font-weight: 600; transition: color .2s; }
+.social-lbl:hover { color: #fff; }
 .foot-bottom { border-top: 1px solid rgba(255,255,255,.12); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 13px; color: rgba(255,255,255,.55); }
 .foot-badges { display: flex; gap: 10px; flex-wrap: wrap; }
 .foot-badge {
@@ -693,34 +698,92 @@ footer::before {
 .est-sent { display: flex; gap: 10px; align-items: center; color: var(--green); font-weight: 700; font-size: 15px; }
 .est-sent svg { width: 22px; height: 22px; flex: none; }
 
-/* ============================================================ INVESTORS */
-.inv-sec { background: linear-gradient(140deg, #131316 0%, #26262B 100%); color: #fff; position: relative; overflow: hidden; }
-.inv-sec::after { content: ""; position: absolute; right: -160px; top: -160px; width: 420px; height: 420px; border-radius: 50%; background: rgba(248,99,44,.16); filter: blur(10px); pointer-events: none; }
-.inv-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 64px; align-items: start; position: relative; z-index: 1; }
-.inv-sec .kicker { color: #FFA477; }
-.inv-sec .kicker::before { background: #FFA477; }
-.inv-sec h2 { color: #fff; margin-bottom: 16px; }
-.inv-sec .lead { color: rgba(255,255,255,.76); }
-.inv-points { list-style: none; display: grid; gap: 22px; margin-top: 36px; }
-.inv-points li { display: flex; gap: 16px; }
-.inv-points .icon-tile { flex: none; width: 46px; height: 46px; border-radius: 14px; }
-.inv-points .icon-tile svg { width: 22px; height: 22px; }
-.inv-points h3 { color: #fff; font-size: 1.04rem; margin-bottom: 4px; }
-.inv-points p { color: rgba(255,255,255,.7); font-size: 14.5px; }
-.inv-form { background: #fff; color: var(--ink); border-radius: 26px; padding: 36px; box-shadow: 0 24px 70px rgba(0,0,0,.35); }
-.inv-form h3 { font-size: 1.3rem; margin-bottom: 6px; }
-.inv-form-intro { font-size: 14.5px; margin-bottom: 22px; }
-.inv-form .btn { width: 100%; margin-top: 4px; }
-.inv-legal { font-size: 11.5px; line-height: 1.55; margin-top: 16px; color: var(--muted); }
-.inv-form :focus-visible { outline-color: var(--orange); }
-.inv-sent { display: flex; gap: 12px; align-items: flex-start; }
-.inv-sent svg { width: 26px; height: 26px; color: var(--green); flex: none; margin-top: 2px; }
-@media (max-width: 1024px) { .inv-grid { grid-template-columns: 1fr; gap: 40px; } }
-@media (max-width: 720px) { .inv-form { padding: 28px 20px; } }
+/* ============================================================ ONE PANEL, ONE DAY (interactive) */
+.sp-sec { background: #0E0E0F; color: #fff; position: relative; overflow: hidden; }
+.sp-sec::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 35%, #000 25%, transparent 72%); mask-image: radial-gradient(ellipse at 50% 35%, #000 25%, transparent 72%);
+}
+.sp-sec .container { position: relative; }
+.sp-sec .kicker { color: #FFA477; }
+.sp-sec .kicker::before { background: #FE5000; }
+.sp-sec h2 { color: #fff; }
+.sp-sec .lead { color: rgba(255,255,255,.7); }
+.sp-sec :focus-visible { outline-color: #fff; }
+.sp-card { border: 1px solid rgba(255,255,255,.1); border-radius: 26px; padding: clamp(18px, 3vw, 34px); background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.012)); }
+.sp-main { display: grid; grid-template-columns: 1.5fr 1fr; grid-template-areas: "scene read" "time time"; column-gap: clamp(22px, 3.4vw, 48px); align-items: center; }
+.sp-scene { grid-area: scene; }
+.sp-read { grid-area: read; }
+.sp-timeline { grid-area: time; }
+.sp-scene { position: relative; aspect-ratio: 640 / 470; min-width: 0; }
+.sp-sky { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.sp-mono, .sp-sky text { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.sp-sky text { fill: rgba(255,255,255,.4); font-size: 11px; font-weight: 600; letter-spacing: .08em; }
+.sp-grid line { stroke: rgba(255,255,255,.09); stroke-dasharray: 2 6; }
+.sp-grid text { text-anchor: end; }
+.sp-compass text { text-anchor: middle; }
+.sp-horizon { stroke: rgba(255,255,255,.3); }
+.sp-ground line { stroke: rgba(255,255,255,.055); }
+.sp-track { fill: none; stroke: rgba(255,255,255,.3); stroke-width: 1.5; stroke-dasharray: 3 6; }
+.sp-track-past { fill: none; stroke: #FE5000; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.sp-sun { fill: #FFC72C; }
+.sp-sun-ring { fill: none; stroke: rgba(255,199,44,.4); stroke-width: 2; }
+.sp-panel-wrap { position: absolute; left: 50%; bottom: 1%; width: 62%; transform: translateX(-50%); perspective: 760px; }
+.sp-panel { width: 100%; height: auto; transform: rotateX(55deg); transform-origin: 50% 100%; filter: drop-shadow(0 28px 22px rgba(0,0,0,.65)); }
+.sp-eyebrow { font-size: 11.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+.sp-clock { font-size: 15px; color: rgba(255,255,255,.75); margin-top: 6px; font-variant-numeric: tabular-nums; }
+.sp-power { display: flex; align-items: baseline; gap: 8px; margin-top: 10px; }
+.sp-power b { font-size: clamp(58px, 7vw, 92px); line-height: .95; font-weight: 800; letter-spacing: -.04em; color: #FFC72C; font-variant-numeric: tabular-nums; }
+.sp-power span { font-size: 22px; font-weight: 700; color: rgba(255,255,255,.7); }
+.sp-power-l { color: rgba(255,255,255,.6); font-size: 14px; margin-top: 6px; }
+.sp-meter { height: 4px; border-radius: 4px; background: rgba(255,255,255,.1); margin: 18px 0 22px; overflow: hidden; }
+.sp-meter i { display: block; height: 100%; background: linear-gradient(90deg, #FE5000, #FFC72C); transform-origin: 0 50%; transform: scaleX(0); }
+.sp-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 20px; }
+.sp-stats dt { font-size: 10.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.45); }
+.sp-stats dd { font-size: 17px; font-weight: 700; color: #fff; margin-top: 3px; font-variant-numeric: tabular-nums; }
+.sp-roof { margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.1); font-size: 14px; color: rgba(255,255,255,.65); }
+.sp-roof b { color: #fff; font-variant-numeric: tabular-nums; }
+.sp-timeline { margin-top: clamp(20px, 3vw, 30px); }
+.sp-curve { position: relative; height: 86px; padding: 0 13px; }
+.sp-curve svg { width: 100%; height: 100%; overflow: visible; }
+.sp-now-tag { position: absolute; top: -8px; transform: translateX(-50%); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #0E0E0F; background: rgba(255,255,255,.88); padding: 3px 6px; border-radius: 4px; line-height: 1; }
+.sp-slider { -webkit-appearance: none; appearance: none; display: block; width: 100%; height: 26px; margin: -13px 0 0; background: transparent; cursor: pointer; position: relative; }
+.sp-slider::-webkit-slider-runnable-track { height: 3px; border-radius: 3px; background: rgba(255,255,255,.16); }
+.sp-slider::-moz-range-track { height: 3px; border-radius: 3px; background: rgba(255,255,255,.16); }
+.sp-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 26px; height: 26px; margin-top: -11.5px; border-radius: 50%;
+  background: #FFC72C; border: 5px solid #0E0E0F; box-shadow: 0 0 0 2px #FFC72C, 0 0 26px rgba(255,199,44,.55);
+}
+.sp-slider::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: #FFC72C; border: 5px solid #0E0E0F; box-shadow: 0 0 0 2px #FFC72C, 0 0 26px rgba(255,199,44,.55); }
+.sp-slider:focus { outline: none; }
+.sp-slider:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 2px #FFC72C, 0 0 0 7px rgba(255,255,255,.4); }
+.sp-slider:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 2px #FFC72C, 0 0 0 7px rgba(255,255,255,.4); }
+.sp-hours { position: relative; height: 16px; margin: 6px 13px 0; font-size: 10.5px; font-weight: 600; color: rgba(255,255,255,.42); }
+.sp-hours span { position: absolute; top: 0; transform: translateX(-50%); }
+.sp-controls { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 18px; }
+.sp-days { display: flex; gap: 8px; flex-wrap: wrap; }
+.sp-days button, .sp-play {
+  background: transparent; border: 1px solid rgba(255,255,255,.22); color: rgba(255,255,255,.85);
+  border-radius: 999px; padding: 8px 16px; font-size: 13.5px; font-weight: 700; transition: background .2s, border-color .2s, color .2s;
+}
+.sp-days button:hover { border-color: rgba(255,255,255,.55); color: #fff; }
+.sp-days button[aria-pressed="true"] { background: #fff; border-color: #fff; color: #0E0E0F; }
+.sp-play { display: inline-flex; align-items: center; gap: 8px; background: #FE5000; border-color: #FE5000; color: #0E0E0F; }
+.sp-play:hover { background: #FF6B2A; border-color: #FF6B2A; }
+.sp-play svg { width: 13px; height: 13px; fill: currentColor; }
+.sp-note { margin-top: 18px; font-size: 12.5px; line-height: 1.6; color: rgba(255,255,255,.45); max-width: 780px; }
+@media (max-width: 900px) {
+  .sp-main { grid-template-columns: 1fr; grid-template-areas: "scene" "time" "read"; }
+  .sp-timeline { margin: 6px 0 28px; }
+}
+@media (max-width: 520px) { .sp-stats dd { font-size: 15.5px; } .sp-days button, .sp-play { padding: 8px 13px; font-size: 13px; } }
 
 /* ============================================================ AURA MARK */
-.logo-glyph { width: 26px; height: 26px; flex: none; }
-.logo-word { font-weight: 700; font-size: 19px; letter-spacing: .26em; text-transform: uppercase; padding-left: 2px; }
+.logo { color: var(--ink); }
+.logo-mark { display: block; width: 135px; height: 21px; flex: none; }
+.foot-grid .logo-mark { width: 154px; height: 24px; }
 
 /* ============================================================ AURA AI AGENT */
 .agent-sec { background: var(--white); }
@@ -789,19 +852,20 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
 /* floating launcher */
 .launcher {
   position: fixed; right: 20px; bottom: 20px; z-index: 99; display: flex; align-items: center; gap: 10px;
-  background: var(--orange); color: #fff; border: 0; border-radius: 999px;
-  padding: 9px 18px 9px 9px; box-shadow: 0 8px 26px rgba(0,0,0,.24);
+  background: #0E0E0F; color: #fff; border: 1px solid rgba(255,255,255,.16); border-radius: 999px;
+  padding: 7px 18px 7px 7px; box-shadow: 0 8px 26px rgba(0,0,0,.28);
   transition: transform .18s ease, box-shadow .18s ease, bottom .3s var(--ease), opacity .25s ease, visibility .25s;
 }
 .launcher.is-hidden { opacity: 0; visibility: hidden; transform: translateY(12px); }
-.launcher__ava { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; flex: none; }
+.launcher__ava { width: 40px; height: 40px; border-radius: 50%; flex: none; display: grid; place-items: center; background: #1E1E20; box-shadow: inset 0 0 0 1px rgba(254,80,0,.35); }
+.launcher__ava svg { width: 23px; height: 16px; }
 .launcher__txt { text-align: left; line-height: 1.15; }
-.launcher__txt small { display: block; font-size: 11px; opacity: .8; }
+.launcher__txt small { display: block; font-size: 11px; color: rgba(255,255,255,.72); }
 .launcher__txt b { display: block; font-weight: 700; font-size: 14.5px; }
 .launcher:hover { transform: translateY(-2px); box-shadow: 0 12px 34px rgba(0,0,0,.3); }
 @media (max-width: 720px) {
   .launcher__txt { display: none; }
-  .launcher { padding: 7px; border-radius: 50%; right: 16px; bottom: calc(86px + env(safe-area-inset-bottom)); }
+  .launcher { padding: 6px; border-radius: 50%; right: 16px; bottom: calc(86px + env(safe-area-inset-bottom)); }
   .launcher.low { bottom: calc(16px + env(safe-area-inset-bottom)); }
 }
 
@@ -897,6 +961,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
         "height": 600
       },
       "image": "https://auraenergy.ie/assets/seam-roof.jpg",
+      "sameAs": ["https://www.linkedin.com/company/aurenergy/"],
       "description": "Aura Energy funds, installs and operates commercial rooftop solar for Irish businesses under a Solar PPA, and designs and builds systems for businesses that prefer to buy outright."
     },
     {
@@ -1139,6 +1204,18 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
     <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3.2 2"/></symbol>
     <!-- camera placeholder -->
     <symbol id="i-photo" viewBox="0 0 24 24"><rect x="3" y="6.5" width="18" height="13" rx="2.5"/><path d="M8 6.5l1.4-2h5.2L16 6.5"/><circle cx="12" cy="12.8" r="3.4"/></symbol>
+    <!-- Aura Energy logo, small cut, from the brand guide: stripes in Aura Orange, AURA drawn in currentColor.
+         Drawn shapes, never typed. Use the lined-A cut only where the letters are 48px tall or more. -->
+    <symbol id="aura-logo" viewBox="-4 -1 662 103">
+      <path fill="#FE5000" d="M0 100 L44.44 0 L61.11 0 L16.67 100 Z M38.89 100 L83.33 0 L100 0 L55.56 100 Z M77.78 100 L122.22 0 L138.89 0 L94.45 100 Z"/>
+      <g transform="translate(186.89 0)" fill="currentColor">
+        <path fill-rule="evenodd" d="M0 100 L44.44 0 L62.44 0 L106.89 100 L83.89 100 L74.56 79 L32.33 79 L23 100 Z M39.44 63 L53.44 31.5 L67.44 63 Z M130.89 0 L150.89 0 L150.89 59 A22 22 0 0 0 194.89 59 L194.89 0 L214.89 0 L214.89 59 A42 42 0 0 1 130.89 59 Z M363.89 100 L408.33 0 L426.33 0 L470.78 100 L447.78 100 L438.45 79 L396.22 79 L386.89 100 Z M403.33 63 L417.33 31.5 L431.33 63 Z"/>
+        <path d="M250.89 0 L270.89 0 L270.89 100 L250.89 100 Z M281.33 50 L304.33 50 L326.56 100 L303.56 100 Z"/>
+        <path fill-rule="evenodd" d="M260.89 0 L306.89 0 A29 29 0 0 1 306.89 58 L260.89 58 Z M270.89 18 L306.89 18 A11 11 0 0 1 306.89 40 L270.89 40 Z"/>
+      </g>
+    </symbol>
+    <!-- Aura icon, heavy cut (the brand's app icon stripes, for small sizes) -->
+    <symbol id="aura-stripes" viewBox="0 0 148 100"><path fill="#FE5000" d="M0 100 L44.44 0 L68 0 L23.56 100 Z M40 100 L84.44 0 L108 0 L63.56 100 Z M80 100 L124.44 0 L148 0 L103.56 100 Z"/></symbol>
     <!-- linkedin (filled) -->
     <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M4.98 3.5a2.49 2.49 0 11-.02 4.98 2.49 2.49 0 01.02-4.98zM3 9h4v12H3zM9.5 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.9 2.6 4.9 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.2 1.4-2.2 2.9V21h-4z"/></symbol>
   </defs>
@@ -1147,14 +1224,13 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
 <!-- ============================================================ NAV -->
 <header class="nav" id="nav">
   <div class="container nav-inner">
-    <a href="#top" class="logo" aria-label="Aura Energy home"><svg class="logo-glyph" viewBox="0 0 32 32" aria-hidden="true"><g fill="#F8632C"><path d="M4 24 12 6h3l-8 18z"/><path d="M11 24 19 6h3l-8 18z"/><path d="M18 24 26 6h3l-8 18z"/></g></svg><span class="logo-word">Aura</span></a>
+    <a href="#top" class="logo" aria-label="Aura Energy home"><svg class="logo-mark" viewBox="0 0 662 103" aria-hidden="true"><use href="#aura-logo"/></svg></a>
     <nav class="nav-links" aria-label="Main">
       <a href="#models">Solar PPA</a>
       <a href="#how">How it works</a>
       <a href="#calculator">Estimator</a>
       <a href="#projects">Projects</a>
       <a href="#faq">FAQ</a>
-      <a href="#investors">Investors</a>
       <a href="tel:+353833945937" class="nav-phone" title="+353 83 394 5937"><svg class="ic"><use href="#i-phone"/></svg>Call now</a>
       <a href="#quote" class="btn btn-primary">Get a quote</a>
     </nav>
@@ -1173,7 +1249,6 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
   <a href="#projects">Projects</a>
   <a href="#why">Why solar</a>
   <a href="#faq">FAQ</a>
-  <a href="#investors">Investors</a>
   <a href="tel:+353833945937">Call now</a>
   <a href="#quote" class="btn btn-primary">Get a quote</a>
 </div>
@@ -1365,6 +1440,118 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
   </div>
 </section>
 
+<!-- ============================================================ ONE PANEL, ONE DAY (interactive, model in the script below) -->
+<section class="section sp-sec" id="panel">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="kicker">Solar, hour by hour</div>
+      <h2>Watch one panel work through an Irish day</h2>
+      <p class="lead">Drag the sun across the sky to see what a single 550&nbsp;W panel on a Dublin roof makes, hour by hour, and how much the season changes it.</p>
+    </div>
+    <div class="sp-card reveal">
+      <div class="sp-main">
+        <div class="sp-scene" aria-hidden="true">
+          <svg class="sp-sky" viewBox="0 0 640 470">
+            <defs>
+              <radialGradient id="spGlow"><stop offset="0" stop-color="#FFC72C" stop-opacity=".5"/><stop offset=".35" stop-color="#FE5000" stop-opacity=".2"/><stop offset="1" stop-color="#FE5000" stop-opacity="0"/></radialGradient>
+              <radialGradient id="spDusk" cx="50%" cy="100%" r="100%"><stop offset="0" stop-color="#FE5000" stop-opacity=".55"/><stop offset="1" stop-color="#FE5000" stop-opacity="0"/></radialGradient>
+              <radialGradient id="spGround" cx="50%" cy="0%" r="100%"><stop offset="0" stop-color="#fff" stop-opacity=".07"/><stop offset=".7" stop-color="#fff" stop-opacity="0"/></radialGradient>
+              <linearGradient id="spFadeX" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000"/><stop offset=".16" stop-color="#fff"/><stop offset=".84" stop-color="#fff"/><stop offset="1" stop-color="#000"/></linearGradient>
+              <mask id="spFade" maskUnits="userSpaceOnUse" x="0" y="0" width="640" height="470"><rect width="640" height="470" fill="url(#spFadeX)"/></mask>
+            </defs>
+            <g mask="url(#spFade)">
+              <g class="sp-grid"><line x1="0" x2="640" y1="229" y2="229"/><line x1="0" x2="640" y1="178" y2="178"/><line x1="0" x2="640" y1="127" y2="127"/><line x1="0" x2="640" y1="76" y2="76"/></g>
+              <rect x="0" y="280" width="640" height="190" fill="url(#spGround)"/>
+              <g class="sp-ground">
+                <line x1="320" y1="280" x2="-420" y2="470"/><line x1="320" y1="280" x2="-140" y2="470"/><line x1="320" y1="280" x2="100" y2="470"/>
+                <line x1="320" y1="280" x2="320" y2="470"/><line x1="320" y1="280" x2="540" y2="470"/><line x1="320" y1="280" x2="780" y2="470"/><line x1="320" y1="280" x2="1060" y2="470"/>
+                <line x1="0" y1="318" x2="640" y2="318"/><line x1="0" y1="362" x2="640" y2="362"/><line x1="0" y1="420" x2="640" y2="420"/>
+              </g>
+              <line class="sp-horizon" x1="0" x2="640" y1="280" y2="280"/>
+            </g>
+            <g class="sp-grid"><text x="638" y="224">15°</text><text x="638" y="173">30°</text><text x="638" y="122">45°</text><text x="638" y="71">60°</text></g>
+            <ellipse id="spDusk" cx="320" cy="280" rx="230" ry="50" fill="url(#spDusk)" opacity="0"/>
+            <circle id="spSunGlow" cx="320" cy="120" r="120" fill="url(#spGlow)" opacity="0"/>
+            <path id="spTrack" class="sp-track"/>
+            <path id="spTrackPast" class="sp-track-past"/>
+            <g class="sp-compass"><text x="127" y="300">E</text><text x="224" y="300">SE</text><text x="320" y="300">S</text><text x="416" y="300">SW</text><text x="513" y="300">W</text></g>
+            <g id="spSun" opacity="0"><circle class="sp-sun-ring" r="18"/><circle class="sp-sun" r="10"/></g>
+          </svg>
+          <div class="sp-panel-wrap">
+            <svg class="sp-panel" viewBox="0 0 448 228">
+              <defs>
+                <linearGradient id="spCellFill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1A2640"/><stop offset="1" stop-color="#0A101D"/></linearGradient>
+                <pattern id="spCellsL" x="7" y="7" width="18.06" height="35.87" patternUnits="userSpaceOnUse">
+                  <rect width="16.86" height="34.67" rx="1.2" fill="url(#spCellFill)"/>
+                  <path d="M0 5.8h16.86M0 11.6h16.86M0 17.3h16.86M0 23.1h16.86M0 28.9h16.86" stroke="#AAB9D2" stroke-opacity=".2" stroke-width=".45"/>
+                </pattern>
+                <pattern id="spCellsR" x="225.52" y="7" width="18.06" height="35.87" patternUnits="userSpaceOnUse">
+                  <rect width="16.86" height="34.67" rx="1.2" fill="url(#spCellFill)"/>
+                  <path d="M0 5.8h16.86M0 11.6h16.86M0 17.3h16.86M0 23.1h16.86M0 28.9h16.86" stroke="#AAB9D2" stroke-opacity=".2" stroke-width=".45"/>
+                </pattern>
+                <radialGradient id="spEnergy" cx="50%" cy="42%" r="72%"><stop offset="0" stop-color="#FFD86B" stop-opacity=".9"/><stop offset=".4" stop-color="#FE5000" stop-opacity=".55"/><stop offset="1" stop-color="#FE5000" stop-opacity="0"/></radialGradient>
+                <linearGradient id="spSheen" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="448" y2="228">
+                  <stop offset=".38" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".2"/><stop offset=".62" stop-color="#fff" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <rect width="448" height="228" rx="7" fill="#2B2F36"/>
+              <rect x="3" y="3" width="442" height="222" rx="5" fill="#14171C"/>
+              <rect x="6" y="6" width="436" height="216" rx="2" fill="#04060A"/>
+              <rect x="7" y="7" width="216.72" height="215.22" fill="url(#spCellsL)"/>
+              <rect x="225.52" y="7" width="216.72" height="215.22" fill="url(#spCellsR)"/>
+              <rect id="spPanelGlow" x="6" y="6" width="436" height="216" fill="url(#spEnergy)" opacity="0" style="mix-blend-mode:screen"/>
+              <rect id="spPanelSheen" x="6" y="6" width="436" height="216" fill="url(#spSheen)" opacity="0"/>
+              <path d="M8 1.6H440" stroke="#fff" stroke-opacity=".22"/>
+            </svg>
+          </div>
+        </div>
+        <div class="sp-read">
+          <p class="sp-eyebrow sp-mono"><span id="spDayName">Today</span> · Dublin · Clear sky</p>
+          <p class="sp-clock"><span id="spClock">12:00</span> Irish time</p>
+          <div class="sp-power"><b id="spWatts">0</b><span>W</span></div>
+          <p class="sp-power-l">from one 550&nbsp;W panel at this moment</p>
+          <div class="sp-meter" aria-hidden="true"><i id="spMeter"></i></div>
+          <dl class="sp-stats">
+            <div><dt class="sp-mono">Sun height</dt><dd id="spElev">0°</dd></div>
+            <div><dt class="sp-mono">Sunrise to sunset</dt><dd id="spDaylight">-</dd></div>
+            <div><dt class="sp-mono">So far today</dt><dd id="spSoFar">0 kWh</dd></div>
+            <div><dt class="sp-mono">The whole day</dt><dd id="spTotal">0 kWh</dd></div>
+          </dl>
+          <p class="sp-roof">On a typical 250&nbsp;kWp business roof, about 450 of these panels: <b id="spRoof">0 kW</b> right now.</p>
+        </div>
+      <div class="sp-timeline">
+        <div class="sp-curve">
+          <svg viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="spAreaFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FE5000" stop-opacity=".6"/><stop offset="1" stop-color="#FE5000" stop-opacity="0"/></linearGradient>
+              <clipPath id="spPastClip"><rect id="spPastRect" x="-2" y="-10" width="0" height="120"/></clipPath>
+            </defs>
+            <path id="spAreaAll" fill="url(#spAreaFill)" opacity=".25"/>
+            <path id="spAreaPast" fill="url(#spAreaFill)" clip-path="url(#spPastClip)"/>
+            <path id="spLine" fill="none" stroke="#FE5000" stroke-width="2" vector-effect="non-scaling-stroke"/>
+            <line id="spNow" y1="0" y2="100" stroke="#fff" stroke-opacity=".55" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"/>
+            <line id="spCursor" y1="0" y2="100" stroke="#FFC72C" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <span class="sp-now-tag sp-mono" id="spNowTag" hidden>Now</span>
+        </div>
+        <label class="sr-only" for="spSlider">Time of day</label>
+        <input class="sp-slider" type="range" id="spSlider" min="240" max="1380" step="5" value="720">
+        <div class="sp-hours sp-mono" aria-hidden="true"><span style="left:15.79%">06:00</span><span style="left:31.58%">09:00</span><span style="left:47.37%">12:00</span><span style="left:63.16%">15:00</span><span style="left:78.95%">18:00</span><span style="left:94.74%">21:00</span></div>
+        <div class="sp-controls">
+          <div class="sp-days" role="group" aria-label="Which day">
+            <button type="button" data-day="today" aria-pressed="true">Today</button>
+            <button type="button" data-day="summer" aria-pressed="false">Longest day</button>
+            <button type="button" data-day="winter" aria-pressed="false">Shortest day</button>
+          </div>
+          <button type="button" class="sp-play" id="spPlay"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 1.2v9.6L10.5 6z"/></svg><span>Play the day</span></button>
+        </div>
+      </div>
+      </div>
+      <p class="sp-note">Modelled for a south-facing panel tilted at 30° in Dublin, under a clear sky. Cloud lowers these figures: across a typical Irish year a commercial roof makes about 950&nbsp;kWh per kWp, the figure our estimator and quotes use.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ============================================================ RATE COMPARISON -->
 <section class="section" style="padding-top:0">
   <div class="container rate-wrap">
@@ -1478,17 +1665,15 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
         </div>
       </div>
 
-      <form class="est-capture" id="estForm" action="https://formsubmit.co/martin@swarmsolar.co.uk" method="POST">
-        <input type="hidden" name="_subject" value="New roof estimate request | auraenergy.ie">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://auraenergy.ie/?sent=estimate#calculator">
-        <input type="hidden" name="Estimate" id="estSummary" value="">
-        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <form class="est-capture" id="estForm" action="/api/enquiry" method="POST">
+        <input type="hidden" name="form" value="estimate">
+        <input type="hidden" name="estimate" id="estSummary" value="">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
         <label class="sr-only" for="estEmail">Work email for the full estimate</label>
         <input type="email" name="email" id="estEmail" placeholder="you@company.ie" required autocomplete="email">
         <button class="btn btn-primary" type="submit">Email my estimate</button>
         <a href="#quote" class="btn btn-ghost">Book a free site survey</a>
+        <p class="form-error" role="alert" hidden></p>
       </form>
       <p class="est-note">Estimate ±15%. Yield modelled at 950 kWh per kWp per year, adjusted for roof type, with 5.5 m² of usable roof per kWp. Savings count self-consumed units only, at your day rate less the Aura PPA rate of €0.16/kWh, held flat for the term. A free site survey replaces every figure here.</p>
     </div>
@@ -1881,29 +2066,24 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
       <div class="quote-promise"><svg class="ic"><use href="#i-clock"/></svg> Response within one business day. No obligation, no hard sell.</div>
     </div>
 
-    <!-- FormSubmit delivers submissions to martin@swarmsolar.co.uk (reply-to is the visitor's email).
-         The first submission triggers a one-time activation email; click the link in it once. -->
-    <form class="qform reveal" action="https://formsubmit.co/martin@swarmsolar.co.uk" method="POST">
-      <input type="hidden" name="_subject" value="New quote request | auraenergy.ie">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="false">
-      <!-- _next only takes effect once the site is live on auraenergy.ie and the one-time FormSubmit activation email has been clicked -->
-      <input type="hidden" name="_next" value="https://auraenergy.ie/?sent=1#quote">
-      <input type="hidden" name="Came from" id="ctaSource" value="Scrolled to form">
-      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+    <!-- Sent by functions/api/enquiry.js, which emails the team (see DEPLOY.md, ENQUIRY_TO). -->
+    <form class="qform reveal" id="quoteForm" action="/api/enquiry" method="POST">
+      <input type="hidden" name="form" value="quote">
+      <input type="hidden" name="source" id="ctaSource" value="Scrolled to form">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
 
       <fieldset>
         <legend>About you</legend>
         <div class="frow">
-          <div class="field"><label for="name">Name</label><input id="name" name="Name" type="text" required autocomplete="name"></div>
+          <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" required autocomplete="name"></div>
           <div class="field"><label for="email">Work email</label><input id="email" name="email" type="email" required autocomplete="email"></div>
         </div>
         <div class="frow">
-          <div class="field"><label for="phone">Phone <em>(optional, for a faster callback)</em></label><input id="phone" name="Phone" type="tel" autocomplete="tel"></div>
-          <div class="field"><label for="company">Company name</label><input id="company" name="Company" type="text" required autocomplete="organization"></div>
+          <div class="field"><label for="phone">Phone <em>(optional, for a faster callback)</em></label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
+          <div class="field"><label for="company">Company name</label><input id="company" name="company" type="text" required autocomplete="organization"></div>
         </div>
         <div class="frow single">
-          <div class="field"><label for="role">Your role <em>(optional)</em></label><input id="role" name="Role" type="text" autocomplete="organization-title"></div>
+          <div class="field"><label for="role">Your role <em>(optional)</em></label><input id="role" name="role" type="text" autocomplete="organization-title"></div>
         </div>
       </fieldset>
 
@@ -1912,7 +2092,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
         <div class="frow">
           <div class="field">
             <label for="county">County</label>
-            <select id="county" name="County" required>
+            <select id="county" name="county" required>
               <option value="" selected disabled>Select county…</option>
               <option>Dublin</option><option>Cork</option><option>Galway</option><option>Limerick</option>
               <option>Waterford</option><option>Kildare</option><option>Meath</option><option>Wicklow</option>
@@ -1925,7 +2105,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
           </div>
           <div class="field">
             <label for="sector">Business sector</label>
-            <select id="sector" name="Sector" required>
+            <select id="sector" name="sector" required>
               <option value="" selected disabled>Select a sector…</option>
               <option>Logistics / Warehousing</option><option>Manufacturing</option><option>Agriculture</option>
               <option>Retail</option><option>Office / Commercial</option><option>Hospitality</option>
@@ -1936,13 +2116,13 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
         <div class="frow single">
           <div class="field">
             <label for="eircode">Site Eircode <em>(optional, lets us check your roof on aerial imagery before we call)</em></label>
-            <input id="eircode" name="Eircode" type="text" autocomplete="postal-code" placeholder="e.g. A65 F4E2">
+            <input id="eircode" name="eircode" type="text" autocomplete="postal-code" placeholder="e.g. A65 F4E2">
           </div>
         </div>
         <div class="frow single">
           <div class="field">
             <label for="tenure">Do you own the premises? <em>(optional)</em></label>
-            <select id="tenure" name="Premises ownership">
+            <select id="tenure" name="ownership">
               <option value="" selected disabled>Select…</option>
               <option>Yes, we own the building</option>
               <option>No, we lease it</option>
@@ -1957,7 +2137,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
         <div class="frow single">
           <div class="field">
             <label for="spend">Monthly electricity spend</label>
-            <select id="spend" name="Monthly spend" required>
+            <select id="spend" name="spend" required>
               <option value="" selected disabled>Select range…</option>
               <option>Under €1,000</option><option>€1,000 to €2,500</option><option>€2,500 to €5,000</option>
               <option>€5,000 to €10,000</option><option>€10,000 to €25,000</option><option>Over €25,000</option>
@@ -1972,15 +2152,15 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
           <div class="field">
             <label id="modelPickLabel" style="margin-bottom:10px">Which model interests you?</label>
             <div class="model-pick" role="radiogroup" aria-labelledby="modelPickLabel">
-              <label><input type="radio" name="Preferred model" value="Solar PPA" checked>
+              <label><input type="radio" name="model" value="Solar PPA" checked>
                 <span class="t"><svg class="ic"><use href="#i-ppa"/></svg>Solar PPA</span>
                 <span class="d">€0 upfront, pay a lower rate per unit</span>
               </label>
-              <label><input type="radio" name="Preferred model" value="Capex purchase">
+              <label><input type="radio" name="model" value="Capex purchase">
                 <span class="t"><svg class="ic"><use href="#i-capex"/></svg>Capex</span>
                 <span class="d">Buy the system and own it outright</span>
               </label>
-              <label><input type="radio" name="Preferred model" value="Not sure yet">
+              <label><input type="radio" name="model" value="Not sure yet">
                 <span class="t"><svg class="ic"><use href="#i-meter"/></svg>Not sure</span>
                 <span class="d">Show me both options side by side</span>
               </label>
@@ -1990,7 +2170,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
         <div class="frow single">
           <div class="field">
             <label for="timeframe">Timeframe <em>(optional)</em></label>
-            <select id="timeframe" name="Timeframe">
+            <select id="timeframe" name="timeframe">
               <option value="" selected disabled>Select…</option>
               <option>As soon as possible</option><option>Next 3 months</option>
               <option>3 to 6 months</option><option>6 to 12 months</option><option>Just researching</option>
@@ -1999,73 +2179,14 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
         </div>
         <div class="frow single">
           <div class="field"><label for="msg">Anything else? <em>(optional)</em></label>
-            <textarea id="msg" name="Message" placeholder="Tell us anything useful: planned expansion, EV chargers, battery interest, multiple sites…"></textarea>
+            <textarea id="msg" name="message" placeholder="Tell us anything useful: planned expansion, EV chargers, battery interest, multiple sites…"></textarea>
           </div>
         </div>
       </fieldset>
 
       <button type="submit" class="btn btn-primary btn-lg">Request my free quote <svg class="ic"><use href="#i-arrow"/></svg></button>
+      <p class="form-error" role="alert" hidden></p>
       <p class="form-note">Prefer to talk? <a href="tel:+353833945937" title="+353 83 394 5937">Give us a call</a> or email <a href="mailto:info@auraenergy.ie">info@auraenergy.ie</a>. We'll never share your details, and we only use them to prepare your quote.</p>
-    </form>
-  </div>
-</section>
-
-<!-- ============================================================ INVESTORS -->
-<section class="section inv-sec" id="investors">
-  <div class="container inv-grid">
-    <div class="inv-copy reveal">
-      <div class="kicker">For investors</div>
-      <h2>Invest in contracted Irish solar</h2>
-      <p class="lead">Aura funds, builds and runs solar on Irish business roofs, then sells the power to each business under a long-term PPA at a fixed price per kWh. Every site we switch on becomes a contracted income stream backed by a real, working asset.</p>
-      <ul class="inv-points">
-        <li><div class="icon-tile"><svg class="ic"><use href="#i-handshake"/></svg></div><div><h3>Contracted income</h3><p>Long-term PPAs at a fixed rate, paid by the business that uses the power.</p></div></li>
-        <li><div class="icon-tile"><svg class="ic"><use href="#i-panel-sun"/></svg></div><div><h3>Real, monitored assets</h3><p>Tier-1 panels and inverters, insured and monitored, with maintenance carried by Aura for the full term.</p></div></li>
-        <li><div class="icon-tile"><svg class="ic"><use href="#i-meter"/></svg></div><div><h3>Demand on site</h3><p>We focus on businesses that use most of their power in daylight, so most of what each roof produces is used where it's made.</p></div></li>
-        <li><div class="icon-tile"><svg class="ic"><use href="#i-leaf"/></svg></div><div><h3>Policy tailwind</h3><p>Ireland's Climate Action Plan targets 80% renewable electricity and 8&nbsp;GW of solar by 2030.</p></div></li>
-      </ul>
-    </div>
-    <form class="inv-form reveal" id="invForm" action="https://formsubmit.co/martin@swarmsolar.co.uk" method="POST">
-      <input type="hidden" name="_subject" value="New investor enquiry | auraenergy.ie">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" value="https://auraenergy.ie/?sent=investor#investors">
-      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
-      <h3>Register your interest</h3>
-      <p class="inv-form-intro">Tell us a little about yourself and we'll come back with more detail on the portfolio and how investors can take part.</p>
-      <div class="frow">
-        <div class="field"><label for="invName">Name</label><input id="invName" name="Name" type="text" required autocomplete="name"></div>
-        <div class="field"><label for="invEmail">Email</label><input id="invEmail" name="email" type="email" required autocomplete="email"></div>
-      </div>
-      <div class="frow">
-        <div class="field"><label for="invType">I am</label>
-          <select id="invType" name="Investor type" required>
-            <option value="">Choose one</option>
-            <option>An individual investor</option>
-            <option>A family office</option>
-            <option>A fund or institution</option>
-            <option>A lender</option>
-            <option>A strategic partner</option>
-            <option>Something else</option>
-          </select>
-        </div>
-        <div class="field"><label for="invSize">Indicative amount <em>(optional)</em></label>
-          <select id="invSize" name="Indicative amount">
-            <option value="">Prefer not to say</option>
-            <option>Under €100,000</option>
-            <option>€100,000 to €500,000</option>
-            <option>€500,000 to €2 million</option>
-            <option>Over €2 million</option>
-          </select>
-        </div>
-      </div>
-      <div class="frow single">
-        <div class="field"><label for="invOrg">Organisation <em>(optional)</em></label><input id="invOrg" name="Organisation" type="text" autocomplete="organization"></div>
-      </div>
-      <div class="frow single">
-        <div class="field"><label for="invMsg">Message <em>(optional)</em></label><textarea id="invMsg" name="Message" rows="3"></textarea></div>
-      </div>
-      <button type="submit" class="btn btn-primary">Register interest <svg class="ic"><use href="#i-arrow"/></svg></button>
-      <p class="inv-legal">This section is general information only. It is not an offer to sell, or a solicitation of an offer to buy, any security or investment, and it is not financial advice. Any investment would be made only on the basis of formal documentation, may be limited to certain types of investor, and puts your capital at risk.</p>
     </form>
   </div>
 </section>
@@ -2076,12 +2197,12 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
     <div class="agentframe">
       <div class="agent" id="agent">
         <div class="agent__bar">
-          <span class="agent__ava"><img class="avaimg" src="assets/aura-ai.jpg" alt="" width="360" height="360"></span>
+          <span class="agent__ava"><img class="avaimg" src="assets/aura-ai.svg" alt="" width="400" height="400"></span>
           <span class="agent__id"><b>Aura AI</b><span><i></i> <span id="agentStatus">Ready</span></span></span>
           <button type="button" class="agent__reset" id="agentReset" hidden>New chat</button>
         </div>
         <div class="agent__stage" id="agentIntro">
-          <div class="agent__orb"><img class="avaimg" src="assets/aura-ai.jpg" alt="Aura AI assistant" width="360" height="360" loading="lazy"></div>
+          <div class="agent__orb"><img class="avaimg" src="assets/aura-ai.svg" alt="Aura AI assistant" width="400" height="400" loading="lazy"></div>
           <p class="agent__q">Ready to talk about your roof?</p>
           <p class="agent__sub">Ask about the Solar PPA, savings, grants or how it all works.</p>
           <button class="agent__start" type="button" id="agentStart">
@@ -2131,14 +2252,13 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
     </div>
     <div class="foot-grid">
       <div class="foot-brand">
-        <a href="#top" class="logo" aria-label="Aura Energy home"><svg class="logo-glyph" viewBox="0 0 32 32" aria-hidden="true"><g fill="#F8632C"><path d="M4 24 12 6h3l-8 18z"/><path d="M11 24 19 6h3l-8 18z"/><path d="M18 24 26 6h3l-8 18z"/></g></svg><span class="logo-word">Aura</span></a>
+        <a href="#top" class="logo" aria-label="Aura Energy home"><svg class="logo-mark" viewBox="0 0 662 103" aria-hidden="true"><use href="#aura-logo"/></svg></a>
         <p>Solar as a service for Irish business. We fund, install and operate commercial solar. You just pay less for power.</p>
         <div class="social-row">
-          <!-- TODO: add LinkedIn page URL when ready -->
-          <a class="social" href="#" aria-label="Aura Energy on LinkedIn">
+          <a class="social" href="https://www.linkedin.com/company/aurenergy/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
             <svg viewBox="0 0 24 24"><use href="#i-linkedin"/></svg>
           </a>
-          <span class="social-lbl">Follow us on LinkedIn</span>
+          <a class="social-lbl" href="https://www.linkedin.com/company/aurenergy/" target="_blank" rel="noopener">Follow us on LinkedIn</a>
         </div>
       </div>
       <div class="foot-col">
@@ -2147,7 +2267,6 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
         <a href="#models">Capex installs</a>
         <a href="#how">How it works</a>
         <a href="#projects">Projects</a>
-        <a href="#investors">Investors</a>
       </div>
       <div class="foot-col">
         <h3>Resources</h3>
@@ -2155,6 +2274,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
         <a href="#why">Why solar</a>
         <a href="#faq">FAQ</a>
         <a href="#quote">Get a quote</a>
+        <a href="investors.html">Investors</a>
       </div>
       <div class="foot-col foot-contact">
         <h3>Contact</h3>
@@ -2180,7 +2300,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
 </div>
 
 <button class="launcher is-hidden" type="button" id="launcher" aria-label="Chat with Aura AI">
-  <span class="launcher__ava"><img class="avaimg" src="assets/aura-ai.jpg" alt="" width="360" height="360"></span>
+  <span class="launcher__ava"><svg viewBox="0 0 148 100" aria-hidden="true"><use href="#aura-stripes"/></svg></span>
   <span class="launcher__txt"><small>Chat with</small><b>Aura AI</b></span>
 </button>
 
@@ -2221,6 +2341,41 @@ document.querySelectorAll('.faq').forEach(d => {
     if (d.open) document.querySelectorAll('.faq[open]').forEach(o => { if (o !== d) o.open = false; });
   });
 });
+
+// ---- enquiry forms: sent to /api/enquiry (functions/api/enquiry.js), which emails the team ----
+// Without JavaScript the forms still post there and get a short thank-you page back.
+const ENQUIRY_ERRORS = {
+  email: 'Please check your email address.',
+  invalid: 'Please fill in the required fields.',
+  busy: 'That is a lot of tries in a short time. Please wait a few minutes and send it again.',
+  failed: 'Sorry, that did not send. Please try again, or email <a href="mailto:info@auraenergy.ie">info@auraenergy.ie</a>.',
+};
+function sendEnquiry(form, onSent) {
+  if (!form) return;
+  const btn = form.querySelector('button[type="submit"]');
+  const label = btn.innerHTML;
+  const note = form.querySelector('.form-error');
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (btn.disabled) return;
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    note.hidden = true;
+    let data = null;
+    try {
+      const res = await fetch(form.action, { method: 'POST', headers: { Accept: 'application/json' }, body: new URLSearchParams(new FormData(form)) });
+      data = await res.json();
+    } catch { /* offline, or no server behind the page (a static preview) */ }
+    if (data && data.ok) return onSent(form);
+    btn.disabled = false;
+    btn.innerHTML = label;
+    const fields = (data && data.fields) || [];
+    note.innerHTML = ENQUIRY_ERRORS[!data ? 'failed'
+      : data.error === 'invalid' ? (fields.includes('email') ? 'email' : 'invalid')
+      : data.error === 'busy' ? 'busy' : 'failed'];
+    note.hidden = false;
+  });
+}
 
 // ---- roof estimator, sector showcase and grant figure (shared model) ----
 (() => {
@@ -2582,19 +2737,212 @@ document.querySelectorAll('.faq').forEach(d => {
   new IntersectionObserver(([e]) => { secVisible = e.isIntersecting; armRotate(); }, { threshold: 0.3 }).observe(stage);
   $('secCta').addEventListener('click', () => { stopRotate(); setEstSector($('secCta').dataset.sector || 'industrial'); });
 
-  // estimate email: no double submits, and a branded state when FormSubmit sends people back
-  const estForm = $('estForm');
-  estForm.addEventListener('submit', () => {
-    const b = estForm.querySelector('button[type="submit"]');
-    b.disabled = true; b.textContent = 'Sending…';
+  // estimate email: the summary above goes with it
+  sendEnquiry($('estForm'), form => {
+    form.innerHTML = '<p class="est-sent" tabindex="-1"><svg class="ic"><use href="#i-check"/></svg> Thanks, your estimate request is with the team. We will email the full modelled estimate within one business day.</p>';
+    form.firstChild.focus();
   });
-  if (new URLSearchParams(location.search).get('sent') === 'estimate') {
-    estForm.innerHTML = '<p class="est-sent"><svg class="ic"><use href="#i-check"/></svg> Thanks, your estimate request is with the team. We will email the full modelled estimate within one business day.</p>';
-    history.replaceState(null, '', location.pathname + '#calculator');
-  }
 
   showSector('industrial');
   render();
+})();
+
+// ---- one panel, one day: a clear-sky model of a 550 W panel on a Dublin roof ----
+(() => {
+  const $ = id => document.getElementById(id);
+  const slider = $('spSlider');
+  if (!slider) return;
+  const rad = Math.PI / 180;
+  const LAT = 53.35 * rad, LON = -6.26;          // Dublin
+  const TILT = 30 * rad;                          // facing due south
+  const RATED = 550, LOSSES = 0.86;               // watts; inverter, wiring, heat and dirt losses
+  const ROOF_PANELS = 250000 / RATED;             // a 250 kWp roof
+  const T0 = 240, T1 = 1380, STEP = 5;            // the slider runs 04:00 to 23:00, in minutes
+  const pad = n => String(n).padStart(2, '0');
+  const clock = m => { const r = Math.round(m); return pad(Math.floor(r / 60) % 24) + ':' + pad(r % 60); };
+  const kwh = v => (v < 1 ? v.toFixed(2) : v.toFixed(1)) + ' kWh';
+  const X = az => 20 + (az - 40) * 600 / 280;    // compass bearing to sky x (NE to NW)
+  const Y = el => 280 - el * 3.4;                 // elevation to sky y (horizon at 280)
+
+  // Irish summer time: last Sunday in March to last Sunday in October, changing at 01:00 UTC
+  const lastSunday = (y, m) => { const d = new Date(Date.UTC(y, m + 1, 0)); return d.getUTCDate() - d.getUTCDay(); };
+  const utcOffset = (y, m, d) => {
+    const t = Date.UTC(y, m, d, 12);
+    return t >= Date.UTC(y, 2, lastSunday(y, 2), 1) && t < Date.UTC(y, 9, lastSunday(y, 9), 1) ? 60 : 0;
+  };
+
+  // NOAA's solar position equations: elevation and compass bearing at a clock time on a day
+  function sunAt(day, minutes) {
+    const utc = minutes - day.offset;
+    const g = 2 * Math.PI / 365 * (day.n - 1 + (utc / 60 - 12) / 24);
+    const eot = 229.18 * (0.000075 + 0.001868 * Math.cos(g) - 0.032077 * Math.sin(g) - 0.014615 * Math.cos(2 * g) - 0.040849 * Math.sin(2 * g));
+    const decl = 0.006918 - 0.399912 * Math.cos(g) + 0.070257 * Math.sin(g) - 0.006758 * Math.cos(2 * g)
+      + 0.000907 * Math.sin(2 * g) - 0.002697 * Math.cos(3 * g) + 0.00148 * Math.sin(3 * g);
+    const ha = ((utc + eot + 4 * LON) / 4 - 180) * rad;
+    const cosZ = Math.sin(LAT) * Math.sin(decl) + Math.cos(LAT) * Math.cos(decl) * Math.cos(ha);
+    const el = 90 - Math.acos(Math.max(-1, Math.min(1, cosZ))) / rad;
+    const az = (Math.atan2(Math.sin(ha), Math.cos(ha) * Math.sin(LAT) - Math.tan(decl) * Math.cos(LAT)) / rad + 540) % 360;
+    return { el, az };
+  }
+
+  // Clear-sky output: direct sun (Meinel, Kasten-Young air mass), a diffuse share and ground
+  // reflection on the tilted panel, less system losses.
+  function wattsAt({ el, az }) {
+    if (el <= 0) return 0;
+    const zen = 90 - el;
+    const airMass = 1 / (Math.cos(zen * rad) + 0.50572 * Math.pow(96.07995 - zen, -1.6364));
+    const beam = 1361 * Math.pow(0.7, Math.pow(airMass, 0.678));
+    const diffuse = 0.1 * beam;
+    const cosInc = Math.sin(el * rad) * Math.cos(TILT) + Math.cos(el * rad) * Math.sin(TILT) * Math.cos((az - 180) * rad);
+    const ground = beam * Math.cos(zen * rad) + diffuse;
+    const onPanel = beam * Math.max(0, cosInc) + diffuse * (1 + Math.cos(TILT)) / 2 + 0.2 * ground * (1 - Math.cos(TILT)) / 2;
+    return Math.min(RATED, RATED * onPanel / 1000 * LOSSES);
+  }
+
+  function makeDay(y, m, d, name) {
+    const day = { name, n: Math.round((Date.UTC(y, m, d) - Date.UTC(y, 0, 0)) / 864e5), offset: utcOffset(y, m, d) };
+    day.label = new Intl.DateTimeFormat('en-IE', { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(new Date(Date.UTC(y, m, d)));
+    // power every 5 minutes, with running energy totals
+    day.watts = []; day.energy = [0];
+    for (let t = T0; t <= T1; t += STEP) {
+      const w = wattsAt(sunAt(day, t));
+      if (day.watts.length) day.energy.push(day.energy[day.energy.length - 1] + (day.watts[day.watts.length - 1] + w) / 2 * STEP / 60000);
+      day.watts.push(w);
+    }
+    day.total = day.energy[day.energy.length - 1];
+    // sunrise and sunset (the sun's centre 0.83° below the horizon), and when it is highest
+    let prev = sunAt(day, 0).el, high = -90;
+    for (let t = 1; t <= 1440; t++) {
+      const el = sunAt(day, t).el;
+      if (prev < -0.83 && el >= -0.83) day.rise = t;
+      if (prev >= -0.83 && el < -0.83) day.set = t;
+      if (el > high) { high = el; day.noon = t; }
+      prev = el;
+    }
+    // the sun's path across the sky while it is up
+    day.path = [];
+    for (let t = day.rise; t <= day.set; t += STEP) {
+      const s = sunAt(day, t);
+      if (s.el >= 0) day.path.push([t, X(s.az), Y(s.el)]);
+    }
+    return day;
+  }
+
+  // today's date and time in Dublin, whatever the visitor's own time zone
+  let now;
+  try {
+    const parts = Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Dublin', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' })
+      .formatToParts(new Date()).map(p => [p.type, p.value]));
+    now = { y: +parts.year, m: +parts.month - 1, d: +parts.day, t: +parts.hour * 60 + +parts.minute };
+  } catch {
+    const n = new Date();
+    now = { y: n.getFullYear(), m: n.getMonth(), d: n.getDate(), t: n.getHours() * 60 + n.getMinutes() };
+  }
+  const days = {};
+  const getDay = key => days[key] || (days[key] =
+    key === 'summer' ? makeDay(now.y, 5, 21, 'Longest day') :
+    key === 'winter' ? makeDay(now.y, 11, 21, 'Shortest day') : makeDay(now.y, now.m, now.d, 'Today'));
+
+  const sun = $('spSun'), glow = $('spSunGlow'), dusk = $('spDusk'), trackPast = $('spTrackPast');
+  const panelGlow = $('spPanelGlow'), sheen = $('spPanelSheen'), sheenGrad = $('spSheen');
+  const cursor = $('spCursor'), pastRect = $('spPastRect'), meter = $('spMeter');
+  const toX = t => (t - T0) / (T1 - T0) * 1000;
+  let day = getDay('today'), current = T0;
+
+  function showDay(key) {
+    day = getDay(key);
+    const pts = day.path.map(p => p[1].toFixed(1) + ' ' + p[2].toFixed(1));
+    $('spTrack').setAttribute('d', pts.length ? 'M' + pts.join('L') : '');
+    const curve = day.watts.map((w, i) => (i * STEP / (T1 - T0) * 1000).toFixed(1) + ' ' + (100 - w / RATED * 92).toFixed(2));
+    $('spLine').setAttribute('d', 'M' + curve.join('L'));
+    $('spAreaAll').setAttribute('d', 'M0 100L' + curve.join('L') + 'L1000 100Z');
+    $('spAreaPast').setAttribute('d', 'M0 100L' + curve.join('L') + 'L1000 100Z');
+    $('spDayName').textContent = day.name + ', ' + day.label;
+    $('spDaylight').textContent = clock(day.rise) + ' to ' + clock(day.set);
+    $('spTotal').textContent = kwh(day.total);
+    const showNow = key === 'today' && now.t >= T0 && now.t <= T1;
+    $('spNow').setAttribute('x1', toX(now.t)); $('spNow').setAttribute('x2', toX(now.t));
+    $('spNow').style.display = showNow ? '' : 'none';
+    $('spNowTag').hidden = !showNow;
+    $('spNowTag').style.left = 'calc(13px + (100% - 26px) * ' + ((now.t - T0) / (T1 - T0)).toFixed(4) + ')';
+    document.querySelectorAll('.sp-days button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.day === key)));
+    draw(current);
+  }
+
+  function draw(t) {
+    current = Math.max(T0, Math.min(T1, t));
+    const s = sunAt(day, current), w = wattsAt(s), share = w / RATED, up = s.el > 0;
+    // sky
+    sun.setAttribute('transform', 'translate(' + X(s.az).toFixed(1) + ' ' + Y(Math.max(s.el, -3)).toFixed(1) + ')');
+    sun.setAttribute('opacity', up ? 1 : 0);
+    glow.setAttribute('cx', X(s.az).toFixed(1)); glow.setAttribute('cy', Y(Math.max(s.el, 0)).toFixed(1));
+    glow.setAttribute('opacity', up ? Math.min(1, 0.35 + s.el / 40).toFixed(2) : 0);
+    dusk.setAttribute('cx', X(s.az).toFixed(1));
+    dusk.setAttribute('opacity', Math.max(0, 1 - Math.abs(s.el) / 8).toFixed(2));
+    const past = day.path.filter(p => p[0] <= current).map(p => p[1].toFixed(1) + ' ' + p[2].toFixed(1));
+    if (up && past.length) past.push(X(s.az).toFixed(1) + ' ' + Y(s.el).toFixed(1));
+    trackPast.setAttribute('d', past.length > 1 ? 'M' + past.join('L') : '');
+    // panel: glows with output, and the light sweeps across the glass with the sun
+    panelGlow.setAttribute('opacity', (share * 0.6).toFixed(3));
+    sheen.setAttribute('opacity', up ? (0.35 + share * 0.65).toFixed(2) : 0);
+    sheenGrad.setAttribute('gradientTransform', 'translate(' + ((s.az - 180) / 140 * 300).toFixed(1) + ' 0)');
+    // readout
+    const i = Math.round((current - T0) / STEP);
+    $('spClock').textContent = clock(current);
+    $('spWatts').textContent = Math.round(w);
+    meter.style.transform = 'scaleX(' + share.toFixed(3) + ')';
+    $('spElev').textContent = up ? Math.round(s.el) + '°' : 'Below the horizon';
+    $('spSoFar').textContent = kwh(day.energy[Math.min(i, day.energy.length - 1)]);
+    $('spRoof').textContent = Math.round(w * ROOF_PANELS / 1000) + ' kW';
+    cursor.setAttribute('x1', toX(current)); cursor.setAttribute('x2', toX(current));
+    pastRect.setAttribute('width', toX(current) + 2);
+    slider.value = Math.round(current / STEP) * STEP;
+    slider.setAttribute('aria-valuetext', clock(current) + ', ' + Math.round(w) + ' watts');
+  }
+
+  // play the day, or sweep up to the starting time the first time the section is seen
+  let anim = null;
+  const playBtn = $('spPlay');
+  function stop() {
+    if (anim) cancelAnimationFrame(anim);
+    anim = null;
+    playBtn.querySelector('span').textContent = 'Play the day';
+  }
+  function sweep(from, to, ms, done) {
+    if (anim) cancelAnimationFrame(anim);
+    let start = null;
+    const frame = ts => {
+      if (start === null) start = ts;
+      const k = Math.min(1, (ts - start) / ms);
+      draw(from + (to - from) * (done ? k : 1 - Math.pow(1 - k, 3)));
+      if (k < 1) anim = requestAnimationFrame(frame);
+      else { anim = null; if (done) done(); }
+    };
+    anim = requestAnimationFrame(frame);
+  }
+  playBtn.addEventListener('click', () => {
+    if (anim) return stop();
+    const from = Math.max(T0, day.rise - 20), to = Math.min(T1, day.set + 20);
+    const start = current >= to - STEP || current < from ? from : current;
+    playBtn.querySelector('span').textContent = 'Pause';
+    sweep(start, to, 9000 * (to - start) / (to - from), stop);
+  });
+  slider.addEventListener('input', () => { stop(); draw(+slider.value); });
+  document.querySelectorAll('.sp-days button').forEach(b => b.addEventListener('click', () => { stop(); showDay(b.dataset.day); }));
+
+  // start at the time in Dublin now if the sun is up, otherwise at midday
+  const startAt = now.t >= T0 && now.t <= T1 && sunAt(day, now.t).el > 0 ? now.t : day.noon;
+  showDay('today');
+  draw(startAt);
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    draw(day.rise);
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      sweep(day.rise, startAt, 1800);
+    }, { threshold: 0.35 });
+    io.observe($('panel'));
+  }
 })();
 
 // ---- mobile CTA bar: hide while the quote section is on screen ----
@@ -2606,14 +2954,18 @@ if (mcta && quoteSec) {
   ).observe(quoteSec);
 }
 
-// ---- quote form: no double submits ----
-const qf = document.querySelector('.qform');
-if (qf) qf.addEventListener('submit', e => {
-  const b = e.target.querySelector('button[type="submit"]');
-  if (b) { b.disabled = true; b.textContent = 'Sending your request…'; }
+// ---- quote form ----
+sendEnquiry(document.getElementById('quoteForm'), form => {
+  form.innerHTML =
+    '<div class="form-success"><svg class="ic"><use href="#i-check"/></svg><div>' +
+    '<h3 tabindex="-1">Request received</h3>' +
+    '<p>Thanks, your details are with the team. We will come back within one business day with your free assessment, including your indicative PPA rate and a capex price side by side.</p>' +
+    '<p style="margin-top:10px">Need us sooner? <a href="tel:+353833945937">Give us a call</a>.</p>' +
+    '</div></div>';
+  form.querySelector('h3').focus();
 });
 
-// ---- cookieless CTA attribution (lands in the FormSubmit email, no trackers) ----
+// ---- cookieless CTA attribution (lands in the enquiry email, no trackers) ----
 document.querySelectorAll('a[href="#quote"]').forEach(a => {
   a.addEventListener('click', () => {
     const zone = a.closest('section, footer, header, .mobile-cta');
@@ -2621,34 +2973,6 @@ document.querySelectorAll('a[href="#quote"]').forEach(a => {
     if (el) el.value = 'CTA: ' + (zone ? (zone.id || zone.className.split(' ')[0] || 'page') : 'page');
   });
 });
-
-// ---- branded post-submit state (FormSubmit redirects back with ?sent=1) ----
-if (new URLSearchParams(location.search).get('sent') === '1') {
-  const form = document.querySelector('.qform');
-  if (form) {
-    form.innerHTML =
-      '<div class="form-success"><svg class="ic"><use href="#i-check"/></svg><div>' +
-      '<h3>Request received</h3>' +
-      '<p>Thanks, your details are with the team. We will come back within one business day with your free assessment, including your indicative PPA rate and a capex price side by side.</p>' +
-      '<p style="margin-top:10px">Need us sooner? <a href="tel:+353833945937">Give us a call</a>.</p>' +
-      '</div></div>';
-    history.replaceState(null, '', location.pathname + '#quote');
-  }
-}
-
-// ---- investor form: no double submits, branded state when FormSubmit sends people back ----
-const invForm = document.getElementById('invForm');
-if (invForm) {
-  invForm.addEventListener('submit', () => {
-    const b = invForm.querySelector('button[type="submit"]');
-    if (b) { b.disabled = true; b.textContent = 'Sending…'; }
-  });
-  if (new URLSearchParams(location.search).get('sent') === 'investor') {
-    invForm.innerHTML = '<div class="inv-sent"><svg class="ic"><use href="#i-check"/></svg><div><h3>Thanks, we have your details</h3>' +
-      '<p class="inv-form-intro" style="margin:6px 0 0">We will be in touch with more on the portfolio and how investors can take part.</p></div></div>';
-    history.replaceState(null, '', location.pathname + '#investors');
-  }
-}
 
 // ---- Aura AI chat (backend: functions/api/chat.js) ----
 const auraChat = (() => {

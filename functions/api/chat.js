@@ -14,10 +14,10 @@
 
 import Anthropic from '@anthropic-ai/sdk';
 import { AURA_SYSTEM_PROMPT } from '../../lib/aura-knowledge.js';
+import { originAllowed, rateLimiter, json } from '../../lib/request-guards.js';
 
 // Override with the AURA_AI_MODEL environment variable (for example claude-haiku-5-5 to cut cost).
 const DEFAULT_MODEL = 'claude-opus-5-5';
-const DEFAULT_ORIGINS = 'https://auraenergy.ie,https://www.auraenergy.ie';
 const MAX_TURNS = 16;              // most recent messages kept from the browser's history
 const MAX_USER_CHARS = 1500;       // per visitor message (the chat box allows 1,000)
 const MAX_ASSISTANT_CHARS = 4000;  // per earlier reply sent back as context
@@ -26,9 +26,10 @@ const MAX_TOTAL_CHARS = 16000;     // across everything sent
 // Replies are a few sentences by design; this is a hard cost ceiling for a public endpoint.
 const MAX_TOKENS = 4096;
 const RATE_WINDOW_MS = 60_000;
-const RATE_MAX = 12;               // requests per visitor IP per minute (best effort, per isolate)
+const RATE_MAX = 12;               // requests per visitor IP per minute
 
-const recent = new Map();          // ip -> timestamps of recent requests
+// Uses a Cloudflare rate limiting binding called CHAT_LIMITER when one is configured.
+const withinRateLimit = rateLimiter({ windowMs: RATE_WINDOW_MS, max: RATE_MAX });
 
 export async function onRequestPost({ request, env }) {
   if (!originAllowed(request.headers.get('Origin'), request.url, env.ALLOWED_ORIGINS)) {
@@ -39,7 +40,7 @@ export async function onRequestPost({ request, env }) {
     return json({ error: 'unavailable' }, 503);
   }
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
-  if (!(await withinRateLimit(ip, env))) {
+  if (!(await withinRateLimit(ip, env.CHAT_LIMITER))) {
     return json({ error: 'busy' }, 429);
   }
 
@@ -146,44 +147,4 @@ function cleanHistory(raw) {
   }
   while (turns.length && turns[0].role !== 'user') turns.shift();
   return turns.length ? { messages: turns } : { error: 'invalid' };
-}
-
-// The chat panel calls this endpoint from the same site, so the browser's Origin header
-// matches; ALLOWED_ORIGINS adds other domains (comma-separated). This stops other websites
-// using the assistant from a visitor's browser. It is not authentication: rate limiting
-// (below, and a Cloudflare rate limiting rule in production) is what limits direct abuse.
-function originAllowed(origin, url, list) {
-  if (!origin) return false;
-  if (origin === new URL(url).origin) return true;
-  return (list || DEFAULT_ORIGINS).split(',').map((s) => s.trim()).includes(origin);
-}
-
-// Uses a Cloudflare rate limiting binding called CHAT_LIMITER when one is configured,
-// otherwise a best-effort in-memory count (each isolate keeps its own).
-async function withinRateLimit(ip, env) {
-  if (env.CHAT_LIMITER && typeof env.CHAT_LIMITER.limit === 'function') {
-    const { success } = await env.CHAT_LIMITER.limit({ key: ip });
-    return success;
-  }
-  const now = Date.now();
-  const times = (recent.get(ip) || []).filter((t) => now - t < RATE_WINDOW_MS);
-  if (times.length >= RATE_MAX) {
-    recent.set(ip, times);
-    return false;
-  }
-  times.push(now);
-  recent.set(ip, times);
-  if (recent.size > 5000) {
-    for (const [key, list] of recent) {
-      if (!list.length || now - list[list.length - 1] >= RATE_WINDOW_MS) recent.delete(key);
-    }
-  }
-  return true;
-}
-
-function json(obj, status) {
-  return new Response(JSON.stringify(obj), {
-    status,
-    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
-  });
 }

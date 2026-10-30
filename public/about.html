@@ -36,7 +36,7 @@
 :root {
   --orange: #FE5000; --orange-deep: #E54800; --orange-soft: #FFEDE3; --orange-mist: #F6F6F7;
   --orange-line: #FFD2BC; --orange-text: #B83A0A; --ink: #111113; --muted: #5C5D60;
-  --line: #E9E9E7; --sun: #FFC72C; --radius: 20px; --radius-sm: 14px;
+  --line: #E9E9E7; --radius: 20px; --radius-sm: 14px;
   --shadow: 0 6px 30px rgba(15,15,16,0.06); --shadow-lg: 0 20px 60px rgba(15,15,16,0.10);
   --ease: cubic-bezier(.22,.61,.36,1);
 }
@@ -86,11 +86,14 @@ p { color: var(--muted); }
 .about-hero .lead { margin-bottom: 34px; }
 .pick-path { display: flex; gap: 14px; flex-wrap: wrap; }
 
-/* stat band: Ink with Sun numbers, per the brand guide */
-.stats { background: #0E0E0F; color: #fff; padding: 56px 0; }
-.stats .container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 36px 28px; }
-.stat b { display: block; font-size: clamp(2rem, 3.6vw, 2.9rem); font-weight: 800; letter-spacing: -0.03em; color: var(--sun); line-height: 1.1; font-variant-numeric: tabular-nums; }
-.stat span { display: block; margin-top: 6px; font-size: 14px; color: rgba(255,255,255,.65); max-width: 24ch; }
+/* stat band, in the site's own palette */
+.stats { background: var(--orange-mist); border-block: 1px solid var(--line); padding: 52px 0; }
+.stats .container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.stat { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 24px 22px; }
+.stat:first-child { background: var(--orange-soft); border-color: var(--orange-line); }
+.stat b { display: block; font-size: clamp(1.7rem, 2.9vw, 2.3rem); font-weight: 900; letter-spacing: -0.03em; color: var(--ink); line-height: 1.1; font-variant-numeric: tabular-nums; }
+.stat:first-child b { color: var(--orange-text); }
+.stat span { display: block; margin-top: 6px; font-size: 13.5px; color: var(--muted); }
 
 /* story */
 .story-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: start; }
@@ -112,24 +115,7 @@ p { color: var(--muted); }
 .value h3 { font-size: 1.05rem; margin-bottom: 9px; }
 .value p { font-size: 14px; }
 
-/* founder */
-.founder-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: center; }
-.founder-card { border: 1px solid var(--line); border-radius: 26px; padding: 40px; background: #fff; box-shadow: var(--shadow-lg); text-align: center; }
-.founder-mark { width: 92px; height: 92px; border-radius: 24px; background: #0E0E0F; display: grid; place-items: center; margin: 0 auto 20px; }
-.founder-mark svg { width: 52px; height: 36px; }
-.founder-card h3 { font-size: 1.35rem; letter-spacing: -0.02em; }
-.founder-role { color: var(--orange-text); font-weight: 700; font-size: 14px; margin-top: 4px; }
-.founder-links { display: flex; justify-content: center; gap: 10px; margin-top: 18px; }
-.founder-links a { display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--line); border-radius: 999px; padding: 8px 16px; font-size: 13.5px; font-weight: 700; color: var(--ink); transition: border-color .2s; }
-.founder-links a:hover { border-color: var(--ink); }
-.founder-links svg { width: 15px; height: 15px; fill: currentColor; }
-.founder-copy h2 { margin-bottom: 18px; }
-.founder-copy p { font-size: 16px; line-height: 1.75; }
-.founder-copy p + p { margin-top: 16px; }
-.founder-copy strong { color: var(--ink); }
-.crew { list-style: none; margin-top: 26px; display: grid; gap: 12px; }
-.crew li { display: flex; gap: 12px; align-items: flex-start; font-size: 14.5px; color: var(--muted); }
-.crew svg { width: 19px; height: 19px; flex: none; margin-top: 2px; color: var(--orange); stroke-width: 2.4; }
+.founded { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--ink); font-weight: 700; font-size: 15px; }
 
 /* work with us */
 .paths { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
@@ -158,7 +144,7 @@ footer :focus-visible { outline-color: #fff; }
 
 @media (max-width: 1024px) {
   .stats .container { grid-template-columns: repeat(2, 1fr); }
-  .story-grid, .founder-grid { grid-template-columns: 1fr; gap: 40px; }
+  .story-grid { grid-template-columns: 1fr; gap: 40px; }
   .values { grid-template-columns: repeat(2, 1fr); }
   .paths { grid-template-columns: 1fr; }
 }
@@ -183,7 +169,6 @@ footer :focus-visible { outline-color: #fff; }
         <path fill-rule="evenodd" d="M260.89 0 L306.89 0 A29 29 0 0 1 306.89 58 L260.89 58 Z M270.89 18 L306.89 18 A11 11 0 0 1 306.89 40 L270.89 40 Z"/>
       </g>
     </symbol>
-    <symbol id="aura-stripes" viewBox="0 0 148 100"><path fill="#FE5000" d="M0 100 L44.44 0 L68 0 L23.56 100 Z M40 100 L84.44 0 L108 0 L63.56 100 Z M80 100 L124.44 0 L148 0 L103.56 100 Z"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13.5 5.5L20 12l-6.5 6.5"/></symbol>
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.8l4.6 4.6L19.5 6.6"/></symbol>
     <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 2.8v5.4c0 4.5-2.9 7.9-7 9.8-4.1-1.9-7-5.3-7-9.8V5.8z"/><path d="M8.9 12.1l2.2 2.2 4-4.4"/></symbol>
@@ -192,8 +177,6 @@ footer :focus-visible { outline-color: #fff; }
     <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a4.5 4.5 0 00-5.9 5.9L3 18l3 3 5.8-5.8a4.5 4.5 0 005.9-5.9L14.5 12 12 9.5z"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 7.5l8 6 8-6"/></symbol>
     <symbol id="i-survey" viewBox="0 0 24 24"><path d="M9 20H5.5A1.5 1.5 0 014 18.5V5.5A1.5 1.5 0 015.5 4h9A1.5 1.5 0 0116 5.5V9"/><path d="M7.5 8h5M7.5 11.5h3"/><circle cx="15.5" cy="15.5" r="4"/><path d="M18.5 18.5L21 21"/></symbol>
-    <symbol id="i-x-logo" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></symbol>
-    <symbol id="i-in-logo" viewBox="0 0 24 24"><path d="M4.98 3.5a2.49 2.49 0 11-.02 4.98 2.49 2.49 0 01.02-4.98zM3 9h4v12H3zM9.5 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.9 2.6 4.9 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.2 1.4-2.2 2.9V21h-4z"/></symbol>
   </defs>
 </svg>
 
@@ -213,7 +196,7 @@ footer :focus-visible { outline-color: #fff; }
 <section class="about-hero">
   <div class="container">
     <div class="kicker">About Aura Energy</div>
-    <h1>Power from your roof. <span>Capital from ours.</span></h1>
+    <h1>Solar used to be a capital decision. <span>Not any more.</span></h1>
     <p class="lead">Aura Energy is a Dublin company with one job: putting solar on Irish business roofs without the business having to fund it. We pay for the system, you pay less for power.</p>
     <div class="pick-path">
       <a class="btn btn-primary" href="#who-we-are">Who we are <svg class="ic"><use href="#i-arrow"/></svg></a>
@@ -241,7 +224,8 @@ footer :focus-visible { outline-color: #fff; }
       <div class="story-copy">
         <p>Irish businesses pay some of the highest electricity prices in Europe, while the roofs over their heads do nothing. The physics is settled: <strong>a commercial roof in Ireland returns about 950 kWh for every kilowatt of panels on it, every year, for twenty-five years.</strong> What stops most businesses isn't doubt, it's the upfront cost.</p>
         <p>Aura Energy exists to remove that barrier. <strong>We fund, design, install, own and operate</strong> the solar system on your roof, and you simply buy the power it makes at a fixed rate below your grid rate, locked for the term. No capital, no debt, no maintenance bills. Prefer to own the system outright? We design and build that too, and we'll show you both options side by side.</p>
-        <p>We're deliberately not a fund with a logo. Aura builds from its own balance sheet, uses tier-1 panels and inverters, and delivers through vetted Irish installation crews under our design and supervision. <strong>If an array underperforms, the shortfall is ours</strong>, not a line on your bill. That's the whole model: we only do well when your roof does.</p>
+        <p>We're deliberately not a fund with a logo. Aura builds from its own balance sheet, uses tier-1 panels and inverters, and delivers through vetted Irish installation crews and certified electricians, with structural engineers checking every roof before it carries a system. <strong>If an array underperforms, the shortfall is ours</strong>, not a line on your bill. That's the whole model: we only do well when your roof does.</p>
+        <p class="founded">Founded by Martin Molloy.</p>
       </div>
       <div class="story-aside">
         <div class="story-card">
@@ -276,33 +260,7 @@ footer :focus-visible { outline-color: #fff; }
   </div>
 </section>
 
-<section class="section">
-  <div class="container founder-grid">
-    <div class="founder-card">
-      <div class="founder-mark" aria-hidden="true"><svg viewBox="0 0 148 100"><use href="#aura-stripes"/></svg></div>
-      <h3>Martin Molloy</h3>
-      <p class="founder-role">Founder and Director</p>
-      <div class="founder-links">
-        <a href="https://www.linkedin.com/company/aurenergy/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#i-in-logo"/></svg> LinkedIn</a>
-        <a href="https://x.com/auraenergyie" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#i-x-logo"/></svg> X</a>
-      </div>
-    </div>
-    <div class="founder-copy">
-      <div class="kicker">Founder-led</div>
-      <h2>Small on purpose, serious by design</h2>
-      <p>Aura Energy is founder-led: it was started and is run by <strong>Martin Molloy</strong>. That's not a weakness we hide, it's how the service works. The person who walks your roof is the person who prices your PPA, supervises the install and answers the phone for the next twenty years. No handovers, no account managers, no call centre.</p>
-      <p>Around every project stands the team that scale actually requires:</p>
-      <ul class="crew">
-        <li><svg class="ic"><use href="#i-check"/></svg> Vetted Irish installation crews and certified electricians, working under Aura's design and supervision</li>
-        <li><svg class="ic"><use href="#i-check"/></svg> Structural engineers who check every roof before it carries a system</li>
-        <li><svg class="ic"><use href="#i-check"/></svg> Tier-1 panel and inverter manufacturers with 25-year warranties</li>
-        <li><svg class="ic"><use href="#i-check"/></svg> SEAI processes, ESB Networks notification and full insurance on every job</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="section values-bg" id="work-with-us">
+<section class="section" id="work-with-us">
   <div class="container">
     <div class="section-head">
       <div class="kicker">Work with us</div>
@@ -325,7 +283,7 @@ footer :focus-visible { outline-color: #fff; }
       <div class="path">
         <div class="icon-tile"><svg class="ic"><use href="#i-handshake"/></svg></div>
         <h3>Join the team</h3>
-        <p>There are no open roles today, and that will change. If you want to help put solar on every working roof in Ireland, we'd rather hear from you before the job ad exists.</p>
+        <p>Aura hires ahead of the job ads. If you want to build the company that puts solar on every working roof in Ireland, introduce yourself and tell us what you'd bring.</p>
         <a href="mailto:info@auraenergy.ie?subject=Joining%20Aura%20Energy" class="btn btn-ghost">Introduce yourself <svg class="ic"><use href="#i-mail"/></svg></a>
       </div>
     </div>

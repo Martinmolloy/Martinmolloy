@@ -29,6 +29,7 @@
 
 <!-- Twitter / X card -->
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@auraenergyie" />
 <meta name="twitter:title" content="Solar PPA Ireland | Zero Upfront Commercial Solar | Aura Energy" />
 <meta name="twitter:description" content="Zero upfront Solar PPA and capex solar for Irish businesses. Pay up to 50% less per unit from day one. Free site assessment." />
 <meta name="twitter:image" content="https://auraenergy.ie/assets/seam-roof.jpg" />
@@ -209,8 +210,7 @@ footer :focus-visible { outline-color: #fff; }
 }
 @keyframes ping { 0% { transform: scale(1); opacity: .5; } 70%, 100% { transform: scale(2.8); opacity: 0; } }
 .hero h1 { color: #fff; margin-bottom: 22px; text-wrap: balance; text-shadow: 0 2px 28px rgba(0,0,0,.30); }
-.hero h1 .accent { color: var(--orange); position: relative; white-space: nowrap; }
-.hero h1 .accent svg { position: absolute; left: 0; bottom: -10px; width: 100%; height: 12px; color: rgba(254,80,0,.55); }
+.hero h1 .accent { color: var(--orange); white-space: nowrap; }
 .hero .lead { color: rgba(255,255,255,.86); max-width: 540px; margin-bottom: 34px; text-shadow: 0 1px 18px rgba(0,0,0,.35); }
 .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
 .hero .btn-ghost { color: #fff; border-color: rgba(255,255,255,.42); }
@@ -351,15 +351,22 @@ footer :focus-visible { outline-color: #fff; }
 .project-meta .m .v { font-weight: 900; font-size: 1.05rem; letter-spacing:-0.01em; }
 .project-meta .m .v span { color: inherit; }
 .project-meta .m .l { font-size: 11.5px; color: var(--muted); font-weight: 600; }
+.project-build { border-style: dashed; border-color: #D8D8DD; }
+.tag-build { display: inline-flex; align-items: center; gap: 8px; }
+.tag-build i { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); animation: building 1.6s infinite; }
+@keyframes building { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .tag-build i { animation: none; } }
 .project-cta {
+  grid-column: 1 / -1;
   border: 2px dashed var(--orange-line); border-radius: var(--radius);
-  background: var(--orange-mist); display: flex; flex-direction: column;
-  align-items: center; justify-content: center; text-align: center;
-  padding: 40px 30px; gap: 6px; min-height: 100%;
+  background: var(--orange-mist); display: flex; align-items: center;
+  padding: 26px 34px; gap: 22px; flex-wrap: wrap;
 }
-.project-cta .icon-tile { margin-bottom: 12px; }
+.project-cta .icon-tile { flex: none; }
+.project-cta-txt { flex: 1 1 260px; }
 .project-cta h3 { font-size: 1.15rem; }
-.project-cta p { font-size: 14px; max-width: 260px; margin-bottom: 16px; }
+.project-cta p { font-size: 14px; margin-top: 2px; }
+@media (max-width: 720px) { .project-cta { justify-content: center; text-align: center; } .project-cta .btn { flex: 1 1 100%; } }
 
 /* ============================================================ BENEFITS */
 .benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
@@ -481,7 +488,6 @@ footer::before {
 .foot-contact .f-ic svg { width: 16px; height: 16px; color: #FFA477; }
 .social-row { display: flex; align-items: center; gap: 12px; margin-top: 24px; }
 .social-row + .social-row { margin-top: 12px; }
-.social-row a[aria-disabled="true"] { pointer-events: none; }
 .social {
   display: inline-flex; width: 42px; height: 42px; border-radius: 12px;
   background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14);
@@ -927,7 +933,8 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
         "height": 600
       },
       "image": "https://auraenergy.ie/assets/seam-roof.jpg",
-      "sameAs": ["https://www.linkedin.com/company/aurenergy/"],
+      "sameAs": ["https://www.linkedin.com/company/aurenergy/", "https://x.com/auraenergyie"],
+      "founder": { "@type": "Person", "name": "Martin Molloy" },
       "description": "Aura Energy funds, installs and operates commercial rooftop solar for Irish businesses under a Solar PPA, and designs and builds systems for businesses that prefer to buy outright."
     },
     {
@@ -1198,6 +1205,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
       <a href="#how">How it works</a>
       <a href="#calculator">Estimator</a>
       <a href="#projects">Projects</a>
+      <a href="about.html">About</a>
       <a href="#faq">FAQ</a>
       <a href="tel:+353833945937" class="nav-phone" title="+353 83 394 5937"><svg class="ic"><use href="#i-phone"/></svg>Call now</a>
       <a href="#quote" class="btn btn-primary">Get a quote</a>
@@ -1216,6 +1224,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
   <a href="#calculator">Estimator</a>
   <a href="#projects">Projects</a>
   <a href="#why">Why solar</a>
+  <a href="about.html">About</a>
   <a href="#faq">FAQ</a>
   <a href="tel:+353833945937">Call now</a>
   <a href="#quote" class="btn btn-primary">Get a quote</a>
@@ -1236,7 +1245,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
   <div class="container hero-in">
     <div class="hero-copy">
       <div class="hero-chip"><span class="chip-dot" aria-hidden="true"></span> Solar as a Service</div>
-      <h1>Solar power for your business. <span class="accent">Zero upfront.<svg viewBox="0 0 200 12" preserveAspectRatio="none" fill="none"><path d="M3 9C50 3 150 3 197 8" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg></span></h1>
+      <h1>Solar power for your business. <span class="accent">Zero upfront.</span></h1>
       <p class="lead">We fund, install and operate commercial solar on your roof. You buy the power it makes at a fixed rate below your grid rate, locked in for the full term. Prefer to own it? We do capex installs too.</p>
       <div class="hero-ctas">
         <a href="#quote" class="btn btn-primary btn-lg">See your PPA rate <svg class="ic"><use href="#i-arrow"/></svg></a>
@@ -1651,7 +1660,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
     <div class="section-head reveal">
       <div class="kicker">Our work</div>
       <h2>Commercial installs, live and generating</h2>
-      <p class="lead">Irish businesses already cutting their bills with Aura Energy systems, from warehouses to farms.</p>
+      <p class="lead">Irish businesses already cutting their bills with Aura Energy systems, from warehouses to farms, and the next roofs are in build.</p>
     </div>
     <div class="projects">
       <!-- Photos removed for now. To bring one back, add a .project-img block above .project-body -->
@@ -1719,10 +1728,25 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
           </div>
         </div>
       </article>
+      <article class="project project-build reveal">
+        <div class="project-body">
+          <!-- PLACEHOLDER project: swap in the real in-construction site before launch. -->
+          <span class="tag tag-build"><i></i>In construction</span>
+          <h3>Cold Storage Facility, Co. Cork</h3>
+          <p>Ballasted flat-roof array over round-the-clock refrigeration loads, installing now under a 20-year PPA. Energising spring 2027.</p>
+          <div class="project-meta">
+            <div class="m"><div class="v">120<span> kW</span></div><div class="l">System size</div></div>
+            <div class="m"><div class="v">~108,000</div><div class="l">kWh per year expected</div></div>
+            <div class="m"><div class="v">Q2 2027</div><div class="l">Switch-on</div></div>
+          </div>
+        </div>
+      </article>
       <div class="project-cta reveal">
         <div class="icon-tile"><svg class="ic"><use href="#i-survey"/></svg></div>
-        <h3>Your premises next</h3>
-        <p>Book a free site assessment and see what your roof could be earning.</p>
+        <div class="project-cta-txt">
+          <h3>Your premises next</h3>
+          <p>Book a free site assessment and see what your roof could be earning.</p>
+        </div>
         <a href="#quote" class="btn btn-primary">Get your free quote <svg class="ic"><use href="#i-arrow"/></svg></a>
       </div>
     </div>
@@ -2225,13 +2249,11 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
           </a>
           <a class="social-lbl" href="https://www.linkedin.com/company/aurenergy/" target="_blank" rel="noopener">Follow us on LinkedIn</a>
         </div>
-        <!-- TODO: X profile address. Put it in both links below in place of "#", remove the two
-             aria-disabled attributes, and add it to "sameAs" in the structured data at the top. -->
         <div class="social-row">
-          <a class="social" href="#" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" aria-disabled="true">
+          <a class="social" href="https://x.com/auraenergyie" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
             <svg class="social-x" viewBox="0 0 24 24"><use href="#i-x"/></svg>
           </a>
-          <a class="social-lbl" href="#" target="_blank" rel="noopener" aria-disabled="true">Follow us on X</a>
+          <a class="social-lbl" href="https://x.com/auraenergyie" target="_blank" rel="noopener">Follow us on X</a>
         </div>
       </div>
       <div class="foot-col">
@@ -2240,6 +2262,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
         <a href="#models">Capex installs</a>
         <a href="#how">How it works</a>
         <a href="#projects">Projects</a>
+        <a href="about.html">About us</a>
       </div>
       <div class="foot-col">
         <h3>Resources</h3>
@@ -2269,7 +2292,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
              particulars. Irish company law (Companies Act 2014, s.151) requires the registered
              name and legal form, place of registration, company number and registered office
              on the website. -->
-        <span class="foot-reg">[Aura Energy Limited], registered in Ireland, company no. [000000] · Registered office: [street address], Dublin</span>
+        <span class="foot-reg">Aura Energy Limited, registered in Ireland, company no. [000000] · Registered office: [street address], Dublin</span>
       </div>
       <div class="foot-badges">
         <span class="foot-badge"><svg class="ic"><use href="#i-shield"/></svg> SEAI Registered Installer</span>

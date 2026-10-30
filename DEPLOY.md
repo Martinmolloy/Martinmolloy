@@ -74,6 +74,27 @@ the function's logs (Pages project, Functions, Real-time logs).
 The investor form lives on its own page, `public/investors.html` (`/investors`), linked only
 from the footer and kept out of search results and the sitemap.
 
+## Launch checklist
+
+Before pointing auraenergy.ie at the site:
+
+1. Fill in every `[bracketed]` detail: the company particulars line in the footer of
+   `public/index.html`, and the details in `public/privacy.html`, `public/terms.html` and
+   `public/modern-slavery.html` (legal name, company number, registered office, director,
+   retention period). Irish company law requires the name, legal form, place of registration,
+   number and registered office on the website.
+2. Delete the `noindex` robots line near the top of the four legal pages (each has a TODO
+   comment marking it) so they can be indexed.
+3. Set the `ENQUIRY_TO` secret, then activate FormSubmit (section 6).
+4. Have a solicitor review `public/investors.html` before it goes live. It is visible from the
+   UK, where a page inviting investment can be a regulated financial promotion.
+5. Add the X profile address in the footer of `public/index.html` (TODO comment), and add it
+   to `sameAs` in the structured data.
+6. Confirm the SEAI registered installer claim and keep the registration evidence; the badge
+   appears in the hero, trust bar and footer.
+7. A trademark search for "Aura Energy" is sensible before spending more on the brand; Aura
+   Power, an established solar developer, is active in Ireland and the UK.
+
 ## Working on it
 
 - `npm test` runs the tests for both functions (no API key needed, nothing is charged or

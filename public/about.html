@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>About Aura Energy | Commercial Solar, Founder-Led</title>
-<meta name="description" content="Who Aura Energy is and how to work with us. A founder-led Dublin company that funds, installs and operates commercial rooftop solar across Ireland." />
+<meta name="description" content="Who Aura Energy is and how to work with us. An Irish company that funds, installs and operates commercial rooftop solar for businesses nationwide." />
 <link rel="icon" href="/favicon.ico" sizes="48x48" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -14,7 +14,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://auraenergy.ie/about" />
 <meta property="og:title" content="About Aura Energy" />
-<meta property="og:description" content="A founder-led Dublin company that funds, installs and operates commercial rooftop solar across Ireland." />
+<meta property="og:description" content="An Irish company that funds, installs and operates commercial rooftop solar for businesses nationwide." />
 <meta property="og:image" content="https://auraenergy.ie/assets/seam-roof.jpg" />
 <script type="application/ld+json">
 {
@@ -109,11 +109,19 @@ p { color: var(--muted); }
 
 /* values */
 .values-bg { background: var(--orange-mist); border-block: 1px solid var(--line); }
-.values { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
-.value { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 26px; }
-.value .n { display: block; font-size: 13px; font-weight: 800; letter-spacing: .1em; color: var(--orange-text); margin-bottom: 14px; }
-.value h3 { font-size: 1.05rem; margin-bottom: 9px; }
-.value p { font-size: 14px; }
+.values { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+.value {
+  position: relative; overflow: hidden;
+  background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 36px 128px 32px 34px;
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s;
+}
+.value:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--orange-line); }
+.value::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--orange); transform: scaleX(0); transform-origin: 0 50%; transition: transform .3s var(--ease); }
+.value:hover::before { transform: scaleX(1); }
+.value::after { content: attr(data-n); position: absolute; top: 14px; right: 24px; font-size: 5rem; font-weight: 900; letter-spacing: -0.05em; line-height: 1; color: var(--orange-soft); pointer-events: none; }
+.value h3 { position: relative; font-size: 1.2rem; margin-bottom: 10px; max-width: 18ch; }
+.value p { position: relative; font-size: 14.5px; max-width: 52ch; }
+@media (prefers-reduced-motion: reduce) { .value, .value::before { transition: none; } }
 
 .founded { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--ink); font-weight: 700; font-size: 15px; }
 
@@ -145,7 +153,6 @@ footer :focus-visible { outline-color: #fff; }
 @media (max-width: 1024px) {
   .stats .container { grid-template-columns: repeat(2, 1fr); }
   .story-grid { grid-template-columns: 1fr; gap: 40px; }
-  .values { grid-template-columns: repeat(2, 1fr); }
   .paths { grid-template-columns: 1fr; }
 }
 @media (max-width: 720px) {
@@ -153,6 +160,8 @@ footer :focus-visible { outline-color: #fff; }
   .about-hero { padding: 56px 0 48px; }
   .top-links a:not(.btn) { display: none; }
   .values { grid-template-columns: 1fr; }
+  .value { padding: 30px 96px 28px 26px; }
+  .value::after { font-size: 3.6rem; top: 18px; right: 18px; }
   .pick-path .btn { flex: 1 1 100%; }
 }
 </style>
@@ -197,7 +206,7 @@ footer :focus-visible { outline-color: #fff; }
   <div class="container">
     <div class="kicker">About Aura Energy</div>
     <h1>Solar used to be a capital decision. <span>Not any more.</span></h1>
-    <p class="lead">Aura Energy is a Dublin company with one job: putting solar on Irish business roofs without the business having to fund it. We pay for the system, you pay less for power.</p>
+    <p class="lead">Aura Energy is an Irish company with one job: putting solar on Irish business roofs without the business having to fund it. We pay for the system, you pay less for power.</p>
     <div class="pick-path">
       <a class="btn btn-primary" href="#who-we-are">Who we are <svg class="ic"><use href="#i-arrow"/></svg></a>
       <a class="btn btn-ghost" href="#work-with-us">Work with us</a>
@@ -252,10 +261,10 @@ footer :focus-visible { outline-color: #fff; }
       <h2>Four rules we don't bend</h2>
     </div>
     <div class="values">
-      <div class="value"><span class="n">01</span><h3>Skin in the game</h3><p>We put our own money on your roof and get paid only for power it actually produces. Incentives aligned, in writing.</p></div>
-      <div class="value"><span class="n">02</span><h3>Straight numbers</h3><p>Estimates come with their assumptions attached, savings are counted on self-consumed units only, and a free survey replaces every figure before you sign anything.</p></div>
-      <div class="value"><span class="n">03</span><h3>Built properly</h3><p>Tier-1 equipment, Irish crews, structural checks before a single panel goes up, and no roof penetrations where clamping does the job.</p></div>
-      <div class="value"><span class="n">04</span><h3>There for the term</h3><p>A PPA is a 20-year relationship. Monitoring, maintenance and repairs stay our problem, and the system is yours at the end.</p></div>
+      <div class="value" data-n="01"><h3>Skin in the game</h3><p>We put our own money on your roof and get paid only for power it actually produces. Incentives aligned, in writing.</p></div>
+      <div class="value" data-n="02"><h3>Straight numbers</h3><p>Estimates come with their assumptions attached, savings are counted on self-consumed units only, and a free survey replaces every figure before you sign anything.</p></div>
+      <div class="value" data-n="03"><h3>Built properly</h3><p>Tier-1 equipment, Irish crews, structural checks before a single panel goes up, and no roof penetrations where clamping does the job.</p></div>
+      <div class="value" data-n="04"><h3>There for the term</h3><p>A PPA is a 20-year relationship. Monitoring, maintenance and repairs stay our problem, and the system is yours at the end.</p></div>
     </div>
   </div>
 </section>

@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Commercial Solar Quote Engine</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: brand band, then a two-column working surface — inputs left, live estimate right; stacks at phone width. */
+:root{
+  --bg:#F2F4F6; --surface:#FFFFFF; --ink:#16222E; --muted:#5A6B7A; --line:#D8DEE4;
+  --accent:#B36A00; --accent-soft:#F6E7CF; --green:#0E8A5F; --green-soft:#DCF0E7;
+  --chart-1:#B36A00; --chart-2:#0E8A5F; --chart-grid:#E3E8EC;
+  --band:#16222E; --band-ink:#F4F7F9; --band-muted:#9FB0BE;
+  --focus:#1D6FB8; --danger:#B3261E;
+  --font-display:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0E1620; --surface:#16212C; --ink:#ECF2F7; --muted:#9AAABA; --line:#2A3845;
+  --accent:#E8A33C; --accent-soft:#3A2E17; --green:#3FBF93; --green-soft:#12322A;
+  --chart-1:#C27F12; --chart-2:#23A076; --chart-grid:#243240;
+  --band:#0A111A; --band-ink:#ECF2F7; --band-muted:#8A9BAB;
+  --focus:#6FB3E8; --danger:#F2B8B5; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0E1620; --surface:#16212C; --ink:#ECF2F7; --muted:#9AAABA; --line:#2A3845;
+  --accent:#E8A33C; --accent-soft:#3A2E17; --green:#3FBF93; --green-soft:#12322A;
+  --chart-1:#C27F12; --chart-2:#23A076; --chart-grid:#243240;
+  --band:#0A111A; --band-ink:#ECF2F7; --band-muted:#8A9BAB;
+  --focus:#6FB3E8; --danger:#F2B8B5; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-display);font-weight:500;font-size:15px;line-height:1.55}
+.shell{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:4px}
+
+/* Brand band */
+.band{background:var(--band);color:var(--band-ink)}
+.band .shell{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 20px;padding-block:22px 20px}
+.brand{font-weight:800;font-size:22px;letter-spacing:.01em}
+.brand .dot{color:var(--accent)}
+.tagline{color:var(--band-muted);font-size:14px}
+.band .chip{margin-left:auto;font:600 11px/1 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--band-ink);border:1px solid var(--band-muted);border-radius:999px;padding:7px 12px}
+
+.intro{padding-block:26px 6px}
+.intro h1{font-size:clamp(24px,4vw,34px);font-weight:800;line-height:1.15;margin:0 0 8px;text-wrap:balance;max-width:24ch}
+.intro p{margin:0;color:var(--muted);max-width:62ch}
+.example-note{display:inline-flex;align-items:center;gap:8px;margin-top:12px;background:var(--accent-soft);color:var(--ink);border-radius:8px;padding:8px 12px;font-size:13px;font-weight:600}
+.example-note svg{flex:none}
+
+.grid{display:grid;grid-template-columns:minmax(300px,380px) minmax(0,1fr);gap:22px;padding-block:20px 10px;align-items:start}
+@media (max-width:860px){.grid{grid-template-columns:1fr}}
+
+/* Form */
+form.panel,section.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+form.panel{padding:20px 18px 22px}
+fieldset{border:0;margin:0 0 4px;padding:0 0 16px}
+fieldset+fieldset{border-top:1px solid var(--line);padding-top:16px}
+legend{font:600 11px/1 var(--font-mono);letter-spacing:.09em;text-transform:uppercase;color:var(--muted);padding:0 0 12px}
+label{display:block;font-weight:600;font-size:13px;margin:0 0 5px}
+.hint{font-weight:500;color:var(--muted)}
+input[type=text],input[type=number],input[type=email],input[type=tel],select,textarea{
+  width:100%;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;
+  padding:9px 10px;font:500 14px/1.3 var(--font-display)}
+input[type=number]{font-family:var(--font-mono)}
+.row{display:flex;gap:10px}.row>*{flex:1;min-width:0}
+.field{margin-bottom:12px}
+.seg{display:flex;gap:0;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{flex:1;padding:9px 8px;background:var(--surface);color:var(--muted);border:0;font:600 13px var(--font-display);cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--band);color:var(--band-ink)}
+.radios{display:grid;gap:7px}
+.radios label{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--line);border-radius:8px;padding:9px 10px;cursor:pointer;font-weight:500;margin:0}
+.radios input{margin-top:2px;accent-color:var(--accent)}
+.radios label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.unit-wrap{position:relative}
+.unit-wrap .unit{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--muted);font:500 12px var(--font-mono);pointer-events:none}
+
+/* Results */
+.results{display:grid;gap:14px;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:560px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 14px 12px;min-width:0}
+.kpi .k-label{font:600 10.5px/1.3 var(--font-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.kpi .k-value{font:700 clamp(19px,2.4vw,24px)/1.15 var(--font-display);margin-top:5px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.kpi .k-sub{font-size:12px;color:var(--muted);margin-top:3px}
+.kpi.hero{grid-column:span 1;border-left:3px solid var(--accent)}
+.kpi .k-value small{font-size:.62em;font-weight:600;color:var(--muted)}
+
+section.panel{padding:16px 18px}
+section.panel h2{font-size:15px;font-weight:700;margin:0 0 10px}
+.chart-wrap{min-width:0}
+.chart-wrap svg{display:block;width:100%;height:auto}
+.chart-head{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;margin-bottom:4px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.swatch{width:14px;height:3px;border-radius:2px;background:var(--chart-1);display:inline-block}
+.swatch.cost{background:none;border-top:2px dashed var(--muted);height:0}
+#tip{position:absolute;pointer-events:none;background:var(--band);color:var(--band-ink);border-radius:7px;padding:7px 9px;font:500 12px/1.45 var(--font-mono);white-space:nowrap;transform:translate(-50%,calc(-100% - 10px));opacity:0;transition:opacity .1s}
+@media (prefers-reduced-motion:reduce){#tip{transition:none}}
+details.table-view{margin-top:10px;font-size:13px}
+details.table-view summary{cursor:pointer;color:var(--muted);font-weight:600}
+details.table-view table{border-collapse:collapse;width:100%;margin-top:8px;font-family:var(--font-mono);font-size:12px}
+details.table-view th,details.table-view td{text-align:right;padding:4px 8px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+details.table-view th:first-child,details.table-view td:first-child{text-align:left}
+.table-scroll{overflow-x:auto}
+
+.notes{display:grid;gap:10px}
+.note{display:flex;gap:11px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:11px 13px;background:var(--surface)}
+.note .badge{flex:none;font:600 10px/1 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;border-radius:5px;padding:5px 7px;margin-top:1px}
+.badge.grid-b{background:var(--accent-soft);color:var(--ink)}
+.badge.grant-b{background:var(--green-soft);color:var(--ink)}
+.note p{margin:0;font-size:13.5px}
+.note strong{font-weight:700}
+
+.assumptions{font-size:13px}
+.assumptions dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px 16px;margin:0}
+.assumptions dt{color:var(--muted);font-size:11.5px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.05em}
+.assumptions dd{margin:2px 0 0;font-weight:600;font-variant-numeric:tabular-nums}
+.assumptions .edit-rates{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.assumptions .edit-rates label{font-size:12px;flex:1;min-width:130px}
+
+/* Lead form */
+.lead{border-left:3px solid var(--green)}
+.lead p.lead-sub{color:var(--muted);font-size:13.5px;margin:2px 0 14px}
+.lead .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:4px}
+button.cta{background:var(--green);color:#fff;border:0;border-radius:8px;padding:12px 20px;font:700 15px var(--font-display);cursor:pointer}
+:root[data-theme="dark"] button.cta,:root:not([data-theme="light"]) button.cta{color:#06251A}
+button.cta:hover{filter:brightness(1.06)}
+.lead .privacy{font-size:12px;color:var(--muted)}
+#lead-result{margin-top:12px}
+#lead-result .ok{background:var(--green-soft);border:1px solid var(--green);border-radius:9px;padding:12px 14px;font-size:14px}
+#lead-result .demo{border:1px dashed var(--line);border-radius:9px;padding:12px 14px;font-size:13px}
+#lead-result pre{overflow-x:auto;background:var(--bg);border-radius:7px;padding:10px;font:400 11.5px/1.5 var(--font-mono);margin:9px 0 0}
+#lead-result .err{color:var(--danger);font-size:13px}
+button.copy{background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:6px;padding:6px 10px;font:600 12px var(--font-display);cursor:pointer;margin-top:8px}
+
+footer{padding-block:22px 34px;color:var(--muted);font-size:12.5px}
+footer .shell{border-top:1px solid var(--line);padding-top:16px}
+footer p{margin:0 0 6px;max-width:90ch}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+
+<div class="band"><div class="shell">
+  <span class="brand" id="brand-name">Meridian Solar<span class="dot">.</span></span>
+  <span class="tagline" id="brand-tagline">Commercial &amp; industrial solar, engineered.</span>
+  <span class="chip">Instant budget estimate</span>
+</div></div>
+
+<main class="shell">
+  <div class="intro">
+    <h1>Price your roof in sixty seconds</h1>
+    <p>Answer six questions about your site and electricity use. You get an engineer-grade budget estimate — system size, cost, grant support, payback — built on the same assumptions we use in a full design, every one of them shown below the numbers.</p>
+    <p class="example-note"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 7.2v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="4.9" r=".9" fill="currentColor"/></svg>
+    Pre-filled with example figures for a UK warehouse — edit any field and the estimate recalculates.</p>
+  </div>
+
+  <div class="grid">
+    <form class="panel" id="qform" autocomplete="on" novalidate>
+      <fieldset>
+        <legend>Your site</legend>
+        <div class="field">
+          <label id="lbl-country">Country</label>
+          <div class="seg" role="group" aria-labelledby="lbl-country">
+            <button type="button" id="seg-UK" aria-pressed="true">United Kingdom</button>
+            <button type="button" id="seg-IE" aria-pressed="false">Ireland</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="sector">Sector</label>
+            <select id="sector">
+              <option value="warehouse" selected>Warehousing / logistics</option>
+              <option value="manufacturing">Manufacturing</option>
+              <option value="agri">Agriculture</option>
+              <option value="retail">Retail</option>
+              <option value="office">Offices</option>
+              <option value="hospitality">Hospitality / leisure</option>
+              <option value="education">Education</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="postcode" id="postcode-label">Postcode</label>
+            <input type="text" id="postcode" value="LE3 1UQ" autocomplete="postal-code">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Electricity use</legend>
+        <div class="field">
+          <label id="lbl-emode">Tell us one of these</label>
+          <div class="seg" role="group" aria-labelledby="lbl-emode">
+            <button type="button" id="seg-spend" aria-pressed="true">Monthly spend</button>
+            <button type="button" id="seg-kwh" aria-pressed="false">Annual kWh</button>
+          </div>
+        </div>
+        <div class="field" id="f-spend">
+          <label for="spend">Average monthly electricity bill <span class="hint">(ex. VAT)</span></label>
+          <div class="unit-wrap"><input type="number" id="spend" value="3500" min="100" step="50" inputmode="numeric"><span class="unit" id="spend-unit">£ / month</span></div>
+        </div>
+        <div class="field" id="f-kwh" hidden>
+          <label for="kwh">Annual consumption <span class="hint">(from your bill or MPAN/MPRN data)</span></label>
+          <div class="unit-wrap"><input type="number" id="kwh" value="160000" min="5000" step="1000" inputmode="numeric"><span class="unit">kWh / year</span></div>
+        </div>
+        <div class="field">
+          <label id="lbl-profile">When does the site use power?</label>
+          <div class="radios" role="radiogroup" aria-labelledby="lbl-profile" id="profile-radios"></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Roof or land</legend>
+        <div class="field">
+          <label for="rooftype">Mounting surface</label>
+          <select id="rooftype"></select>
+        </div>
+        <div class="field">
+          <label for="area">Usable area <span class="hint">(roughly — leave blank if unsure)</span></label>
+          <div class="unit-wrap"><input type="number" id="area" value="1400" min="20" step="10" inputmode="numeric"><span class="unit">m²</span></div>
+        </div>
+      </fieldset>
+    </form>
+
+    <div class="results" aria-live="polite">
+      <div class="kpis">
+        <div class="kpi hero"><div class="k-label">Recommended system</div><div class="k-value" id="k-size">—</div><div class="k-sub" id="k-panels">—</div></div>
+        <div class="kpi"><div class="k-label">Budget cost</div><div class="k-value" id="k-cost">—</div><div class="k-sub" id="k-cost-sub">installed, ex. VAT</div></div>
+        <div class="kpi" id="kpi-grant" hidden><div class="k-label">SEAI grant (est.)</div><div class="k-value" id="k-grant">—</div><div class="k-sub">deducted from cost</div></div>
+        <div class="kpi"><div class="k-label">Year-1 saving</div><div class="k-value" id="k-save">—</div><div class="k-sub" id="k-save-sub">—</div></div>
+        <div class="kpi hero"><div class="k-label">Payback</div><div class="k-value" id="k-payback">—</div><div class="k-sub">with energy inflation</div></div>
+        <div class="kpi"><div class="k-label">25-year benefit</div><div class="k-value" id="k-25">—</div><div class="k-sub">net of system cost</div></div>
+        <div class="kpi"><div class="k-label">CO₂ avoided</div><div class="k-value" id="k-co2">—</div><div class="k-sub">per year, grid average</div></div>
+      </div>
+
+      <section class="panel chart-wrap" style="position:relative">
+        <div class="chart-head">
+          <h2>Cumulative saving vs. system cost</h2>
+          <div class="legend"><span><span class="swatch"></span>Cumulative saving</span><span><span class="swatch cost"></span>Net system cost</span></div>
+        </div>
+        <div id="chart" role="img" aria-label="Line chart of cumulative savings over 25 years crossing the net system cost line at the payback point"></div>
+        <div id="tip" aria-hidden="true"></div>
+        <details class="table-view"><summary>Year-by-year table</summary><div class="table-scroll" id="yeartable"></div></details>
+      </section>
+
+      <div class="notes" id="notes"></div>
+
+      <section class="panel assumptions">
+        <h2>Every assumption, in the open</h2>
+        <dl id="assumptions-list"></dl>
+        <div class="edit-rates">
+          <label>Import rate <span class="hint">(your unit price)</span>
+            <div class="unit-wrap"><input type="number" id="importRate" step="0.01" min="0.05" max="2" inputmode="decimal"><span class="unit" id="imp-unit">£/kWh</span></div></label>
+          <label>Export rate <span class="hint" id="export-name">(SEG)</span>
+            <div class="unit-wrap"><input type="number" id="exportRate" step="0.01" min="0" max="1" inputmode="decimal"><span class="unit" id="exp-unit">£/kWh</span></div></label>
+        </div>
+      </section>
+
+      <section class="panel lead">
+        <h2>Firm these numbers up</h2>
+        <p class="lead-sub">Send us this estimate and a recent bill (or half-hourly data) and we come back with a designed system, a fixed price, and the grid application started — usually within 3 working days.</p>
+        <form id="leadform" novalidate>
+          <div class="row">
+            <div class="field"><label for="l-name">Your name</label><input type="text" id="l-name" autocomplete="name" required></div>
+            <div class="field"><label for="l-company">Company</label><input type="text" id="l-company" autocomplete="organization" required></div>
+          </div>
+          <div class="row">
+            <div class="field"><label for="l-email">Work email</label><input type="email" id="l-email" autocomplete="email" required></div>
+            <div class="field"><label for="l-phone">Phone <span class="hint">(optional)</span></label><input type="tel" id="l-phone" autocomplete="tel"></div>
+          </div>
+          <div class="actions">
+            <button type="submit" class="cta">Send my estimate &amp; book a survey</button>
+            <span class="privacy">Used only to respond to this enquiry.</span>
+          </div>
+          <div id="lead-result"></div>
+        </form>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer><div class="shell">
+  <p id="foot-disclaimer">Figures are an indicative budget estimate, not a quotation. System size, cost and savings are confirmed after a site survey and analysis of your consumption data. Grant values are indicative and subject to the scheme rules in force at application.</p>
+  <p id="foot-contact"></p>
+</div></footer>
+
+<script>
+/* ================= WHITE-LABEL CONFIG =================
+   Everything an installer needs to rebrand and tune this
+   tool lives in this one object. No other edits needed. */
+const CONFIG = {
+  brand: {
+    name: "Meridian Solar",
+    tagline: "Commercial & industrial solar, engineered.",
+    email: "quotes@meridian-solar.example",
+    phone: "+44 20 7946 0958"
+  },
+  // POST destination for the lead packet (JSON). On Cloudflare Pages this
+  // can be a Pages Function like "/api/enquiry". Leave "" for demo mode,
+  // which displays the packet instead of sending it.
+  webhookUrl: "",
+  regions: {
+    UK: {
+      label: "United Kingdom", cur: "£", postcodeLabel: "Postcode",
+      importRate: 0.26, exportRate: 0.08, exportName: "Smart Export Guarantee",
+      yieldPerKwp: 900, co2PerKwh: 0.207,
+      costTiers: [[50,1050],[150,920],[500,820],[Infinity,750]], // [up to kWp, £/kWp]
+      grant: null,
+      taxNote: "Solar plant qualifies for capital allowances (full expensing / AIA) — typically worth up to 25p per £1 of capex in corporation tax relief. Not included in the payback figures above.",
+      grid: { threshold: 17, title: "Grid connection — G99",
+        body: "A system this size needs G99 prior approval from your network operator before it can connect, and DNO assessment can take up to 65 working days. We prepare and submit your application at survey stage — before you commit — so your place in the queue is held and approval never delays commissioning." }
+    },
+    IE: {
+      label: "Ireland", cur: "€", postcodeLabel: "Eircode",
+      importRate: 0.32, exportRate: 0.195, exportName: "Clean Export Guarantee",
+      yieldPerKwp: 875, co2PerKwh: 0.28,
+      costTiers: [[50,1150],[150,990],[500,880],[Infinity,800]],
+      grant: {
+        name: "SEAI Non-Domestic Microgen Grant", capEUR: 162600,
+        tiers: [[6,900],[20,300],[200,200],[1000,150]], // marginal €/kWp bands
+        note: "Indicative — SEAI rates and terms change. We are an SEAI-registered installer and prepare the grant application for you; the exact figure is confirmed before you sign." },
+      taxNote: "Accelerated Capital Allowances let you write the full solar capex off against profits in year one. Not included in the payback figures above.",
+      grid: { threshold: 11, title: "Grid connection — ESB Networks",
+        body: "A system this size needs an ESB Networks connection application (NC6 mini-generation up to 50 kW; NC7 above that). We prepare and submit it at survey stage so grid approval never delays commissioning." }
+    }
+  },
+  profiles: {
+    "allday":  { label: "Around the clock (24/7 operations)",   self: 0.85, size: 1.00 },
+    "sevenday":{ label: "Daytime, 7 days a week",               self: 0.75, size: 0.90 },
+    "fiveday": { label: "Daytime, Monday to Friday",            self: 0.65, size: 0.75 },
+    "lowday":  { label: "Mostly evenings / seasonal",           self: 0.45, size: 0.50 }
+  },
+  roofTypes: {
+    pitchedMetal: { label: "Pitched metal roof",     m2PerKwp: 5.5 },
+    pitchedTile:  { label: "Pitched tile or slate",  m2PerKwp: 6.5 },
+    flat:         { label: "Flat roof (ballasted)",  m2PerKwp: 7.5 },
+    ground:       { label: "Ground mount",           m2PerKwp: 9.0 }
+  },
+  panelKwp: 0.46,        // module size used for the panel count
+  degradation: 0.004,    // output lost per year
+  energyInflation: 0.03, // electricity price growth per year
+  minKwp: 8, maxKwp: 1000,
+  costRangePct: 0.10     // ± band shown around the central cost
+};
+/* =============== END WHITE-LABEL CONFIG =============== */
+
+const $ = id => document.getElementById(id);
+const state = { country: "UK", emode: "spend", profile: "fiveday" };
+
+// --- populate brand + controls from CONFIG
+(function init(){
+  const nameEl = $("brand-name");
+  nameEl.textContent = CONFIG.brand.name;
+  const dot = document.createElement("span"); dot.className = "dot"; dot.textContent = ".";
+  nameEl.appendChild(dot);
+  $("brand-tagline").textContent = CONFIG.brand.tagline;
+  $("foot-contact").textContent = CONFIG.brand.name + " · " + CONFIG.brand.email + " · " + CONFIG.brand.phone;
+  document.title = "Instant estimate — " + CONFIG.brand.name;
+
+  const radios = $("profile-radios");
+  Object.entries(CONFIG.profiles).forEach(([key, p]) => {
+    const l = document.createElement("label");
+    const r = document.createElement("input");
+    r.type = "radio"; r.name = "profile"; r.value = key; r.id = "prof-" + key;
+    if (key === state.profile) r.checked = true;
+    r.addEventListener("change", () => { state.profile = key; recalc(); });
+    l.appendChild(r); l.appendChild(document.createTextNode(p.label));
+    radios.appendChild(l);
+  });
+  const rt = $("rooftype");
+  Object.entries(CONFIG.roofTypes).forEach(([key, t]) => {
+    const o = document.createElement("option"); o.value = key; o.textContent = t.label;
+    rt.appendChild(o);
+  });
+  rt.value = "pitchedMetal";
+
+  $("seg-UK").addEventListener("click", () => setCountry("UK"));
+  $("seg-IE").addEventListener("click", () => setCountry("IE"));
+  $("seg-spend").addEventListener("click", () => setEmode("spend"));
+  $("seg-kwh").addEventListener("click", () => setEmode("kwh"));
+  ["spend","kwh","area","sector","rooftype","postcode","importRate","exportRate"].forEach(id =>
+    $(id).addEventListener("input", recalc));
+  setCountry("UK", true);
+})();
+
+function setCountry(c, first){
+  state.country = c;
+  const R = CONFIG.regions[c];
+  $("seg-UK").setAttribute("aria-pressed", c === "UK");
+  $("seg-IE").setAttribute("aria-pressed", c === "IE");
+  $("postcode-label").textContent = R.postcodeLabel;
+  $("spend-unit").textContent = R.cur + " / month";
+  $("imp-unit").textContent = R.cur + "/kWh";
+  $("exp-unit").textContent = R.cur + "/kWh";
+  $("export-name").textContent = "(" + R.exportName + ")";
+  $("importRate").value = R.importRate;
+  $("exportRate").value = R.exportRate;
+  if (!first && c === "IE" && $("postcode").value === "LE3 1UQ") $("postcode").value = "D11 XY45";
+  if (!first && c === "UK" && $("postcode").value === "D11 XY45") $("postcode").value = "LE3 1UQ";
+  recalc();
+}
+function setEmode(m){
+  state.emode = m;
+  $("seg-spend").setAttribute("aria-pressed", m === "spend");
+  $("seg-kwh").setAttribute("aria-pressed", m === "kwh");
+  $("f-spend").hidden = m !== "spend";
+  $("f-kwh").hidden = m !== "kwh";
+  recalc();
+}
+
+function grantFor(kwp, grant){
+  if (!grant) return 0;
+  let g = 0, prev = 0;
+  for (const [upto, rate] of grant.tiers){
+    const span = Math.max(0, Math.min(kwp, upto) - prev);
+    g += span * rate; prev = upto;
+    if (kwp <= upto) break;
+  }
+  return Math.min(g, grant.capEUR);
+}
+function costRate(kwp, tiers){ for (const [upto, rate] of tiers) if (kwp <= upto) return rate; return tiers[tiers.length-1][1]; }
+
+function money(cur, v, dp=0){
+  return cur + v.toLocaleString("en-GB", { maximumFractionDigits: dp, minimumFractionDigits: 0 });
+}
+
+let last = null;
+function recalc(){
+  const R = CONFIG.regions[state.country];
+  const prof = CONFIG.profiles[state.profile];
+  const importRate = Math.max(0.01, parseFloat($("importRate").value) || R.importRate);
+  const exportRate = Math.max(0, parseFloat($("exportRate").value) || 0);
+
+  const annualKwh = state.emode === "spend"
+    ? Math.max(0, (parseFloat($("spend").value) || 0) * 12 / importRate)
+    : Math.max(0, parseFloat($("kwh").value) || 0);
+  if (annualKwh < 1000){ return; }
+
+  const roof = CONFIG.roofTypes[$("rooftype").value];
+  const areaVal = parseFloat($("area").value);
+  const roofCap = areaVal > 0 ? areaVal / roof.m2PerKwp : Infinity;
+
+  let kwp = annualKwh * prof.size / R.yieldPerKwp;
+  kwp = Math.min(kwp, roofCap, CONFIG.maxKwp);
+  kwp = Math.max(kwp, Math.min(CONFIG.minKwp, roofCap));
+  const panels = Math.max(4, Math.round(kwp / CONFIG.panelKwp));
+  kwp = panels * CONFIG.panelKwp;
+
+  const rate = costRate(kwp, R.costTiers);
+  const cost = kwp * rate;
+  const grant = grantFor(kwp, R.grant);
+  const net = cost - grant;
+
+  const gen = kwp * R.yieldPerKwp;
+  const selfUse = gen * prof.self;
+  const exported = gen - selfUse;
+  const year1 = selfUse * importRate + exported * exportRate;
+
+  // 25-year series with degradation + energy inflation
+  const years = [];
+  let cum = 0, payback = null;
+  for (let y = 1; y <= 25; y++){
+    const f = Math.pow(1 - CONFIG.degradation, y - 1) * Math.pow(1 + CONFIG.energyInflation, y - 1);
+    const s = year1 * f;
+    const prev = cum; cum += s;
+    years.push({ y, s, cum });
+    if (payback === null && cum >= net) payback = (y - 1) + (net - prev) / s;
+  }
+
+  last = { R, prof, importRate, exportRate, annualKwh, kwp, panels, cost, grant, net, gen, selfUse, exported, year1, years, payback, rate };
+  render(last);
+}
+
+function render(d){
+  const { R } = d;
+  $("k-size").innerHTML = d.kwp.toFixed(1).replace(/\.0$/,"") + " <small>kWp</small>";
+  $("k-panels").textContent = d.panels.toLocaleString("en-GB") + " panels · ~" + Math.round(d.gen/1000).toLocaleString("en-GB") + " MWh/yr";
+  const lo = d.cost * (1 - CONFIG.costRangePct), hi = d.cost * (1 + CONFIG.costRangePct);
+  $("k-cost").textContent = money(R.cur, lo/1000, 0) + "k–" + money("", hi/1000, 0) + "k";
+  $("kpi-grant").hidden = d.grant <= 0;
+  if (d.grant > 0) $("k-grant").textContent = "−" + money(R.cur, d.grant);
+  $("k-save").textContent = money(R.cur, d.year1);
+  $("k-save-sub").textContent = Math.round(d.prof.self*100) + "% used on site, rest exported";
+  $("k-payback").innerHTML = d.payback ? d.payback.toFixed(1) + " <small>years</small>" : "&gt;25 yrs";
+  $("k-25").textContent = money(R.cur, (d.years[24].cum - d.net)/1000, 0) + "k";
+  $("k-co2").innerHTML = (d.gen * R.co2PerKwh / 1000).toFixed(1) + " <small>tonnes</small>";
+
+  drawChart(d);
+  renderTable(d);
+  renderNotes(d);
+  renderAssumptions(d);
+}
+
+function renderNotes(d){
+  const n = $("notes"); n.textContent = "";
+  const items = [];
+  if (d.kwp > d.R.grid.threshold)
+    items.push(["GRID", "grid-b", d.R.grid.title, d.R.grid.body]);
+  if (d.R.grant)
+    items.push(["GRANT", "grant-b", d.R.grant.name, d.R.grant.note]);
+  items.push(["TAX", "grant-b", "Tax relief on top", d.R.taxNote]);
+  for (const [tag, cls, title, body] of items){
+    const div = document.createElement("div"); div.className = "note";
+    const b = document.createElement("span"); b.className = "badge " + cls; b.textContent = tag;
+    const p = document.createElement("p");
+    const s = document.createElement("strong"); s.textContent = title + ". ";
+    p.appendChild(s); p.appendChild(document.createTextNode(body));
+    div.appendChild(b); div.appendChild(p); n.appendChild(div);
+  }
+}
+
+function renderAssumptions(d){
+  const { R } = d;
+  const dl = $("assumptions-list"); dl.textContent = "";
+  const rows = [
+    ["Annual consumption", Math.round(d.annualKwh).toLocaleString("en-GB") + " kWh"],
+    ["Specific yield", R.yieldPerKwp + " kWh/kWp·yr"],
+    ["Self-consumption", Math.round(d.prof.self*100) + "%"],
+    ["Install cost", money(R.cur, d.rate) + "/kWp"],
+    ["Panel degradation", (CONFIG.degradation*100).toFixed(1) + "%/yr"],
+    ["Energy inflation", (CONFIG.energyInflation*100).toFixed(0) + "%/yr"]
+  ];
+  for (const [k, v] of rows){
+    const dt = document.createElement("dt"); dt.textContent = k;
+    const dd = document.createElement("dd"); dd.textContent = v;
+    const wrap = document.createElement("div"); wrap.appendChild(dt); wrap.appendChild(dd);
+    dl.appendChild(wrap);
+  }
+}
+
+function renderTable(d){
+  const host = $("yeartable"); host.textContent = "";
+  const t = document.createElement("table");
+  t.innerHTML = "<thead><tr><th scope='col'>Year</th><th scope='col'>Saving</th><th scope='col'>Cumulative</th></tr></thead>";
+  const tb = document.createElement("tbody");
+  for (const r of d.years){
+    const tr = document.createElement("tr");
+    tr.innerHTML = "<td>" + r.y + "</td><td>" + money(d.R.cur, r.s) + "</td><td>" + money(d.R.cur, r.cum) + "</td>";
+    tb.appendChild(tr);
+  }
+  t.appendChild(tb); host.appendChild(t);
+}
+
+// --- chart: cumulative savings area + net-cost reference, to scale, hover crosshair
+function drawChart(d){
+  const host = $("chart"); host.textContent = "";
+  const W = 680, H = 280, m = { t: 14, r: 16, b: 30, l: 56 };
+  const iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const maxY = Math.max(d.years[24].cum, d.net) * 1.08;
+  const x = yr => m.l + (yr / 25) * iw;
+  const y = v => m.t + ih - (v / maxY) * ih;
+  const css = getComputedStyle(document.documentElement);
+  const cMark = css.getPropertyValue("--chart-1").trim();
+  const cGrid = css.getPropertyValue("--chart-grid").trim();
+  const cMuted = css.getPropertyValue("--muted").trim();
+  const cInk = css.getPropertyValue("--ink").trim();
+
+  const ns = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(ns, "svg");
+  svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+  const el = (tag, attrs, parent) => { const e = document.createElementNS(ns, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]); (parent || svg).appendChild(e); return e; };
+
+  // y ticks: 4 nice steps
+  const step = niceStep(maxY / 4);
+  for (let v = 0; v <= maxY; v += step){
+    el("line", { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: cGrid, "stroke-width": 1 });
+    const t = el("text", { x: m.l - 8, y: y(v) + 4, "text-anchor": "end", fill: cMuted,
+      "font-size": 11, "font-family": "IBM Plex Mono, monospace" });
+    t.textContent = d.R.cur + (v >= 1e6 ? (v/1e6).toFixed(1) + "m" : Math.round(v/1000) + "k");
+  }
+  // x ticks every 5 years
+  for (let yr = 0; yr <= 25; yr += 5){
+    const t = el("text", { x: x(yr), y: H - 8, "text-anchor": "middle", fill: cMuted,
+      "font-size": 11, "font-family": "IBM Plex Mono, monospace" });
+    t.textContent = yr === 0 ? "Yr 0" : yr;
+  }
+
+  // cumulative savings area + line
+  let pts = "M" + x(0) + "," + y(0);
+  for (const r of d.years) pts += " L" + x(r.y) + "," + y(r.cum);
+  el("path", { d: pts + " L" + x(25) + "," + y(0) + " Z", fill: cMark, opacity: 0.14 });
+  el("path", { d: pts, fill: "none", stroke: cMark, "stroke-width": 2, "stroke-linejoin": "round" });
+  // endpoint emphasis
+  el("circle", { cx: x(25), cy: y(d.years[24].cum), r: 3.5, fill: cMark });
+  const endT = el("text", { x: x(25) - 6, y: y(d.years[24].cum) - 9, "text-anchor": "end", fill: cInk,
+    "font-size": 12, "font-weight": 700, "font-family": "IBM Plex Mono, monospace" });
+  endT.textContent = money(d.R.cur, d.years[24].cum / 1000, 0) + "k";
+
+  // net cost reference line
+  el("line", { x1: m.l, x2: W - m.r, y1: y(d.net), y2: y(d.net), stroke: cMuted,
+    "stroke-width": 1.5, "stroke-dasharray": "5 4" });
+  const costT = el("text", { x: m.l + 6, y: y(d.net) - 6, fill: cMuted, "font-size": 11,
+    "font-family": "IBM Plex Mono, monospace" });
+  costT.textContent = "net cost " + money(d.R.cur, d.net / 1000, 0) + "k";
+
+  // payback marker
+  if (d.payback){
+    el("circle", { cx: x(d.payback), cy: y(d.net), r: 4.5, fill: cMark, stroke: css.getPropertyValue("--surface").trim(), "stroke-width": 2 });
+    const pb = el("text", { x: Math.min(x(d.payback) + 8, W - m.r - 70), y: y(d.net) + 18, fill: cInk,
+      "font-size": 12, "font-weight": 700, "font-family": "IBM Plex Mono, monospace" });
+    pb.textContent = "payback " + d.payback.toFixed(1) + " yrs";
+  }
+
+  // hover crosshair + tooltip
+  const cross = el("line", { x1: 0, x2: 0, y1: m.t, y2: m.t + ih, stroke: cMuted, "stroke-width": 1, opacity: 0 });
+  const dot = el("circle", { r: 4, fill: cMark, opacity: 0 });
+  const tip = $("tip");
+  const move = ev => {
+    const r = svg.getBoundingClientRect();
+    const px = (ev.clientX - r.left) / r.width * W;
+    const yr = Math.min(25, Math.max(1, Math.round((px - m.l) / iw * 25)));
+    const row = d.years[yr - 1];
+    cross.setAttribute("x1", x(yr)); cross.setAttribute("x2", x(yr)); cross.setAttribute("opacity", 0.5);
+    dot.setAttribute("cx", x(yr)); dot.setAttribute("cy", y(row.cum)); dot.setAttribute("opacity", 1);
+    tip.textContent = "Year " + yr + " · saved " + money(d.R.cur, row.cum);
+    const hostR = host.parentElement.getBoundingClientRect();
+    tip.style.left = (ev.clientX - hostR.left) + "px";
+    tip.style.top = (r.top - hostR.top + y(row.cum) / H * r.height) + "px";
+    tip.style.opacity = 1;
+  };
+  svg.addEventListener("pointermove", move);
+  svg.addEventListener("pointerleave", () => { tip.style.opacity = 0; cross.setAttribute("opacity", 0); dot.setAttribute("opacity", 0); });
+  host.appendChild(svg);
+}
+function niceStep(raw){
+  const p = Math.pow(10, Math.floor(Math.log10(raw)));
+  for (const m of [1, 2, 2.5, 5, 10]) if (m * p >= raw) return m * p;
+  return 10 * p;
+}
+
+// --- lead capture
+$("leadform").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const out = $("lead-result"); out.textContent = "";
+  const name = $("l-name").value.trim(), company = $("l-company").value.trim(), email = $("l-email").value.trim();
+  if (!name || !company || !email || !email.includes("@")){
+    const e = document.createElement("p"); e.className = "err";
+    e.textContent = "Please fill in your name, company and a valid work email.";
+    out.appendChild(e); return;
+  }
+  const d = last;
+  const packet = {
+    source: "instant-quote-engine", brand: CONFIG.brand.name,
+    submittedAt: new Date().toISOString(),
+    contact: { name, company, email, phone: $("l-phone").value.trim() },
+    site: { country: state.country, sector: $("sector").value, postcode: $("postcode").value.trim(),
+      roofType: $("rooftype").value, usableAreaM2: parseFloat($("area").value) || null },
+    energy: { inputMode: state.emode, monthlySpend: parseFloat($("spend").value) || null,
+      annualKwh: Math.round(d.annualKwh), usageProfile: state.profile,
+      importRate: d.importRate, exportRate: d.exportRate },
+    estimate: { systemKwp: +d.kwp.toFixed(2), panels: d.panels, grossCost: Math.round(d.cost),
+      grant: Math.round(d.grant), netCost: Math.round(d.net),
+      annualGenerationKwh: Math.round(d.gen), year1Saving: Math.round(d.year1),
+      paybackYears: d.payback ? +d.payback.toFixed(1) : null,
+      benefit25yr: Math.round(d.years[24].cum - d.net),
+      gridApplication: d.kwp > d.R.grid.threshold ? d.R.grid.title : "not required" }
+  };
+  if (CONFIG.webhookUrl){
+    try {
+      const r = await fetch(CONFIG.webhookUrl, { method: "POST",
+        headers: { "Content-Type": "application/json" }, body: JSON.stringify(packet) });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      const ok = document.createElement("div"); ok.className = "ok";
+      ok.textContent = "Thanks " + name.split(" ")[0] + " — your estimate is with our design team. We'll come back within 3 working days to book your survey.";
+      out.appendChild(ok);
+    } catch (err){
+      const e = document.createElement("p"); e.className = "err";
+      e.textContent = "That didn't send — please email us directly at " + CONFIG.brand.email + ".";
+      out.appendChild(e);
+    }
+  } else {
+    const demo = document.createElement("div"); demo.className = "demo";
+    const p = document.createElement("p");
+    p.innerHTML = "<strong>Demo mode.</strong> In production this lead packet posts straight to your CRM, webhook or inbox (set <code>CONFIG.webhookUrl</code>). This is what your sales team receives — a pre-qualified, pre-sized lead:";
+    demo.appendChild(p);
+    const pre = document.createElement("pre"); pre.textContent = JSON.stringify(packet, null, 2);
+    demo.appendChild(pre);
+    const btn = document.createElement("button"); btn.type = "button"; btn.className = "copy"; btn.textContent = "Copy lead packet";
+    btn.addEventListener("click", () => {
+      navigator.clipboard.writeText(pre.textContent).then(
+        () => { btn.textContent = "Copied"; setTimeout(() => btn.textContent = "Copy lead packet", 1500); },
+        () => { const sel = window.getSelection(); const rg = document.createRange(); rg.selectNodeContents(pre); sel.removeAllRanges(); sel.addRange(rg); });
+    });
+    demo.appendChild(btn);
+    out.appendChild(demo);
+  }
+});
+
+recalc();
+</script>
+</body>
+</html>

@@ -5,31 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Commercial Solar Quote Engine</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
-/* Layout: brand band, then a two-column working surface — inputs left, live estimate right; stacks at phone width. */
+/* Layout: brand band, then a two-column working surface — inputs left, live estimate right; stacks at phone width.
+   Palette: Aura Energy brand tokens (public/index.html) — orange #FE5000/#E54800/#B83A0A, green #12714B, ink #111113. */
 :root{
-  --bg:#F2F4F6; --surface:#FFFFFF; --ink:#16222E; --muted:#5A6B7A; --line:#D8DEE4;
-  --accent:#B36A00; --accent-soft:#F6E7CF; --green:#0E8A5F; --green-soft:#DCF0E7;
-  --chart-1:#B36A00; --chart-2:#0E8A5F; --chart-grid:#E3E8EC;
-  --band:#16222E; --band-ink:#F4F7F9; --band-muted:#9FB0BE;
-  --focus:#1D6FB8; --danger:#B3261E;
-  --font-display:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --bg:#F6F6F7; --surface:#FFFFFF; --ink:#111113; --muted:#5C5D60; --line:#E9E9E7;
+  --accent:#B83A0A; --accent-soft:#FFEDE3; --green:#12714B; --green-soft:#E2F1EA;
+  --chart-1:#E54800; --chart-2:#12714B; --chart-grid:#ECECEA;
+  --band:#111113; --band-ink:#FFFFFF; --band-muted:#A8A8AC;
+  --cta:#E54800; --cta-ink:#FFFFFF;
+  --focus:#B83A0A; --danger:#B3261E;
+  --radius:20px; --radius-sm:14px;
+  --font-display:'Helvetica Neue',Helvetica,Arial,system-ui,-apple-system,sans-serif;
   --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
-  --bg:#0E1620; --surface:#16212C; --ink:#ECF2F7; --muted:#9AAABA; --line:#2A3845;
-  --accent:#E8A33C; --accent-soft:#3A2E17; --green:#3FBF93; --green-soft:#12322A;
-  --chart-1:#C27F12; --chart-2:#23A076; --chart-grid:#243240;
-  --band:#0A111A; --band-ink:#ECF2F7; --band-muted:#8A9BAB;
-  --focus:#6FB3E8; --danger:#F2B8B5; color-scheme:dark;
+  --bg:#131315; --surface:#1C1C1F; --ink:#F4F4F3; --muted:#A3A3A7; --line:#2E2E32;
+  --accent:#FF8A50; --accent-soft:#3A2114; --green:#39B183; --green-soft:#113126;
+  --chart-1:#D14E0E; --chart-2:#1E9268; --chart-grid:#28282C;
+  --band:#0C0C0D; --band-ink:#F4F4F3; --band-muted:#8E8E93;
+  --cta:#E54800; --cta-ink:#FFFFFF;
+  --focus:#FF8A50; --danger:#F2B8B5; color-scheme:dark;
 }}
 :root[data-theme="dark"]{
-  --bg:#0E1620; --surface:#16212C; --ink:#ECF2F7; --muted:#9AAABA; --line:#2A3845;
-  --accent:#E8A33C; --accent-soft:#3A2E17; --green:#3FBF93; --green-soft:#12322A;
-  --chart-1:#C27F12; --chart-2:#23A076; --chart-grid:#243240;
-  --band:#0A111A; --band-ink:#ECF2F7; --band-muted:#8A9BAB;
-  --focus:#6FB3E8; --danger:#F2B8B5; color-scheme:dark;
+  --bg:#131315; --surface:#1C1C1F; --ink:#F4F4F3; --muted:#A3A3A7; --line:#2E2E32;
+  --accent:#FF8A50; --accent-soft:#3A2114; --green:#39B183; --green-soft:#113126;
+  --chart-1:#D14E0E; --chart-2:#1E9268; --chart-grid:#28282C;
+  --band:#0C0C0D; --band-ink:#F4F4F3; --band-muted:#8E8E93;
+  --cta:#E54800; --cta-ink:#FFFFFF;
+  --focus:#FF8A50; --danger:#F2B8B5; color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -56,7 +61,7 @@ a{color:var(--accent)}
 @media (max-width:860px){.grid{grid-template-columns:1fr}}
 
 /* Form */
-form.panel,section.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+form.panel,section.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
 form.panel{padding:20px 18px 22px}
 fieldset{border:0;margin:0 0 4px;padding:0 0 16px}
 fieldset+fieldset{border-top:1px solid var(--line);padding-top:16px}
@@ -84,7 +89,7 @@ input[type=number]{font-family:var(--font-mono)}
 .results{display:grid;gap:14px;min-width:0}
 .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 @media (max-width:560px){.kpis{grid-template-columns:repeat(2,1fr)}}
-.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 14px 12px;min-width:0}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:13px 14px 12px;min-width:0}
 .kpi .k-label{font:600 10.5px/1.3 var(--font-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
 .kpi .k-value{font:700 clamp(19px,2.4vw,24px)/1.15 var(--font-display);margin-top:5px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .kpi .k-sub{font-size:12px;color:var(--muted);margin-top:3px}
@@ -128,8 +133,7 @@ details.table-view th:first-child,details.table-view td:first-child{text-align:l
 .lead{border-left:3px solid var(--green)}
 .lead p.lead-sub{color:var(--muted);font-size:13.5px;margin:2px 0 14px}
 .lead .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:4px}
-button.cta{background:var(--green);color:#fff;border:0;border-radius:8px;padding:12px 20px;font:700 15px var(--font-display);cursor:pointer}
-:root[data-theme="dark"] button.cta,:root:not([data-theme="light"]) button.cta{color:#06251A}
+button.cta{background:var(--cta);color:var(--cta-ink);border:0;border-radius:999px;padding:12px 22px;font:700 15px var(--font-display);cursor:pointer}
 button.cta:hover{filter:brightness(1.06)}
 .lead .privacy{font-size:12px;color:var(--muted)}
 #lead-result{margin-top:12px}
@@ -354,6 +358,7 @@ const CONFIG = {
 
 const $ = id => document.getElementById(id);
 const state = { country: "UK", emode: "spend", profile: "fiveday" };
+let last = null;
 
 // --- populate brand + controls from CONFIG
 (function init(){
@@ -432,7 +437,6 @@ function money(cur, v, dp=0){
   return cur + v.toLocaleString("en-GB", { maximumFractionDigits: dp, minimumFractionDigits: 0 });
 }
 
-let last = null;
 function recalc(){
   const R = CONFIG.regions[state.country];
   const prof = CONFIG.profiles[state.profile];

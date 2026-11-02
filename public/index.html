@@ -2340,6 +2340,34 @@ const ENQUIRY_ERRORS = {
 // the real site (and Cloudflare preview deployments) have the sending function behind them;
 // anywhere else, a failed send means there is simply no server, not a fault
 const ENQUIRY_LIVE = /(^|\.)auraenergy\.ie$|\.pages\.dev$/.test(location.hostname);
+// Until launch the site is uploaded as plain files, so /api/enquiry does not exist there.
+// When it is missing, the live site sends the enquiry to FormSubmit straight from the
+// browser instead, with the same subject and labels the server would use. Once the site
+// deploys from Git with the functions (see DEPLOY.md), /api/enquiry answers first and this
+// is never reached; delete ENQUIRY_DIRECT then so the address leaves the page source.
+const ENQUIRY_DIRECT = 'https://formsubmit.co/ajax/martin@swarmsolar.co.uk';
+const ENQUIRY_FORMS = {
+  quote: ['New quote request | auraenergy.ie', { name: 'Name', email: 'Email', phone: 'Phone', company: 'Company', role: 'Role', county: 'County', sector: 'Sector', eircode: 'Eircode', ownership: 'Premises ownership', spend: 'Monthly spend', model: 'Preferred model', timeframe: 'Timeframe', message: 'Message', source: 'Came from' }],
+  estimate: ['New roof estimate request | auraenergy.ie', { email: 'Email', estimate: 'Estimate' }],
+  investor: ['New investor enquiry | auraenergy.ie', { name: 'Name', email: 'Email', type: 'Investor type', amount: 'Indicative amount', organisation: 'Organisation', message: 'Message' }],
+};
+async function sendDirect(form) {
+  const fd = new FormData(form);
+  const def = ENQUIRY_FORMS[fd.get('form')];
+  if (!def) return null;
+  if (fd.get('_honey')) return { ok: true };
+  const email = String(fd.get('email') || '').trim();
+  const msg = { _subject: def[0], _template: 'table', _captcha: 'false', _replyto: email };
+  for (const [key, label] of Object.entries(def[1])) {
+    const v = String(fd.get(key) || '').trim();
+    if (v) msg[label] = v;
+  }
+  try {
+    const res = await fetch(ENQUIRY_DIRECT, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(msg) });
+    const out = await res.json();
+    return String(out.success) === 'true' ? { ok: true } : null;
+  } catch { return null; }
+}
 function sendEnquiry(form, onSent) {
   if (!form) return;
   const btn = form.querySelector('button[type="submit"]');
@@ -2356,6 +2384,7 @@ function sendEnquiry(form, onSent) {
       const res = await fetch(form.action, { method: 'POST', headers: { Accept: 'application/json' }, body: new URLSearchParams(new FormData(form)) });
       data = await res.json();
     } catch { /* offline, or no server behind the page (a static preview) */ }
+    if (!data && ENQUIRY_LIVE && ENQUIRY_DIRECT) data = await sendDirect(form);
     if (data && data.ok) return onSent(form);
     btn.disabled = false;
     btn.innerHTML = label;

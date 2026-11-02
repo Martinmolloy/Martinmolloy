@@ -5,6 +5,22 @@ Aura AI chat (`functions/api/chat.js`, which calls the Claude API) and the enqui
 (`functions/api/enquiry.js`, which emails each enquiry to the team). Everything deploys
 together as one Cloudflare Pages project.
 
+## Before launch: uploading the files directly
+
+Until the Git setup below is done (planned for launch in January), the site can be published
+by uploading the contents of `public/` in the Cloudflare dashboard (Workers & Pages, Create,
+Pages, Upload assets). In that mode:
+
+- Every page works. Aura AI shows its offline message, because the chat function isn't uploaded.
+- The forms still email martin@swarmsolar.co.uk: with no `/api/enquiry` behind them, they send
+  straight to FormSubmit from the browser (`ENQUIRY_DIRECT` in `public/index.html` and
+  `public/investors.html`). This means the address is visible in the page source until launch.
+- The first enquiry triggers FormSubmit's one-time "Activate Form" email; click it, and every
+  enquiry after that arrives.
+
+At launch, after the Git setup below: delete the `ENQUIRY_DIRECT` line in both files, so the
+address leaves the page source and enquiries go through the private function only.
+
 ## 1. Get a Claude API key
 
 1. Sign in at https://console.anthropic.com and add billing.

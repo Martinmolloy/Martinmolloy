@@ -2336,6 +2336,7 @@ const ENQUIRY_ERRORS = {
   busy: 'That is a lot of tries in a short time. Please wait a few minutes and send it again.',
   failed: 'Sorry, that did not send. Please try again, or email <a href="mailto:info@auraenergy.ie">info@auraenergy.ie</a>.',
   preview: 'This is a preview of the website, so nothing was sent. On the live site this goes straight to the team.',
+  file: 'This page was opened as a file on your computer, so it cannot send. Open it from its web address instead.',
 };
 // the real site (and Cloudflare preview deployments) have the sending function behind them;
 // anywhere else, a failed send means there is simply no server, not a fault
@@ -2384,12 +2385,13 @@ function sendEnquiry(form, onSent) {
       const res = await fetch(form.action, { method: 'POST', headers: { Accept: 'application/json' }, body: new URLSearchParams(new FormData(form)) });
       data = await res.json();
     } catch { /* offline, or no server behind the page (a static preview) */ }
-    if (!data && ENQUIRY_LIVE && ENQUIRY_DIRECT) data = await sendDirect(form);
+    // any real web address gets the direct route, so a custom domain or a new host works too
+    if (!data && ENQUIRY_DIRECT && location.protocol.startsWith('http')) data = await sendDirect(form);
     if (data && data.ok) return onSent(form);
     btn.disabled = false;
     btn.innerHTML = label;
     const fields = (data && data.fields) || [];
-    note.innerHTML = ENQUIRY_ERRORS[!data ? (ENQUIRY_LIVE ? 'failed' : 'preview')
+    note.innerHTML = ENQUIRY_ERRORS[!data ? (location.protocol === 'file:' ? 'file' : ENQUIRY_LIVE ? 'failed' : 'preview')
       : data.error === 'invalid' ? (fields.includes('email') ? 'email' : 'invalid')
       : data.error === 'busy' ? 'busy' : 'failed'];
     note.hidden = false;

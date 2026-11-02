@@ -237,7 +237,11 @@ const ENQUIRY_ERRORS = {
   invalid: 'Please fill in the required fields.',
   busy: 'That is a lot of tries in a short time. Please wait a few minutes and send it again.',
   failed: 'Sorry, that did not send. Please try again, or email <a href="mailto:info@auraenergy.ie">info@auraenergy.ie</a>.',
+  preview: 'This is a preview of the website, so nothing was sent. On the live site this goes straight to the team.',
 };
+// the real site (and Cloudflare preview deployments) have the sending function behind them;
+// anywhere else, a failed send means there is simply no server, not a fault
+const ENQUIRY_LIVE = /(^|\.)auraenergy\.ie$|\.pages\.dev$/.test(location.hostname);
 function sendEnquiry(form, onSent) {
   if (!form) return;
   const btn = form.querySelector('button[type="submit"]');
@@ -258,7 +262,7 @@ function sendEnquiry(form, onSent) {
     btn.disabled = false;
     btn.innerHTML = label;
     const fields = (data && data.fields) || [];
-    note.innerHTML = ENQUIRY_ERRORS[!data ? 'failed'
+    note.innerHTML = ENQUIRY_ERRORS[!data ? (ENQUIRY_LIVE ? 'failed' : 'preview')
       : data.error === 'invalid' ? (fields.includes('email') ? 'email' : 'invalid')
       : data.error === 'busy' ? 'busy' : 'failed'];
     note.hidden = false;

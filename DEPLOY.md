@@ -78,10 +78,12 @@ from the footer and kept out of search results and the sitemap.
 
 Before pointing auraenergy.ie at the site:
 
-1. Fill in every `[bracketed]` detail: the company particulars line in the footer of
-   `public/index.html`, and the details in `public/privacy.html` and `public/terms.html`
-   (company number, registered office, retention period). Irish company law requires the
-   name, legal form, place of registration, number and registered office on the website.
+1. When Aura Energy Limited's incorporation completes, put the CRO company number and the
+   full registered office address in the footer of `public/index.html` and in
+   `public/privacy.html` and `public/terms.html` (TODO comments mark the spots). Irish
+   company law requires the name, legal form, place of registration, number and registered
+   office on the website. Never use another business's number (for example a sole trader or
+   business-name registration) for the limited company.
 2. Delete the `noindex` robots line near the top of the four legal pages (each has a TODO
    comment marking it) so they can be indexed.
 3. Set the `ENQUIRY_TO` secret, then activate FormSubmit (section 6).

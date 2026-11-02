@@ -2265,11 +2265,11 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
           <a href="modern-slavery.html">Modern slavery</a>
         </nav>
         <span>© 2026 Aura Energy · Dublin, Ireland · Serving businesses nationwide</span>
-        <!-- TODO before launch: replace the [bracketed] details below with the real company
-             particulars. Irish company law (Companies Act 2014, s.151) requires the registered
-             name and legal form, place of registration, company number and registered office
-             on the website. -->
-        <span class="foot-reg">Aura Energy Limited, registered in Ireland, company no. [000000] · Registered office: [street address], Dublin</span>
+        <!-- TODO when incorporation completes: extend this line to the full particulars that
+             Irish company law (Companies Act 2014, s.151) requires on the website: "Aura Energy
+             Limited, registered in Ireland, company no. NNNNNN. Registered office: [full
+             address]". Never use another business's number here. -->
+        <span class="foot-reg">Aura Energy Limited · Registered office: Dublin, Ireland</span>
       </div>
       <div class="foot-badges">
         <span class="foot-badge"><svg class="ic"><use href="#i-shield"/></svg> SEAI Registered Installer</span>
@@ -2335,7 +2335,11 @@ const ENQUIRY_ERRORS = {
   invalid: 'Please fill in the required fields.',
   busy: 'That is a lot of tries in a short time. Please wait a few minutes and send it again.',
   failed: 'Sorry, that did not send. Please try again, or email <a href="mailto:info@auraenergy.ie">info@auraenergy.ie</a>.',
+  preview: 'This is a preview of the website, so nothing was sent. On the live site this goes straight to the team.',
 };
+// the real site (and Cloudflare preview deployments) have the sending function behind them;
+// anywhere else, a failed send means there is simply no server, not a fault
+const ENQUIRY_LIVE = /(^|\.)auraenergy\.ie$|\.pages\.dev$/.test(location.hostname);
 function sendEnquiry(form, onSent) {
   if (!form) return;
   const btn = form.querySelector('button[type="submit"]');
@@ -2356,7 +2360,7 @@ function sendEnquiry(form, onSent) {
     btn.disabled = false;
     btn.innerHTML = label;
     const fields = (data && data.fields) || [];
-    note.innerHTML = ENQUIRY_ERRORS[!data ? 'failed'
+    note.innerHTML = ENQUIRY_ERRORS[!data ? (ENQUIRY_LIVE ? 'failed' : 'preview')
       : data.error === 'invalid' ? (fields.includes('email') ? 'email' : 'invalid')
       : data.error === 'busy' ? 'busy' : 'failed'];
     note.hidden = false;

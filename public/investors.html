@@ -266,7 +266,8 @@ async function sendDirect(form) {
     if (v) msg[label] = v;
   }
   try {
-    const res = await fetch(ENQUIRY_DIRECT, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(msg) });
+    const body = new FormData(); Object.entries(msg).forEach(([k, v]) => body.append(k, v));
+    const res = await fetch(ENQUIRY_DIRECT, { method: 'POST', headers: { Accept: 'application/json' }, body });
     const out = await res.json();
     return String(out.success) === 'true' ? { ok: true } : null;
   } catch { return null; }

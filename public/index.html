@@ -620,16 +620,16 @@ footer::before {
 .est-facts { font-size: 13px; font-weight: 600; color: var(--muted); margin-top: 14px; }
 .est-tiles { margin-top: 26px; }
 .massview { position: relative; width: 100%; aspect-ratio: 16 / 11; max-height: 360px; background: var(--orange-mist); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; touch-action: pan-y; }
-.massview canvas { width: 100%; height: 100%; display: block; cursor: grab; }
-.massview canvas:active { cursor: grabbing; }
-.massview canvas:focus-visible { outline: 3px solid var(--orange); outline-offset: -3px; }
+.roofview .roofpic { position: absolute; inset: 0; opacity: 0; transition: opacity .45s var(--ease); }
+.roofview .roofpic.is-on { opacity: 1; }
+.roofview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (prefers-reduced-motion: reduce) { .roofview .roofpic { transition: none; } }
 .massview-hint {
   position: absolute; left: 14px; bottom: 12px; pointer-events: none;
   font-size: 11.5px; font-weight: 700; color: var(--muted);
   background: #fff; border: 1px solid var(--line); padding: 5px 11px; border-radius: 999px;
   transition: opacity .3s;
 }
-.massview.is-touched .massview-hint { opacity: 0; }
 .roofcap { font-size: 12.5px; font-weight: 600; color: var(--muted); text-align: center; margin-top: 10px; }
 .est-controls { margin-top: 34px; padding-top: 30px; border-top: 1px solid var(--line); display: grid; gap: 28px; }
 .est-roof { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
@@ -1607,9 +1607,11 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
           </div>
         </div>
         <div>
-          <div class="massview" id="massWrap">
-            <canvas id="massCv" tabindex="0" role="img" aria-label="Rotatable 3D sketch of the selected building type with the modelled rooftop array. Use the left and right arrow keys to turn it."></canvas>
-            <span class="massview-hint">Drag to spin</span>
+          <div class="massview roofview" id="roofView">
+            <picture class="roofpic is-on" data-roof-pic="flat"><source type="image/webp" srcset="assets/roofs/flat-800.webp 800w, assets/roofs/flat-1200.webp 1200w" sizes="(max-width: 1024px) 92vw, 560px"><img src="assets/roofs/flat-1200.jpg" width="1200" height="825" alt="Solar panels on ballasted frames on a flat commercial roof, seen from above" loading="lazy" decoding="async"></picture>
+            <picture class="roofpic" data-roof-pic="south"><source type="image/webp" srcset="assets/roofs/south-800.webp 800w, assets/roofs/south-1200.webp 1200w" sizes="(max-width: 1024px) 92vw, 560px"><img src="assets/roofs/south-1200.jpg" width="1200" height="825" alt="Solar panels across the south-facing slope of a pitched farm building" loading="lazy" decoding="async"></picture>
+            <picture class="roofpic" data-roof-pic="ew"><source type="image/webp" srcset="assets/roofs/ew-800.webp 800w, assets/roofs/ew-1200.webp 1200w" sizes="(max-width: 1024px) 92vw, 560px"><img src="assets/roofs/ew-1200.jpg" width="1200" height="825" alt="Solar arrays on both slopes of a pitched industrial roof, with houses beyond" loading="lazy" decoding="async"></picture>
+            <span class="massview-hint" id="roofTag">Flat roof · 10° ballast</span>
           </div>
           <p class="roofcap" id="roofCap"></p>
         </div>
@@ -2364,7 +2366,8 @@ async function sendDirect(form) {
     if (v) msg[label] = v;
   }
   try {
-    const res = await fetch(ENQUIRY_DIRECT, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(msg) });
+    const body = new FormData(); Object.entries(msg).forEach(([k, v]) => body.append(k, v));
+    const res = await fetch(ENQUIRY_DIRECT, { method: 'POST', headers: { Accept: 'application/json' }, body });
     const out = await res.json();
     return String(out.success) === 'true' ? { ok: true } : null;
   } catch { return null; }
@@ -2449,206 +2452,12 @@ function sendEnquiry(form, onSent) {
       + Math.max(0, k - 200) * 300;
   };
 
-  // ---- 3D massing viewer: tiny orthographic renderer, no libraries ----
-  const VIEW = { yaw: -0.62, pitch: 0.60, spin: true, drag: false, idle: 0, fill: 0, key: 'industrial' };
-  const MASS = {
-    industrial: [
-      { x: 0, z: 0, w: 130, d: 74, h: 20, roof: 'saw', teeth: 5, panels: 1 },
-      { x: -84, z: 8, w: 34, d: 44, h: 32, roof: 'flat' },
-      { x: 64, z: -28, w: 9, d: 9, h: 56, roof: 'flat' }
-    ],
-    warehouse: [
-      { x: 0, z: 0, w: 158, d: 100, h: 26, roof: 'flat', panels: 1 },
-      { x: -96, z: 22, w: 30, d: 30, h: 20, roof: 'flat' }
-    ],
-    agri: [
-      { x: -18, z: 0, w: 78, d: 42, h: 16, roof: 'pitch', panels: 1 },
-      { x: 52, z: 8, w: 50, d: 32, h: 13, roof: 'pitch', panels: 1 },
-      { x: 40, z: -34, w: 20, d: 20, h: 46, roof: 'flat', shape: 'cyl' }
-    ],
-    school: [
-      { x: -26, z: 0, w: 90, d: 36, h: 22, roof: 'flat', panels: 1 },
-      { x: 40, z: 20, w: 44, d: 52, h: 22, roof: 'flat', panels: 1 }
-    ],
-    hospital: [
-      { x: -14, z: 0, w: 60, d: 42, h: 56, roof: 'flat', panels: 1 },
-      { x: 52, z: 10, w: 56, d: 36, h: 26, roof: 'flat', panels: 1 },
-      { x: -70, z: 16, w: 34, d: 28, h: 20, roof: 'flat', panels: 1 }
-    ],
-    university: [
-      { x: -56, z: 0, w: 56, d: 40, h: 34, roof: 'flat', panels: 1 },
-      { x: 16, z: -14, w: 48, d: 34, h: 44, roof: 'flat', panels: 1 },
-      { x: 70, z: 22, w: 52, d: 38, h: 26, roof: 'flat', panels: 1 }
-    ],
-    airport: [
-      { x: 0, z: 0, w: 190, d: 58, h: 22, roof: 'flat', panels: 1 },
-      { x: -72, z: -44, w: 14, d: 14, h: 74, roof: 'flat' },
-      { x: 74, z: 34, w: 44, d: 26, h: 14, roof: 'flat', panels: 1 }
-    ],
-    residential: [
-      { x: -34, z: 0, w: 46, d: 36, h: 52, roof: 'flat', panels: 1 },
-      { x: 26, z: 12, w: 42, d: 34, h: 44, roof: 'flat', panels: 1 },
-      { x: 78, z: -10, w: 34, d: 30, h: 36, roof: 'flat', panels: 1 }
-    ]
+  // ---- roof photos: a real install for each roof type ----
+  const ROOF_TAG = { flat: 'Flat roof · 10° ballast', south: 'Pitched south · 25°', ew: 'Pitched east-west · 15°' };
+  const showRoof = key => {
+    document.querySelectorAll('[data-roof-pic]').forEach(el => el.classList.toggle('is-on', el.dataset.roofPic === key));
+    $('roofTag').textContent = ROOF_TAG[key] || '';
   };
-  const vsub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
-  const vcross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
-  const vnorm = a => { const l = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; };
-  const lerp3 = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
-
-  // one quad on a roof plane, split into a cols x rows panel grid
-  const gridOn = (q, cols, rows, frac, out, par) => {
-    const want = Math.round(cols * rows * frac);
-    // modules are coplanar with the roof, so lift them a hair along its normal
-    const nm = vnorm(vcross(vsub(q[1], q[0]), vsub(q[3], q[0]))), E = 0.45;
-    const off = p => [p[0] + nm[0] * E, p[1] + nm[1] * E, p[2] + nm[2] * E];
-    const at = (u, v) => lerp3(lerp3(q[0], q[1], u), lerp3(q[3], q[2], u), v);
-    let n = 0;
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        if (n++ >= want) return;
-        const i = 0.055, du = 1 / cols, dv = 1 / rows;
-        const u0 = c * du + du * i, u1 = (c + 1) * du - du * i, v0 = r * dv + dv * i, v1 = (r + 1) * dv - dv * i;
-        out.push({ p: [off(at(u0, v0)), off(at(u1, v0)), off(at(u1, v1)), off(at(u0, v1))], t: 'panel', par });
-      }
-    }
-  };
-
-  const buildFaces = (blocks, frac) => {
-    const F = [];
-    blocks.forEach(b => {
-      const x0 = b.x - b.w / 2, x1 = b.x + b.w / 2, z0 = b.z - b.d / 2, z1 = b.z + b.d / 2, h = b.h;
-      if (b.shape === 'cyl') {
-        const N = 14, R = b.w / 2, top = [];
-        let prev = null;
-        for (let i = 0; i <= N; i++) {
-          const a = i / N * Math.PI * 2, cur = [b.x + Math.cos(a) * R, b.z + Math.sin(a) * R];
-          if (prev) F.push({ p: [[prev[0], 0, prev[1]], [cur[0], 0, cur[1]], [cur[0], h, cur[1]], [prev[0], h, prev[1]]], t: 'wall' });
-          if (i < N) top.push([cur[0], h, cur[1]]);
-          prev = cur;
-        }
-        F.push({ p: top, t: 'roof' });
-        return;
-      }
-      F.push({ p: [[x0, 0, z1], [x1, 0, z1], [x1, h, z1], [x0, h, z1]], t: 'wall' });
-      F.push({ p: [[x1, 0, z0], [x0, 0, z0], [x0, h, z0], [x1, h, z0]], t: 'wall' });
-      F.push({ p: [[x1, 0, z1], [x1, 0, z0], [x1, h, z0], [x1, h, z1]], t: 'wall' });
-      F.push({ p: [[x0, 0, z0], [x0, 0, z1], [x0, h, z1], [x0, h, z0]], t: 'wall' });
-      if (b.roof === 'saw') {
-        const n = b.teeth || 4, tw = (x1 - x0) / n, rise = b.d * 0.34;
-        for (let k = 0; k < n; k++) {
-          const a0 = x0 + k * tw, a1 = a0 + tw;
-          F.push({ p: [[a0, h, z0], [a1, h, z0], [a1, h + rise, z0], [a0, h + rise, z0]], t: 'glass' });
-          const slope = [[a0, h + rise, z0], [a1, h + rise, z0], [a1, h, z1], [a0, h, z1]];
-          F.push({ p: slope, t: 'roof' });
-          if (b.panels) gridOn(slope, 3, 4, frac, F, F.length - 1);
-          F.push({ p: [[a0, h, z0], [a0, h + rise, z0], [a0, h, z1]], t: 'roof' });
-          F.push({ p: [[a1, h, z0], [a1, h + rise, z0], [a1, h, z1]], t: 'roof' });
-        }
-      } else if (b.roof === 'pitch') {
-        const ridge = h + b.d * 0.26, zm = (z0 + z1) / 2;
-        const s1 = [[x0, h, z1], [x1, h, z1], [x1, ridge, zm], [x0, ridge, zm]];
-        F.push({ p: s1, t: 'roof' });
-        const pid = F.length - 1;
-        F.push({ p: [[x1, h, z0], [x0, h, z0], [x0, ridge, zm], [x1, ridge, zm]], t: 'roof' });
-        F.push({ p: [[x0, h, z0], [x0, h, z1], [x0, ridge, zm]], t: 'wall' });
-        F.push({ p: [[x1, h, z1], [x1, h, z0], [x1, ridge, zm]], t: 'wall' });
-        if (b.panels) gridOn(s1, 5, 3, frac, F, pid);
-      } else {
-        const flat = [[x0, h, z1], [x1, h, z1], [x1, h, z0], [x0, h, z0]];
-        F.push({ p: flat, t: 'roof' });
-        if (b.panels) gridOn(flat, Math.max(3, Math.round(b.w / 16)), Math.max(2, Math.round(b.d / 16)), frac, F, F.length - 1);
-      }
-    });
-    return F;
-  };
-
-  const cv = $('massCv');
-  const drawMass = () => {
-    const wrap = cv.parentNode, W = wrap.clientWidth, H = wrap.clientHeight;
-    if (!W || !H) return;
-    const dpr = Math.min(devicePixelRatio || 1, 2);
-    if (cv.width !== Math.round(W * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
-    const g = cv.getContext('2d');
-    g.setTransform(dpr, 0, 0, dpr, 0, 0);
-    g.clearRect(0, 0, W, H);
-
-    const F = buildFaces(MASS[VIEW.key], VIEW.fill);
-    const cy = Math.cos(VIEW.yaw), sy = Math.sin(VIEW.yaw), cp = Math.cos(VIEW.pitch), sp = Math.sin(VIEW.pitch);
-    const project = p => {
-      const x = p[0] * cy - p[2] * sy, z = p[0] * sy + p[2] * cy, y = p[1];
-      return { x, y: -y * cp + z * sp, d: y * sp + z * cp };
-    };
-    const proj = F.map(f => {
-      const pts = f.p.map(project);
-      return { f, pts, d: pts.reduce((s, q) => s + q.d, 0) / pts.length };
-    });
-    let minx = 1e9, maxx = -1e9, miny = 1e9, maxy = -1e9;
-    proj.forEach(o => o.pts.forEach(q => {
-      minx = Math.min(minx, q.x); maxx = Math.max(maxx, q.x);
-      miny = Math.min(miny, q.y); maxy = Math.max(maxy, q.y);
-    }));
-    const sc = Math.min(W / (maxx - minx + 24), H / (maxy - miny + 24)) * 0.88;
-    const ox = W / 2 - (minx + maxx) / 2 * sc, oy = H / 2 - (miny + maxy) / 2 * sc;
-
-    // a big roof spans a wide depth range, so anchor each panel to its parent roof
-    proj.forEach(o => {
-      if (o.f.t === 'panel' && o.f.par != null && proj[o.f.par]) o.d = proj[o.f.par].d + 1 + o.d * 1e-4;
-    });
-    proj.sort((a, b) => a.d - b.d);
-
-    const L = vnorm([-0.45, 0.82, 0.36]);
-    proj.forEach(o => {
-      const P = o.f.p;
-      const nrm = vnorm(vcross(vsub(P[1], P[0]), vsub(P[2], P[0])));
-      const lit = Math.abs(nrm[0] * L[0] + nrm[1] * L[1] + nrm[2] * L[2]);
-      const k = 0.58 + 0.42 * lit;
-      let fill;
-      if (o.f.t === 'panel') fill = '#FE5000';
-      else if (o.f.t === 'glass') fill = 'rgba(150,175,196,' + (0.42 + 0.3 * k) + ')';
-      else { const v = Math.round(255 * k * (o.f.t === 'roof' ? 0.94 : 1)); fill = 'rgb(' + v + ',' + v + ',' + v + ')'; }
-      g.beginPath();
-      o.pts.forEach((q, i) => { const X = q.x * sc + ox, Y = q.y * sc + oy; i ? g.lineTo(X, Y) : g.moveTo(X, Y); });
-      g.closePath();
-      g.globalAlpha = o.f.t === 'panel' ? 0.80 + 0.20 * lit : 1;
-      g.fillStyle = fill; g.fill();
-      g.globalAlpha = 1;
-      if (o.f.t !== 'panel') { g.lineWidth = 0.9; g.strokeStyle = 'rgba(17,17,19,.40)'; g.stroke(); }
-    });
-  };
-
-  // drag to spin, drift when idle
-  (() => {
-    let last = null, seen = false, t0 = 0;
-    cv.addEventListener('pointerdown', e => {
-      VIEW.drag = true; VIEW.spin = false; VIEW.idle = 0; last = e.clientX;
-      $('massWrap').classList.add('is-touched');
-      cv.setPointerCapture(e.pointerId);
-    });
-    cv.addEventListener('pointermove', e => {
-      if (!VIEW.drag) return;
-      VIEW.yaw += (e.clientX - last) * 0.011; last = e.clientX; drawMass();
-    });
-    const up = () => { VIEW.drag = false; VIEW.idle = 0; };
-    cv.addEventListener('pointerup', up);
-    cv.addEventListener('pointercancel', up);
-    cv.addEventListener('keydown', e => {
-      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-      VIEW.yaw += e.key === 'ArrowLeft' ? -0.12 : 0.12; VIEW.spin = false; VIEW.idle = 0;
-      drawMass(); e.preventDefault();
-    });
-    new IntersectionObserver(([e]) => { seen = e.isIntersecting; }, { threshold: 0.15 }).observe(cv);
-    const loop = t => {
-      const dt = t0 ? Math.min(60, t - t0) : 16; t0 = t;
-      if (seen && !reduceMotion && !VIEW.drag) {
-        if (!VIEW.spin) { VIEW.idle += dt; if (VIEW.idle > 2600) VIEW.spin = true; }
-        if (VIEW.spin) { VIEW.yaw += dt * 0.00016; drawMass(); }
-      }
-      requestAnimationFrame(loop);
-    };
-    requestAnimationFrame(loop);
-    addEventListener('resize', drawMass);
-  })();
 
   // ---- sliders ----
   const sliders = [['rngArea', 'area'], ['rngGrid', 'grid'], ['rngUse', 'use']].map(([id, key]) => ({ el: $(id), key }));
@@ -2697,9 +2506,7 @@ function sendEnquiry(form, onSent) {
       'Buy outright and the grant comes off your cost: an indicative <b>' + eur.format(Math.round(capex)) +
       '</b> falls to <b>' + eur.format(Math.round(capex - grant)) + '</b> before any capital allowance.';
 
-    VIEW.key = state.sector;
-    VIEW.fill = Math.max(0.12, Math.min(1, state.area / sec.area));
-    drawMass();
+    showRoof(state.roof);
   };
 
   sliders.forEach(s => s.el.addEventListener('input', () => { state[s.key] = +s.el.value; render(); }));
@@ -2852,15 +2659,17 @@ function sendEnquiry(form, onSent) {
   }
 
   // today's date and time in Dublin, whatever the visitor's own time zone
-  let now;
-  try {
-    const parts = Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Dublin', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' })
-      .formatToParts(new Date()).map(p => [p.type, p.value]));
-    now = { y: +parts.year, m: +parts.month - 1, d: +parts.day, t: +parts.hour * 60 + +parts.minute };
-  } catch {
-    const n = new Date();
-    now = { y: n.getFullYear(), m: n.getMonth(), d: n.getDate(), t: n.getHours() * 60 + n.getMinutes() };
-  }
+  const dublinNow = () => {
+    try {
+      const parts = Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Dublin', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' })
+        .formatToParts(new Date()).map(p => [p.type, p.value]));
+      return { y: +parts.year, m: +parts.month - 1, d: +parts.day, t: (+parts.hour % 24) * 60 + +parts.minute };
+    } catch {
+      const n = new Date();
+      return { y: n.getFullYear(), m: n.getMonth(), d: n.getDate(), t: n.getHours() * 60 + n.getMinutes() };
+    }
+  };
+  let now = dublinNow();
   const days = {};
   const getDay = key => days[key] || (days[key] =
     key === 'summer' ? makeDay(now.y, 5, 21, 'Longest day') :
@@ -2869,9 +2678,10 @@ function sendEnquiry(form, onSent) {
   const sun = $('spSun'), arcPast = $('spArcPast'), shade = $('spShade');
   const sheen = $('spPanelSheen'), sheenGrad = $('spSheen'), pastRect = $('spPastRect');
   const pts = list => list.map(p => p[1].toFixed(1) + ' ' + p[2].toFixed(1)).join('L');
-  let day = getDay('today'), current = T0;
+  let day = getDay('today'), current = T0, dayKey = 'today', touched = false;
 
   function showDay(key) {
+    dayKey = key;
     day = getDay(key);
     $('spArc').setAttribute('d', 'M' + pts(day.path));
     const first = Math.max(0, day.watts.findIndex(w => w > 0) - 1);
@@ -2948,21 +2758,22 @@ function sendEnquiry(form, onSent) {
     anim = requestAnimationFrame(frame);
   }
   playBtn.addEventListener('click', () => {
+    touched = true;
     if (anim) return stop();
     const from = Math.max(T0, day.rise - 20), to = Math.min(T1, day.set + 20);
     const start = current < from || to - current < (to - from) / 4 ? from : current;   // near the end, replay from sunrise
     playBtn.querySelector('span').textContent = 'Pause';
     sweep(start, to, 9000 * (to - start) / (to - from), stop);
   });
-  slider.addEventListener('input', () => { stop(); draw(+slider.value); });
+  slider.addEventListener('input', () => { touched = true; stop(); draw(+slider.value); });
   const scrub = (el, toShare) => {
     const at = e => { const r = el.getBoundingClientRect(); draw(T0 + Math.max(0, Math.min(1, toShare(e.clientX - r.left, r.width))) * (T1 - T0)); };
-    el.addEventListener('pointerdown', e => { stop(); el.setPointerCapture(e.pointerId); at(e); });
+    el.addEventListener('pointerdown', e => { touched = true; stop(); el.setPointerCapture(e.pointerId); at(e); });
     el.addEventListener('pointermove', e => { if (el.hasPointerCapture(e.pointerId)) at(e); });
   };
   scrub(document.querySelector('#panel .sp-view'), (x, width) => (x / width * 560 - 30) / 500);
   scrub(document.querySelector('#panel .sp-curve'), (x, width) => (x - 13) / (width - 26));
-  document.querySelectorAll('#panel .roof-seg button').forEach(b => b.addEventListener('click', () => { stop(); showDay(b.dataset.day); }));
+  document.querySelectorAll('#panel .roof-seg button').forEach(b => b.addEventListener('click', () => { touched = true; stop(); showDay(b.dataset.day); }));
 
   // start at the time in Dublin now, unless the panel would read 0 W (night, dawn, dusk)
   const startAt = now.t >= T0 && now.t <= T1 && wattsAt(sunAt(day, now.t)) >= 10 ? now.t : day.noon;
@@ -2977,6 +2788,26 @@ function sendEnquiry(form, onSent) {
     }, { threshold: 0.35 });
     io.observe($('panel'));
   }
+
+  // keep "Today" current: a new day rebuilds it, and until the visitor takes over the
+  // controls the panel follows the real time; also catches up when a tab is reopened
+  const tick = () => {
+    const fresh = dublinNow(), newDay = fresh.y !== now.y || fresh.m !== now.m || fresh.d !== now.d;
+    now = fresh;
+    if (newDay) { delete days.today; delete days.summer; delete days.winter; }
+    if (dayKey !== 'today') return;
+    if (newDay) showDay('today');
+    else {
+      const showNow = now.t >= T0 && now.t <= T1;
+      $('spNow').setAttribute('x1', along(now.t) * 1000); $('spNow').setAttribute('x2', along(now.t) * 1000);
+      $('spNow').style.display = showNow ? '' : 'none';
+      $('spNowTag').hidden = !showNow;
+      $('spNowTag').style.left = 'calc(13px + (100% - 26px) * ' + along(now.t).toFixed(4) + ')';
+    }
+    if (!touched && !anim) draw(now.t >= T0 && now.t <= T1 && wattsAt(sunAt(day, now.t)) >= 10 ? now.t : day.noon);
+  };
+  setInterval(tick, 60000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) tick(); });
 })();
 
 // ---- mobile CTA bar: hide while the quote section is on screen ----

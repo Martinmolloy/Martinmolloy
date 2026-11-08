@@ -561,7 +561,8 @@ footer::before {
 .cov-link { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--orange-text); margin-top: 16px; }
 .cov-link .ic { width: 18px; height: 18px; }
 .cov-link:hover { text-decoration: underline; text-underline-offset: 3px; }
-.cov-note { margin-top: 18px; font-size: 12.5px; color: var(--muted); max-width: 48ch; }
+.cov-small { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--muted); line-height: 1.55; }
+.cov-cta { margin-top: 26px; }
 .cov-map { position: relative; max-width: 430px; margin-left: auto; }
 .cov-map svg { display: block; width: 100%; height: auto; filter: drop-shadow(0 20px 34px rgba(14,14,15,.16)); }
 .cov-ni { fill: #E7E7EA; }
@@ -1381,64 +1382,9 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
   </div>
 </section>
 
-<!-- ============================================================ HOW IT WORKS -->
-<section class="section steps-bg" id="how">
-  <div class="container">
-    <div class="section-head reveal">
-      <div class="kicker">How it works</div>
-      <h2>From first call to first savings in four steps</h2>
-      <p class="lead">We handle everything: survey, design, funding, grid paperwork and installation. Most sites go live in 6 to 10 weeks. On a PPA, you don't pay a cent until the system is generating, and from then on you pay less per unit.</p>
-    </div>
-    <div class="path reveal" id="pathWay">
-      <div class="path-rail" role="tablist" aria-label="The four steps" id="pathRail">
-        <button type="button" role="tab" id="pathTab0" aria-selected="true" aria-controls="pathPane0"><span class="pr-n">1</span>Survey</button>
-        <button type="button" role="tab" id="pathTab1" aria-selected="false" tabindex="-1" aria-controls="pathPane1"><span class="pr-n">2</span>Design</button>
-        <button type="button" role="tab" id="pathTab2" aria-selected="false" tabindex="-1" aria-controls="pathPane2"><span class="pr-n">3</span>Install</button>
-        <button type="button" role="tab" id="pathTab3" aria-selected="false" tabindex="-1" aria-controls="pathPane3"><span class="pr-n">4</span>Save</button>
-      </div>
-      <div class="path-body" id="pathBody">
-        <div class="path-pane is-on" role="tabpanel" id="pathPane0" aria-labelledby="pathTab0">
-          <div class="icon-tile"><svg class="ic"><use href="#i-survey"/></svg></div>
-          <div>
-            <div class="path-k">Step 1 of 4 · Week 1</div>
-            <h3>Free site &amp; bill assessment</h3>
-            <p>We assess your roof, your electricity usage and your grid connection, and show you exactly what solar would save you. No cost, no obligation.</p>
-          </div>
-        </div>
-        <div class="path-pane" role="tabpanel" id="pathPane1" aria-labelledby="pathTab1">
-          <div class="icon-tile"><svg class="ic"><use href="#i-design"/></svg></div>
-          <div>
-            <div class="path-k">Step 2 of 4 · Weeks 1 to 4</div>
-            <h3>Bespoke system &amp; PPA offer</h3>
-            <p>We engineer a system sized to your load profile, then present your PPA rate and a capex price side by side.</p>
-          </div>
-        </div>
-        <div class="path-pane" role="tabpanel" id="pathPane2" aria-labelledby="pathTab2">
-          <div class="icon-tile"><svg class="ic"><use href="#i-install"/></svg></div>
-          <div>
-            <div class="path-k">Step 3 of 4 · 1 to 3 days on site</div>
-            <h3>On site in 1 to 3 days</h3>
-            <p>Certified engineers, minimal disruption to your operations. Fully grid-compliant, ESB-notified and insured throughout.</p>
-          </div>
-        </div>
-        <div class="path-pane" role="tabpanel" id="pathPane3" aria-labelledby="pathTab3">
-          <div class="icon-tile"><svg class="ic"><use href="#i-power"/></svg></div>
-          <div>
-            <div class="path-k">Step 4 of 4 · From switch-on</div>
-            <h3>Switch on &amp; start saving</h3>
-            <p>From the moment we energise, every kWh from your roof costs less than the grid. Live monitoring shows your generation and savings in real time.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:44px" class="reveal">
-      <a href="#quote" class="btn btn-primary">Book your free site assessment <svg class="ic"><use href="#i-arrow"/></svg></a>
-    </div>
-  </div>
-</section>
 
 <!-- ============================================================ OWNERSHIP STATEMENT -->
-<section class="section" id="ownership">
+<section class="section steps-bg" id="ownership">
   <div class="container">
     <div class="kicker reveal">Why Aura</div>
     <h2 class="statement reveal">A commercial roof in Ireland returns about 950&nbsp;kWh for every kilowatt on it, <span>every year, for twenty-five years.</span></h2>
@@ -1817,15 +1763,16 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
         <div class="section-head reveal">
           <div class="kicker">Where we work</div>
           <h2>Aura Energy: nationwide</h2>
-          <p class="lead">We fund, install and operate commercial solar in all 26 counties, run from Dublin. Pick your county on the map to see what a typical roof there makes.</p>
+          <p class="lead">We fund, install and operate commercial solar in all 26 counties, run from Dublin.</p>
         </div>
         <div class="cov-card reveal" aria-live="polite">
           <div class="cov-head"><span class="cov-name" id="covName">County Dublin</span><span class="cov-prov" id="covProv">Leinster</span></div>
           <div class="cov-yield"><strong id="covYield">960</strong><span> kWh per kWp a year, typical</span></div>
           <p id="covLine">A 400 kWp roof in County Dublin makes about 384,000 kWh a year. Your exact figure comes from a free site survey.</p>
           <a class="cov-link" href="#calculator">Model your roof <svg class="ic"><use href="#i-arrow"/></svg></a>
+          <p class="cov-small">Indicative regional averages. The dark map is the Republic's 26 counties; for Northern Ireland, talk to us.</p>
         </div>
-        <p class="cov-note reveal">Yields are indicative regional averages. The dark map is the Republic's 26 counties; for Northern Ireland, talk to us.</p>
+        <a href="#quote" class="btn btn-primary btn-lg cov-cta reveal">Book your free site assessment <svg class="ic"><use href="#i-arrow"/></svg></a>
       </div>
       <div class="cov-map reveal" id="covMap">
         <svg viewBox="0 0 520 680.9" role="img" aria-label="Map of Ireland. The 26 counties we serve are shown dark, with a marker on each county." focusable="false">
@@ -1957,6 +1904,59 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
         <summary>We rent our building. Can we still go solar? <span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></summary>
         <div class="faq-body">Yes, with your landlord's consent for the roof. We regularly set up agreements that work for both sides, and landlords often welcome the upgrade.</div>
       </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ HOW IT WORKS -->
+<section class="section steps-bg" id="how">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="kicker">How it works</div>
+      <h2>From first call to first savings in four steps</h2>
+      <p class="lead">We handle everything: survey, design, funding, grid paperwork and installation. Most sites go live in 6 to 10 weeks. On a PPA, you don't pay a cent until the system is generating, and from then on you pay less per unit.</p>
+    </div>
+    <div class="path reveal" id="pathWay">
+      <div class="path-rail" role="tablist" aria-label="The four steps" id="pathRail">
+        <button type="button" role="tab" id="pathTab0" aria-selected="true" aria-controls="pathPane0"><span class="pr-n">1</span>Survey</button>
+        <button type="button" role="tab" id="pathTab1" aria-selected="false" tabindex="-1" aria-controls="pathPane1"><span class="pr-n">2</span>Design</button>
+        <button type="button" role="tab" id="pathTab2" aria-selected="false" tabindex="-1" aria-controls="pathPane2"><span class="pr-n">3</span>Install</button>
+        <button type="button" role="tab" id="pathTab3" aria-selected="false" tabindex="-1" aria-controls="pathPane3"><span class="pr-n">4</span>Save</button>
+      </div>
+      <div class="path-body" id="pathBody">
+        <div class="path-pane is-on" role="tabpanel" id="pathPane0" aria-labelledby="pathTab0">
+          <div class="icon-tile"><svg class="ic"><use href="#i-survey"/></svg></div>
+          <div>
+            <div class="path-k">Step 1 of 4 · Week 1</div>
+            <h3>Free site &amp; bill assessment</h3>
+            <p>We assess your roof, your electricity usage and your grid connection, and show you exactly what solar would save you. No cost, no obligation.</p>
+          </div>
+        </div>
+        <div class="path-pane" role="tabpanel" id="pathPane1" aria-labelledby="pathTab1">
+          <div class="icon-tile"><svg class="ic"><use href="#i-design"/></svg></div>
+          <div>
+            <div class="path-k">Step 2 of 4 · Weeks 1 to 4</div>
+            <h3>Bespoke system &amp; PPA offer</h3>
+            <p>We engineer a system sized to your load profile, then present your PPA rate and a capex price side by side.</p>
+          </div>
+        </div>
+        <div class="path-pane" role="tabpanel" id="pathPane2" aria-labelledby="pathTab2">
+          <div class="icon-tile"><svg class="ic"><use href="#i-install"/></svg></div>
+          <div>
+            <div class="path-k">Step 3 of 4 · 1 to 3 days on site</div>
+            <h3>On site in 1 to 3 days</h3>
+            <p>Certified engineers, minimal disruption to your operations. Fully grid-compliant, ESB-notified and insured throughout.</p>
+          </div>
+        </div>
+        <div class="path-pane" role="tabpanel" id="pathPane3" aria-labelledby="pathTab3">
+          <div class="icon-tile"><svg class="ic"><use href="#i-power"/></svg></div>
+          <div>
+            <div class="path-k">Step 4 of 4 · From switch-on</div>
+            <h3>Switch on &amp; start saving</h3>
+            <p>From the moment we energise, every kWh from your roof costs less than the grid. Live monitoring shows your generation and savings in real time.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

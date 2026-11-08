@@ -306,6 +306,30 @@ footer :focus-visible { outline-color: #fff; }
 .step .icon-tile { width: 48px; height: 48px; margin-bottom: 18px; }
 .step h3 { font-size: 1.06rem; margin-bottom: 9px; }
 .step p { font-size: 14px; line-height: 1.6; }
+/* ---- the path, one step at a time ---- */
+.path { background: var(--ink); border-radius: 24px; padding: 36px 38px 40px; color: #fff; position: relative; overflow: hidden; }
+.path::before { content: ""; position: absolute; top: -220px; right: -160px; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(254,80,0,.22) 0%, rgba(254,80,0,0) 70%); pointer-events: none; }
+.path-rail { display: flex; gap: 4px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 999px; padding: 5px; width: max-content; max-width: 100%; position: relative; }
+.path-rail [role="tab"] { border: 0; background: transparent; color: rgba(255,255,255,.72); font: inherit; font-weight: 700; font-size: 14px; padding: 9px 18px 9px 10px; border-radius: 999px; cursor: pointer; display: flex; align-items: center; gap: 9px; transition: background .25s var(--ease), color .25s var(--ease); }
+.path-rail [role="tab"]:hover { color: #fff; }
+.path-rail [role="tab"] .pr-n { width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,.14); display: grid; place-items: center; font-size: 12.5px; transition: inherit; }
+.path-rail [role="tab"][aria-selected="true"] { background: #fff; color: var(--ink); }
+.path-rail [role="tab"][aria-selected="true"] .pr-n { background: var(--orange); color: #fff; }
+.path-rail [role="tab"]:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.path-body { position: relative; margin-top: 30px; }
+.path-pane { display: none; }
+.path-pane.is-on { display: flex; gap: 24px; align-items: flex-start; animation: pathIn .5s var(--ease); }
+@keyframes pathIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.path-pane .icon-tile { flex: none; }
+.path-k { font-size: 12px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: #FFA477; margin-bottom: 9px; }
+.path-pane h3 { color: #fff; font-size: 1.3rem; margin-bottom: 10px; }
+.path-pane p { color: rgba(255,255,255,.72); font-size: 15.5px; line-height: 1.65; max-width: 62ch; }
+@media (max-width: 760px) {
+  .path { padding: 24px 20px 28px; border-radius: 20px; }
+  .path-rail { width: 100%; display: grid; grid-template-columns: 1fr 1fr; border-radius: 18px; }
+  .path-rail [role="tab"] { border-radius: 13px; padding: 9px 12px; }
+  .path-pane.is-on { flex-direction: column; gap: 18px; }
+}
 
 /* ============================================================ RATE GRAPHIC */
 .rate-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
@@ -1376,30 +1400,46 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
       <h2>From first call to first savings in four steps</h2>
       <p class="lead">We handle everything: survey, design, funding, grid paperwork and installation. Most sites go live in 6 to 10 weeks. On a PPA, you don't pay a cent until the system is generating, and from then on you pay less per unit.</p>
     </div>
-    <div class="steps">
-      <div class="step reveal">
-        <span class="n">Survey</span>
-        <div class="icon-tile"><svg class="ic"><use href="#i-survey"/></svg></div>
-        <h3>Free site &amp; bill assessment</h3>
-        <p>We assess your roof, your electricity usage and your grid connection, and show you exactly what solar would save you. No cost, no obligation.</p>
+    <div class="path reveal" id="pathWay">
+      <div class="path-rail" role="tablist" aria-label="The four steps" id="pathRail">
+        <button type="button" role="tab" id="pathTab0" aria-selected="true" aria-controls="pathPane0"><span class="pr-n">1</span>Survey</button>
+        <button type="button" role="tab" id="pathTab1" aria-selected="false" tabindex="-1" aria-controls="pathPane1"><span class="pr-n">2</span>Design</button>
+        <button type="button" role="tab" id="pathTab2" aria-selected="false" tabindex="-1" aria-controls="pathPane2"><span class="pr-n">3</span>Install</button>
+        <button type="button" role="tab" id="pathTab3" aria-selected="false" tabindex="-1" aria-controls="pathPane3"><span class="pr-n">4</span>Save</button>
       </div>
-      <div class="step reveal">
-        <span class="n">Design</span>
-        <div class="icon-tile"><svg class="ic"><use href="#i-design"/></svg></div>
-        <h3>Bespoke system &amp; PPA offer</h3>
-        <p>We engineer a system sized to your load profile, then present your PPA rate and a capex price side by side.</p>
-      </div>
-      <div class="step reveal">
-        <span class="n">Install</span>
-        <div class="icon-tile"><svg class="ic"><use href="#i-install"/></svg></div>
-        <h3>On site in 1 to 3 days</h3>
-        <p>Certified engineers, minimal disruption to your operations. Fully grid-compliant, ESB-notified and insured throughout.</p>
-      </div>
-      <div class="step reveal">
-        <span class="n">Save</span>
-        <div class="icon-tile"><svg class="ic"><use href="#i-power"/></svg></div>
-        <h3>Switch on &amp; start saving</h3>
-        <p>From the moment we energise, every kWh from your roof costs less than the grid. Live monitoring shows your generation and savings in real time.</p>
+      <div class="path-body" id="pathBody">
+        <div class="path-pane is-on" role="tabpanel" id="pathPane0" aria-labelledby="pathTab0">
+          <div class="icon-tile"><svg class="ic"><use href="#i-survey"/></svg></div>
+          <div>
+            <div class="path-k">Step 1 of 4 · Week 1</div>
+            <h3>Free site &amp; bill assessment</h3>
+            <p>We assess your roof, your electricity usage and your grid connection, and show you exactly what solar would save you. No cost, no obligation.</p>
+          </div>
+        </div>
+        <div class="path-pane" role="tabpanel" id="pathPane1" aria-labelledby="pathTab1">
+          <div class="icon-tile"><svg class="ic"><use href="#i-design"/></svg></div>
+          <div>
+            <div class="path-k">Step 2 of 4 · Weeks 1 to 4</div>
+            <h3>Bespoke system &amp; PPA offer</h3>
+            <p>We engineer a system sized to your load profile, then present your PPA rate and a capex price side by side.</p>
+          </div>
+        </div>
+        <div class="path-pane" role="tabpanel" id="pathPane2" aria-labelledby="pathTab2">
+          <div class="icon-tile"><svg class="ic"><use href="#i-install"/></svg></div>
+          <div>
+            <div class="path-k">Step 3 of 4 · 1 to 3 days on site</div>
+            <h3>On site in 1 to 3 days</h3>
+            <p>Certified engineers, minimal disruption to your operations. Fully grid-compliant, ESB-notified and insured throughout.</p>
+          </div>
+        </div>
+        <div class="path-pane" role="tabpanel" id="pathPane3" aria-labelledby="pathTab3">
+          <div class="icon-tile"><svg class="ic"><use href="#i-power"/></svg></div>
+          <div>
+            <div class="path-k">Step 4 of 4 · From switch-on</div>
+            <h3>Switch on &amp; start saving</h3>
+            <p>From the moment we energise, every kWh from your roof costs less than the grid. Live monitoring shows your generation and savings in real time.</p>
+          </div>
+        </div>
       </div>
     </div>
     <div style="text-align:center;margin-top:44px" class="reveal">
@@ -2349,6 +2389,52 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     if (e.isIntersecting) { mark.classList.add('in'); mo.disconnect(); }
   }), { threshold: 0.6 });
   mo.observe(mark);
+})();
+// ---- the path: step rail ----
+(() => {
+  const rail = document.getElementById('pathRail'), wrap = document.getElementById('pathWay');
+  if (!rail) return;
+  const tabs = [...rail.querySelectorAll('[role="tab"]')];
+  const panes = tabs.map(t => document.getElementById(t.getAttribute('aria-controls')));
+  const body = document.getElementById('pathBody');
+  let cur = 0, timer = null, manual = false, busy = false;
+  const show = i => {
+    cur = (i + tabs.length) % tabs.length;
+    tabs.forEach((t, k) => { const on = k === cur;
+      t.setAttribute('aria-selected', on); if (on) t.removeAttribute('tabindex'); else t.tabIndex = -1;
+      panes[k].classList.toggle('is-on', on); });
+  };
+  const stop = () => { manual = true; if (timer) { clearInterval(timer); timer = null; } };
+  tabs.forEach((t, k) => t.addEventListener('click', () => { stop(); show(k); }));
+  rail.addEventListener('keydown', e => {
+    const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+    if (!d && e.key !== 'Home' && e.key !== 'End') return;
+    e.preventDefault(); stop();
+    show(e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : cur + d);
+    tabs[cur].focus();
+  });
+  // the tallest step sets the height, so the card never jumps
+  const settle = () => {
+    let h = 0;
+    panes.forEach(p => { p.style.cssText = 'display:flex;position:absolute;visibility:hidden;left:0;top:0;width:100%';
+      h = Math.max(h, p.offsetHeight); p.style.cssText = ''; });
+    body.style.minHeight = h + 'px';
+  };
+  settle(); addEventListener('resize', settle);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(settle);
+  // auto-advance while on screen, until the visitor takes over
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  let inside = false;
+  wrap.addEventListener('pointerenter', () => inside = true);
+  wrap.addEventListener('pointerleave', () => inside = false);
+  wrap.addEventListener('focusin', () => inside = true);
+  wrap.addEventListener('focusout', () => inside = false);
+  const vo = new IntersectionObserver(es => es.forEach(e => {
+    if (manual) { vo.disconnect(); return; }
+    if (e.isIntersecting && !timer) timer = setInterval(() => { if (!document.hidden && !inside && !manual) show(cur + 1); }, 4500);
+    else if (!e.isIntersecting && timer) { clearInterval(timer); timer = null; }
+  }), { threshold: 0.45 });
+  vo.observe(wrap);
 })();
 
 // ---- rate bars animate when visible ----

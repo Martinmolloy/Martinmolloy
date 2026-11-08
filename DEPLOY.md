@@ -90,6 +90,17 @@ the function's logs (Pages project, Functions, Real-time logs).
 The investor form lives on its own page, `public/investors.html` (`/investors`), linked only
 from the footer and kept out of search results and the sitemap.
 
+## 7. Leadfeeder (company-level visitor identification)
+
+Every page carries a cookie banner. Leadfeeder's tracker (account id in the
+snippet near the end of each HTML file) loads only after a visitor clicks
+Accept, and the "Cookie settings" footer link lets them change their mind;
+withdrawing deletes Leadfeeder's cookies. The privacy policy's "Cookies and
+tracking" section describes this. If the Leadfeeder account changes, replace
+the id in all seven HTML files; if Leadfeeder is dropped, remove the block
+before `</body>` in each file and restore the old "no cookies" wording in
+privacy.html.
+
 ## Launch checklist
 
 Before pointing auraenergy.ie at the site:

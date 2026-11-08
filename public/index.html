@@ -283,15 +283,19 @@ footer :focus-visible { outline-color: #fff; }
 .model-card .btn { align-self: flex-start; position: relative; z-index: 1;}
 
 /* comparison table */
-.compare { margin-top: 64px; border: 1.5px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-.compare table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
-.compare th, .compare td { padding: 17px 24px; text-align: left; border-bottom: 1px solid var(--line); }
-.compare tr:last-child th, .compare tr:last-child td { border-bottom: none; }
-.compare thead th { background: var(--orange-mist); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
-.compare thead th.hl { color: var(--orange-text); }
-.compare tbody th { font-weight: 700; width: 30%; color: var(--ink); }
-.compare td { color: var(--muted); font-weight: 500; }
-.compare td.hl { color: var(--ink); font-weight: 600; background: #FFF7F2; }
+.compare { margin-top: 64px; }
+.compare table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14.5px; background: #fff; border: 1px solid var(--line); border-radius: 24px; box-shadow: var(--shadow); }
+.compare th, .compare td { padding: 17px 26px; text-align: left; border-bottom: 1px solid var(--line); }
+.compare tbody tr:last-child th, .compare tbody tr:last-child td { border-bottom: 0; }
+.compare thead th { padding: 22px 26px 15px; font-size: 12.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.compare tbody th { font-weight: 600; width: 28%; color: var(--muted); }
+.compare td { color: var(--muted); font-weight: 500; width: 36%; }
+/* the PPA column wears a ring, like the plan you'd pick */
+.compare .hl { background: #FFF8F3; border-left: 1.5px solid var(--orange-line); border-right: 1.5px solid var(--orange-line); }
+.compare thead th.hl { color: var(--orange-text); border-top: 1.5px solid var(--orange-line); border-radius: 18px 18px 0 0; }
+.compare tbody tr:last-child td.hl { border-bottom: 1.5px solid var(--orange-line); border-radius: 0 0 18px 18px; }
+.compare td.hl { color: var(--ink); font-weight: 700; }
+.cmp-flag { display: inline-block; margin-left: 10px; padding: 3px 10px; border-radius: 999px; background: var(--orange-soft); color: var(--orange-text); font-size: 11px; letter-spacing: .02em; text-transform: none; vertical-align: 1px; }
 
 /* ============================================================ STEPS */
 .steps-bg { background: var(--orange-mist); border-block: 1px solid var(--line); }
@@ -1361,7 +1365,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
     <div class="compare reveal">
       <table>
         <thead>
-          <tr><th>At a glance</th><th class="hl">Solar PPA</th><th>Capex purchase</th></tr>
+          <tr><th>At a glance</th><th class="hl">Solar PPA<span class="cmp-flag">Most popular</span></th><th>Capex purchase</th></tr>
         </thead>
         <tbody>
           <tr><th>Upfront cost</th><td class="hl">€0</td><td>Full system cost (less grants)</td></tr>

@@ -130,10 +130,11 @@ footer :focus-visible { outline-color: #fff; }
      Leadfeeder (company-level visitor identification) loads only after Accept.
      The choice is remembered in this browser; "Cookie settings" in the footer reopens it. -->
 <div class="ck" id="ckBar" role="region" aria-label="Cookie choice" hidden>
-  <p>Can we use a Leadfeeder cookie to see which companies visit our site? It shows us the business, not who you are, so we can follow up with firms that may be interested. <a href="privacy.html#cookies">How we use it</a></p>
+  <p class="ck-t">Your cookie settings</p>
+  <p>By clicking 'Yes, I accept', you agree to our use of cookies for analytics and marketing. Please read our <a href="privacy.html#cookies">Privacy Notice</a>.</p>
   <div class="ck-btns">
-    <button type="button" id="ckNo">Decline</button>
-    <button type="button" id="ckYes">Accept</button>
+    <button type="button" id="ckNo">No, thanks</button>
+    <button type="button" id="ckYes">Yes, I accept</button>
   </div>
 </div>
 <style>
@@ -143,6 +144,7 @@ footer :focus-visible { outline-color: #fff; }
   font-size: 14px; line-height: 1.55; }
 .ck[hidden] { display: none; }
 .ck p { margin: 0 0 14px; color: rgba(255,255,255,.82); font-size: 14px; line-height: 1.55; }
+.ck .ck-t { margin: 0 0 6px; color: #fff; font-weight: 800; font-size: 15px; letter-spacing: -0.01em; }
 .ck a { color: #FFA477; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
 .ck-btns { display: flex; gap: 10px; }
 .ck-btns button { flex: 1; min-height: 44px; border-radius: 999px; border: 0; font: inherit; font-weight: 700; font-size: 14.5px; cursor: pointer; }

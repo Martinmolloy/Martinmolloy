@@ -18,6 +18,7 @@
 :root {
   --orange: #FE5000; --orange-deep: #E54800; --ink: #111113; --muted: #5C5D60; --line: #E9E9E7;
   --green: #12714B; --radius-sm: 14px; --ease: cubic-bezier(.22,.61,.36,1);
+  --orange-soft: #FFEDE3; --orange-text: #B83A0A; --shadow-lg: 0 20px 60px rgba(15,15,16,0.10);
 }
 body { font-family: 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif; background: #fff; color: var(--ink); line-height: 1.65; -webkit-font-smoothing: antialiased; }
 img, svg { display: block; }
@@ -45,17 +46,9 @@ p { color: var(--muted); }
 :focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
-/* header */
-.top { border-bottom: 1px solid var(--line); }
-.top .container { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 16px; }
-.logo { color: var(--ink); }
-.logo-mark { width: 135px; height: 21px; }
-.back { font-size: 14.5px; font-weight: 600; color: var(--ink); opacity: .82; display: inline-flex; align-items: center; gap: 8px; }
-.back:hover { opacity: 1; color: var(--orange); }
-.back svg { width: 16px; height: 16px; transform: scaleX(-1); }
 
 /* investors */
-.inv-sec { background: linear-gradient(140deg, #131316 0%, #26262B 100%); color: #fff; position: relative; overflow: hidden; padding: 96px 0 104px; }
+.inv-sec { background: linear-gradient(140deg, #131316 0%, #26262B 100%); color: #fff; position: relative; overflow: hidden; padding: 172px 0 104px; }
 .inv-sec::after { content: ""; position: absolute; right: -160px; top: -160px; width: 420px; height: 420px; border-radius: 50%; background: rgba(254,80,0,.16); filter: blur(10px); pointer-events: none; }
 .inv-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 64px; align-items: start; position: relative; z-index: 1; }
 .inv-sec .kicker { color: #FFA477; }
@@ -90,22 +83,123 @@ p { color: var(--muted); }
 .form-error { margin-top: 14px; font-size: 14.5px; font-weight: 600; color: #B42318; }
 .form-error a { color: inherit; text-decoration: underline; }
 
-/* footer */
-footer { background: var(--ink); color: rgba(255,255,255,.6); padding: 40px 0; font-size: 13.5px; }
-footer .container { display: flex; justify-content: space-between; align-items: center; gap: 18px 28px; flex-wrap: wrap; }
-footer .logo { color: #fff; }
-footer nav { display: flex; gap: 22px; flex-wrap: wrap; }
-footer nav a { color: rgba(255,255,255,.75); font-weight: 600; }
-footer nav a:hover { color: #fff; }
-footer :focus-visible { outline-color: #fff; }
 
 @media (max-width: 1024px) { .inv-grid { grid-template-columns: 1fr; gap: 40px; } }
 @media (max-width: 720px) {
-  .inv-sec { padding: 64px 0 72px; }
+  .inv-sec { padding: 124px 0 72px; }
   .inv-form { padding: 28px 20px; }
   .frow { grid-template-columns: 1fr; }
-  .back span { display: none; }
 }
+/* ---------------- header and footer: the main site's (public/index.html) */
+[id] { scroll-margin-top: 92px; }
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 100;
+  background: rgba(255,255,255,.92); backdrop-filter: blur(14px);
+  border-bottom: 1px solid transparent; transition: border-color .3s, box-shadow .3s;
+}
+.nav.scrolled { border-bottom-color: var(--line); box-shadow: 0 4px 24px rgba(15,15,16,.05); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 16px; }
+.logo { display: flex; align-items: center; color: var(--ink); }
+.logo-mark { display: block; width: 135px; height: 21px; flex: none; }
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-links a:not(.btn) { font-size: 14.5px; font-weight: 600; color: var(--ink); opacity: .82; transition: .2s; }
+.nav-links a { white-space: nowrap; }
+.nav-links a:not(.btn):hover, .nav-links a[aria-current="page"] { opacity: 1; color: var(--orange-text); }
+.nav-phone { display: inline-flex; align-items: center; gap: 7px; font-weight: 700 !important; }
+.nav-phone svg { width: 15px; height: 15px; color: var(--orange); }
+.nav .btn { padding: 11px 22px; font-size: 14px; }
+.nav-small { display: none; align-items: center; gap: 8px; }
+.nav-call { display: flex; width: 42px; height: 42px; border-radius: 12px; background: var(--orange-soft); color: var(--orange-text); align-items: center; justify-content: center; }
+.nav-call svg { width: 19px; height: 19px; }
+.nav-burger { display: flex; background: none; border: none; width: 42px; height: 42px; border-radius: 10px; align-items: center; justify-content: center; cursor: pointer; }
+.nav-burger svg { width: 26px; height: 26px; stroke: var(--ink); stroke-width: 2; fill: none; stroke-linecap: round; }
+.mobile-menu {
+  display: none; position: fixed; top: 76px; left: 0; right: 0; z-index: 99;
+  background: #fff; border-bottom: 1px solid var(--line); padding: 18px 24px 28px; box-shadow: var(--shadow-lg);
+}
+.mobile-menu.open { display: block; }
+.mobile-menu a { display: block; padding: 13px 4px; font-weight: 600; border-bottom: 1px solid var(--line); }
+.mobile-menu a[aria-current="page"] { color: var(--orange-text); }
+.mobile-menu .btn { display: flex; justify-content: center; margin-top: 18px; width: 100%; padding: 15px 24px; border-bottom: none; }
+
+/* ---------------- footer (the main site's) */
+footer { background: var(--ink); color: #fff; padding: 84px 0 36px; position: relative; overflow: hidden; }
+footer::before {
+  content: ""; position: absolute; top: -280px; right: -220px; width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(254,80,0,.20) 0%, rgba(254,80,0,0) 68%); pointer-events: none;
+}
+footer :focus-visible { outline-color: #fff; }
+.foot-cta {
+  display: flex; justify-content: space-between; align-items: center; gap: 36px; flex-wrap: wrap;
+  padding-bottom: 56px; margin-bottom: 56px; border-bottom: 1px solid rgba(255,255,255,.12); position: relative;
+}
+.foot-cta h2 { color: #fff; margin-bottom: 10px; }
+.foot-cta p { color: rgba(255,255,255,.65); font-size: 15.5px; max-width: 460px; }
+.foot-cta-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-outline-light { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.3); }
+.btn-outline-light:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+.foot-grid { display: grid; grid-template-columns: 1fr 1fr 1.3fr 1fr; gap: 48px; margin-bottom: 64px; position: relative; }
+.foot-col h3 { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 20px; }
+.foot-col a { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,.78); font-size: 14.5px; padding: 7px 0; font-weight: 500; transition: color .2s, transform .2s; }
+.foot-col a:hover { color: #FFA477; transform: translateX(3px); }
+.foot-contact a { gap: 12px; }
+.foot-contact a:hover { transform: none; color: #fff; }
+.foot-contact .f-ic { width: 38px; height: 38px; border-radius: 11px; flex: none; background: rgba(254,80,0,.15); border: 1px solid rgba(254,80,0,.3); display: flex; align-items: center; justify-content: center; }
+.foot-contact .f-ic svg { width: 16px; height: 16px; color: #FFA477; }
+.social-row { display: flex; align-items: center; gap: 12px; }
+.social-row + .social-row { margin-top: 10px; }
+.social { display: inline-flex; width: 42px; height: 42px; border-radius: 12px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); align-items: center; justify-content: center; transition: all .2s var(--ease); }
+.social:hover { background: var(--orange); border-color: var(--orange); transform: translateY(-2px); }
+.social svg { width: 18px; height: 18px; fill: #fff; stroke: none; }
+.social .social-x { width: 16px; height: 16px; }
+.foot-follow a.social { padding: 0; justify-content: center; flex: none; }
+.foot-follow a.social-lbl { padding: 0; font-size: 14.5px; font-weight: 500; color: rgba(255,255,255,.78); }
+.foot-follow a.social-lbl:hover { color: #FFA477; transform: none; }
+
+/* the big brand mark, as on the main site */
+.foot-mark { display: block; width: min(100%, 500px); color: #fff; margin-bottom: 44px; position: relative; border-radius: 6px; }
+.foot-mark svg { display: block; width: 100%; height: auto; }
+.foot-mark .fm-s > *, .foot-mark .fm-l > * { transition: transform 1s cubic-bezier(.2,.75,.15,1); }
+.foot-mark .fm-s > * { transition-delay: calc(var(--i) * 110ms); }
+.foot-mark .fm-l > * { transition-delay: calc(330ms + var(--i) * 90ms); }
+.foot-mark.armed:not(.in) .fm-s > * { transform: translate(-47px, 106px); }
+.foot-mark.armed:not(.in) .fm-l > * { transform: translateY(106px); }
+
+.foot-bottom { border-top: 1px solid rgba(255,255,255,.12); padding-top: 28px; display: flex; justify-content: space-between; align-items: flex-start; gap: 18px 16px; flex-wrap: wrap; font-size: 13px; color: rgba(255,255,255,.55); }
+.foot-fine { display: grid; gap: 7px; }
+.foot-legal { display: flex; gap: 18px; flex-wrap: wrap; }
+.foot-legal a { color: rgba(255,255,255,.78); font-weight: 600; transition: color .2s; }
+.foot-legal a:hover { color: #fff; }
+.foot-reg { font-size: 12px; color: rgba(255,255,255,.45); }
+.foot-badges { display: flex; gap: 10px; flex-wrap: wrap; }
+.foot-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12px; font-weight: 600; color: rgba(255,255,255,.6);
+  border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 6px 14px;
+}
+.foot-badge svg { width: 14px; height: 14px; color: #FFA477; }
+.btn-lg { padding: 18px 36px; font-size: 16.5px; }
+.pick-path { display: flex; gap: 14px; flex-wrap: wrap; }
+
+@media (max-width: 1080px) {
+  .nav-links { display: none; }
+  .nav-small { display: flex; }
+}
+@media (min-width: 1081px) { .mobile-menu.open { display: none; } }
+@media (max-width: 1024px) {
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 760px) {
+  .foot-grid { grid-template-columns: 1fr; gap: 32px; }
+  .foot-cta .btn { width: 100%; }
+  .pick-path .btn { flex: 1 1 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .foot-mark .fm-s > *, .foot-mark .fm-l > * { transition: none; transform: none !important; }
+}
+/* text for screen readers only */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.foot-cta h2 { font-size: clamp(1.9rem, 3.6vw, 2.7rem); }
 </style>
 </head>
 <body>
@@ -144,15 +238,54 @@ footer :focus-visible { outline-color: #fff; }
     </symbol>
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.8l4.6 4.6L19.5 6.6"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13.5 5.5L20 12l-6.5 6.5"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5.5 4h4l1.5 4.5-2.2 1.7a12.5 12.5 0 005 5l1.7-2.2L20 14.5v4a2 2 0 01-2.2 2A16.5 16.5 0 013.5 6.2 2 2 0 015.5 4z" fill="currentColor" opacity=".12" stroke="none"/><path d="M5.5 4h4l1.5 4.5-2.2 1.7a12.5 12.5 0 005 5l1.7-2.2L20 14.5v4a2 2 0 01-2.2 2A16.5 16.5 0 013.5 6.2 2 2 0 015.5 4z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2.4" fill="currentColor" opacity=".1" stroke="none"/><rect x="3" y="5.5" width="18" height="13" rx="2.4"/><path d="M3.5 7.5l8.5 6 8.5-6"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11a7 7 0 10-14 0c0 4.9 7 11 7 11z" fill="currentColor" opacity=".12" stroke="none"/><path d="M12 21s7-6.1 7-11a7 7 0 10-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M4.98 3.5a2.49 2.49 0 11-.02 4.98 2.49 2.49 0 01.02-4.98zM3 9h4v12H3zM9.5 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.9 2.6 4.9 6V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.2 1.4-2.2 2.9V21h-4z"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24">
+      <path d="M12 3l7.5 2.8v5.4c0 4.8-3.1 8-7.5 9.6-4.4-1.6-7.5-4.8-7.5-9.6V5.8z" fill="currentColor" opacity=".13" stroke="none"/>
+      <path d="M12 3l7.5 2.8v5.4c0 4.8-3.1 8-7.5 9.6-4.4-1.6-7.5-4.8-7.5-9.6V5.8z"/>
+      <path d="M8.8 11.9l2.3 2.3 4.1-4.7"/>
+    </symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24">
+      <path d="M8.5 21L12 7l3.5 14M9.5 16.8h5M6.5 7h11M9 3.5h6M10.3 7L9 3.5M13.7 7L15 3.5"/>
+    </symbol>
   </defs>
 </svg>
 
-<header class="top">
-  <div class="container">
+<header class="nav" id="nav">
+  <div class="container nav-inner">
     <a href="./" class="logo" aria-label="Aura Energy home"><svg class="logo-mark" viewBox="0 0 662 103" aria-hidden="true"><use href="#aura-logo"/></svg></a>
-    <a href="./" class="back"><svg class="ic"><use href="#i-arrow"/></svg><span>Back to auraenergy.ie</span></a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="./#models">Solar PPA</a>
+      <a href="./#how">How it works</a>
+      <a href="./#calculator">Estimator</a>
+      <a href="./#projects">Projects</a>
+      <a href="about.html">About</a>
+      <a href="./#faq">FAQ</a>
+      <a href="tel:+353833945937" class="nav-phone" title="+353 83 394 5937"><svg class="ic"><use href="#i-phone"/></svg>Call now</a>
+      <a href="./#quote" class="btn btn-primary">Get a quote</a>
+    </nav>
+    <div class="nav-small">
+      <a href="tel:+353833945937" class="nav-call" aria-label="Call Aura Energy"><svg class="ic"><use href="#i-phone"/></svg></a>
+      <button type="button" class="nav-burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
   </div>
 </header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="./#models">Solar PPA</a>
+  <a href="./#how">How it works</a>
+  <a href="./#calculator">Estimator</a>
+  <a href="./#projects">Projects</a>
+  <a href="./#why">Why solar</a>
+  <a href="about.html">About</a>
+  <a href="./#faq">FAQ</a>
+  <a href="tel:+353833945937">Call now</a>
+  <a href="./#quote" class="btn btn-primary">Get a quote</a>
+</div>
 
 <main>
 <section class="inv-sec" id="register">
@@ -216,17 +349,94 @@ footer :focus-visible { outline-color: #fff; }
 
 <footer>
   <div class="container">
-    <a href="./" class="logo" aria-label="Aura Energy home"><svg class="logo-mark" viewBox="0 0 662 103" aria-hidden="true"><use href="#aura-logo"/></svg></a>
-    <nav aria-label="Footer">
-      <a href="./">Home</a>
-      <a href="./#models">Solar PPA</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-      <a href="mailto:info@auraenergy.ie">info@auraenergy.ie</a>
-      <a href="https://www.linkedin.com/company/aurenergy/" target="_blank" rel="noopener">LinkedIn</a>
-      <button type="button" class="ck-link" data-cookie-settings>Cookie settings</button>
-      </nav>
-    <span>© 2026 Aura Energy · Dublin, Ireland</span>
+    <div class="foot-cta">
+      <div>
+        <h2>Ready to pay less for power?</h2>
+        <p>Get a free site assessment and see your PPA rate and a capex price side by side, within one business day. Most sites go from survey to switch-on in 6 to 10 weeks, so the sooner we look, the sooner you save.</p>
+      </div>
+      <div class="foot-cta-btns">
+        <a href="./#quote" class="btn btn-primary btn-lg">Get your free quote <svg class="ic"><use href="#i-arrow"/></svg></a>
+        <a href="tel:+353833945937" class="btn btn-outline-light btn-lg" title="+353 83 394 5937"><svg class="ic"><use href="#i-phone"/></svg> Call now</a>
+      </div>
+    </div>
+    <div class="foot-grid">
+      <div class="foot-col">
+        <h3>Company</h3>
+        <a href="./#models">Solar PPA</a>
+        <a href="./#models">Capex installs</a>
+        <a href="residential.html">Residential</a>
+        <a href="./#how">How it works</a>
+        <a href="./#projects">Projects</a>
+        <a href="about.html">About us</a>
+        <a href="work-with-us.html">Work with us</a>
+      </div>
+      <div class="foot-col">
+        <h3>Resources</h3>
+        <a href="./#calculator">Roof estimator</a>
+        <a href="./#why">Why solar</a>
+        <a href="./#faq">FAQ</a>
+        <a href="./#quote">Get a quote</a>
+        <a href="assets/aura-energy-brochure.pdf" download="Aura-Energy-Solar-as-a-Service-Brochure.pdf">Brochure (PDF)</a>
+        <a href="investors.html">Investors</a>
+      </div>
+      <div class="foot-col foot-contact">
+        <h3>Contact</h3>
+        <a href="mailto:info@auraenergy.ie"><span class="f-ic"><svg class="ic"><use href="#i-mail"/></svg></span> info@auraenergy.ie</a>
+        <a href="tel:+353833945937" title="+353 83 394 5937"><span class="f-ic"><svg class="ic"><use href="#i-phone"/></svg></span> Call us</a>
+        <a href="https://maps.app.goo.gl/KxhC7wEBNVmJSZ4m9" target="_blank" rel="noopener"><span class="f-ic"><svg class="ic"><use href="#i-pin"/></svg></span> Dublin, Ireland · Nationwide<span class="sr-only"> (Google Maps, opens in a new tab)</span></a>
+      </div>
+      <div class="foot-col foot-follow">
+        <h3>Follow us</h3>
+        <div class="social-row">
+          <a class="social" href="https://www.linkedin.com/company/aurenergy/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-linkedin"/></svg></a>
+          <a class="social-lbl" href="https://www.linkedin.com/company/aurenergy/" target="_blank" rel="noopener">Follow us on LinkedIn</a>
+        </div>
+        <div class="social-row">
+          <a class="social" href="https://x.com/auraenergyie" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><svg class="social-x" viewBox="0 0 24 24"><use href="#i-x"/></svg></a>
+          <a class="social-lbl" href="https://x.com/auraenergyie" target="_blank" rel="noopener">Follow us on X</a>
+        </div>
+      </div>
+    </div>
+    <a href="#top" class="foot-mark" id="footMark" aria-label="Aura Energy, back to top">
+      <svg viewBox="-4 -1 662 103" aria-hidden="true" focusable="false">
+        <defs><clipPath id="footMarkClip"><rect x="-4" y="-1" width="662" height="103"/></clipPath></defs>
+        <g clip-path="url(#footMarkClip)">
+          <g class="fm-s" fill="#FE5000">
+            <path style="--i:0" d="M0 100 L44.44 0 L61.11 0 L16.67 100 Z"/>
+            <path style="--i:1" d="M38.89 100 L83.33 0 L100 0 L55.56 100 Z"/>
+            <path style="--i:2" d="M77.78 100 L122.22 0 L138.89 0 L94.45 100 Z"/>
+          </g>
+          <g class="fm-l" transform="translate(186.89 0)" fill="currentColor">
+            <path style="--i:0" fill-rule="evenodd" d="M0 100 L44.44 0 L62.44 0 L106.89 100 L83.89 100 L74.56 79 L32.33 79 L23 100 Z M39.44 63 L53.44 31.5 L67.44 63 Z"/>
+            <path style="--i:1" d="M130.89 0 L150.89 0 L150.89 59 A22 22 0 0 0 194.89 59 L194.89 0 L214.89 0 L214.89 59 A42 42 0 0 1 130.89 59 Z"/>
+            <g style="--i:2">
+              <path d="M250.89 0 L270.89 0 L270.89 100 L250.89 100 Z M281.33 50 L304.33 50 L326.56 100 L303.56 100 Z"/>
+              <path fill-rule="evenodd" d="M260.89 0 L306.89 0 A29 29 0 0 1 306.89 58 L260.89 58 Z M270.89 18 L306.89 18 A11 11 0 0 1 306.89 40 L270.89 40 Z"/>
+            </g>
+            <path style="--i:3" fill-rule="evenodd" d="M363.89 100 L408.33 0 L426.33 0 L470.78 100 L447.78 100 L438.45 79 L396.22 79 L386.89 100 Z M403.33 63 L417.33 31.5 L431.33 63 Z"/>
+          </g>
+        </g>
+      </svg>
+    </a>
+    <div class="foot-bottom">
+      <div class="foot-fine">
+        <nav class="foot-legal" aria-label="Legal">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms of use</a>
+          <a href="accessibility.html">Accessibility</a>
+          <a href="modern-slavery.html">Modern slavery</a>
+          <button type="button" class="ck-link" data-cookie-settings>Cookie settings</button>
+        </nav>
+        <span>© 2026 Aura Energy · Dublin, Ireland · Serving businesses nationwide</span>
+        <!-- TODO when incorporation completes: the same full particulars as the main page's footer
+             (company number and full registered office). Never use another business's number here. -->
+        <span class="foot-reg">Aura Energy Limited · Registered office: Dublin, Ireland</span>
+      </div>
+      <div class="foot-badges">
+        <span class="foot-badge"><svg class="ic"><use href="#i-shield"/></svg> SEAI Registered Installer</span>
+        <span class="foot-badge"><svg class="ic"><use href="#i-grid"/></svg> ESB Networks Notified</span>
+      </div>
+    </div>
   </div>
 </footer>
 
@@ -307,6 +517,33 @@ sendEnquiry(document.getElementById('invForm'), form => {
     '<p class="inv-form-intro" style="margin:6px 0 0">We will be in touch with more on the portfolio and how investors can take part.</p></div></div>';
   form.querySelector('h2').focus();
 });
+</script>
+<script>
+// ---- header: a shadow once scrolled, and the menu on small screens ----
+(() => {
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', scrollY > 10);
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  const burger = document.getElementById('burger'), menu = document.getElementById('mobileMenu');
+  const close = () => { menu.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); burger.setAttribute('aria-label', 'Open menu'); };
+  burger.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+  addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('open')) { close(); burger.focus(); } });
+})();
+// footer logo: hide its parts only once we know we can bring them back
+(() => {
+  const mark = document.getElementById('footMark');
+  if (!mark || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  mark.classList.add('armed');
+  const mo = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { mark.classList.add('in'); mo.disconnect(); }
+  }), { threshold: 0.6 });
+  mo.observe(mark);
+})();
 </script>
 <!-- ============================================================ COOKIE CHOICE
      Leadfeeder (company-level visitor identification) loads only after consent. Three choices:

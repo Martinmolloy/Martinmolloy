@@ -606,6 +606,41 @@ footer :focus-visible { outline-color: #fff; }
   .marquee-track { animation: none; flex-wrap: wrap; justify-content: center; max-width: 760px; margin: 0 auto; }
   .marquee-track[aria-hidden="true"], .brands-toggle { display: none; }
 }
+
+/* ---------------- finance: spread the cost, then on to the estimate */
+.finance { padding: 0 0 96px; }
+.fin-card {
+  position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr 1.08fr; gap: 30px 56px;
+  grid-template-areas: "copy facts" "cta facts";
+  background: var(--ink); color: #fff; border-radius: 28px; padding: 56px 60px;
+}
+.fin-card::before {
+  content: ""; position: absolute; top: -240px; right: -200px; width: 560px; height: 560px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(254,80,0,.26) 0%, rgba(254,80,0,0) 68%); pointer-events: none;
+}
+.fin-card > * { position: relative; }
+.fin-card .kicker { color: #FFA477; }
+.fin-card h2 { color: #fff; margin-bottom: 14px; }
+.fin-copy { grid-area: copy; align-self: end; }
+.fin-copy p { color: rgba(255,255,255,.74); font-size: 16.5px; max-width: 440px; }
+.fin-cta { grid-area: cta; align-self: start; }
+.fin-card :focus-visible { outline-color: #fff; }
+.fin-facts { grid-area: facts; align-self: center; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.fin-facts li { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.13); border-radius: 18px; padding: 22px 22px 20px; }
+.fin-facts b { display: block; font-size: clamp(1.15rem, 1.9vw, 1.42rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; color: #fff; }
+.fin-facts li:first-child b { color: #FFA477; }
+.fin-facts span { display: block; margin-top: 6px; font-size: 13.5px; line-height: 1.45; color: rgba(255,255,255,.66); }
+.fin-legal { margin-top: 16px; font-size: 12.5px; line-height: 1.6; color: var(--muted); max-width: 920px; }
+/* one column: the facts come before the button */
+@media (max-width: 1024px) { .fin-card { grid-template-columns: 1fr; grid-template-areas: "copy" "facts" "cta"; padding: 46px 40px; } }
+@media (max-width: 720px) {
+  .finance { padding-bottom: 64px; }
+  .fin-card { padding: 34px 22px; border-radius: 22px; }
+  .fin-cta .btn { width: 100%; }
+  .fin-facts { gap: 10px; }
+  .fin-facts li { padding: 16px 14px; border-radius: 14px; }
+  .fin-facts span { font-size: 12.5px; }
+}
 </style>
 </head>
 <body>
@@ -1004,6 +1039,26 @@ footer :focus-visible { outline-color: #fff; }
       </div>
     </div>
     <div class="how-cta"><a class="btn btn-primary btn-lg" href="#estimate">Get your estimate <svg class="ic"><use href="#i-arrow"/></svg></a></div>
+  </div>
+</section>
+
+<section class="finance" id="finance" aria-labelledby="finTitle">
+  <div class="container">
+    <div class="fin-card">
+      <div class="fin-copy">
+        <div class="kicker">Finance</div>
+        <h2 id="finTitle">Spread the cost</h2>
+        <p>Pay for your solar monthly with a green home improvement loan from Finance Ireland. Get your free estimate first, then ask us about finance.</p>
+      </div>
+      <ul class="fin-facts">
+        <li><b>€4,000 to €25,000</b><span>Loan amounts</span></li>
+        <li><b>Up to 100%</b><span>Of the cost can be financed</span></li>
+        <li><b>2 to 10 years</b><span>To pay it back</span></li>
+        <li><b>Unsecured</b><span>Your home isn't used as security</span></li>
+      </ul>
+      <div class="fin-cta"><a href="#estimate" class="btn btn-primary btn-lg">Get your estimate <svg class="ic"><use href="#i-arrow"/></svg></a></div>
+    </div>
+    <p class="fin-legal">Loans are provided by Finance Ireland and are subject to approval, lending criteria and terms and conditions. Warning: If you do not meet the repayments on your loan, your account will go into arrears. This may affect your credit rating, which may limit your ability to access credit in the future.</p>
   </div>
 </section>
 

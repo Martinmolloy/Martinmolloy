@@ -1,4 +1,4 @@
-// POST /api/enquiry: the quote, roof estimate and investor forms (Cloudflare Pages Function).
+// POST /api/enquiry: the quote, roof estimate, investor and home estimate forms (Cloudflare Pages Function).
 //
 // The forms post here rather than straight to an email service, so the address enquiries go
 // to never appears in the page or in this repository: it comes from the ENQUIRY_TO setting.
@@ -50,6 +50,18 @@ const FORMS = {
     required: ['email'],
     fields: { email: 'Email', estimate: 'Estimate' },
   },
+  // The homeowner estimate on /residential. Its grade (A, B or C) goes in the subject line.
+  home: {
+    subject: (v) => `New home solar estimate${/^[ABC]$/.test(v.grade) ? ` (Grade ${v.grade})` : ''} | auraenergy.ie`,
+    back: '/residential#estimate',
+    required: ['name', 'email', 'eircode'],
+    fields: {
+      name: 'Name', email: 'Email', phone: 'Phone', eircode: 'Eircode', home: 'Home type', owner: 'Ownership',
+      roof: 'Roof faces', shade: 'Shade', bill: 'Bill every two months', daytime: 'Home during the day',
+      extras: 'Interested in', built: 'Built and lived in before 2025', timeframe: 'Timeframe',
+      estimate: 'Estimate', grade: 'Lead grade', source: 'Came from',
+    },
+  },
   investor: {
     subject: 'New investor enquiry | auraenergy.ie',
     back: '/investors',
@@ -98,7 +110,8 @@ export async function onRequestPost({ request, env }) {
     return reply({ error: 'unavailable', form: name }, 503);
   }
 
-  const message = { _subject: form.subject, _template: 'table', _captcha: 'false', _replyto: values.email };
+  const subject = typeof form.subject === 'function' ? form.subject(values) : form.subject;
+  const message = { _subject: subject, _template: 'table', _captcha: 'false', _replyto: values.email };
   for (const [key, label] of Object.entries(form.fields)) {
     if (values[key]) message[label] = values[key];
   }

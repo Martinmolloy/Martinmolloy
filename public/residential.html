@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Solar Panels for Your Home | Aura Home Solar</title>
-<meta name="description" content="Aura Home Solar: panels, batteries and hot-water diverters for Irish homes, designed and fitted by Aura Energy. See how a solar home works, day and night." />
+<meta name="description" content="Aura Home Solar: panels, batteries and hot-water diverters for Irish homes, designed and fitted by Aura Energy. Get a free estimate for your home in about a minute." />
 <!-- kept out of search results until the page has content; remove this line at launch -->
 <meta name="robots" content="noindex" />
 <link rel="icon" href="/favicon.ico" sizes="48x48" />
@@ -87,9 +87,6 @@ footer :focus-visible { outline-color: #fff; }
 }
 
 /* ---------------- residential */
-.page-hero h1 { max-width: 14ch; margin-bottom: 20px; }
-.page-hero h1 span { color: var(--orange); }
-.page-hero .lead { margin-bottom: 32px; }
 .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
 .band { background: var(--orange-mist); border-block: 1px solid var(--line); }
 
@@ -253,6 +250,154 @@ footer :focus-visible { outline-color: #fff; }
   .hs-pulse, .hs[data-mode] .tank-heat, .hs[data-mode] .c3, .hs[data-mode] .c4 { animation: none; }
   .hs-sun, .hs-halo, .why-card { transition: none; }
 }
+
+/* ---------------- cover photo hero (the home page's hero, for homes) */
+.btn-lg { padding: 17px 32px; font-size: 16px; }
+.home-hero { position: relative; isolation: isolate; overflow: hidden; background: #0E0E10; color: #fff; min-height: min(82svh, 700px); display: flex; }
+.home-hero-media { position: absolute; inset: 0; z-index: -1; }
+.home-hero-media picture, .home-hero-media img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.home-hero-media img { object-fit: cover; object-position: 62% 50%; }
+.home-hero-scrim {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(10,10,12,.90) 0%, rgba(10,10,12,.74) 30%, rgba(10,10,12,.30) 56%, rgba(10,10,12,.04) 100%),
+    linear-gradient(180deg, rgba(10,10,12,.22) 0%, rgba(10,10,12,0) 24%, rgba(10,10,12,0) 66%, rgba(10,10,12,.48) 100%);
+}
+.home-hero-in { display: flex; align-items: center; width: 100%; padding-block: 96px; }
+.home-hero-copy { max-width: 600px; }
+.hero-chip {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,.10); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.22); color: #fff;
+  font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  border-radius: 999px; padding: 9px 18px; margin-bottom: 24px;
+}
+.home-hero h1 { color: #fff; max-width: 13ch; margin-bottom: 20px; text-wrap: balance; text-shadow: 0 2px 28px rgba(0,0,0,.30); }
+.home-hero h1 .accent { color: var(--orange); }
+.home-hero .lead { color: rgba(255,255,255,.88); max-width: 520px; margin-bottom: 32px; text-shadow: 0 1px 18px rgba(0,0,0,.35); }
+.home-hero .btn-ghost { color: #fff; border-color: rgba(255,255,255,.42); }
+.home-hero .btn-ghost:hover { background: #fff; border-color: #fff; color: var(--ink); }
+.home-hero :focus-visible { outline-color: #fff; }
+.cta-note { margin-top: 16px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,.74); }
+
+/* ---------------- how it works: the main site's step rail */
+.path { background: var(--ink); border-radius: 24px; padding: 36px 38px 40px; color: #fff; position: relative; overflow: hidden; }
+.path::before { content: ""; position: absolute; top: -220px; right: -160px; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(254,80,0,.22) 0%, rgba(254,80,0,0) 70%); pointer-events: none; }
+.path-rail { display: flex; gap: 4px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 999px; padding: 5px; width: max-content; max-width: 100%; position: relative; }
+.path-rail [role="tab"] { border: 0; background: transparent; color: rgba(255,255,255,.74); font: inherit; font-weight: 700; font-size: 14px; padding: 9px 18px 9px 10px; border-radius: 999px; cursor: pointer; display: flex; align-items: center; gap: 9px; transition: background .25s var(--ease), color .25s var(--ease); }
+.path-rail [role="tab"]:hover { color: #fff; }
+.path-rail [role="tab"] .pr-n { width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,.14); display: grid; place-items: center; font-size: 12.5px; transition: inherit; }
+.path-rail [role="tab"][aria-selected="true"] { background: #fff; color: var(--ink); }
+.path-rail [role="tab"][aria-selected="true"] .pr-n { background: var(--orange); color: #0E0E0F; }
+.path-rail [role="tab"]:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.path-body { position: relative; margin-top: 30px; }
+.path-pane { display: none; }
+.path-pane.is-on { display: flex; gap: 24px; align-items: flex-start; animation: pathIn .5s var(--ease); }
+@keyframes pathIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.path-pane .icon-tile { flex: none; }
+.path-k { font-size: 12px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: #FFA477; margin-bottom: 9px; }
+.path-pane h3 { color: #fff; font-size: 1.3rem; margin-bottom: 10px; }
+.path-pane p { color: rgba(255,255,255,.74); font-size: 15.5px; line-height: 1.65; max-width: 62ch; }
+.how-cta { display: flex; justify-content: center; margin-top: 36px; }
+
+/* ---------------- your estimate */
+.qz { background: #fff; border: 1px solid var(--line); border-radius: 26px; box-shadow: var(--shadow); padding: 26px 32px 34px; }
+.qz-top { display: flex; align-items: center; justify-content: space-between; min-height: 40px; }
+.qz-back { display: inline-flex; align-items: center; gap: 6px; border: 0; background: transparent; font: inherit; font-size: 14.5px; font-weight: 700; color: var(--ink); padding: 8px 12px 8px 4px; border-radius: 999px; cursor: pointer; }
+.qz-back .ic { width: 18px; height: 18px; transform: rotate(180deg); }
+.qz-back:hover { color: var(--orange-text); }
+.qz-count { margin-left: auto; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.qz-bar { height: 6px; margin-top: 10px; background: var(--orange-mist); border-radius: 999px; overflow: hidden; }
+.qz-bar span { display: block; height: 100%; width: 10%; background: var(--orange); border-radius: inherit; transition: width .45s var(--ease); }
+.qz-stage { min-height: 300px; }
+.qz-step { padding-top: 26px; }
+.qz-step.qz-in { animation: qzIn .42s var(--ease); }
+@keyframes qzIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.qz-q { font-size: clamp(1.45rem, 2.6vw, 1.95rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 6px; }
+.qz-q:focus { outline: none; }
+.qz-hint { color: var(--muted); font-size: 15px; margin-bottom: 4px; }
+.qz-opts { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-top: 22px; }
+.qz-opt { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; padding: 24px 14px 20px; background: #fff; border: 1.5px solid var(--line); border-radius: 18px; cursor: pointer; font: inherit; color: var(--ink); transition: border-color .2s, transform .2s var(--ease), box-shadow .2s var(--ease); }
+.qz-opt:hover { border-color: var(--ink); transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.qz-opt:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.qz-opt[aria-pressed="true"] { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(254,80,0,.20); }
+.qz-opt.t { align-items: flex-start; text-align: left; padding: 20px 20px 18px; }
+.qz-ic svg { width: 58px; height: 58px; fill: none; stroke: #2B2B30; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 6px; }
+.qz-l { font-weight: 800; font-size: 15.5px; line-height: 1.3; }
+.qz-s { font-size: 13px; color: var(--muted); line-height: 1.45; }
+.qz-tick { position: absolute; top: 10px; right: 10px; width: 24px; height: 24px; border-radius: 50%; background: var(--orange); display: grid; place-items: center; opacity: 0; transform: scale(.6); transition: opacity .2s, transform .2s var(--ease); }
+.qz-tick svg { width: 14px; height: 14px; fill: none; stroke: #0E0E0F; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.qz-opt[aria-pressed="true"] .qz-tick { opacity: 1; transform: none; }
+.qz-go { margin-top: 22px; }
+.qz-go[disabled] { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* the details step */
+.qz-form { padding-top: 22px; }
+.qz-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 18px; margin-top: 4px; }
+.qz-fields label { display: grid; gap: 7px; font-size: 14px; font-weight: 700; color: var(--ink); }
+.qz-fields label span { font-weight: 500; color: var(--muted); }
+.qz-fields input { font: inherit; font-size: 16px; font-weight: 500; color: var(--ink); padding: 14px 16px; border: 1.5px solid var(--line); border-radius: 12px; background: #fff; transition: border-color .2s, box-shadow .2s; }
+.qz-fields input:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px rgba(254,80,0,.18); }
+.qz-fields input[aria-invalid="true"] { border-color: #B3261E; }
+.hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.qz-legal { font-size: 13px; margin: 18px 0 16px; }
+.qz-legal a { color: var(--orange-text); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+.form-error { color: #B3261E; font-weight: 600; font-size: 14.5px; margin-bottom: 14px; }
+.form-error a { color: inherit; text-decoration: underline; }
+
+/* the result */
+.qz-res .qz-q { margin-bottom: 8px; }
+.qz-res-p { color: var(--muted); font-size: 16px; max-width: 64ch; }
+.qz-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 24px; background: rgba(255,255,255,.12); border-radius: 20px; overflow: hidden; border: 1px solid var(--ink); }
+.qz-tile { background: var(--ink); color: #fff; padding: 22px 22px 20px; }
+.qz-tile b { display: block; font-size: 11.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #FFA477; margin-bottom: 10px; }
+.qz-tile strong { display: block; font-size: clamp(1.35rem, 2.3vw, 1.75rem); font-weight: 900; letter-spacing: -0.02em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.qz-tile span { display: block; margin-top: 6px; font-size: 13px; color: rgba(255,255,255,.66); }
+.qz-tile.hl strong { color: var(--orange); }
+.qz-note { margin-top: 16px; padding: 14px 16px; border-radius: 14px; background: var(--orange-soft); color: var(--ink); font-size: 14.5px; }
+.qz-next { display: flex; align-items: center; gap: 14px 22px; flex-wrap: wrap; margin-top: 22px; padding: 20px 22px; border: 1px solid var(--line); border-radius: 18px; background: var(--orange-mist); }
+.qz-status { flex: 1 1 320px; display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: var(--ink); font-weight: 600; }
+.qz-status .dot { flex: none; width: 10px; height: 10px; margin-top: 6px; border-radius: 50%; background: var(--orange); }
+.qz-status.ok .dot { background: #1E8E3E; }
+.qz-status.bad { color: #B3261E; }
+.qz-status.bad .dot { background: #B3261E; }
+.qz-status a { color: inherit; text-decoration: underline; }
+.qz-acts { display: flex; gap: 10px; flex-wrap: wrap; }
+.qz-acts .btn { padding: 12px 22px; font-size: 14.5px; }
+.qz-fine { margin-top: 16px; font-size: 12.5px; color: var(--muted); max-width: 90ch; }
+.qz-noscript { padding: 26px 0; font-size: 16px; color: var(--ink); }
+
+@media (max-width: 1024px) {
+  .qz-tiles { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 760px) {
+  .home-hero { min-height: 0; }
+  .home-hero-in { padding-block: 72px 64px; }
+  .home-hero-media img { object-position: 60% 50%; }
+  .home-hero-scrim { background: linear-gradient(180deg, rgba(10,10,12,.62) 0%, rgba(10,10,12,.72) 55%, rgba(10,10,12,.82) 100%); }
+  .hero-btns .btn { flex: 1 1 100%; }
+  .path { padding: 24px 20px 28px; border-radius: 20px; }
+  .path-rail { width: 100%; display: grid; grid-template-columns: 1fr 1fr; border-radius: 18px; }
+  .path-rail [role="tab"] { border-radius: 13px; padding: 9px 12px; }
+  .path-pane.is-on { flex-direction: column; gap: 18px; }
+  .qz { padding: 18px 16px 24px; border-radius: 20px; }
+  .qz-stage { min-height: 0; }
+  .qz-opts { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .qz-opt { padding: 18px 10px 14px; }
+  .qz-opt.t { padding: 16px 14px 14px; }
+  .qz-ic svg { width: 48px; height: 48px; }
+  .qz-fields { grid-template-columns: 1fr; }
+  .qz-form .btn, .qz-go { width: 100%; }
+  .qz-acts { width: 100%; }
+  .qz-acts .btn { flex: 1 1 100%; }
+}
+@media (max-width: 420px) {
+  .qz-tiles { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .qz-step.qz-in, .path-pane.is-on { animation: none; }
+  .qz-bar span, .qz-opt { transition: none; }
+}
 </style>
 </head>
 <body>
@@ -277,6 +422,10 @@ footer :focus-visible { outline-color: #fff; }
     <symbol id="i-ber" viewBox="0 0 24 24"><path d="M3.5 11L12 4l8.5 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M12 17.5v-6M9.5 14L12 11.5l2.5 2.5"/></symbol>
     <symbol id="i-export" viewBox="0 0 24 24"><path d="M14 4h6v6"/><path d="M20 4l-8.5 8.5"/><path d="M18 14v4.5a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 014 18.5v-11A1.5 1.5 0 015.5 6H10"/></symbol>
     <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5.5l6.5 6.5L9 18.5"/></symbol>
+    <symbol id="i-quiz" viewBox="0 0 24 24"><rect x="5.5" y="2.5" width="13" height="19" rx="2.6"/><path d="M8.8 8.2l1.3 1.3 2.4-2.6M8.8 13.6l1.3 1.3 2.4-2.6M14.4 8.2h1.4M14.4 13.6h1.4M10 18.2h4"/></symbol>
+    <symbol id="i-survey" viewBox="0 0 24 24"><path d="M9 20H5.5A1.5 1.5 0 014 18.5V5.5A1.5 1.5 0 015.5 4h9A1.5 1.5 0 0116 5.5V9"/><path d="M7.5 8h5M7.5 11.5h3"/><circle cx="15.5" cy="15.5" r="4"/><path d="M18.5 18.5L21 21"/></symbol>
+    <symbol id="i-install" viewBox="0 0 24 24"><path d="M14.7 6.3a4.5 4.5 0 00-5.9 5.9L3 18l3 3 5.8-5.8a4.5 4.5 0 005.9-5.9L14.5 12 12 9.5z"/></symbol>
+    <symbol id="i-power" viewBox="0 0 24 24"><path d="M12 3v8"/><path d="M6.3 6.8a8 8 0 1011.4 0"/></symbol>
   </defs>
 </svg>
 
@@ -284,20 +433,31 @@ footer :focus-visible { outline-color: #fff; }
   <div class="container">
     <a href="./" class="logo" aria-label="Aura Energy home"><svg class="logo-mark" viewBox="0 0 662 103" aria-hidden="true"><use href="#aura-logo"/></svg></a>
     <nav class="top-links" aria-label="Residential page">
-      <a href="tel:+353833945937" class="btn btn-primary" title="+353 83 394 5937">Call us</a>
+      <a href="#estimate" class="btn btn-primary">Get your estimate</a>
     </nav>
   </div>
 </header>
 
 <main>
 
-<section class="page-hero">
-  <div class="container">
-    <div class="kicker">Aura Home Solar</div>
-    <h1>Solar for your home. <span>Done properly.</span></h1>
-    <p class="lead">Panels, batteries and hot-water diverters for Irish homes, designed and fitted by Aura Energy.</p>
-    <div class="hero-btns">
-      <a class="btn btn-primary" href="#inside">See how it works <svg class="ic"><use href="#i-arrow"/></svg></a>
+<section class="home-hero">
+  <div class="home-hero-media">
+    <picture>
+      <source type="image/webp" srcset="assets/home/street-900.webp 900w, assets/home/street-1500.webp 1500w" sizes="100vw">
+      <img src="assets/home/street-1500.jpg" width="1500" height="833" fetchpriority="high" decoding="async" alt="Aerial view of Irish suburban homes, with solar panels on the pitched and flat roofs of the house in the middle">
+    </picture>
+    <div class="home-hero-scrim"></div>
+  </div>
+  <div class="container home-hero-in">
+    <div class="home-hero-copy">
+      <div class="hero-chip">Aura Home Solar</div>
+      <h1>Solar for your home. <span class="accent">Done properly.</span></h1>
+      <p class="lead">Panels, batteries and hot-water diverters for Irish homes, designed and fitted by Aura Energy. See what your roof could do in about a minute.</p>
+      <div class="hero-btns">
+        <a class="btn btn-primary btn-lg" href="#estimate">Get your estimate <svg class="ic"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ghost btn-lg" href="#inside">See how it works</a>
+      </div>
+      <p class="cta-note">Free and no obligation. Takes about a minute.</p>
     </div>
   </div>
 </section>
@@ -454,6 +614,80 @@ footer :focus-visible { outline-color: #fff; }
   </div>
 </section>
 
+<section class="section" id="how">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">How it works</div>
+      <h2>From estimate to switch-on in four steps</h2>
+      <p class="lead">You see the numbers first, then get a fixed price after a free survey. No surprises.</p>
+    </div>
+    <div class="path" id="pathWay">
+      <div class="path-rail" role="tablist" aria-label="The four steps" id="pathRail">
+        <button type="button" role="tab" id="pathTab0" aria-selected="true" aria-controls="pathPane0"><span class="pr-n">1</span>Estimate</button>
+        <button type="button" role="tab" id="pathTab1" aria-selected="false" tabindex="-1" aria-controls="pathPane1"><span class="pr-n">2</span>Survey</button>
+        <button type="button" role="tab" id="pathTab2" aria-selected="false" tabindex="-1" aria-controls="pathPane2"><span class="pr-n">3</span>Install</button>
+        <button type="button" role="tab" id="pathTab3" aria-selected="false" tabindex="-1" aria-controls="pathPane3"><span class="pr-n">4</span>Save</button>
+      </div>
+      <div class="path-body" id="pathBody">
+        <div class="path-pane is-on" role="tabpanel" id="pathPane0" aria-labelledby="pathTab0">
+          <div class="icon-tile"><svg class="ic"><use href="#i-quiz"/></svg></div>
+          <div><div class="path-k">Step 1 of 4 · About a minute</div><h3>Get your estimate online</h3><p>Answer ten quick questions about your home and see the system that suits it, what it could save and the grant you may qualify for.</p></div>
+        </div>
+        <div class="path-pane" role="tabpanel" id="pathPane1" aria-labelledby="pathTab1">
+          <div class="icon-tile"><svg class="ic"><use href="#i-survey"/></svg></div>
+          <div><div class="path-k">Step 2 of 4 · Free, at a time that suits you</div><h3>A free home survey</h3><p>We check your roof, your fuse board and how you use power, then give you a fixed written price. If you're claiming the SEAI grant, we'll walk you through the application before any work starts.</p></div>
+        </div>
+        <div class="path-pane" role="tabpanel" id="pathPane2" aria-labelledby="pathTab2">
+          <div class="icon-tile"><svg class="ic"><use href="#i-install"/></svg></div>
+          <div><div class="path-k">Step 3 of 4 · Usually one day</div><h3>Fitted in a day</h3><p>Certified electricians fit everything in about a day, keep your home tidy and register your system with ESB Networks.</p></div>
+        </div>
+        <div class="path-pane" role="tabpanel" id="pathPane3" aria-labelledby="pathTab3">
+          <div class="icon-tile"><svg class="ic"><use href="#i-power"/></svg></div>
+          <div><div class="path-k">Step 4 of 4 · From switch-on</div><h3>Start saving</h3><p>Your home uses its own solar first. Follow every unit in your app, and get paid for the power you export.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="how-cta"><a class="btn btn-primary btn-lg" href="#estimate">Get your estimate <svg class="ic"><use href="#i-arrow"/></svg></a></div>
+  </div>
+</section>
+
+<section class="section band" id="estimate">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">Your estimate</div>
+      <h2>See what solar could do for your home</h2>
+      <p class="lead">Ten quick questions, about a minute. You'll see the system that suits your home, what it could save and the grant you may qualify for.</p>
+    </div>
+    <div class="qz" id="qz">
+      <div class="qz-top">
+        <button type="button" class="qz-back" id="qzBack" hidden><svg class="ic"><use href="#i-chev"/></svg>Back</button>
+        <span class="qz-count" id="qzCount" aria-live="polite">Question 1 of 10</span>
+      </div>
+      <div class="qz-bar" aria-hidden="true"><span id="qzBar"></span></div>
+      <div class="qz-stage" id="qzStage">
+        <noscript><p class="qz-noscript">The estimate needs JavaScript switched on. Call us on +353 83 394 5937 or email info@auraenergy.ie and we'll work it out with you.</p></noscript>
+      </div>
+      <form class="qz-form" id="homeForm" action="/api/enquiry" method="POST" novalidate hidden>
+        <input type="hidden" name="form" value="home">
+        <input type="hidden" name="home"><input type="hidden" name="owner"><input type="hidden" name="roof">
+        <input type="hidden" name="shade"><input type="hidden" name="bill"><input type="hidden" name="daytime">
+        <input type="hidden" name="extras"><input type="hidden" name="built"><input type="hidden" name="timeframe">
+        <input type="hidden" name="estimate"><input type="hidden" name="grade"><input type="hidden" name="source">
+        <div class="qz-fields">
+          <label for="hfName">Your name<input id="hfName" name="name" autocomplete="name" required></label>
+          <label for="hfEmail">Email<input id="hfEmail" name="email" type="email" autocomplete="email" required></label>
+          <label for="hfPhone">Phone <span>(optional, for a quicker call back)</span><input id="hfPhone" name="phone" type="tel" autocomplete="tel"></label>
+          <label for="hfEir">Eircode <span>(so we can look at your roof)</span><input id="hfEir" name="eircode" autocomplete="postal-code" autocapitalize="characters" required></label>
+        </div>
+        <div class="hp" aria-hidden="true"><label>Leave this empty<input name="_honey" tabindex="-1" autocomplete="off"></label></div>
+        <p class="qz-legal">We'll use these details to send you your estimate and arrange your free survey. Nothing else. <a href="privacy.html">Privacy notice</a></p>
+        <p class="form-error" id="hfErr" role="alert" hidden></p>
+        <button type="submit" class="btn btn-primary btn-lg">See my estimate <svg class="ic"><use href="#i-arrow"/></svg></button>
+      </form>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <footer>
@@ -553,6 +787,320 @@ footer :focus-visible { outline-color: #fff; }
     if (e.isIntersecting && !timer) timer = setInterval(() => { if (!document.hidden) setMode(order[(order.indexOf(mode) + 1) % 3]); }, 5500);
     else if (!e.isIntersecting && timer) { clearInterval(timer); timer = null; }
   }), { threshold: 0.4 }).observe(hs);
+})();
+</script>
+<script>
+// ---- how it works: step rail (the same rail as the main site) ----
+(() => {
+  const rail = document.getElementById('pathRail'), wrap = document.getElementById('pathWay');
+  if (!rail) return;
+  const tabs = [...rail.querySelectorAll('[role="tab"]')];
+  const panes = tabs.map(t => document.getElementById(t.getAttribute('aria-controls')));
+  const body = document.getElementById('pathBody');
+  let cur = 0, timer = null, manual = false;
+  const show = i => {
+    cur = (i + tabs.length) % tabs.length;
+    tabs.forEach((t, k) => { const on = k === cur;
+      t.setAttribute('aria-selected', on); if (on) t.removeAttribute('tabindex'); else t.tabIndex = -1;
+      panes[k].classList.toggle('is-on', on); });
+  };
+  const stop = () => { manual = true; if (timer) { clearInterval(timer); timer = null; } };
+  tabs.forEach((t, k) => t.addEventListener('click', () => { stop(); show(k); }));
+  rail.addEventListener('keydown', e => {
+    const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+    if (!d && e.key !== 'Home' && e.key !== 'End') return;
+    e.preventDefault(); stop();
+    show(e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : cur + d);
+    tabs[cur].focus();
+  });
+  // the tallest step sets the height, so the card never jumps
+  const settle = () => {
+    let h = 0;
+    panes.forEach(p => { p.style.cssText = 'display:flex;position:absolute;visibility:hidden;left:0;top:0;width:100%';
+      h = Math.max(h, p.offsetHeight); p.style.cssText = ''; });
+    body.style.minHeight = h + 'px';
+  };
+  settle(); addEventListener('resize', settle);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(settle);
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  let inside = false;
+  wrap.addEventListener('pointerenter', () => inside = true);
+  wrap.addEventListener('pointerleave', () => inside = false);
+  wrap.addEventListener('focusin', () => inside = true);
+  wrap.addEventListener('focusout', () => inside = false);
+  const vo = new IntersectionObserver(es => es.forEach(e => {
+    if (manual) { vo.disconnect(); return; }
+    if (e.isIntersecting && !timer) timer = setInterval(() => { if (!document.hidden && !inside && !manual) show(cur + 1); }, 4500);
+    else if (!e.isIntersecting && timer) { clearInterval(timer); timer = null; }
+  }), { threshold: 0.45 });
+  vo.observe(wrap);
+})();
+
+// ---- your estimate: ten quick questions, then the numbers ----
+// Sends to /api/enquiry as the "home" form (functions/api/enquiry.js). Until the site deploys
+// with its functions, it falls back to FormSubmit straight from the browser, like the main site.
+(() => {
+  const qz = document.getElementById('qz');
+  if (!qz) return;
+  const $ = id => document.getElementById(id);
+
+  // The estimate model. Typical Irish figures, kept here so they are easy to change.
+  const MODEL = {
+    unit: 0.36,            // € per kWh bought, incl. VAT
+    exportRate: 0.16,      // € per kWh exported (Clean Export Guarantee, typical)
+    standing: 300,         // € a year of standing charges inside the bill
+    panelKw: 0.44,         // kWp per panel
+    minPanels: 6,
+    maxPanels: { semi: 10, detached: 14, terrace: 8, bungalow: 14, apartment: 6 },
+    yield: { south: 900, ew: 780, north: 600, unsure: 840 },        // kWh per kWp a year
+    shade: { none: 1, some: 0.88, lots: 0.7 },
+    selfUse: { most: 0.45, some: 0.36, rarely: 0.28 },               // share used as it is made
+    battery: 0.25, ev: 0.05, diverter: 0.35,                         // battery and EV add to that; a diverter soaks up a share of the rest
+    bill: { b1: 120, b2: 200, b3: 320, b4: 480 },                    // € every two months
+    // SEAI home solar grant (checked November 2026): €700 per kWp for the first 2 kWp,
+    // €200 per kWp up to 4 kWp, €1,800 at most; homes built and lived in before 2025.
+    grant: { first: 700, next: 200, max: 1800 },
+  };
+  const PHONE = '+353 83 394 5937', TEL = 'tel:+353833945937';
+
+  const ICON = {
+    semi: '<path d="M28 23.5 L39 14.5 L50 23.5 V44 H28 Z" fill="#FFE1D2"/><path d="M6 24 L17 15 L28 24 L39 15 L50 24"/><path d="M8 22.4 V44 H48 V22.4 M28 23.5 V44"/><path d="M14 44 V36 H19 V44"/><path d="M36.5 44 V36 H41.5 V44" stroke="#FE5000"/><path d="M12 28.5 h6 M38 28.5 h6"/>',
+    detached: '<path d="M14 26 L28 14 L42 26 V44 H14 Z" fill="#FFE1D2"/><path d="M11 28 L28 13 L45 28"/><path d="M14 26 V44 H42 V26"/><path d="M25 44 V35 H31 V44" stroke="#FE5000"/><path d="M18.5 31 h5 M32.5 31 h5"/><circle cx="6.5" cy="37" r="3.5"/><circle cx="49.5" cy="37" r="3.5"/><path d="M6.5 40.5 V44 M49.5 40.5 V44"/>',
+    terrace: '<path d="M19.5 24.5 L28 17.5 L36.5 24.5 V44 H19.5 Z" fill="#FFE1D2"/><path d="M3 25 L11.5 18 L19.5 24.5 L28 17.5 L36.5 24.5 L44.5 18 L53 25"/><path d="M4.4 23.8 V44 H51.6 V23.8 M19.5 24.5 V44 M36.5 24.5 V44"/><path d="M25.5 44 V37 H30.5 V44" stroke="#FE5000"/><path d="M9 30 h5 M42 30 h5"/>',
+    bungalow: '<path d="M8 29 H48 V44 H8 Z" fill="#FFE1D2"/><path d="M4 30 L14 20 H42 L52 30"/><path d="M8 29 V44 H48 V29"/><path d="M25 44 V36 H31 V44" stroke="#FE5000"/><path d="M13.5 35 h6 M36.5 35 h6"/>',
+    apartment: '<rect x="15" y="8" width="26" height="36" rx="2" fill="#FFE1D2"/><path d="M20.5 15 h4 M31.5 15 h4 M20.5 22 h4 M31.5 22 h4 M20.5 29 h4 M31.5 29 h4"/><path d="M25.5 44 V37 H30.5 V44" stroke="#FE5000"/><path d="M8 44 H48"/>',
+    south: '<circle cx="28" cy="28" r="18"/><path d="M28 6.5 V10.5 M28 45.5 V49.5 M6.5 28 H10.5 M45.5 28 H49.5"/><path d="M28 43 L33 28 L23 28 Z" fill="#FE5000" stroke="none"/><path d="M28 13 L33 28 L23 28 Z" fill="#D6D6DC" stroke="none"/>',
+    ew: '<circle cx="28" cy="28" r="18"/><path d="M28 6.5 V10.5 M28 45.5 V49.5 M6.5 28 H10.5 M45.5 28 H49.5"/><path d="M13 28 L22 23 V33 Z M43 28 L34 23 V33 Z" fill="#FE5000" stroke="none"/><path d="M21 28 H35" stroke="#FE5000"/>',
+    north: '<circle cx="28" cy="28" r="18"/><path d="M28 6.5 V10.5 M28 45.5 V49.5 M6.5 28 H10.5 M45.5 28 H49.5"/><path d="M28 13 L33 28 L23 28 Z" fill="#FE5000" stroke="none"/><path d="M28 43 L33 28 L23 28 Z" fill="#D6D6DC" stroke="none"/>',
+    unsure: '<circle cx="28" cy="28" r="18"/><path d="M22.5 23.5 a5.5 5.5 0 1 1 7.6 5.1 c-1.4 .6 -2.1 1.6 -2.1 3.1 V33"/><circle cx="28" cy="38.5" r="1.6" fill="#2B2B30" stroke="none"/>',
+    sun: '<circle cx="28" cy="28" r="9" fill="#FE5000" stroke="none"/><path d="M28 9 V14 M28 42 V47 M9 28 H14 M42 28 H47 M14.6 14.6 L18 18 M38 38 L41.4 41.4 M14.6 41.4 L18 38 M38 18 L41.4 14.6"/>',
+    sunTree: '<circle cx="37" cy="19" r="7" fill="#FE5000" stroke="none"/><path d="M37 5.5 V8.5 M37 29.5 V32.5 M23.5 19 H26.5 M47.5 19 H50.5 M27.5 9.5 L29.6 11.6 M44.4 26.4 L46.5 28.5 M44.4 11.6 L46.5 9.5"/><circle cx="16" cy="31" r="9" fill="#FFE1D2"/><path d="M16 40 V49 M10 49 H22"/>',
+    tree: '<path d="M28 7 C19 7 14 14 16 22 C9.5 24.5 10 35 18.5 35.5 H37.5 C46 35 46.5 24.5 40 22 C42 14 37 7 28 7 Z" fill="#FFE1D2"/><path d="M28 35.5 V49 M21 49 H35 M28 28 L23 23 M28 31 L33.5 25.5"/>',
+    battery: '<rect x="17" y="12" width="22" height="36" rx="4"/><path d="M24 8 h8"/><rect x="21.5" y="30" width="13" height="13.5" rx="1.5" fill="#FE5000" stroke="none"/><rect x="21.5" y="22" width="13" height="6" rx="1.5" fill="#FFE1D2" stroke="none"/>',
+    water: '<path d="M28 8 C21 18 15 25 15 33 A13 13 0 0 0 41 33 C41 25 35 18 28 8 Z" fill="#FFE1D2"/><path d="M30.5 22 L23.5 34 H29 L26 43 L33.5 30.5 H28 Z" fill="#FE5000" stroke="none"/>',
+    ev: '<path d="M7 37 V30.5 L12.5 21 H32.5 L38.5 30.5 V37 Z" fill="#FFE1D2"/><circle cx="14.5" cy="38" r="3.5" fill="#fff"/><circle cx="31.5" cy="38" r="3.5" fill="#fff"/><path d="M38.5 30.5 H44 V19 M41 19 V13.5 M47 19 V13.5 M39.5 19 H48.5" stroke="#FE5000"/>',
+    panels: '<path d="M9 41 L17 15 H47 L39 41 Z" fill="#FFE1D2"/><path d="M13 28 H43 M24.5 15 L16.5 41 M32 15 L24 41 M39.5 15 L31.5 41"/>',
+  };
+  const TICK = '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+
+  // [value, label, sub-label, icon]
+  const Q = [
+    { key: 'home', q: 'Which best describes your home?', opts: [
+      ['semi', 'Semi-detached', '', 'semi'], ['detached', 'Detached', '', 'detached'], ['terrace', 'Terraced', '', 'terrace'],
+      ['bungalow', 'Bungalow', '', 'bungalow'], ['apartment', 'Apartment', '', 'apartment']] },
+    { key: 'owner', q: 'Do you own your home?', opts: [
+      ['own', 'Yes, I own it', 'Including with a mortgage'], ['landlord', "I'm a landlord", 'It is a home I rent out'], ['rent', "I'm renting", 'Someone else owns it']] },
+    { key: 'roof', q: 'Which way does your main roof face?', hint: 'Tip: the side of the roof the sun shines on at midday faces south.', opts: [
+      ['south', 'South', 'Best for solar', 'south'], ['ew', 'East or west', 'Very good too', 'ew'],
+      ['north', 'North', 'Possible, with less output', 'north'], ['unsure', 'Not sure', "We'll check it on the map", 'unsure']] },
+    { key: 'shade', q: 'How much shade does your roof get?', opts: [
+      ['none', 'Hardly any', 'Open sky most of the day', 'sun'], ['some', 'Some', 'A chimney, tree or neighbouring house', 'sunTree'],
+      ['lots', 'A lot', 'Tall trees or buildings close by', 'tree']] },
+    { key: 'bill', q: 'How much is your electricity bill every two months?', opts: [
+      ['b1', 'Under €150', ''], ['b2', '€150 to €250', ''], ['b3', '€250 to €400', ''], ['b4', 'Over €400', '']] },
+    { key: 'daytime', q: 'Is anyone usually home during the day?', hint: 'Solar is worth the most when it is used as it is made.', opts: [
+      ['most', 'Most days', 'Working from home, retired or minding children'], ['some', 'Some days', 'Hybrid or part-time'],
+      ['rarely', 'Rarely', 'Out at work or school most days']] },
+    { key: 'extras', multi: true, q: 'Anything you would like with your panels?', hint: 'Pick as many as you like.', opts: [
+      ['battery', 'Battery', 'Use your solar in the evening', 'battery'], ['diverter', 'Hot water diverter', 'Heat water with spare power', 'water'],
+      ['ev', 'EV charger', 'Charge the car from your roof', 'ev'], ['none', 'Just panels', 'Keep it simple', 'panels']] },
+    { key: 'built', q: 'Was your home built and lived in before 2025?', hint: 'The SEAI grant is for homes built and lived in before 2025.', opts: [
+      ['yes', 'Yes', ''], ['no', "No, it's newer", ''], ['unsure', 'Not sure', '']] },
+    { key: 'timeframe', q: 'When would you like it done?', opts: [
+      ['asap', 'As soon as possible', ''], ['3m', 'In the next 3 months', ''], ['later', 'Later this year', ''], ['research', 'Just researching', '']] },
+  ];
+  const TOTAL = Q.length + 1;                    // the questions, then your details
+  const A = {};                                  // answers
+  const label = (k, v) => (Q.find(q => q.key === k).opts.find(o => o[0] === v) || [])[1] || '';
+  const stage = $('qzStage'), form = $('homeForm'), back = $('qzBack'), count = $('qzCount'), bar = $('qzBar');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let step = 0, lock = false;
+
+  const keepInView = () => {
+    const top = qz.getBoundingClientRect().top;
+    if (top < 0 || top > innerHeight * 0.6) qz.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  };
+  const progress = () => {
+    const n = Math.min(step + 1, TOTAL);
+    count.textContent = step >= TOTAL ? 'Your estimate' : 'Question ' + n + ' of ' + TOTAL;
+    bar.style.width = (step >= TOTAL ? 100 : Math.max(6, step / TOTAL * 100)) + '%';
+    back.hidden = step === 0 || step >= TOTAL;
+  };
+
+  const optHtml = (q, o) => {
+    const [v, l, s, ic] = o;
+    const on = q.multi ? (A[q.key] || []).includes(v) : A[q.key] === v;
+    return '<button type="button" class="qz-opt' + (ic ? '' : ' t') + '" data-v="' + v + '" aria-pressed="' + on + '">' +
+      (ic ? '<span class="qz-ic" aria-hidden="true"><svg viewBox="0 0 56 56">' + ICON[ic] + '</svg></span>' : '') +
+      '<span class="qz-l">' + l + '</span>' + (s ? '<span class="qz-s">' + s + '</span>' : '') +
+      '<span class="qz-tick" aria-hidden="true">' + TICK + '</span></button>';
+  };
+
+  const render = (focus) => {
+    progress();
+    if (step === Q.length) {                     // your details
+      stage.innerHTML = '<div class="qz-step qz-in"><h3 class="qz-q" id="qzQ" tabindex="-1">Where should we send your estimate?</h3>' +
+        '<p class="qz-hint">Your numbers appear straight away. We’ll call you within one working day to book a free survey.</p></div>';
+      form.hidden = false;
+      if (focus) $('qzQ').focus({ preventScroll: true });
+      return;
+    }
+    form.hidden = true;
+    const q = Q[step];
+    stage.innerHTML = '<div class="qz-step' + (reduce ? '' : ' qz-in') + '"><h3 class="qz-q" id="qzQ" tabindex="-1">' + q.q + '</h3>' +
+      (q.hint ? '<p class="qz-hint">' + q.hint + '</p>' : '') +
+      '<div class="qz-opts" role="group" aria-labelledby="qzQ">' + q.opts.map(o => optHtml(q, o)).join('') + '</div>' +
+      (q.multi ? '<button type="button" class="btn btn-primary qz-go" id="qzGo"' + ((A[q.key] || []).length ? '' : ' disabled') + '>Continue <svg class="ic"><use href="#i-arrow"/></svg></button>' : '') +
+      '</div>';
+    stage.querySelectorAll('.qz-opt').forEach(b => b.addEventListener('click', () => choose(q, b)));
+    if (q.multi) $('qzGo').addEventListener('click', () => go(1));
+    if (focus) $('qzQ').focus({ preventScroll: true });
+  };
+
+  const choose = (q, b) => {
+    const v = b.dataset.v;
+    if (q.multi) {
+      let cur = A[q.key] || [];
+      if (v === 'none') cur = cur.includes('none') ? [] : ['none'];
+      else cur = cur.includes(v) ? cur.filter(x => x !== v) : cur.filter(x => x !== 'none').concat(v);
+      A[q.key] = cur;
+      stage.querySelectorAll('.qz-opt').forEach(x => x.setAttribute('aria-pressed', String(cur.includes(x.dataset.v))));
+      $('qzGo').disabled = !cur.length;
+      return;
+    }
+    if (lock) return;
+    A[q.key] = v;
+    stage.querySelectorAll('.qz-opt').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    lock = true;
+    setTimeout(() => { lock = false; go(1); }, reduce ? 0 : 260);
+  };
+  const go = d => { step = Math.max(0, Math.min(TOTAL, step + d)); render(true); keepInView(); };
+  back.addEventListener('click', () => go(-1));
+
+  // ---- the numbers ----
+  const eur = n => '€' + Math.round(n).toLocaleString('en-IE');
+  const kwh = n => Math.round(n / 50) * 50;
+  const calc = () => {
+    const ex = A.extras || [];
+    const use = Math.max(1800, (6 * MODEL.bill[A.bill] - MODEL.standing) / MODEL.unit);
+    const panels = Math.max(MODEL.minPanels, Math.min(MODEL.maxPanels[A.home], Math.round(use / 1000 / MODEL.panelKw)));
+    const kwp = Math.round(panels * MODEL.panelKw * 10) / 10;
+    const gen = kwp * MODEL.yield[A.roof] * MODEL.shade[A.shade];
+    const share = Math.min(0.9, MODEL.selfUse[A.daytime] + (ex.includes('battery') ? MODEL.battery : 0) + (ex.includes('ev') ? MODEL.ev : 0));
+    const self = Math.min(gen * share, use * 0.9);
+    const div = ex.includes('diverter') ? (gen - self) * MODEL.diverter : 0;
+    const out = gen - self - div;
+    const save = (self + div) * MODEL.unit + out * MODEL.exportRate;
+    const g = MODEL.grant;
+    const grant = Math.min(g.max, Math.round((g.first * Math.min(kwp, 2) + g.next * Math.max(0, Math.min(kwp, 4) - 2)) / 10) * 10);
+    return { panels, kwp, gen: kwh(gen), lo: Math.round(save * 0.85 / 10) * 10, hi: Math.round(save * 1.1 / 10) * 10, grant };
+  };
+  const grade = () => {
+    if (A.home === 'apartment' || A.owner === 'rent' || A.roof === 'north' || A.shade === 'lots' || A.timeframe === 'research') return 'C';
+    if (A.roof !== 'unsure' && (A.timeframe === 'asap' || A.timeframe === '3m')) return 'A';
+    return 'B';
+  };
+  const source = () => {
+    const u = new URLSearchParams(location.search);
+    const tag = ['utm_source', 'utm_medium', 'utm_campaign'].map(k => u.get(k)).filter(Boolean).join(' / ');
+    if (tag) return tag;
+    try { const r = document.referrer && new URL(document.referrer).hostname; if (r && r !== location.hostname) return r; } catch { /* no referrer */ }
+    return 'Direct';
+  };
+
+  const roofWords = { south: 'south-facing', ew: 'east or west-facing', north: 'north-facing', unsure: '' };
+  const homeWords = { semi: 'semi-detached home', detached: 'detached home', terrace: 'terraced home', bungalow: 'bungalow', apartment: 'apartment' };
+  const showResult = (r, name) => {
+    step = TOTAL; progress(); form.hidden = true;
+    const ex = A.extras || [];
+    let head = 'Your home looks like a great fit for solar', text;
+    const billMid = MODEL.bill[A.bill];
+    text = 'For a ' + (roofWords[A.roof] ? homeWords[A.home] + ' with a ' + roofWords[A.roof] + ' roof' : homeWords[A.home]) +
+      ' and a bill of about ' + eur(billMid) + ' every two months, this is the system we would start with.';
+    if (A.home === 'apartment') { head = 'Apartments need a closer look'; text = "Most apartments share a roof, so solar needs the management company to agree. We'll look at your building and tell you what's possible."; }
+    else if (A.owner === 'rent') { head = "A good fit, with your landlord's OK"; text = 'Solar is fitted for the owner, so your landlord would need to agree. These numbers can help start that conversation.'; }
+    else if (A.roof === 'north' || A.shade === 'lots') { head = 'Worth a closer look'; text = (A.roof === 'north' ? 'A north-facing roof' : 'A well-shaded roof') + " makes less power, so we'll check yours on a survey before you spend anything."; }
+    const gTile = A.built === 'no'
+      ? '<div class="qz-tile"><b>SEAI grant</b><strong>Not eligible</strong><span>The grant is for homes built and lived in before 2025</span></div>'
+      : '<div class="qz-tile hl"><b>SEAI grant</b><strong>Up to ' + eur(r.grant) + '</strong><span>' + (A.built === 'yes' ? 'If you qualify' : 'If your home qualifies') + '</span></div>';
+    const tiles = A.home === 'apartment' ? '' : '<div class="qz-tiles">' +
+      '<div class="qz-tile"><b>Your system</b><strong>' + r.panels + ' panels</strong><span>' + r.kwp.toLocaleString('en-IE') + ' kWp</span></div>' +
+      '<div class="qz-tile"><b>Power a year</b><strong>' + r.gen.toLocaleString('en-IE') + ' kWh</strong><span>Made on your roof</span></div>' +
+      '<div class="qz-tile hl"><b>Saving a year</b><strong>' + eur(r.lo) + ' to ' + eur(r.hi) + '</strong><span>At today’s electricity prices</span></div>' + gTile + '</div>';
+    const note = ex.includes('battery') && A.home !== 'apartment'
+      ? '<p class="qz-note"><strong>Adding a battery?</strong> A new SEAI battery grant of €600 may also apply. We’ll confirm it at your survey.</p>' : '';
+    stage.innerHTML = '<div class="qz-step qz-res' + (reduce ? '' : ' qz-in') + '">' +
+      '<h3 class="qz-q" id="qzQ" tabindex="-1">' + head + '</h3><p class="qz-res-p">' + text + '</p>' + tiles + note +
+      '<div class="qz-next"><p class="qz-status" id="qzStatus"><span class="dot" aria-hidden="true"></span><span>Sending your details…</span></p>' +
+      '<div class="qz-acts"><a class="btn btn-primary" href="' + TEL + '">Call ' + PHONE + '</a><button type="button" class="btn btn-ghost" id="qzAgain">Start again</button></div></div>' +
+      '<p class="qz-fine">Indicative only, from your answers and a typical Irish roof, with electricity at about 36c a unit and exports paid at about 16c. ' +
+      'A free survey replaces every figure here with exact numbers and a fixed price. SEAI grant approval must be in place before any work starts.</p></div>';
+    $('qzAgain').addEventListener('click', () => { Object.keys(A).forEach(k => delete A[k]); form.reset(); step = 0; render(true); keepInView(); });
+    $('qzQ').focus({ preventScroll: true });
+    keepInView();
+  };
+  const status = (cls, html) => { const s = $('qzStatus'); if (!s) return; s.className = 'qz-status ' + cls; s.lastElementChild.innerHTML = html; };
+
+  // ---- sending ----
+  const LIVE = /(^|\.)auraenergy\.ie$|\.pages\.dev$/.test(location.hostname);
+  // Delete HOME_DIRECT at launch with the main site's ENQUIRY_DIRECT (see DEPLOY.md).
+  const HOME_DIRECT = 'https://formsubmit.co/ajax/martin@swarmsolar.co.uk';
+  const LABELS = { name: 'Name', email: 'Email', phone: 'Phone', eircode: 'Eircode', home: 'Home type', owner: 'Ownership',
+    roof: 'Roof faces', shade: 'Shade', bill: 'Bill every two months', daytime: 'Home during the day', extras: 'Interested in',
+    built: 'Built and lived in before 2025', timeframe: 'Timeframe', estimate: 'Estimate', grade: 'Lead grade', source: 'Came from' };
+  const sendDirect = async fd => {
+    if (fd.get('_honey')) return { ok: true };
+    const g = String(fd.get('grade') || '');
+    const msg = { _subject: 'New home solar estimate' + (/^[ABC]$/.test(g) ? ' (Grade ' + g + ')' : '') + ' | auraenergy.ie',
+      _template: 'table', _captcha: 'false', _replyto: String(fd.get('email') || '').trim() };
+    for (const [k, l] of Object.entries(LABELS)) { const v = String(fd.get(k) || '').trim(); if (v) msg[l] = v; }
+    try {
+      const body = new FormData(); Object.entries(msg).forEach(([k, v]) => body.append(k, v));
+      const res = await fetch(HOME_DIRECT, { method: 'POST', headers: { Accept: 'application/json' }, body });
+      const out = await res.json();
+      return String(out.success) === 'true' ? { ok: true } : null;
+    } catch { return null; }
+  };
+  const EIRCODE = /^[A-Za-z]\d[\dWw]\s?[0-9A-Za-z]{4}$/;
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const err = $('hfErr'), f = form.elements;
+    const checks = [[f.name, v => v.length > 1, 'your name'], [f.email, v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), 'a valid email'], [f.eircode, v => EIRCODE.test(v), 'your Eircode (like A65 F4E2)']];
+    const missing = [];
+    checks.forEach(([el, ok, what]) => { const good = ok(el.value.trim()); el.setAttribute('aria-invalid', String(!good)); if (!good) missing.push(what); });
+    if (missing.length) {
+      err.textContent = 'Please add ' + missing.join(', ').replace(/, ([^,]*)$/, ' and $1') + '.';
+      err.hidden = false; checks.find(([el]) => el.getAttribute('aria-invalid') === 'true')[0].focus();
+      return;
+    }
+    err.hidden = true;
+    const r = calc(), gr = grade(), ex = A.extras || [];
+    const vals = {
+      home: label('home', A.home), owner: label('owner', A.owner), roof: label('roof', A.roof), shade: label('shade', A.shade),
+      bill: label('bill', A.bill), daytime: label('daytime', A.daytime), extras: ex.map(v => label('extras', v)).join(', '),
+      built: label('built', A.built), timeframe: label('timeframe', A.timeframe), grade: gr, source: source(),
+      estimate: A.home === 'apartment' ? 'Apartment: check the building first'
+        : r.panels + ' panels (' + r.kwp + ' kWp), about ' + r.gen.toLocaleString('en-IE') + ' kWh a year, saves about ' + eur(r.lo) + ' to ' + eur(r.hi) +
+          ' a year, SEAI grant ' + (A.built === 'no' ? 'not eligible (newer home)' : 'up to ' + eur(r.grant)),
+    };
+    Object.entries(vals).forEach(([k, v]) => { f[k].value = v; });
+    f.eircode.value = f.eircode.value.trim().toUpperCase();
+    const fd = new FormData(form);
+    const first = f.name.value.trim().split(/\s+/)[0];
+    showResult(r);
+    let data = null;
+    try {
+      const res = await fetch(form.action, { method: 'POST', headers: { Accept: 'application/json' }, body: new URLSearchParams(fd) });
+      data = await res.json();
+    } catch { /* no server behind the page yet */ }
+    if (!data && HOME_DIRECT && location.protocol.startsWith('http')) data = await sendDirect(fd);
+    if (data && data.ok) status('ok', 'Thanks ' + first.replace(/[<>&"]/g, '') + ". We've got your details and will call you within one working day to book your free survey.");
+    else if (location.protocol === 'file:') status('bad', 'This page was opened as a file, so nothing was sent. Open it from its web address instead.');
+    else if (!LIVE && !data) status('bad', 'This is a preview of the website, so nothing was sent. On the live site your details go straight to the team.');
+    else status('bad', 'Your details did not send. Please call us on <a href="' + TEL + '">' + PHONE + '</a> or email <a href="mailto:info@auraenergy.ie">info@auraenergy.ie</a>.');
+  });
+
+  render(false);
 })();
 </script>
 <!-- ============================================================ COOKIE CHOICE

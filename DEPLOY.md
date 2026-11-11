@@ -18,7 +18,8 @@ Pages, Upload assets). In that mode:
 - The first enquiry triggers FormSubmit's one-time "Activate Form" email; click it, and every
   enquiry after that arrives.
 
-At launch, after the Git setup below: delete the `ENQUIRY_DIRECT` line in both files, so the
+At launch, after the Git setup below: delete the `ENQUIRY_DIRECT` line in both files (and
+`HOME_DIRECT` in `public/residential.html`, which sends the home estimate the same way), so the
 address leaves the page source and enquiries go through the private function only.
 
 ## 1. Get a Claude API key

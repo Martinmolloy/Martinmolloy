@@ -72,6 +72,30 @@ test('the estimate and investor forms work too, and JSON bodies are accepted', a
   assert.equal(sent()['Investor type'], 'A family office');
 });
 
+test('the home estimate form carries its lead grade in the subject', async () => {
+  fakeFormSubmit();
+  const lead = {
+    form: 'home', name: 'Niamh Kelly', email: 'niamh@example.ie', eircode: 'D24 X2Y3', home: 'Semi-detached',
+    roof: 'South', grade: 'A', estimate: '10 panels (4.4 kWp)', source: 'google / maps',
+  };
+  let res = await onRequestPost({ request: post(lead), env: ENV });
+  assert.deepEqual(await res.json(), { ok: true, form: 'home' });
+  assert.equal(sent()._subject, 'New home solar estimate (Grade A) | auraenergy.ie');
+  assert.equal(sent()['Lead grade'], 'A');
+  assert.equal(sent()['Came from'], 'google / maps');
+  assert.equal(sent()._replyto, 'niamh@example.ie');
+
+  calls = [];
+  res = await onRequestPost({ request: post({ ...lead, grade: 'Z<script>' }), env: ENV });
+  assert.equal(sent()._subject, 'New home solar estimate | auraenergy.ie');
+
+  calls = [];
+  res = await onRequestPost({ request: post({ form: 'home', name: 'Niamh', email: 'niamh@example.ie' }), env: ENV });
+  assert.equal(res.status, 400);
+  assert.deepEqual(await res.json(), { error: 'invalid', fields: ['eircode'], form: 'home' });
+  assert.equal(calls.length, 0);
+});
+
 test('the destination address only comes from the ENQUIRY_TO setting', async () => {
   fakeFormSubmit();
   for (const env of [{}, { ENQUIRY_TO: 'not an address' }]) {

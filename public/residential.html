@@ -413,6 +413,13 @@ main { flex: 1; }
 .mobile-menu a { display: block; padding: 13px 4px; font-weight: 600; border-bottom: 1px solid var(--line); }
 .mobile-menu .btn { display: flex; justify-content: center; margin-top: 18px; width: 100%; padding: 15px 24px; border-bottom: none; }
 .home-hero-in { padding-top: 172px; padding-bottom: 96px; }
+/* the live dot in the hero badge, as on the main site */
+.chip-dot { position: relative; width: 8px; height: 8px; border-radius: 50%; flex: none; background: #34C759; }
+.chip-dot::before {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background: #34C759; animation: ping 2.2s cubic-bezier(0,0,.2,1) infinite;
+}
+@keyframes ping { 0% { transform: scale(1); opacity: .5; } 70%, 100% { transform: scale(2.8); opacity: 0; } }
 
 /* ---------------- footer (the main site's) */
 footer { background: var(--ink); color: #fff; padding: 84px 0 36px; position: relative; overflow: hidden; }
@@ -487,6 +494,7 @@ footer :focus-visible { outline-color: #fff; }
 }
 @media (prefers-reduced-motion: reduce) {
   .foot-mark .fm-s > *, .foot-mark .fm-l > *, .fm-sub { transition: none; transform: none !important; }
+  .chip-dot::before { animation: none; }
 }
 </style>
 </head>
@@ -564,7 +572,7 @@ footer :focus-visible { outline-color: #fff; }
   </div>
   <div class="container home-hero-in">
     <div class="home-hero-copy">
-      <div class="hero-chip">Aura Home Energy</div>
+      <div class="hero-chip"><span class="chip-dot" aria-hidden="true"></span> SEAI grant up to €1,800</div>
       <h1>Solar for your home. <span class="accent">Done properly.</span></h1>
       <p class="lead">Panels, batteries and hot-water diverters for Irish homes, designed and fitted by Aura Energy. See what your roof could do in about a minute.</p>
       <div class="hero-btns">

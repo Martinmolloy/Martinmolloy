@@ -228,11 +228,13 @@ footer :focus-visible { outline-color: #fff; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 /* ---------------- about hero: the story beside a real install */
-/* soft orange glows in two corners, drawn as the hero's own background */
+/* soft orange glows in two corners, drawn as the hero's own background; the lower one fades to
+   white before the bottom edge, so the white section below meets it without a line */
 .about-hero {
-  position: relative; overflow: hidden; padding: 132px 0 80px;
-  background: radial-gradient(560px 560px at 94% -6%, rgba(254,80,0,.10), rgba(254,80,0,0) 70%),
-              radial-gradient(520px 420px at -4% 104%, rgba(254,80,0,.06), rgba(254,80,0,0) 70%), #fff;
+  position: relative; overflow: hidden; padding: 132px 0 48px;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 68%, #fff 100%),
+              radial-gradient(560px 560px at 94% -6%, rgba(254,80,0,.10), rgba(254,80,0,0) 70%),
+              radial-gradient(560px 440px at -6% 80%, rgba(254,80,0,.07), rgba(254,80,0,0) 70%), #fff;
 }
 .about-grid { position: relative; display: grid; grid-template-columns: 1.02fr .98fr; gap: 64px; align-items: center; }
 .about-hero h1 { font-size: clamp(1.9rem, 4.3vw, 3.15rem); margin-bottom: 20px; text-wrap: balance; }   /* sized so each sentence keeps to one line */
@@ -278,46 +280,12 @@ footer :focus-visible { outline-color: #fff; }
   .irish-card { left: 16px; bottom: 16px; }
 }
 @media (max-width: 720px) {
-  .about-hero { padding: 100px 0 56px; }
+  .about-hero { padding: 100px 0 32px; }
   .about-grid { gap: 32px; }
   .about-stripes { top: -18px; right: -14px; width: 120px; }
   .about-hero { background: radial-gradient(320px 320px at 100% 0, rgba(254,80,0,.08), rgba(254,80,0,0) 70%), #fff; }
 }
 
-/* ---------------- the numbers: one dark strip like the main page's, with dividers instead of boxes */
-.stats { position: relative; overflow: hidden; background: var(--ink); color: #fff; }
-.stats::before {
-  content: ""; position: absolute; top: -280px; right: -180px; width: 600px; height: 600px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(254,80,0,.22) 0%, rgba(254,80,0,0) 68%); pointer-events: none;
-}
-.stats-row { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.stat { padding: 46px 30px 48px; border-left: 1px solid rgba(255,255,255,.12); }
-.stat:first-child { border-left: 0; padding-left: 0; }
-.stat-ic {
-  width: 44px; height: 44px; border-radius: 13px; margin-bottom: 22px;
-  background: linear-gradient(135deg, #FF7A42 0%, var(--orange) 58%, #E54800 100%); color: #fff;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 6px 14px rgba(254,80,0,.28), inset 0 1px 0 rgba(255,255,255,.28);
-}
-.stat-ic svg { width: 20px; height: 20px; }
-.stat b { display: block; font-size: clamp(1.55rem, 2.3vw, 1.95rem); font-weight: 800; letter-spacing: -0.025em; line-height: 1.15; color: #fff; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.stat span { display: block; margin-top: 7px; font-size: 14px; line-height: 1.5; color: rgba(255,255,255,.68); text-wrap: balance; }
-@media (max-width: 1024px) {
-  .stats-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .stat { padding: 36px 28px 38px; }
-  .stat:nth-child(odd) { border-left: 0; padding-left: 0; }
-  .stat:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,.12); }
-}
-/* phones: a list, the icon beside its number */
-@media (max-width: 640px) {
-  .stats { padding: 6px 0; }
-  .stats-row { grid-template-columns: 1fr; }
-  .stat { display: grid; grid-template-columns: auto 1fr; column-gap: 16px; align-items: center; padding: 20px 0; border-left: 0; }
-  .stat + .stat { border-top: 1px solid rgba(255,255,255,.12); }
-  .stat-ic { grid-row: 1 / span 2; margin-bottom: 0; }
-  .stat b { font-size: 1.35rem; }
-  .stat span { margin-top: 2px; font-size: 13.5px; }
-}
 </style>
 </head>
 <body>
@@ -365,11 +333,6 @@ footer :focus-visible { outline-color: #fff; }
       <path d="M9.7 13.5L9 20M14.3 13.5l.7 6.5M4.2 16.7h15.6"/>
       <circle cx="12" cy="7.2" r="2.5"/>
       <path d="M12 2.6v1.3M16.2 4.4l-.9.9M7.8 4.4l.9.9"/>
-    </symbol>
-    <symbol id="i-meter" viewBox="0 0 24 24">
-      <path d="M4.2 16.8a8.1 8.1 0 1115.6 0" fill="currentColor" opacity=".1" stroke="none"/>
-      <path d="M4.2 16.8a8.1 8.1 0 1115.6 0"/>
-      <path d="M13.1 14.8l3.4-4.4"/><circle cx="12" cy="16.2" r="1.7" fill="currentColor" stroke="none"/>
     </symbol>
   </defs>
 </svg>
@@ -436,15 +399,6 @@ footer :focus-visible { outline-color: #fff; }
         <span><b>100% Irish owned</b><small>Dublin based, working nationwide</small></span>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="stats" aria-label="Aura Energy in numbers">
-  <div class="container stats-row">
-    <div class="stat"><div class="stat-ic"><svg class="ic"><use href="#i-euro-down"/></svg></div><b>€0</b><span>Upfront on a Solar PPA</span></div>
-    <div class="stat"><div class="stat-ic"><svg class="ic"><use href="#i-meter"/></svg></div><b>Up to 50%</b><span>Below typical grid rates, on a PPA</span></div>
-    <div class="stat"><div class="stat-ic"><svg class="ic"><use href="#i-clock"/></svg></div><b>6 to 10 weeks</b><span>Survey to switch-on, most sites</span></div>
-    <div class="stat"><div class="stat-ic"><svg class="ic"><use href="#i-panel-sun"/></svg></div><b>25 years</b><span>Of power from every roof we build</span></div>
   </div>
 </section>
 

@@ -1565,7 +1565,7 @@ footer :focus-visible { outline-color: #fff; }
   const status = (cls, html) => { const s = $('qzStatus'); if (!s) return; s.className = 'qz-status ' + cls; s.lastElementChild.innerHTML = html; };
 
   // ---- sending ----
-  const LIVE = /(^|\.)auraenergy\.ie$|\.pages\.dev$/.test(location.hostname);
+  const LIVE = location.protocol.startsWith('http');   // any real web address; only the Claude preview isn't one
   // Delete HOME_DIRECT at launch with the main site's ENQUIRY_DIRECT (see DEPLOY.md).
   const HOME_DIRECT = 'https://formsubmit.co/ajax/martin@swarmsolar.co.uk';
   const LABELS = { name: 'Name', email: 'Email', phone: 'Phone', eircode: 'Eircode', home: 'Home type', owner: 'Ownership',

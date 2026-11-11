@@ -2376,7 +2376,7 @@ const ENQUIRY_ERRORS = {
 };
 // the real site (and Cloudflare preview deployments) have the sending function behind them;
 // anywhere else, a failed send means there is simply no server, not a fault
-const ENQUIRY_LIVE = /(^|\.)auraenergy\.ie$|\.pages\.dev$/.test(location.hostname);
+const ENQUIRY_LIVE = location.protocol.startsWith('http');   // any real web address; only the Claude preview isn't one
 // Until launch the site is uploaded as plain files, so /api/enquiry does not exist there.
 // When it is missing, the live site sends the enquiry to FormSubmit straight from the
 // browser instead, with the same subject and labels the server would use. Once the site

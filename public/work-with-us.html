@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Work With Us | Careers at Aura Energy</title>
-<meta name="description" content="Join Aura Energy, a 100% Irish-owned solar company. Open roles: Commercial Sales Manager and Operations Intern, based in Dublin." />
+<meta name="description" content="Join Aura Energy, a 100% Irish-owned solar company based in Dublin. See our current vacancies, what each role involves and how to apply." />
 <link rel="icon" href="/favicon.ico" sizes="48x48" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -14,7 +14,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://auraenergy.ie/work-with-us" />
 <meta property="og:title" content="Work with us at Aura Energy" />
-<meta property="og:description" content="Open roles at Aura Energy, a 100% Irish-owned solar company: Commercial Sales Manager and Operations Intern." />
+<meta property="og:description" content="Current vacancies at Aura Energy, a 100% Irish-owned solar company based in Dublin." />
 <meta property="og:image" content="https://auraenergy.ie/assets/seam-roof.jpg" />
 <script type="application/ld+json">
 {
@@ -176,10 +176,12 @@ footer :focus-visible { outline-color: #fff; }
 @media (prefers-reduced-motion: reduce) {
   .foot-mark .fm-s > *, .foot-mark .fm-l > * { transition: none; transform: none !important; }
 }
+/* text for screen readers only */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 /* ---------------- work with us: the jobs page */
 /* a soft orange glow in the top corner, drawn as the hero's own background */
-.jobs-hero { position: relative; padding: 152px 0 92px; background: radial-gradient(560px 560px at 94% -6%, rgba(254,80,0,.09), rgba(254,80,0,0) 70%), #fff; }
+.jobs-hero { position: relative; padding: 132px 0 84px; background: radial-gradient(560px 560px at 94% -6%, rgba(254,80,0,.09), rgba(254,80,0,0) 70%), #fff; }
 .jobs-grid { position: relative; display: grid; grid-template-columns: 1.1fr .9fr; gap: 64px; align-items: center; }
 .jobs-hero h1 { max-width: 13ch; margin-bottom: 20px; }
 .jobs-hero h1 span { color: var(--orange); }
@@ -199,18 +201,52 @@ footer :focus-visible { outline-color: #fff; }
 .glance svg { grid-column: 2; grid-row: 1 / span 2; width: 20px; height: 20px; color: var(--orange-text); transition: transform .2s var(--ease); }
 .glance a:hover svg { transform: translateX(3px); }
 
+/* with no vacancies, the card says so instead of listing roles */
+.glance .g-empty { display: none; padding: 16px 16px 18px; border-top: 1px solid var(--line); }
+.glance .g-empty b { display: block; margin-bottom: 4px; }
+.glance .g-empty p { font-size: 13.5px; margin-bottom: 12px; }
+.glance .g-empty a { display: inline-flex; padding: 0; border: 0; color: var(--orange-text); font-size: 14px; font-weight: 800; gap: 8px; }
+.glance .g-empty a:hover { background: none; text-decoration: underline; }
+.glance .g-empty.on { display: block; }
+.glance:not(:has(.g-role)) .g-empty { display: block; }
+.glance:not(:has(.g-role)) .glance-dot { background: var(--muted); box-shadow: none; }
+.glance:not(:has(.g-role)) .glance-dot::after { display: none; }
+
+/* current vacancies: one card per open role, opened like the questions on the main site */
 .roles-bg { background: var(--orange-mist); border-block: 1px solid var(--line); }
-.role { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 40px 42px; box-shadow: var(--shadow); }
-.role + .role { margin-top: 24px; }
-.role-head { display: flex; justify-content: space-between; align-items: center; gap: 14px 24px; flex-wrap: wrap; padding-bottom: 22px; margin-bottom: 24px; border-bottom: 1px solid var(--line); }
-.role-head h3 { font-size: clamp(1.4rem, 2.4vw, 1.8rem); }
-.role-meta { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
-.role-meta li { font-size: 13px; font-weight: 700; color: var(--ink); background: var(--orange-mist); border: 1px solid var(--line); border-radius: 999px; padding: 5px 13px; }
-.role-meta li:first-child { background: var(--orange-soft); border-color: var(--orange-line); color: var(--orange-text); }
+.vacancies { display: grid; gap: 16px; }
+.vacancy { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; transition: border-color .25s, box-shadow .25s; }
+.vacancy:hover, .vacancy[open] { border-color: var(--orange-line); }
+.vacancy[open] { box-shadow: var(--shadow-lg); }
+/* the title, its details and the open button sit straight in the summary row (a heading may not go inside a box there) */
+.vacancy summary { list-style: none; display: grid; grid-template-columns: 1fr auto; align-items: center; column-gap: 28px; padding: 28px 34px; cursor: pointer; }
+.vacancy summary::-webkit-details-marker { display: none; }
+/* the keyboard focus ring sits inside the card, which would otherwise clip it */
+.vacancy summary:focus-visible { outline-offset: -3px; border-radius: var(--radius); }
+.v-title { grid-column: 1; font-size: clamp(1.3rem, 2.3vw, 1.6rem); margin-bottom: 12px; }
+.v-meta { grid-column: 1; display: flex; flex-wrap: wrap; gap: 8px; }
+.v-meta span { font-size: 13px; font-weight: 700; color: var(--ink); background: var(--orange-mist); border: 1px solid var(--line); border-radius: 999px; padding: 5px 13px; }
+.v-meta span:first-child { background: var(--orange-soft); border-color: var(--orange-line); color: var(--orange-text); }
+.v-toggle { grid-column: 2; grid-row: 1 / span 2; display: inline-flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 700; color: var(--ink); }
+.v-toggle .fx {
+  width: 38px; height: 38px; border-radius: 50%; background: var(--orange-soft); color: var(--orange);
+  display: flex; align-items: center; justify-content: center; transition: transform .3s var(--ease), background .25s, color .25s;
+}
+.v-toggle .fx svg { width: 16px; height: 16px; stroke-width: 2.4; }
+.vacancy[open] .v-toggle .fx { transform: rotate(45deg); background: var(--orange); color: #fff; }
+.v-hide, .vacancy[open] .v-view { display: none; }
+.vacancy[open] .v-hide { display: inline; }
+.v-body { margin: 0 34px; padding: 30px 0 34px; border-top: 1px solid var(--line); }
+.v-none { display: none; align-items: center; gap: 22px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 34px; box-shadow: var(--shadow); }
+.v-none h3 { margin-bottom: 6px; }
+.v-none p { font-size: 15px; max-width: 62ch; }
+.v-none.on { display: flex; }
+.vacancies:not(:has(.vacancy)) .v-none { display: flex; }
+#vacancies:not(:has(.vacancy)) .v-lead { display: none; }
 .role-sum { font-size: 16.5px; line-height: 1.7; max-width: 72ch; margin-bottom: 32px; }
 .role-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; }
-.role h4 { font-size: 12.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); margin-bottom: 16px; }
-.role h4.nice { margin-top: 28px; color: var(--muted); }
+.v-body h4 { font-size: 12.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); margin-bottom: 16px; }
+.v-body h4.nice { margin-top: 28px; color: var(--muted); }
 .ticks { list-style: none; display: grid; gap: 12px; }
 .ticks li { position: relative; padding-left: 32px; font-size: 15px; line-height: 1.55; color: var(--ink); }
 .ticks li::before {
@@ -248,12 +284,15 @@ footer :focus-visible { outline-color: #fff; }
   .steps { grid-template-columns: 1fr; }
 }
 @media (max-width: 720px) {
-  .jobs-hero { padding: 116px 0 56px; }
+  .jobs-hero { padding: 104px 0 56px; }
   .jobs-hero { background: radial-gradient(320px 320px at 100% 0, rgba(254,80,0,.08), rgba(254,80,0,0) 70%), #fff; }
-  .role { padding: 28px 22px; }
+  .vacancy summary { grid-template-columns: 1fr; padding: 24px 22px; }
+  .v-toggle { grid-column: 1; grid-row: auto; margin-top: 18px; }
+  .v-body { margin: 0 22px; padding: 24px 0 28px; }
+  .v-none { flex-direction: column; align-items: flex-start; padding: 26px 22px; }
   .other { padding: 26px 22px; }
 }
-@media (prefers-reduced-motion: reduce) { .glance-dot::after { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .glance-dot::after { animation: none; } .v-toggle .fx { transition: none; } }
 .nowrap { white-space: nowrap; }
 @media (max-width: 720px) { .section { padding: 64px 0; } }
 </style>
@@ -296,6 +335,14 @@ footer :focus-visible { outline-color: #fff; }
       <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
     </symbol>
     <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3.2 2"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-panel-sun" viewBox="0 0 24 24">
+      <path d="M5 13.5h14l1.7 6.5H3.3z" fill="currentColor" opacity=".14" stroke="none"/>
+      <path d="M5 13.5h14l1.7 6.5H3.3z"/>
+      <path d="M9.7 13.5L9 20M14.3 13.5l.7 6.5M4.2 16.7h15.6"/>
+      <circle cx="12" cy="7.2" r="2.5"/>
+      <path d="M12 2.6v1.3M16.2 4.4l-.9.9M7.8 4.4l.9.9"/>
+    </symbol>
   </defs>
 </svg>
 
@@ -339,9 +386,9 @@ footer :focus-visible { outline-color: #fff; }
     <div>
       <div class="kicker">Work with us</div>
       <h1>Help put solar on <span>Irish roofs.</span></h1>
-      <p class="lead">Aura Energy is a 100% Irish-owned solar company. We fund, install and operate solar for Irish businesses, and fit it for homes through Aura Home Energy. We're hiring for two roles.</p>
+      <p class="lead">Aura Energy is a 100% Irish-owned solar company, putting solar on business roofs and homes across Ireland. Here's where you could fit in.</p>
       <div class="pick-path">
-        <a class="btn btn-primary" href="#roles">See the roles <svg class="ic"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-primary" href="#vacancies">See vacancies <svg class="ic"><use href="#i-arrow"/></svg></a>
         <a class="btn btn-ghost" href="about.html">About Aura</a>
       </div>
     </div>
@@ -350,98 +397,115 @@ footer :focus-visible { outline-color: #fff; }
       <source type="image/webp" srcset="assets/jobs-roof-800.webp 800w, assets/jobs-roof-1200.webp 1200w" sizes="(max-width: 1024px) 92vw, 480px">
       <img src="assets/jobs-roof-1200.jpg" width="1200" height="900" alt="Solar panels on a warehouse roof in Dublin, with homes stretching out behind" fetchpriority="high">
     </picture>
-    <nav class="glance" aria-label="Open roles">
-      <div class="glance-h"><span class="glance-dot" aria-hidden="true"></span>2 open roles</div>
-      <a href="#commercial-sales-manager"><b>Commercial Sales Manager</b><span>Full-time · Dublin and nationwide</span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-      <a href="#operations-intern"><b>Operations Intern</b><span>Internship · Dublin</span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <nav class="glance" aria-label="Current vacancies">
+      <div class="glance-h"><span class="glance-dot" aria-hidden="true"></span>Current vacancies</div>
+      <!-- one line per open role: when a role closes, delete its line here and its card further down -->
+      <a class="g-role" href="#commercial-sales-manager"><b>Commercial Sales Manager</b><span>Full-time · Dublin and nationwide</span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="g-role" href="#operations-intern"><b>Operations Intern</b><span>Internship · Dublin</span><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <div class="g-empty"><b>No vacancies right now</b><p>We're always glad to hear from good people.</p><a href="mailto:info@auraenergy.ie?subject=Joining%20Aura%20Energy">Introduce yourself <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
     </nav>
     </div>
   </div>
 </section>
 
-<section class="section roles-bg" id="roles">
+<section class="section roles-bg" id="vacancies">
   <div class="container">
     <div class="section-head">
-      <div class="kicker">Open roles</div>
-      <h2>Two roles, both <span class="nowrap">hands-on</span></h2>
-      <p class="lead">What each role involves, what we're looking for, and how to apply.</p>
+      <div class="kicker">Join the team</div>
+      <h2>Current vacancies</h2>
+      <p class="lead v-lead">Open a role to see what it involves, what we're looking for and how to apply.</p>
     </div>
-
-    <article class="role" id="commercial-sales-manager" aria-labelledby="role1">
-      <div class="role-head">
-        <h3 id="role1">Commercial Sales Manager</h3>
-        <ul class="role-meta" aria-label="Role details"><li>Full-time</li><li>Dublin and nationwide</li><li>Sales</li></ul>
-      </div>
-      <p class="role-sum">You'll win commercial solar customers for Aura. Irish businesses either buy the power from a system on their own roof through a Solar PPA, or buy the system outright, and you'll own each sale from the first conversation to the signed agreement.</p>
-      <div class="role-cols">
-        <div>
-          <h4>What you'll do</h4>
-          <ul class="ticks">
-            <li>Find and qualify businesses with suitable roofs and high daytime power use.</li>
-            <li>Run site visits and bill reviews, and present PPA and capex options side by side.</li>
-            <li>Build proposals with the team, negotiate terms and close agreements.</li>
-            <li>Keep the pipeline up to date and forecast honestly.</li>
-            <li>Stay the customer's main contact through survey and install.</li>
-          </ul>
+    <div class="vacancies">
+      <!-- each open role is one card, from VACANCY to END VACANCY: to close a role, delete its card and its line in the Current vacancies list at the top. With none left, both say there are no vacancies right now. -->
+      <!-- VACANCY: Commercial Sales Manager -->
+      <details class="vacancy" id="commercial-sales-manager">
+        <summary>
+          <h3 class="v-title">Commercial Sales Manager</h3>
+          <span class="v-meta"><span>Full-time</span><span>Dublin and nationwide</span><span>Sales</span></span>
+          <span class="v-toggle" aria-hidden="true"><span class="v-view">View role</span><span class="v-hide">Hide role</span><span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></span>
+        </summary>
+        <div class="v-body">
+          <p class="role-sum">You'll win commercial solar customers for Aura. Irish businesses either buy the power from a system on their own roof through a Solar PPA, or buy the system outright, and you'll own each sale from the first conversation to the signed agreement.</p>
+          <div class="role-cols">
+            <div>
+              <h4>What you'll do</h4>
+              <ul class="ticks">
+                <li>Find and qualify businesses with suitable roofs and high daytime power use.</li>
+                <li>Run site visits and bill reviews, and present PPA and capex options side by side.</li>
+                <li>Build proposals with the team, negotiate terms and close agreements.</li>
+                <li>Keep the pipeline up to date and forecast honestly.</li>
+                <li>Stay the customer's main contact through survey and install.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>What you'll bring</h4>
+              <ul class="ticks">
+                <li>A track record in B2B sales, ideally in energy, solar, construction or another technical product.</li>
+                <li>Confidence explaining tariffs, kWh and payback to owners and finance directors.</li>
+                <li>A network across Irish businesses, or the drive to build one.</li>
+                <li>A full driving licence and willingness to travel to sites around Ireland.</li>
+              </ul>
+              <h4 class="nice">Good to have</h4>
+              <ul class="plain">
+                <li>Experience selling PPAs or energy contracts.</li>
+                <li>Knowledge of SEAI grants and the Accelerated Capital Allowance.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="role-foot">
+            <a class="btn btn-primary" href="mailto:info@auraenergy.ie?subject=Application%3A%20Commercial%20Sales%20Manager">Apply for this role <svg class="ic"><use href="#i-mail"/></svg></a>
+            <p>Send your CV and a few lines on why the role suits you.</p>
+          </div>
         </div>
-        <div>
-          <h4>What you'll bring</h4>
-          <ul class="ticks">
-            <li>A track record in B2B sales, ideally in energy, solar, construction or another technical product.</li>
-            <li>Confidence explaining tariffs, kWh and payback to owners and finance directors.</li>
-            <li>A network across Irish businesses, or the drive to build one.</li>
-            <li>A full driving licence and willingness to travel to sites around Ireland.</li>
-          </ul>
-          <h4 class="nice">Good to have</h4>
-          <ul class="plain">
-            <li>Experience selling PPAs or energy contracts.</li>
-            <li>Knowledge of SEAI grants and the Accelerated Capital Allowance.</li>
-          </ul>
+      </details>
+      <!-- END VACANCY: Commercial Sales Manager -->
+      <!-- VACANCY: Operations Intern -->
+      <details class="vacancy" id="operations-intern">
+        <summary>
+          <h3 class="v-title">Operations Intern</h3>
+          <span class="v-meta"><span>Internship</span><span>Dublin</span><span>Operations</span></span>
+          <span class="v-toggle" aria-hidden="true"><span class="v-view">View role</span><span class="v-hide">Hide role</span><span class="fx"><svg class="ic"><use href="#i-plus"/></svg></span></span>
+        </summary>
+        <div class="v-body">
+          <p class="role-sum">You'll help run solar projects from signed agreement to switch-on, keeping surveys, paperwork, equipment and installers on track. It's a practical start in renewable energy.</p>
+          <div class="role-cols">
+            <div>
+              <h4>What you'll do</h4>
+              <ul class="ticks">
+                <li>Track each project's surveys, ESB Networks paperwork, equipment orders and install dates.</li>
+                <li>Prepare site packs and documents for surveys and installs.</li>
+                <li>Coordinate with installers, suppliers and customers by phone and email.</li>
+                <li>Check how live systems are performing from monitoring data.</li>
+                <li>Improve our templates and processes as you go.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>What you'll bring</h4>
+              <ul class="ticks">
+                <li>Studying or recently graduated in engineering, energy, business or a related field.</li>
+                <li>Organised and reliable, and comfortable with spreadsheets.</li>
+                <li>Clear on the phone and in writing.</li>
+                <li>A genuine interest in renewable energy.</li>
+              </ul>
+              <h4 class="nice">Good to have</h4>
+              <ul class="plain">
+                <li>A full driving licence.</li>
+                <li>Any experience in solar, construction or project coordination.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="role-foot">
+            <a class="btn btn-primary" href="mailto:info@auraenergy.ie?subject=Application%3A%20Operations%20Intern">Apply for this role <svg class="ic"><use href="#i-mail"/></svg></a>
+            <p>Send your CV and a few lines on why the role suits you.</p>
+          </div>
         </div>
+      </details>
+      <!-- END VACANCY: Operations Intern -->
+      <div class="v-none">
+        <div class="icon-tile"><svg class="ic"><use href="#i-handshake"/></svg></div>
+        <div><h3>No vacancies right now</h3><p>We don't have an open role at the moment, but we're always glad to hear from good people. Introduce yourself below and we'll keep you in mind.</p></div>
       </div>
-      <div class="role-foot">
-        <a class="btn btn-primary" href="mailto:info@auraenergy.ie?subject=Application%3A%20Commercial%20Sales%20Manager">Apply for this role <svg class="ic"><use href="#i-mail"/></svg></a>
-        <p>Send your CV and a few lines on why the role suits you.</p>
-      </div>
-    </article>
-
-    <article class="role" id="operations-intern" aria-labelledby="role2">
-      <div class="role-head">
-        <h3 id="role2">Operations Intern</h3>
-        <ul class="role-meta" aria-label="Role details"><li>Internship</li><li>Dublin</li><li>Operations</li></ul>
-      </div>
-      <p class="role-sum">You'll help run solar projects from signed agreement to switch-on, keeping surveys, paperwork, equipment and installers on track. It's a practical start in renewable energy.</p>
-      <div class="role-cols">
-        <div>
-          <h4>What you'll do</h4>
-          <ul class="ticks">
-            <li>Track each project's surveys, ESB Networks paperwork, equipment orders and install dates.</li>
-            <li>Prepare site packs and documents for surveys and installs.</li>
-            <li>Coordinate with installers, suppliers and customers by phone and email.</li>
-            <li>Check how live systems are performing from monitoring data.</li>
-            <li>Improve our templates and processes as you go.</li>
-          </ul>
-        </div>
-        <div>
-          <h4>What you'll bring</h4>
-          <ul class="ticks">
-            <li>Studying or recently graduated in engineering, energy, business or a related field.</li>
-            <li>Organised and reliable, and comfortable with spreadsheets.</li>
-            <li>Clear on the phone and in writing.</li>
-            <li>A genuine interest in renewable energy.</li>
-          </ul>
-          <h4 class="nice">Good to have</h4>
-          <ul class="plain">
-            <li>A full driving licence.</li>
-            <li>Any experience in solar, construction or project coordination.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="role-foot">
-        <a class="btn btn-primary" href="mailto:info@auraenergy.ie?subject=Application%3A%20Operations%20Intern">Apply for this role <svg class="ic"><use href="#i-mail"/></svg></a>
-        <p>Send your CV and a few lines on why the role suits you.</p>
-      </div>
-    </article>
+    </div>
   </div>
 </section>
 
@@ -505,7 +569,7 @@ footer :focus-visible { outline-color: #fff; }
         <h3>Contact</h3>
         <a href="mailto:info@auraenergy.ie"><span class="f-ic"><svg class="ic"><use href="#i-mail"/></svg></span> info@auraenergy.ie</a>
         <a href="tel:+353833945937" title="+353 83 394 5937"><span class="f-ic"><svg class="ic"><use href="#i-phone"/></svg></span> Call us</a>
-        <a href="./#quote"><span class="f-ic"><svg class="ic"><use href="#i-pin"/></svg></span> Dublin, Ireland · Nationwide</a>
+        <a href="https://maps.app.goo.gl/KxhC7wEBNVmJSZ4m9" target="_blank" rel="noopener"><span class="f-ic"><svg class="ic"><use href="#i-pin"/></svg></span> Dublin, Ireland · Nationwide<span class="sr-only"> (Google Maps, opens in a new tab)</span></a>
       </div>
       <div class="foot-col foot-follow">
         <h3>Follow us</h3>
@@ -586,6 +650,21 @@ footer :focus-visible { outline-color: #fff; }
     if (e.isIntersecting) { mark.classList.add('in'); mo.disconnect(); }
   }), { threshold: 0.6 });
   mo.observe(mark);
+})();
+</script>
+<script>
+// ---- vacancies: a link to a role opens its card ----
+(() => {
+  const openRole = id => {
+    const d = id ? document.getElementById(id) : null;
+    if (d && d.matches('details.vacancy')) d.open = true;
+  };
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (a) openRole(a.getAttribute('href').slice(1));
+  });
+  addEventListener('hashchange', () => openRole(location.hash.slice(1)));
+  openRole(location.hash.slice(1));
 })();
 </script>
 <!-- ============================================================ COOKIE CHOICE

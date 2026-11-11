@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>About Aura Energy | 100% Irish-Owned Commercial Solar</title>
-<meta name="description" content="Who Aura Energy is and how to work with us. A 100% Irish-owned company that funds, installs and operates commercial rooftop solar for businesses nationwide." />
+<meta name="description" content="Who Aura Energy is and how to work with us: a 100% Irish-owned company putting solar on business roofs nationwide, on a Solar PPA or bought outright." />
 <link rel="icon" href="/favicon.ico" sizes="48x48" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -14,7 +14,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://auraenergy.ie/about" />
 <meta property="og:title" content="About Aura Energy" />
-<meta property="og:description" content="A 100% Irish-owned company that funds, installs and operates commercial rooftop solar for businesses nationwide." />
+<meta property="og:description" content="A 100% Irish-owned solar company putting solar on business roofs nationwide, on a Solar PPA or bought outright, and on homes too." />
 <meta property="og:image" content="https://auraenergy.ie/assets/seam-roof.jpg" />
 <script type="application/ld+json">
 {
@@ -233,21 +233,34 @@ footer :focus-visible { outline-color: #fff; }
 @media (prefers-reduced-motion: reduce) {
   .foot-mark .fm-s > *, .foot-mark .fm-l > * { transition: none; transform: none !important; }
 }
+/* text for screen readers only */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 /* ---------------- about hero: the story beside a real install */
-/* a soft orange glow in the top corner, drawn as the hero's own background */
-.about-hero { position: relative; padding: 152px 0 92px; background: radial-gradient(560px 560px at 94% -6%, rgba(254,80,0,.09), rgba(254,80,0,0) 70%), #fff; }
+/* soft orange glows in two corners, drawn as the hero's own background */
+.about-hero {
+  position: relative; overflow: hidden; padding: 132px 0 80px;
+  background: radial-gradient(560px 560px at 94% -6%, rgba(254,80,0,.10), rgba(254,80,0,0) 70%),
+              radial-gradient(520px 420px at -4% 104%, rgba(254,80,0,.06), rgba(254,80,0,0) 70%), #fff;
+}
 .about-grid { position: relative; display: grid; grid-template-columns: 1.02fr .98fr; gap: 64px; align-items: center; }
 .about-hero h1 { font-size: clamp(1.9rem, 4.3vw, 3.15rem); margin-bottom: 20px; text-wrap: balance; }   /* sized so each sentence keeps to one line */
 .about-hero h1 span { display: block; color: var(--orange); }
 .about-hero .lead { margin-bottom: 34px; }
 .about-media { position: relative; }
+.about-media picture { position: relative; z-index: 1; display: block; }
+/* the three stripes of the Aura mark, peeking out from behind the photo */
+.about-stripes { position: absolute; top: -34px; right: -36px; width: 190px; height: auto; fill: var(--orange); opacity: .18; pointer-events: none; }
 .about-media img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 24px; box-shadow: var(--shadow-lg); }
 .irish-card {
   position: absolute; left: -28px; bottom: 32px; display: flex; align-items: center; gap: 14px;
   background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 14px 22px 14px 16px;
-  box-shadow: 0 18px 44px rgba(15,15,16,.14);
+  box-shadow: 0 18px 44px rgba(15,15,16,.14); z-index: 2;
 }
+/* the site's own credentials, under the buttons */
+.about-trust { display: flex; flex-wrap: wrap; gap: 10px 22px; list-style: none; margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--line); }
+.about-trust li { display: inline-flex; align-items: center; gap: 9px; font-size: 13.5px; font-weight: 700; color: var(--ink); }
+.about-trust .ic { width: 22px; height: 22px; flex: none; padding: 4px; border-radius: 50%; background: var(--orange-soft); color: var(--orange-text); stroke-width: 3; }
 .irish-card b { display: block; font-size: 15px; font-weight: 800; color: var(--ink); line-height: 1.25; }
 .irish-card small { display: block; margin-top: 2px; font-size: 12.5px; color: var(--muted); }
 .flag { display: flex; width: 34px; height: 23px; flex: none; border-radius: 5px; overflow: hidden; box-shadow: 0 0 0 1px rgba(17,17,19,.12); }
@@ -256,6 +269,9 @@ footer :focus-visible { outline-color: #fff; }
 .flag i:nth-child(2) { background: #fff; }
 .flag i:nth-child(3) { background: #FF883E; }
 .story-card .icon-tile.icon-flag { background: #fff; border: 1px solid var(--line); box-shadow: none; }
+/* the link to the homes page in the story */
+.story-copy a { color: var(--orange-text); font-weight: 700; text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+.story-copy a:hover { color: var(--orange); }
 /* the hiring badge on Join the team */
 .path { position: relative; }
 .hiring {
@@ -265,12 +281,15 @@ footer :focus-visible { outline-color: #fff; }
 }
 .hiring::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
 @media (max-width: 1024px) {
-  .about-grid { grid-template-columns: 1fr; gap: 48px; }
-  .about-media { max-width: 640px; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  /* one column: the photo leads, so the first screen isn't all text */
+  .about-media { max-width: 640px; order: -1; }
   .irish-card { left: 16px; bottom: 16px; }
 }
 @media (max-width: 720px) {
-  .about-hero { padding: 116px 0 56px; }
+  .about-hero { padding: 100px 0 56px; }
+  .about-grid { gap: 32px; }
+  .about-stripes { top: -18px; right: -14px; width: 120px; }
   .about-hero { background: radial-gradient(320px 320px at 100% 0, rgba(254,80,0,.08), rgba(254,80,0,0) 70%), #fff; }
 }
 </style>
@@ -313,6 +332,14 @@ footer :focus-visible { outline-color: #fff; }
       <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
     </symbol>
     <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3.2 2"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-panel-sun" viewBox="0 0 24 24">
+      <path d="M5 13.5h14l1.7 6.5H3.3z" fill="currentColor" opacity=".14" stroke="none"/>
+      <path d="M5 13.5h14l1.7 6.5H3.3z"/>
+      <path d="M9.7 13.5L9 20M14.3 13.5l.7 6.5M4.2 16.7h15.6"/>
+      <circle cx="12" cy="7.2" r="2.5"/>
+      <path d="M12 2.6v1.3M16.2 4.4l-.9.9M7.8 4.4l.9.9"/>
+    </symbol>
   </defs>
 </svg>
 
@@ -355,14 +382,20 @@ footer :focus-visible { outline-color: #fff; }
   <div class="container about-grid">
     <div class="about-copy">
       <div class="kicker">About Aura Energy</div>
-      <h1>We fund the solar. <span>You keep the savings.</span></h1>
-      <p class="lead">Aura Energy is a 100% Irish-owned company with one job: putting solar on Irish business roofs without the business having to fund it.</p>
+      <h1>Solar for business. <span>Done properly.</span></h1>
+      <p class="lead">Aura Energy is a 100% Irish-owned solar company. We design, install and look after rooftop solar for Irish businesses, on a Solar PPA or bought outright, and for homes too.</p>
       <div class="pick-path">
         <a class="btn btn-primary" href="#who-we-are">Who we are <svg class="ic"><use href="#i-arrow"/></svg></a>
         <a class="btn btn-ghost" href="work-with-us.html">Work with us</a>
       </div>
+      <ul class="about-trust">
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>SEAI registered</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>ESB Networks notified</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Tier-1 equipment</li>
+      </ul>
     </div>
     <div class="about-media">
+      <svg class="about-stripes" viewBox="0 0 139 100" aria-hidden="true" focusable="false"><path d="M0 100 L44.44 0 L61.11 0 L16.67 100 Z"/><path d="M38.89 100 L83.33 0 L100 0 L55.56 100 Z"/><path d="M77.78 100 L122.22 0 L138.89 0 L94.45 100 Z"/></svg>
       <picture>
         <source type="image/webp" srcset="assets/about-warehouse-800.webp 800w, assets/about-warehouse-1200.webp 1200w" sizes="(max-width: 1024px) 92vw, 540px">
         <img src="assets/about-warehouse-1200.jpg" width="1200" height="900" alt="Solar panels on the roof of an industrial unit in Co. Dublin, seen from above" fetchpriority="high">
@@ -378,7 +411,7 @@ footer :focus-visible { outline-color: #fff; }
 <section class="stats" aria-label="Aura Energy in numbers">
   <div class="container">
     <div class="stat"><b>€0</b><span>upfront on a Solar PPA, ever</span></div>
-    <div class="stat"><b>Up to 50%</b><span>below typical grid rates, from day one</span></div>
+    <div class="stat"><b>Up to 50%</b><span>below typical grid rates on a PPA, from day one</span></div>
     <div class="stat"><b>6 to 10 weeks</b><span>from survey to switch-on, most sites</span></div>
     <div class="stat"><b>25 years</b><span>of output from every roof we build</span></div>
   </div>
@@ -388,13 +421,14 @@ footer :focus-visible { outline-color: #fff; }
   <div class="container">
     <div class="section-head">
       <div class="kicker">Who we are</div>
-      <h2>Built because the numbers work and the capital doesn't</h2>
+      <h2>Built to put Irish roofs to work</h2>
     </div>
     <div class="story-grid">
       <div class="story-copy">
-        <p>Irish businesses pay some of the highest electricity prices in Europe, while the roofs over their heads do nothing. The physics is settled: <strong>a commercial roof in Ireland returns about 950 kWh for every kilowatt of panels on it, every year, for twenty-five years.</strong> What stops most businesses isn't doubt, it's the upfront cost.</p>
-        <p>Aura Energy exists to remove that barrier. <strong>We fund, design, install, own and operate</strong> the solar system on your roof, and you simply buy the power it makes at a fixed rate below your grid rate, locked for the term. No capital, no debt, no maintenance bills. Prefer to own the system outright? We design and build that too, and we'll show you both options side by side.</p>
-        <p>We're deliberately not a fund with a logo. Aura builds from its own balance sheet, uses tier-1 panels and inverters, and delivers through vetted Irish installation crews and certified electricians, with structural engineers checking every roof before it carries a system. <strong>If an array underperforms, the shortfall is ours</strong>, not a line on your bill. That's the whole model: we only do well when your roof does.</p>
+        <p>Irish businesses pay some of the highest electricity prices in Europe, while the roofs over their heads do nothing. The physics is settled: <strong>a commercial roof in Ireland returns about 950 kWh for every kilowatt of panels on it, every year, for twenty-five years.</strong> Aura Energy exists to put that roof to work.</p>
+        <p><strong>We design, install and look after the whole system</strong>, and you choose how to pay for it. On a Solar PPA, Aura funds and owns the system and you buy the power it makes at a fixed rate below your grid rate, locked for the term: no capital, no debt, no maintenance bills. Prefer to own it? We'll price the system outright, with any grants and tax reliefs you qualify for, and show you both options side by side.</p>
+        <p>Every system uses tier-1 panels and inverters and goes up with vetted Irish installation crews and certified electricians, after a structural check of the roof. On a PPA we build from our own balance sheet, so <strong>if an array underperforms, the shortfall is ours</strong>, not a line on your bill.</p>
+        <p>Business roofs are our focus, from farms and offices to warehouses and factories, and homeowners get the same standards through <a href="residential.html">Aura Home Energy</a>.</p>
         <p class="founded">Founded by Martin Molloy.</p>
       </div>
       <div class="story-aside">
@@ -403,8 +437,8 @@ footer :focus-visible { outline-color: #fff; }
           <div><h3>100% Irish owned</h3><p>Founded in Ireland and fully Irish owned, so every decision about your roof is made here, not by a parent company abroad.</p></div>
         </div>
         <div class="story-card">
-          <div class="icon-tile"><svg class="ic"><use href="#i-shield"/></svg></div>
-          <div><h3>Our capital, our risk</h3><p>PPA systems are funded by Aura and insured, monitored and maintained by Aura for the full term.</p></div>
+          <div class="icon-tile"><svg class="ic"><use href="#i-euro-down"/></svg></div>
+          <div><h3>Two ways to pay</h3><p>Buy the power through a Solar PPA with nothing upfront, or own the system outright. We price both, side by side.</p></div>
         </div>
         <div class="story-card">
           <div class="icon-tile"><svg class="ic"><use href="#i-monitor"/></svg></div>
@@ -428,14 +462,14 @@ footer :focus-visible { outline-color: #fff; }
     </div>
     <div class="rules">
       <article class="rule">
-        <div class="rule-top"><div class="icon-tile"><svg class="ic"><use href="#i-euro-down"/></svg></div><span class="rule-n" aria-hidden="true">01</span></div>
-        <h3>Skin in the game</h3>
-        <p>We put our own money on your roof and get paid only for power it actually produces. Incentives aligned, in writing.</p>
+        <div class="rule-top"><div class="icon-tile"><svg class="ic"><use href="#i-survey"/></svg></div><span class="rule-n" aria-hidden="true">01</span></div>
+        <h3>Straight numbers</h3>
+        <p>Estimates come with their assumptions attached, savings are counted only on the power you actually use, and a free survey replaces every figure before you sign anything.</p>
       </article>
       <article class="rule">
-        <div class="rule-top"><div class="icon-tile"><svg class="ic"><use href="#i-survey"/></svg></div><span class="rule-n" aria-hidden="true">02</span></div>
-        <h3>Straight numbers</h3>
-        <p>Estimates come with their assumptions attached, savings are counted on self-consumed units only, and a free survey replaces every figure before you sign anything.</p>
+        <div class="rule-top"><div class="icon-tile"><svg class="ic"><use href="#i-panel-sun"/></svg></div><span class="rule-n" aria-hidden="true">02</span></div>
+        <h3>Sized to your site</h3>
+        <p>We design every system around how much power you use, not how many panels we can fit, and where a PPA and buying outright both make sense, we show you both.</p>
       </article>
       <article class="rule">
         <div class="rule-top"><div class="icon-tile"><svg class="ic"><use href="#i-install"/></svg></div><span class="rule-n" aria-hidden="true">03</span></div>
@@ -444,8 +478,8 @@ footer :focus-visible { outline-color: #fff; }
       </article>
       <article class="rule">
         <div class="rule-top"><div class="icon-tile"><svg class="ic"><use href="#i-clock"/></svg></div><span class="rule-n" aria-hidden="true">04</span></div>
-        <h3>There for the term</h3>
-        <p>A PPA is a 20-year relationship. Monitoring, maintenance and repairs stay our problem, and the system is yours at the end.</p>
+        <h3>There for the long run</h3>
+        <p>Solar lasts 25 years and more, so we stay on hand after switch-on. On a PPA, monitoring, maintenance and repairs stay our problem for the full term.</p>
       </article>
     </div>
   </div>
@@ -475,8 +509,8 @@ footer :focus-visible { outline-color: #fff; }
         <span class="hiring">Hiring</span>
         <div class="icon-tile"><svg class="ic"><use href="#i-handshake"/></svg></div>
         <h3>Join the team</h3>
-        <p>We're hiring a Commercial Sales Manager and an Operations Intern. See what each role involves and how to apply.</p>
-        <a href="work-with-us.html" class="btn btn-primary">See open roles <svg class="ic"><use href="#i-arrow"/></svg></a>
+        <p>See our current vacancies, what each role involves and how to apply.</p>
+        <a href="work-with-us.html" class="btn btn-primary">See vacancies <svg class="ic"><use href="#i-arrow"/></svg></a>
       </div>
     </div>
   </div>
@@ -520,7 +554,7 @@ footer :focus-visible { outline-color: #fff; }
         <h3>Contact</h3>
         <a href="mailto:info@auraenergy.ie"><span class="f-ic"><svg class="ic"><use href="#i-mail"/></svg></span> info@auraenergy.ie</a>
         <a href="tel:+353833945937" title="+353 83 394 5937"><span class="f-ic"><svg class="ic"><use href="#i-phone"/></svg></span> Call us</a>
-        <a href="./#quote"><span class="f-ic"><svg class="ic"><use href="#i-pin"/></svg></span> Dublin, Ireland · Nationwide</a>
+        <a href="https://maps.app.goo.gl/KxhC7wEBNVmJSZ4m9" target="_blank" rel="noopener"><span class="f-ic"><svg class="ic"><use href="#i-pin"/></svg></span> Dublin, Ireland · Nationwide<span class="sr-only"> (Google Maps, opens in a new tab)</span></a>
       </div>
       <div class="foot-col foot-follow">
         <h3>Follow us</h3>

@@ -48,8 +48,8 @@ p { color: var(--muted); }
 
 
 /* investors */
-.inv-sec { background: linear-gradient(140deg, #131316 0%, #26262B 100%); color: #fff; position: relative; overflow: hidden; padding: 172px 0 104px; }
-.inv-sec::after { content: ""; position: absolute; right: -160px; top: -160px; width: 420px; height: 420px; border-radius: 50%; background: rgba(254,80,0,.16); filter: blur(10px); pointer-events: none; }
+.inv-sec { background: var(--ink); border-bottom: 1px solid rgba(255,255,255,.1); color: #fff; position: relative; overflow: hidden; padding: 172px 0 104px; }
+.inv-sec::after { content: ""; position: absolute; top: -280px; right: -220px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(254,80,0,.20) 0%, rgba(254,80,0,0) 68%); pointer-events: none; }
 .inv-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 64px; align-items: start; position: relative; z-index: 1; }
 .inv-sec .kicker { color: #FFA477; }
 .inv-sec h1 { color: #fff; margin-bottom: 16px; }

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Residential Solar | Aura Home Solar</title>
-<meta name="description" content="Aura Home Solar: residential solar from Aura Energy." />
+<title>Solar Panels for Your Home | Aura Home Solar</title>
+<meta name="description" content="Aura Home Solar: panels, batteries and hot-water diverters for Irish homes, designed and fitted by Aura Energy. See how a solar home works, day and night." />
 <!-- kept out of search results until the page has content; remove this line at launch -->
 <meta name="robots" content="noindex" />
 <link rel="icon" href="/favicon.ico" sizes="48x48" />
@@ -85,6 +85,174 @@ footer :focus-visible { outline-color: #fff; }
   .section { padding: 64px 0; }
   .page-hero { padding: 56px 0 48px; }
 }
+
+/* ---------------- residential */
+.page-hero h1 { max-width: 14ch; margin-bottom: 20px; }
+.page-hero h1 span { color: var(--orange); }
+.page-hero .lead { margin-bottom: 32px; }
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+.band { background: var(--orange-mist); border-block: 1px solid var(--line); }
+
+/* inside a solar home */
+.hs { background: #fff; border: 1px solid var(--line); border-radius: 26px; box-shadow: var(--shadow); padding: 22px; }
+.hs-top { display: flex; align-items: center; gap: 14px 22px; flex-wrap: wrap; margin-bottom: 18px; }
+.hs-modes { display: inline-flex; gap: 4px; padding: 5px; background: var(--orange-mist); border: 1px solid var(--line); border-radius: 999px; }
+.hs-modes button { display: inline-flex; align-items: center; gap: 8px; border: 0; background: transparent; font: inherit; font-size: 14px; font-weight: 700; color: var(--muted); padding: 9px 16px; border-radius: 999px; cursor: pointer; transition: background .25s var(--ease), color .25s var(--ease); }
+.hs-modes button .ic { width: 17px; height: 17px; }
+.hs-modes button:hover { color: var(--ink); }
+.hs-modes button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.hs-modes button[aria-pressed="true"] .ic { color: #FFA477; }
+.hs-say { font-size: 14.5px; flex: 1 1 280px; }
+.hs-say b { color: var(--ink); }
+.hs-body { display: grid; gap: 16px; }
+.hs-scene { position: relative; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); }
+.hs-svg { display: block; width: 100%; height: auto; }
+.hs-svg .hs-part { cursor: pointer; }
+
+/* scene palette, by time of day */
+.hs .sky-a { stop-color: #FFF1E6; transition: stop-color .8s var(--ease); }
+.hs .sky-b { stop-color: #FFFFFF; transition: stop-color .8s var(--ease); }
+.hs[data-mode="evening"] .sky-a { stop-color: #FFB98F; }
+.hs[data-mode="evening"] .sky-b { stop-color: #FFEADB; }
+.hs[data-mode="night"] .sky-a { stop-color: #101016; }
+.hs[data-mode="night"] .sky-b { stop-color: #2A2A3A; }
+.hs-ground { fill: #ECECE8; transition: fill .8s var(--ease); }
+.hs[data-mode="evening"] .hs-ground { fill: #E6DDD5; }
+.hs[data-mode="night"] .hs-ground { fill: #1D1D26; }
+.hs-stars circle { fill: #fff; }
+.hs-stars { opacity: 0; transition: opacity .8s var(--ease); }
+.hs[data-mode="night"] .hs-stars { opacity: .9; }
+.hs-sun { transition: transform 1s var(--ease), opacity .8s var(--ease); }
+.sun-disc { fill: #FE5000; transition: fill .8s var(--ease); }
+.hs[data-mode="evening"] .hs-sun { transform: translate(-56px, 186px); }
+.hs[data-mode="evening"] .sun-disc { fill: #E8461A; }
+.hs[data-mode="night"] .hs-sun { opacity: 0; transform: translate(80px, 240px); }
+.hs-moon { fill: #F3EFE4; opacity: 0; transition: opacity .8s var(--ease); }
+.hs[data-mode="night"] .hs-moon { opacity: 1; }
+.hs-pole { fill: none; stroke: #8E8E95; stroke-width: 4; stroke-linecap: round; }
+.hs-pole circle { fill: #8E8E95; stroke: none; }
+
+.hs-room { fill: #fff; transition: fill .8s var(--ease); }
+.hs[data-mode="evening"] .hs-room { fill: #FFF6EE; }
+.hs[data-mode="night"] .hs-room { fill: #FFF1E3; }
+.hs-attic { fill: #F4F4F6; }
+.hs-roof { fill: #2B2B30; }
+.hs[data-mode="night"] .hs-roof { stroke: #4A4A58; stroke-width: 1.5; }
+.hs-outline { fill: none; stroke: #2B2B30; stroke-width: 3; }
+.hs-ink { fill: #2B2B30; }
+.hs-win { fill: #DCE7F0; transition: fill .8s var(--ease); }
+.hs[data-mode="evening"] .hs-win { fill: #FFCBA8; }
+.hs[data-mode="night"] .hs-win { fill: #262633; }
+.hs-mull { stroke: #fff; stroke-width: 2; }
+.hs-furn rect { fill: #ECECEF; stroke: #2B2B30; stroke-width: 1.5; }
+.hs-cord { fill: none; stroke: #2B2B30; stroke-width: 1.5; }
+.hs-shade { fill: #ECECEF; stroke: #2B2B30; stroke-width: 1.5; }
+.hs-bulb { fill: #D7D7DC; stroke: #2B2B30; stroke-width: 1.2; transition: fill .6s var(--ease); }
+.hs-glow { opacity: 0; transition: opacity .8s var(--ease); }
+.hs:not([data-mode="day"]) .hs-bulb { fill: #FFC48A; }
+.hs:not([data-mode="day"]) .hs-glow { opacity: 1; }
+.car-body { fill: #E3E3E8; stroke: #2B2B30; stroke-width: 2; }
+.car-win { fill: #CBD6E0; }
+.tyre { fill: #2B2B30; stroke: #8E8E95; stroke-width: 3; }
+.ev-cable { fill: none; stroke: #2B2B30; stroke-width: 2.5; stroke-linecap: round; }
+.hs-wires path { fill: none; stroke: #D3D3D9; stroke-width: 2; stroke-linejoin: round; }
+.hs[data-mode="night"] .hs-wires path { stroke: #B9B9C2; }
+
+/* the system's parts */
+.hs-box { fill: #fff; stroke: #2B2B30; stroke-width: 2; }
+.hs-detail { fill: none; stroke: #2B2B30; stroke-width: 1.5; stroke-linecap: round; }
+.pv { fill: #FE5000; stroke: #2B2B30; stroke-width: 1.2; transition: fill .8s var(--ease); }
+.hs[data-mode="evening"] .pv { fill: #E2581E; }
+.hs[data-mode="night"] .pv { fill: #4A2C20; }
+.pv-glint { stroke: rgba(255,255,255,.75); stroke-width: 1.4; stroke-linecap: round; transition: opacity .8s var(--ease); }
+.hs:not([data-mode="day"]) .pv-glint { opacity: 0; }
+.hs-led { fill: #CFCFD5; transition: fill .4s var(--ease); }
+.hs[data-mode="day"] .inv-led, .hs[data-mode="evening"] .inv-led,
+.hs[data-mode="day"] .div-led,
+.hs[data-mode="day"] .ev-led, .hs[data-mode="night"] .ev-led, .meter-led { fill: #FE5000; }
+.tank-heat { transform-box: fill-box; transform-origin: 50% 100%; transition: transform .8s var(--ease), opacity .8s var(--ease); }
+.hs[data-mode="day"] .tank-heat { animation: hsWarm 2.4s ease-in-out infinite alternate; }
+.hs[data-mode="night"] .tank-heat { transform: scaleY(.8); opacity: .8; }
+@keyframes hsWarm { from { opacity: .62; } to { opacity: 1; } }
+.bat-cell { fill: #E4E4E8; transition: fill .4s var(--ease); }
+.hs[data-mode="day"] .c1, .hs[data-mode="day"] .c2, .hs[data-mode="day"] .c3,
+.hs[data-mode="evening"] .c1, .hs[data-mode="evening"] .c2,
+.hs[data-mode="night"] .c1 { fill: #FE5000; }
+.hs[data-mode="day"] .c4 { animation: hsBlink 1.4s ease-in-out infinite; }
+.hs[data-mode="evening"] .c3 { animation: hsBlink 1.4s ease-in-out infinite; }
+@keyframes hsBlink { 50% { fill: #FE5000; } }
+
+/* power on the move */
+.hs-flow { fill: none; stroke: #FE5000; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: .1 11; opacity: 0; transition: opacity .5s var(--ease); }
+.hs-flow.on { opacity: 1; animation: hsFlow .9s linear infinite; }
+.hs-flow.weak { opacity: .5; animation-duration: 2.2s; }
+@keyframes hsFlow { to { stroke-dashoffset: -11.1; } }
+
+/* what's selected */
+.hs-halo { pointer-events: none; transition: transform .45s var(--ease); }
+.halo-fill { fill: rgba(254,80,0,.13); }
+.halo-ring { fill: none; stroke: #FE5000; stroke-width: 1.6; stroke-dasharray: 4 4; vector-effect: non-scaling-stroke; }
+.hs-dot { position: absolute; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; border: 2.5px solid #fff; background: var(--orange); color: #0E0E0F; font: inherit; font-size: 13.5px; font-weight: 800; display: grid; place-items: center; cursor: pointer; box-shadow: 0 3px 10px rgba(17,17,19,.28); transition: transform .2s var(--ease), background .2s, color .2s; }
+.hs-dot:hover { transform: scale(1.12); }
+.hs-dot[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--orange); transform: scale(1.15); }
+.hs-dot:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+
+.hs-info { background: var(--orange-mist); border: 1px solid var(--line); border-radius: 18px; padding: 24px 26px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 18px 34px; align-items: center; }
+.hs-info-main p { min-height: calc(1.65em * 3); }
+.hs-info-side { display: flex; gap: 12px; align-items: center; }
+.hs-info-k { display: flex; align-items: center; gap: 10px; font-size: 12.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--orange-text); margin-bottom: 14px; }
+.hs-info-n { width: 30px; height: 30px; border-radius: 50%; background: var(--orange); color: #0E0E0F; display: grid; place-items: center; font-size: 14px; letter-spacing: 0; }
+.hs-info h3 { font-size: 1.45rem; margin-bottom: 8px; }
+.hs-info p { font-size: 15px; line-height: 1.65; }
+.hs-now { flex: 1; display: flex; gap: 12px; align-items: flex-start; padding: 16px 18px; background: #fff; border: 1px solid var(--line); border-radius: 14px; }
+.hs-now b { display: block; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--orange-text); margin-bottom: 2px; }
+.hs-now span:not(.hs-pulse) { font-size: 14.5px; font-weight: 600; color: var(--ink); }
+.hs-pulse { flex: none; width: 10px; height: 10px; margin-top: 5px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 0 rgba(254,80,0,.45); animation: hsPulse 1.8s ease-out infinite; }
+@keyframes hsPulse { to { box-shadow: 0 0 0 10px rgba(254,80,0,0); } }
+.hs-nav { display: flex; gap: 8px; flex: none; }
+.hs-nav button { width: 42px; height: 42px; border-radius: 50%; border: 1.5px solid var(--line); background: #fff; color: var(--ink); display: grid; place-items: center; cursor: pointer; transition: border-color .2s; }
+.hs-nav button:hover { border-color: var(--ink); }
+.hs-nav .ic { width: 18px; height: 18px; }
+#hsPrev .ic { transform: rotate(180deg); }
+
+.hs-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+.hs-chips button { display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--line); background: #fff; color: var(--ink); font: inherit; font-size: 14px; font-weight: 700; padding: 6px 14px 6px 6px; border-radius: 999px; cursor: pointer; transition: border-color .2s, background .2s, color .2s; }
+.hs-chips button span { width: 24px; height: 24px; border-radius: 50%; background: var(--orange-soft); color: var(--orange-text); display: grid; place-items: center; font-size: 12.5px; }
+.hs-chips button:hover { border-color: var(--ink); }
+.hs-chips button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.hs-chips button[aria-pressed="true"] span { background: var(--orange); color: #0E0E0F; }
+
+/* why go solar */
+.why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.why-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 30px 26px; transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s; }
+.why-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--orange-line); }
+.why-card .icon-tile { margin-bottom: 22px; }
+.why-card h3 { font-size: 1.12rem; margin-bottom: 9px; }
+.why-card p { font-size: 14.5px; }
+
+@media (max-width: 1024px) {
+  .hs-info { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .hs { padding: 14px; border-radius: 20px; }
+  .hs-modes { width: 100%; }
+  .hs-modes button { flex: 1; justify-content: center; padding: 9px 8px; }
+  .hs-dot { display: none; }
+  .hs-info { padding: 20px 18px; }
+  .hs-info-main p { min-height: 0; }
+  .hs-info-side { flex-direction: column; align-items: stretch; }
+  .hs-nav { justify-content: flex-end; }
+  .hs-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: -14px; padding: 2px 14px; }
+  .hs-chips::-webkit-scrollbar { display: none; }
+  .hs-chips button { flex: none; }
+  .why-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hs-flow.on, .hs-flow.weak { animation: none; stroke-dasharray: 5 6; }
+  .hs-pulse, .hs[data-mode] .tank-heat, .hs[data-mode] .c3, .hs[data-mode] .c4 { animation: none; }
+  .hs-sun, .hs-halo, .why-card { transition: none; }
+}
 </style>
 </head>
 <body>
@@ -100,6 +268,15 @@ footer :focus-visible { outline-color: #fff; }
       </g>
     </symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13.5 5.5L20 12l-6.5 6.5"/></symbol>
+
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
+    <symbol id="i-sunset" viewBox="0 0 24 24"><path d="M3 18.5h18M6.5 15.5a5.5 5.5 0 0111 0"/><path d="M12 3.5v5M9.5 6.5L12 9l2.5-2.5"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"/></symbol>
+    <symbol id="i-bill" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M12.6 9.5L10 13.6h3.4L10.8 17.8"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2.2"/><path d="M8 10.5V7.8a4 4 0 018 0v2.7"/><path d="M12 14.2v3"/></symbol>
+    <symbol id="i-ber" viewBox="0 0 24 24"><path d="M3.5 11L12 4l8.5 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M12 17.5v-6M9.5 14L12 11.5l2.5 2.5"/></symbol>
+    <symbol id="i-export" viewBox="0 0 24 24"><path d="M14 4h6v6"/><path d="M20 4l-8.5 8.5"/><path d="M18 14v4.5a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 014 18.5v-11A1.5 1.5 0 015.5 6H10"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5.5l6.5 6.5L9 18.5"/></symbol>
   </defs>
 </svg>
 
@@ -107,7 +284,7 @@ footer :focus-visible { outline-color: #fff; }
   <div class="container">
     <a href="./" class="logo" aria-label="Aura Energy home"><svg class="logo-mark" viewBox="0 0 662 103" aria-hidden="true"><use href="#aura-logo"/></svg></a>
     <nav class="top-links" aria-label="Residential page">
-      <a href="./#quote" class="btn btn-primary">Get a quote</a>
+      <a href="tel:+353833945937" class="btn btn-primary" title="+353 83 394 5937">Call us</a>
     </nav>
   </div>
 </header>
@@ -117,11 +294,165 @@ footer :focus-visible { outline-color: #fff; }
 <section class="page-hero">
   <div class="container">
     <div class="kicker">Aura Home Solar</div>
-    <h1>Residential</h1>
+    <h1>Solar for your home. <span>Done properly.</span></h1>
+    <p class="lead">Panels, batteries and hot-water diverters for Irish homes, designed and fitted by Aura Energy.</p>
+    <div class="hero-btns">
+      <a class="btn btn-primary" href="#inside">See how it works <svg class="ic"><use href="#i-arrow"/></svg></a>
+    </div>
   </div>
 </section>
 
-<!-- Residential content goes here -->
+<section class="section band" id="inside">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">How solar works</div>
+      <h2>Inside a solar home</h2>
+      <p class="lead">Tap any part of the house to see what it does, then switch between day, evening and night to watch the power move.</p>
+    </div>
+
+    <div class="hs" id="hs" data-mode="day">
+      <div class="hs-top">
+        <div class="hs-modes" role="group" aria-label="Time of day">
+          <button type="button" data-mode="day" aria-pressed="true"><svg class="ic"><use href="#i-sun"/></svg>Day</button>
+          <button type="button" data-mode="evening" aria-pressed="false"><svg class="ic"><use href="#i-sunset"/></svg>Evening</button>
+          <button type="button" data-mode="night" aria-pressed="false"><svg class="ic"><use href="#i-moon"/></svg>Night</button>
+        </div>
+        <p class="hs-say" id="hsSay" aria-live="polite"><b>Sunny day.</b> The roof runs the house, charges the battery and the car, heats the water and sells what's left.</p>
+      </div>
+
+      <div class="hs-body">
+        <div class="hs-scene" id="hsScene">
+          <svg class="hs-svg" viewBox="0 118 900 384" role="img" aria-labelledby="hsTitle hsDesc">
+  <title id="hsTitle">Cutaway of a solar home</title>
+  <desc id="hsDesc">A two-storey house with solar panels on the roof, an inverter in the attic, a fuse board in the hall, a hot water cylinder with a diverter, a battery in the garage, an electric car charging outside and a meter linked to the grid.</desc>
+  <defs>
+    <linearGradient id="hsSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="sky-a"/><stop offset="1" class="sky-b"/></linearGradient>
+    <linearGradient id="hsHeat" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#FE5000"/><stop offset="1" stop-color="#FFB38A"/></linearGradient>
+    <radialGradient id="hsGlow"><stop offset="0" stop-color="#FE5000" stop-opacity=".32"/><stop offset="1" stop-color="#FE5000" stop-opacity="0"/></radialGradient>
+    <radialGradient id="hsLamp"><stop offset="0" stop-color="#FFC48A" stop-opacity=".95"/><stop offset="1" stop-color="#FFC48A" stop-opacity="0"/></radialGradient>
+    <mask id="hsMoonCut"><circle cx="760" cy="196" r="24" fill="#fff"/><circle cx="772" cy="187" r="21" fill="#000"/></mask>
+    <clipPath id="hsTankClip"><rect x="312" y="294" width="22" height="68" rx="10"/></clipPath>
+  </defs>
+
+  <rect class="hs-sky" y="118" width="900" height="352" fill="url(#hsSky)"/>
+  <g class="hs-stars"><circle cx="60" cy="140" r="1.6"/><circle cx="130" cy="190" r="1.2"/><circle cx="205" cy="132" r="1.8"/><circle cx="250" cy="238" r="1.1"/><circle cx="330" cy="152" r="1.4"/><circle cx="400" cy="128" r="1.2"/><circle cx="560" cy="136" r="1.7"/><circle cx="628" cy="172" r="1.2"/><circle cx="676" cy="232" r="1.3"/><circle cx="860" cy="140" r="1.6"/><circle cx="884" cy="252" r="1.1"/><circle cx="36" cy="262" r="1.2"/><circle cx="705" cy="148" r="1.0"/><circle cx="806" cy="276" r="1.2"/></g>
+  <g class="hs-sun"><circle cx="760" cy="196" r="74" fill="url(#hsGlow)"/><circle class="sun-disc" cx="760" cy="196" r="30"/></g>
+  <circle class="hs-moon" cx="760" cy="196" r="24" mask="url(#hsMoonCut)"/>
+  <rect class="hs-ground" y="470" width="900" height="32"/>
+
+  <g class="hs-pole"><path d="M840 470 V296 M814 306 H866"/><circle cx="820" cy="302" r="3"/><circle cx="860" cy="302" r="3"/></g>
+
+  <!-- car, charging outside -->
+  <g class="hs-car" data-part="5">
+    <path class="car-body" d="M20 456 V446 Q22 436 40 434 L58 424 Q64 420 74 420 H96 Q106 420 112 428 L118 436 Q128 438 128 448 V456 Z"/>
+    <path class="car-win" d="M63 432 L71 425 H94 Q100 425 104 432 Z"/>
+    <circle class="tyre" cx="46" cy="458" r="9"/><circle class="tyre" cx="104" cy="458" r="9"/>
+  </g>
+
+  <!-- garage -->
+  <rect class="hs-room" x="150" y="386" width="150" height="84"/>
+  <rect class="hs-outline" x="150" y="384" width="150" height="86"/>
+  <rect class="hs-ink" x="144" y="376" width="162" height="10" rx="2"/>
+
+  <!-- house rooms -->
+  <polygon class="hs-roof" points="284,284 470,146 656,284"/>
+  <polygon class="hs-attic" points="306,276 470,160 634,276"/>
+  <rect class="hs-room" x="304" y="284" width="66" height="87"/>
+  <rect class="hs-room" x="374" y="284" width="262" height="87"/>
+  <rect class="hs-room" x="304" y="379" width="66" height="91"/>
+  <rect class="hs-room" x="374" y="379" width="262" height="91"/>
+  <rect class="hs-win" x="520" y="300" width="64" height="44" rx="3"/><path class="hs-mull" d="M552 300 V344"/>
+  <rect class="hs-win" x="530" y="392" width="62" height="48" rx="3"/><path class="hs-mull" d="M561 392 V440"/>
+
+  <!-- lights -->
+  <circle class="hs-glow" cx="470" cy="306" r="34" fill="url(#hsLamp)"/>
+  <circle class="hs-glow" cx="480" cy="400" r="36" fill="url(#hsLamp)"/>
+  <circle class="hs-glow" cx="616" cy="424" r="30" fill="url(#hsLamp)"/>
+  <path class="hs-cord" d="M470 284 V298 M480 379 V392"/>
+  <circle class="hs-bulb" cx="470" cy="302" r="5"/><circle class="hs-bulb" cx="480" cy="396" r="5"/>
+  <path class="hs-cord" d="M616 466 V428"/><path class="hs-shade" d="M606 428 H626 L621 414 H611 Z"/>
+
+  <!-- furniture -->
+  <g class="hs-furn">
+    <rect x="404" y="330" width="8" height="38" rx="2"/><rect x="410" y="350" width="88" height="18" rx="3"/><rect x="416" y="343" width="22" height="8" rx="3"/>
+    <rect x="430" y="430" width="84" height="18" rx="5"/><rect x="426" y="445" width="92" height="19" rx="5"/>
+  </g>
+
+  <!-- static wiring -->
+  <g class="hs-wires"><path d="M553 222 L500 252 L443 252"/><path d="M420 270 L420 290 L380 290 L380 404 L352 404"/><path d="M352 412 L388 412 L388 386 L606 386"/><path d="M388 386 L388 296 L588 296"/><path d="M340 394 L340 352 L353 352 L353 340"/><path d="M318 404 L304 404 L304 394 L241 394 L241 400"/><path d="M318 422 L296 422 L296 467 L139 467 L139 434"/><path d="M352 432 L362 432 L362 467 L657 467 L657 452 M670 436 L700 436 L700 467 L834 467 L834 306"/><path d="M344 334 H336"/></g>
+
+  <!-- structure on top of the rooms -->
+  <rect class="hs-outline" x="300" y="280" width="340" height="190"/>
+  <rect class="hs-ink" x="300" y="276" width="340" height="8"/>
+  <rect class="hs-ink" x="300" y="371" width="340" height="8"/>
+  <rect class="hs-ink" x="370" y="284" width="4" height="186"/>
+
+  <!-- 1 panels -->
+  <g class="hs-part" data-part="0"><g transform="translate(470 146) rotate(36.57)"><rect class="hs-ink" x="60" y="-5.5" width="3" height="5.5"/><rect class="hs-ink" x="100" y="-5.5" width="3" height="5.5"/><rect class="hs-ink" x="140" y="-5.5" width="3" height="5.5"/><rect class="hs-ink" x="180" y="-5.5" width="3" height="5.5"/><rect class="pv" x="46" y="-17" width="36.5" height="12" rx="1.6"/><rect class="pv" x="85" y="-17" width="36.5" height="12" rx="1.6"/><rect class="pv" x="124" y="-17" width="36.5" height="12" rx="1.6"/><rect class="pv" x="163" y="-17" width="36.5" height="12" rx="1.6"/><path class="pv-glint" d="M54 -15 L63 -7.5 M93 -15 L102 -7.5 M132 -15 L141 -7.5 M171 -15 L180 -7.5"/></g></g>
+  <!-- 2 inverter -->
+  <g class="hs-part" data-part="1"><rect class="hs-box" x="398" y="234" width="44" height="36" rx="4"/><rect class="hs-led inv-led" x="406" y="242" width="20" height="7" rx="1.5"/><path class="hs-detail" d="M406 256 H434 M406 262 H426"/></g>
+  <!-- 3 fuse board -->
+  <g class="hs-part" data-part="2"><rect class="hs-box" x="318" y="394" width="34" height="32" rx="3"/><path class="hs-detail" d="M324 403 V411 M330 403 V411 M336 403 V411 M342 403 V411 M324 418 H346"/></g>
+  <!-- 4 hot water + diverter -->
+  <g class="hs-part" data-part="3">
+    <rect class="hs-box" x="310" y="292" width="26" height="72" rx="11"/>
+    <rect class="tank-heat" x="312" y="294" width="22" height="68" clip-path="url(#hsTankClip)" fill="url(#hsHeat)"/>
+    <rect class="hs-box" x="344" y="316" width="18" height="24" rx="3"/><circle class="hs-led div-led" cx="353" cy="324" r="2.6"/>
+  </g>
+  <!-- 5 battery -->
+  <g class="hs-part" data-part="4">
+    <rect class="hs-ink" x="236" y="400" width="10" height="5" rx="1"/>
+    <rect class="hs-box" x="228" y="404" width="26" height="58" rx="5"/>
+    <rect class="bat-cell c1" x="233" y="448" width="16" height="9" rx="1.5"/><rect class="bat-cell c2" x="233" y="437" width="16" height="9" rx="1.5"/>
+    <rect class="bat-cell c3" x="233" y="426" width="16" height="9" rx="1.5"/><rect class="bat-cell c4" x="233" y="415" width="16" height="9" rx="1.5"/>
+  </g>
+  <!-- 6 EV charger -->
+  <g class="hs-part" data-part="5"><rect class="hs-box" x="132" y="408" width="14" height="26" rx="3"/><circle class="hs-led ev-led" cx="139" cy="416" r="2.6"/><path class="ev-cable" d="M139 434 C139 452 124 450 119 446"/></g>
+  <!-- 7 meter -->
+  <g class="hs-part" data-part="6"><rect class="hs-box" x="644" y="418" width="26" height="34" rx="3"/><rect class="hs-led meter-led" x="649" y="424" width="16" height="7" rx="1.5"/></g>
+
+  <!-- power on the move -->
+  <path class="hs-flow" data-flow="pv" d="M553 222 L500 252 L443 252"/><path class="hs-flow" data-flow="invfuse" d="M420 270 L420 290 L380 290 L380 404 L352 404"/><path class="hs-flow" data-flow="home1" d="M352 412 L388 412 L388 386 L606 386"/><path class="hs-flow" data-flow="home2" d="M388 386 L388 296 L588 296"/><path class="hs-flow" data-flow="div" d="M340 394 L340 352 L353 352 L353 340"/><path class="hs-flow" data-flow="batIn" d="M318 404 L304 404 L304 394 L241 394 L241 400"/><path class="hs-flow" data-flow="batOut" d="M241 400 L241 394 L304 394 L304 404 L318 404"/><path class="hs-flow" data-flow="ev" d="M318 422 L296 422 L296 467 L139 467 L139 434"/><path class="hs-flow" data-flow="gridOut" d="M352 432 L362 432 L362 467 L657 467 L657 452 M670 436 L700 436 L700 467 L834 467 L834 306"/><path class="hs-flow" data-flow="gridIn" d="M834 306 L834 467 L700 467 L700 436 L670 436 M657 452 L657 467 L362 467 L362 432 L352 432"/>
+
+  <g class="hs-halo" id="hsHalo" aria-hidden="true"><circle class="halo-fill" r="1"/><circle class="halo-ring" r="1"/></g>
+</svg>
+          <button type="button" class="hs-dot" data-i="0" style="left:66.89%;top:16.15%" aria-label="1: Solar panels" aria-pressed="true">1</button><button type="button" class="hs-dot" data-i="1" style="left:46.67%;top:26.04%" aria-label="2: Inverter" aria-pressed="false">2</button><button type="button" class="hs-dot" data-i="2" style="left:37.22%;top:85.68%" aria-label="3: Fuse board" aria-pressed="false">3</button><button type="button" class="hs-dot" data-i="3" style="left:40.22%;top:46.35%" aria-label="4: Hot water diverter" aria-pressed="false">4</button><button type="button" class="hs-dot" data-i="4" style="left:30.22%;top:80.21%" aria-label="5: Home battery" aria-pressed="false">5</button><button type="button" class="hs-dot" data-i="5" style="left:13.33%;top:72.92%" aria-label="6: EV charger" aria-pressed="false">6</button><button type="button" class="hs-dot" data-i="6" style="left:73.00%;top:73.96%" aria-label="7: Meter and grid" aria-pressed="false">7</button>
+        </div>
+        <aside class="hs-info" aria-live="polite">
+          <div class="hs-info-main">
+            <div class="hs-info-k"><span class="hs-info-n" id="hsN">1</span><span id="hsOf">Part 1 of 7</span></div>
+            <h3 id="hsName">Solar panels</h3>
+            <p id="hsText">Panels on your roof turn daylight into electricity. They keep working on bright, cloudy days, just at a lower output, and sit on rails fixed to the rafters so your roof stays sealed.</p>
+          </div>
+          <div class="hs-info-side">
+            <div class="hs-now"><span class="hs-pulse" aria-hidden="true"></span><div><b>Right now</b><span id="hsNow">Running at full output in the midday sun.</span></div></div>
+            <div class="hs-nav">
+              <button type="button" id="hsPrev" aria-label="Previous part"><svg class="ic"><use href="#i-chev"/></svg></button>
+              <button type="button" id="hsNext" aria-label="Next part"><svg class="ic"><use href="#i-chev"/></svg></button>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="hs-chips" role="group" aria-label="Parts of a solar home"><button type="button" data-i="0" aria-pressed="true"><span>1</span>Panels</button><button type="button" data-i="1" aria-pressed="false"><span>2</span>Inverter</button><button type="button" data-i="2" aria-pressed="false"><span>3</span>Fuse board</button><button type="button" data-i="3" aria-pressed="false"><span>4</span>Hot water</button><button type="button" data-i="4" aria-pressed="false"><span>5</span>Battery</button><button type="button" data-i="5" aria-pressed="false"><span>6</span>EV charger</button><button type="button" data-i="6" aria-pressed="false"><span>7</span>Grid</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="why-solar">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">Why go solar</div>
+      <h2>What solar does for your home</h2>
+    </div>
+    <div class="why-grid">
+      <article class="why-card"><div class="icon-tile"><svg class="ic"><use href="#i-bill"/></svg></div><h3>Smaller bills</h3><p>Every unit your roof makes is one you don't buy. A battery or diverter lets you use more of it yourself.</p></article>
+      <article class="why-card"><div class="icon-tile"><svg class="ic"><use href="#i-lock"/></svg></div><h3>A price that doesn't rise</h3><p>The power from your roof costs the same in year ten as it does on day one, whatever happens to energy prices.</p></article>
+      <article class="why-card"><div class="icon-tile"><svg class="ic"><use href="#i-ber"/></svg></div><h3>A better BER</h3><p>Solar lifts your home's Building Energy Rating, which buyers look at and green mortgages are based on.</p></article>
+      <article class="why-card"><div class="icon-tile"><svg class="ic"><use href="#i-export"/></svg></div><h3>Paid for what you export</h3><p>Spare power flows to the grid, and your electricity supplier pays you for it under the Clean Export Guarantee.</p></article>
+    </div>
+  </div>
+</section>
 
 </main>
 
@@ -140,6 +471,90 @@ footer :focus-visible { outline-color: #fff; }
     <span>© 2026 Aura Energy · Dublin, Ireland</span>
   </div>
 </footer>
+<script>
+// ---- inside a solar home: pick a part, pick a time of day ----
+(() => {
+  const hs = document.getElementById('hs');
+  if (!hs) return;
+  const PARTS = [
+    { name: 'Solar panels', text: 'Panels on your roof turn daylight into electricity. They keep working on bright, cloudy days, just at a lower output, and sit on rails fixed to the rafters so your roof stays sealed.',
+      now: { day: 'Running at full output in the midday sun.', evening: 'Still making a little power in the low sun.', night: 'Resting until sunrise.' } },
+    { name: 'Inverter', text: "Turns the panels' DC power into the AC power your home runs on, and records every unit so you can follow your solar on your phone.",
+      now: { day: 'Converting solar power for the house.', evening: 'Handling the last of the daylight.', night: 'On standby until morning.' } },
+    { name: 'Fuse board', text: "Where solar joins your home's wiring. Your lights and appliances use solar power first and only draw from the grid for whatever is missing.",
+      now: { day: 'Sending solar power to every socket.', evening: 'Feeding the house from the battery.', night: 'Running the house on grid power.' } },
+    { name: 'Hot water diverter', text: 'When the panels make more than the house is using, the diverter sends the spare power to your immersion, so the sun heats your water.',
+      now: { day: 'Heating the tank with spare solar.', evening: 'Off. The tank is already hot.', night: 'Off until the sun is back.' } },
+    { name: 'Home battery', text: 'Stores spare daytime solar and gives it back in the evening, when electricity costs the most.',
+      now: { day: 'Charging from spare solar.', evening: 'Powering the house through the evening peak.', night: 'Run down, ready to refill tomorrow.' } },
+    { name: 'EV charger', text: 'Charges your car from your own roof on sunny days, and on a cheaper night rate when the sun is down.',
+      now: { day: 'Topping up the car with spare solar.', evening: 'Paused while the battery runs the house.', night: 'Charging the car at the night rate.' } },
+    { name: 'Meter and grid', text: 'Your link to the grid. Your electricity supplier pays you for the spare power you send out, and the grid is always there when you need more.',
+      now: { day: "Exporting spare power, and you're paid for every unit.", evening: "Topping up the little the battery can't cover.", night: 'Supplying the house at the cheaper night rate.' } },
+  ];
+  const HALO = [[576, 212, 60], [420, 252, 34], [335, 410, 30], [336, 328, 46], [241, 432, 40], [112, 440, 50], [657, 435, 30]];
+  const SAY = {
+    day: '<b>Sunny day.</b> The roof runs the house, charges the battery and the car, heats the water and sells what\'s left.',
+    evening: '<b>Evening.</b> The battery takes over through the dearest hours, with a little help from the grid.',
+    night: '<b>Night.</b> The grid runs the house and charges the car at the cheaper night rate.',
+  };
+  const FLOW = {
+    day:     { on: ['pv', 'invfuse', 'home1', 'home2', 'div', 'batIn', 'ev', 'gridOut'], weak: [] },
+    evening: { on: ['home1', 'home2', 'batOut'], weak: ['pv', 'invfuse', 'gridIn'] },
+    night:   { on: ['home1', 'home2', 'ev', 'gridIn'], weak: [] },
+  };
+  const $ = id => document.getElementById(id);
+  const flows = [...hs.querySelectorAll('.hs-flow')];
+  const modeBtns = [...hs.querySelectorAll('.hs-modes button')];
+  const pickers = [...hs.querySelectorAll('.hs-dot, .hs-chips button')];
+  const halo = $('hsHalo');
+  let mode = 'day', part = 0;
+
+  const paint = () => {
+    const p = PARTS[part];
+    $('hsN').textContent = part + 1;
+    $('hsOf').textContent = 'Part ' + (part + 1) + ' of ' + PARTS.length;
+    $('hsName').textContent = p.name;
+    $('hsText').textContent = p.text;
+    $('hsNow').textContent = p.now[mode];
+    pickers.forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.i === part)));
+    const row = hs.querySelector('.hs-chips'), chip = row.querySelector('[aria-pressed="true"]');
+    if (row.scrollWidth > row.clientWidth && chip) row.scrollTo({ left: chip.offsetLeft - row.clientWidth / 2 + chip.offsetWidth / 2, behavior: 'smooth' });
+    const [x, y, r] = HALO[part];
+    halo.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(' + r + ')';
+  };
+  const setMode = m => {
+    mode = m;
+    hs.dataset.mode = m;
+    modeBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
+    $('hsSay').innerHTML = SAY[m];
+    flows.forEach(f => {
+      const k = f.dataset.flow;
+      f.classList.toggle('on', FLOW[m].on.includes(k) || FLOW[m].weak.includes(k));
+      f.classList.toggle('weak', FLOW[m].weak.includes(k));
+    });
+    paint();
+  };
+
+  // the times of day play on their own until the visitor takes over
+  let timer = null, manual = false;
+  const stop = () => { manual = true; if (timer) { clearInterval(timer); timer = null; } };
+  modeBtns.forEach(b => b.addEventListener('click', () => { stop(); setMode(b.dataset.mode); }));
+  pickers.forEach(b => b.addEventListener('click', () => { part = +b.dataset.i; paint(); }));
+  hs.querySelectorAll('.hs-svg .hs-part, .hs-svg .hs-car').forEach(g => g.addEventListener('click', () => { part = +g.dataset.part; paint(); }));
+  $('hsPrev').addEventListener('click', () => { part = (part + PARTS.length - 1) % PARTS.length; paint(); });
+  $('hsNext').addEventListener('click', () => { part = (part + 1) % PARTS.length; paint(); });
+  setMode('day');
+
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const order = ['day', 'evening', 'night'];
+  new IntersectionObserver(es => es.forEach(e => {
+    if (manual) return;
+    if (e.isIntersecting && !timer) timer = setInterval(() => { if (!document.hidden) setMode(order[(order.indexOf(mode) + 1) % 3]); }, 5500);
+    else if (!e.isIntersecting && timer) { clearInterval(timer); timer = null; }
+  }), { threshold: 0.4 }).observe(hs);
+})();
+</script>
 <!-- ============================================================ COOKIE CHOICE
      Leadfeeder (company-level visitor identification) loads only after Accept.
      The choice is remembered in this browser; "Cookie settings" in the footer reopens it. -->

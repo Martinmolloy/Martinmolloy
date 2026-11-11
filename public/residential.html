@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en-IE">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Residential Solar | Aura Home Solar</title>
+<meta name="description" content="Aura Home Solar: residential solar from Aura Energy." />
+<!-- kept out of search results until the page has content; remove this line at launch -->
+<meta name="robots" content="noindex" />
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="canonical" href="https://auraenergy.ie/residential" />
+<meta name="theme-color" content="#FE5000" />
+<style>
+/* A cut-down copy of the main page's design system (public/index.html) */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+[id] { scroll-margin-top: 24px; }
+:root {
+  --orange: #FE5000; --orange-deep: #E54800; --orange-soft: #FFEDE3; --orange-mist: #F6F6F7;
+  --orange-line: #FFD2BC; --orange-text: #B83A0A; --ink: #111113; --muted: #5C5D60;
+  --line: #E9E9E7; --radius: 20px; --radius-sm: 14px;
+  --shadow: 0 6px 30px rgba(15,15,16,0.06); --shadow-lg: 0 20px 60px rgba(15,15,16,0.10);
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+body { font-family: 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif; background: #fff; color: var(--ink); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+img, svg { display: block; }
+a { text-decoration: none; color: inherit; }
+:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+.container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+.section { padding: 96px 0; }
+h1, h2, h3 { line-height: 1.12; font-weight: 800; letter-spacing: -0.02em; }
+h1 { font-size: clamp(2.3rem, 5vw, 3.6rem); font-weight: 900; }
+h2 { font-size: clamp(1.9rem, 3.6vw, 2.7rem); }
+h3 { font-size: 1.2rem; }
+p { color: var(--muted); }
+.lead { font-size: 1.15rem; max-width: 640px; }
+.kicker { display: inline-flex; font-size: 12.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--orange-text); margin-bottom: 18px; }
+.section-head { max-width: 720px; margin-bottom: 52px; }
+.section-head h2 { margin-bottom: 16px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 15px 30px; border-radius: 999px; font-size: 15.5px; font-weight: 700; border: none; transition: all .22s var(--ease); white-space: nowrap; cursor: pointer; }
+.btn svg { width: 17px; height: 17px; }
+.btn-primary { background: var(--orange); color: #0E0E0F; box-shadow: 0 6px 20px rgba(254,80,0,.30); }
+.btn-primary:hover { background: var(--orange-deep); transform: translateY(-2px); }
+.btn-ghost { background: transparent; color: var(--ink); border: 2px solid var(--line); }
+.btn-ghost:hover { border-color: var(--ink); }
+.ic { width: 26px; height: 26px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.icon-tile {
+  width: 54px; height: 54px; border-radius: 16px; flex: none;
+  background: linear-gradient(135deg, #FF7A42 0%, var(--orange) 58%, #E54800 100%); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 18px rgba(254,80,0,.26), inset 0 1px 0 rgba(255,255,255,.28);
+}
+
+/* header */
+.top { border-bottom: 1px solid var(--line); background: #fff; }
+.top .container { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 16px; }
+.logo { color: var(--ink); }
+.logo-mark { width: 135px; height: 21px; }
+.top-links { display: flex; align-items: center; gap: 22px; }
+.top-links a:not(.btn) { font-size: 14.5px; font-weight: 600; color: var(--ink); opacity: .82; }
+.top-links a:not(.btn):hover { opacity: 1; color: var(--orange-text); }
+.top .btn { padding: 11px 22px; font-size: 14px; }
+
+/* page frame: the footer sits at the bottom even while the page is short */
+body { min-height: 100svh; display: flex; flex-direction: column; }
+main { flex: 1; }
+
+/* hero */
+.page-hero { padding: 88px 0 72px; }
+.page-hero h1 { max-width: 15ch; }
+
+/* footer */
+footer { background: #0E0E0F; color: rgba(255,255,255,.6); padding: 40px 0; font-size: 13.5px; border-top: 1px solid rgba(255,255,255,.1); }
+footer .container { display: flex; justify-content: space-between; align-items: center; gap: 18px 28px; flex-wrap: wrap; }
+footer .logo { color: #fff; }
+footer nav { display: flex; gap: 20px; flex-wrap: wrap; }
+footer nav a { color: rgba(255,255,255,.75); font-weight: 600; }
+footer nav a:hover { color: #fff; }
+footer :focus-visible { outline-color: #fff; }
+
+@media (max-width: 720px) {
+  .section { padding: 64px 0; }
+  .page-hero { padding: 56px 0 48px; }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="aura-logo" viewBox="-4 -1 662 103">
+      <path fill="#FE5000" d="M0 100 L44.44 0 L61.11 0 L16.67 100 Z M38.89 100 L83.33 0 L100 0 L55.56 100 Z M77.78 100 L122.22 0 L138.89 0 L94.45 100 Z"/>
+      <g transform="translate(186.89 0)" fill="currentColor">
+        <path fill-rule="evenodd" d="M0 100 L44.44 0 L62.44 0 L106.89 100 L83.89 100 L74.56 79 L32.33 79 L23 100 Z M39.44 63 L53.44 31.5 L67.44 63 Z M130.89 0 L150.89 0 L150.89 59 A22 22 0 0 0 194.89 59 L194.89 0 L214.89 0 L214.89 59 A42 42 0 0 1 130.89 59 Z M363.89 100 L408.33 0 L426.33 0 L470.78 100 L447.78 100 L438.45 79 L396.22 79 L386.89 100 Z M403.33 63 L417.33 31.5 L431.33 63 Z"/>
+        <path d="M250.89 0 L270.89 0 L270.89 100 L250.89 100 Z M281.33 50 L304.33 50 L326.56 100 L303.56 100 Z"/>
+        <path fill-rule="evenodd" d="M260.89 0 L306.89 0 A29 29 0 0 1 306.89 58 L260.89 58 Z M270.89 18 L306.89 18 A11 11 0 0 1 306.89 40 L270.89 40 Z"/>
+      </g>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13.5 5.5L20 12l-6.5 6.5"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="container">
+    <a href="./" class="logo" aria-label="Aura Energy home"><svg class="logo-mark" viewBox="0 0 662 103" aria-hidden="true"><use href="#aura-logo"/></svg></a>
+    <nav class="top-links" aria-label="Residential page">
+      <a href="./#quote" class="btn btn-primary">Get a quote</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="kicker">Aura Home Solar</div>
+    <h1>Residential</h1>
+  </div>
+</section>
+
+<!-- Residential content goes here -->
+
+</main>
+
+<footer>
+  <div class="container">
+    <a href="./" class="logo" aria-label="Aura Energy home"><svg class="logo-mark" viewBox="0 0 662 103" aria-hidden="true"><use href="#aura-logo"/></svg></a>
+    <nav aria-label="Footer">
+      <a href="./">Home</a>
+      <a href="./#quote">Get a quote</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms of use</a>
+      <a href="https://www.linkedin.com/company/aurenergy/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://x.com/auraenergyie" target="_blank" rel="noopener">X</a>
+      <button type="button" class="ck-link" data-cookie-settings>Cookie settings</button>
+      </nav>
+    <span>© 2026 Aura Energy · Dublin, Ireland</span>
+  </div>
+</footer>
+<!-- ============================================================ COOKIE CHOICE
+     Leadfeeder (company-level visitor identification) loads only after Accept.
+     The choice is remembered in this browser; "Cookie settings" in the footer reopens it. -->
+<div class="ck" id="ckBar" role="region" aria-label="Cookie choice" hidden>
+  <p class="ck-t">Your cookie settings</p>
+  <p>By clicking 'Yes, I accept', you agree to our use of cookies for analytics and marketing. Please read our <a href="privacy.html#cookies">Privacy Notice</a>.</p>
+  <div class="ck-btns">
+    <button type="button" id="ckNo">No, thanks</button>
+    <button type="button" id="ckYes">Yes, I accept</button>
+  </div>
+</div>
+<style>
+.ck { position: fixed; z-index: 140; left: max(16px, env(safe-area-inset-left, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  width: min(440px, calc(100% - 32px)); box-sizing: border-box; padding: 18px 20px; border-radius: 16px;
+  background: #121214; color: rgba(255,255,255,.82); box-shadow: 0 18px 50px rgba(0,0,0,.28); border: 1px solid rgba(255,255,255,.1);
+  font-size: 14px; line-height: 1.55; }
+.ck[hidden] { display: none; }
+.ck p { margin: 0 0 14px; color: rgba(255,255,255,.82); font-size: 14px; line-height: 1.55; }
+.ck .ck-t { margin: 0 0 6px; color: #fff; font-weight: 800; font-size: 15px; letter-spacing: -0.01em; }
+.ck a { color: #FFA477; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.ck-btns { display: flex; gap: 10px; }
+.ck-btns button { flex: 1; min-height: 44px; border-radius: 999px; border: 0; font: inherit; font-weight: 700; font-size: 14.5px; cursor: pointer; }
+#ckNo { background: #fff; color: #121214; }
+#ckYes { background: #FE5000; color: #121214; }
+.ck-btns button:hover { filter: brightness(.94); }
+.ck-btns button:focus-visible, .ck a:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+footer .ck-link { all: unset; cursor: pointer; color: rgba(255,255,255,.75); font-weight: 600; }
+footer .ck-link:hover { color: #fff; }
+footer .ck-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; border-radius: 4px; }
+</style>
+<script>
+(() => {
+  const KEY = 'aura-cookies', bar = document.getElementById('ckBar');
+  const get = () => { try { return localStorage.getItem(KEY); } catch { return null; } };
+  const set = v => { try { localStorage.setItem(KEY, v); } catch {} };
+  let loaded = false;
+  const load = () => {
+    if (loaded) return; loaded = true;
+    // Leadfeeder's tracking code, as supplied
+    (function(ss,ex){ window.ldfdr=window.ldfdr||function(){(ldfdr._q=ldfdr._q||[]).push([].slice.call(arguments));}; (function(d,s){ fs=d.getElementsByTagName(s)[0]; function ce(src){ var cs=d.createElement(s); cs.src=src; cs.async=1; fs.parentNode.insertBefore(cs,fs); }; ce('https://sc.lfeeder.com/lftracker_v1_'+ss+(ex?'_'+ex:'')+'.js'); })(document,'script'); })('bElvO73nrmb8ZMqj');
+  };
+  const forget = () => {   // withdrawing consent: remove Leadfeeder's cookies, then start clean
+    const host = location.hostname, parts = host.split('.');
+    document.cookie.split(';').map(c => c.split('=')[0].trim()).filter(n => /^_lf/.test(n)).forEach(n => {
+      for (let i = 0; i < parts.length - 1; i++) document.cookie = n + '=; Max-Age=0; path=/; domain=.' + parts.slice(i).join('.');
+      document.cookie = n + '=; Max-Age=0; path=/';
+    });
+    location.reload();
+  };
+  const choose = v => { const was = get(); set(v); bar.hidden = true; if (v === 'yes') load(); else if (was === 'yes' && loaded) forget(); };
+  document.getElementById('ckYes').addEventListener('click', () => choose('yes'));
+  document.getElementById('ckNo').addEventListener('click', () => choose('no'));
+  document.addEventListener('click', e => {
+    if (!e.target.closest('[data-cookie-settings]')) return;
+    bar.hidden = false; document.getElementById('ckNo').focus();
+  });
+  const c = get();
+  if (c === 'yes') load(); else if (c !== 'no') bar.hidden = false;
+})();
+</script>
+</body>
+</html>

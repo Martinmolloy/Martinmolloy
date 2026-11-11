@@ -416,6 +416,8 @@ footer :focus-visible { outline-color: #fff; }
   padding: 22px 26px; font-weight: 700; font-size: 15.5px; cursor: pointer;
 }
 .faq summary::-webkit-details-marker { display: none; }
+/* the keyboard focus ring sits inside the question row: outside it, the card would clip it to a line across the answer */
+.faq summary:focus-visible { outline-offset: -3px; border-radius: var(--radius-sm); }
 .faq summary .fx {
   flex: none; width: 30px; height: 30px; border-radius: 50%;
   background: var(--orange-soft); color: var(--orange);

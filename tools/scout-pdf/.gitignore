@@ -1,0 +1,6 @@
+node_modules/
+package*.json
+data.json
+anchors.json
+scout.html
+*.pdf

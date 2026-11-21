@@ -166,6 +166,8 @@ footer :focus-visible { outline-color: #fff; }
 .nav-phone { display: inline-flex; align-items: center; gap: 7px; font-weight: 700 !important; }
 .nav-phone svg { width: 15px; height: 15px; color: var(--orange); }
 .nav .btn { padding: 11px 22px; font-size: 14px; }
+/* the call and menu buttons for small screens; hidden on a desktop so the menu sits at the right edge */
+.nav-small { display: none; align-items: center; gap: 8px; }
 .nav-burger { display: none; background: none; border: none; width: 42px; height: 42px; border-radius: 10px; align-items:center; justify-content:center; }
 .nav-burger svg { width: 26px; height: 26px; stroke: var(--ink); stroke-width: 2; fill:none; stroke-linecap: round; }
 .mobile-menu {
@@ -247,6 +249,8 @@ footer :focus-visible { outline-color: #fff; }
 .trust-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
 .trust-item { display: flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 700; color: var(--ink); opacity: .85; }
 .trust-item svg { width: 20px; height: 20px; color: var(--orange); flex: none; }
+/* on a desktop the five sit a little closer, so they stay on one row */
+@media (min-width: 1100px) { .trust-row { column-gap: 12px; } .trust-item { gap: 8px; } }
 
 /* ============================================================ PHOTO FRAME (team photo) */
 .showcase { position: relative; border-radius: 28px; overflow: hidden; box-shadow: var(--shadow-lg); }
@@ -583,6 +587,8 @@ footer::before {
   .cov-map { margin: 0 auto; width: min(400px, 100%); }
   .cov-card { max-width: none; }
 }
+/* on narrow phones the long button fits its column, and its label may wrap instead of pushing the page wide */
+@media (max-width: 420px) { .cov-cta { padding-inline: 20px; font-size: 15.5px; white-space: normal; text-align: center; } }
 
 /* ============================================================ REVEAL */
 .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
@@ -884,6 +890,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
 }
 @media (max-width: 1000px) {
   .nav-links { display: none; }
+  .nav-small { display: flex; }
   .nav-burger { display: flex; }
   .nav-call { display: flex; width: 42px; height: 42px; border-radius: 12px; background: var(--orange-soft); color: var(--orange); align-items: center; justify-content: center; }
   .nav-call svg { width: 19px; height: 19px; }
@@ -902,6 +909,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
   .hero-stats { grid-template-columns: 1fr 1fr; }
   .hero-stat { padding: 16px 12px; gap: 11px; }
   .hero-stat:nth-child(odd) { border-left: 0; padding-left: 0; }
+  .hero-stat:nth-child(even) { padding-right: 0; }
   .hero-stat:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,.12); }
   .hs-ic { width: 38px; height: 38px; border-radius: 11px; }
   .hs-ic svg { width: 18px; height: 18px; }
@@ -1238,7 +1246,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
       <a href="tel:+353833945937" class="nav-phone" title="+353 83 394 5937"><svg class="ic"><use href="#i-phone"/></svg>Call now</a>
       <a href="#quote" class="btn btn-primary">Get a quote</a>
     </nav>
-    <div style="display:flex;align-items:center;gap:8px">
+    <div class="nav-small">
       <a href="tel:+353833945937" class="nav-call" aria-label="Call Aura Energy"><svg class="ic"><use href="#i-phone"/></svg></a>
       <button class="nav-burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
         <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -1302,7 +1310,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
       </div>
       <div class="hero-stat">
         <div class="hs-ic"><svg class="ic"><use href="#i-shield"/></svg></div>
-        <div><div class="num">SEAI</div><div class="lbl">Registered installer</div></div>
+        <div><div class="num">SEAI</div><div class="lbl">Registered partner installers</div></div>
       </div>
     </div>
   </div>
@@ -1311,7 +1319,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
 <!-- ============================================================ TRUST BAR -->
 <div class="trust">
   <div class="container trust-row">
-    <div class="trust-item"><svg class="ic"><use href="#i-shield"/></svg> SEAI Registered Installer</div>
+    <div class="trust-item"><svg class="ic"><use href="#i-shield"/></svg> SEAI Registered Partner Installers</div>
     <div class="trust-item"><svg class="ic"><use href="#i-grid"/></svg> ESB Networks Notified</div>
     <div class="trust-item"><svg class="ic"><use href="#i-panel-sun"/></svg> Tier-1 Panels &amp; Inverters</div>
     <div class="trust-item"><svg class="ic"><use href="#i-monitor"/></svg> Smart Metering &amp; Monitoring</div>
@@ -1756,7 +1764,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
       <div class="benefit reveal">
         <div class="icon-tile"><svg class="ic"><use href="#i-shield"/></svg></div>
         <h3>Fully compliant</h3>
-        <p>We're an SEAI registered installer, every install is notified to ESB Networks, and all of it meets Irish grid connection rules. We handle the paperwork.</p>
+        <p>Our partner installers are SEAI registered, every install is notified to ESB Networks, and all of it meets Irish grid connection rules. We handle the paperwork.</p>
       </div>
       <div class="benefit reveal">
         <div class="icon-tile"><svg class="ic"><use href="#i-install"/></svg></div>
@@ -1812,7 +1820,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
     <div class="section-head reveal">
       <div class="kicker">Grants &amp; incentives</div>
       <h2>The State pays for part of the roof</h2>
-      <p class="lead">Irish commercial solar carries real public funding. Which scheme applies depends on what you are and how big the system is, and only one grant can go on any one system. As an SEAI registered installer, we handle the applications end to end.</p>
+      <p class="lead">Irish commercial solar carries real public funding. Which scheme applies depends on what you are and how big the system is, and only one grant can go on any one system. We work with SEAI registered partner installers and handle the applications end to end.</p>
     </div>
     <p class="grant-flag reveal"><svg class="ic"><use href="#i-euro-down"/></svg> <span><b>Enhanced rates now open.</b> SEAI has roughly doubled its business solar grant for new applications made between 6 October 2026 and 6 July 2027.</span></p>
     <div class="grant-cards">
@@ -2252,7 +2260,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
         <span class="foot-reg">Aura Energy Limited · Registered office: Dublin, Ireland</span>
       </div>
       <div class="foot-badges">
-        <span class="foot-badge"><svg class="ic"><use href="#i-shield"/></svg> SEAI Registered Installer</span>
+        <span class="foot-badge"><svg class="ic"><use href="#i-shield"/></svg> SEAI Registered Partner Installers</span>
         <span class="foot-badge"><svg class="ic"><use href="#i-grid"/></svg> ESB Networks Notified</span>
       </div>
     </div>

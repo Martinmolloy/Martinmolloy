@@ -119,8 +119,10 @@ Before pointing auraenergy.ie at the site:
    UK, where a page inviting investment can be a regulated financial promotion.
 5. Check the LinkedIn and X links in the footer land on the right profiles
    (linkedin.com/company/aurenergy and x.com/auraenergyie).
-6. Confirm the SEAI registered installer claim and keep the registration evidence; the badge
-   appears in the hero, trust bar and footer.
+6. The site says Aura's partner installers are SEAI registered ("SEAI Registered Partner
+   Installers" in the hero, trust bar, footers and About page). Check each partner is on
+   SEAI's registered list for the scheme and keep the evidence. It does not say Aura itself
+   is a registered installer; only say that once it is.
 7. A trademark search for "Aura Energy" is sensible before spending more on the brand; Aura
    Power, an established solar developer, is active in Ireland and the UK.
 

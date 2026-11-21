@@ -178,6 +178,12 @@ footer :focus-visible { outline-color: #fff; }
 }
 /* text for screen readers only */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+/* a small label on pictures and video made or changed with AI; the Terms of use say more */
+.ai-tag {
+  position: absolute; left: 12px; top: 12px; z-index: 2; padding: 4px 10px; border-radius: 999px;
+  background: rgba(14,14,16,.62); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .05em; line-height: 1.35;
+  backdrop-filter: blur(6px); pointer-events: none;
+}
 
 /* ---------------- work with us: the jobs page */
 /* a soft orange glow in the top corner, drawn as the hero's own background */
@@ -187,8 +193,21 @@ footer :focus-visible { outline-color: #fff; }
 .jobs-hero h1 span { color: var(--orange); }
 .jobs-hero .lead { margin-bottom: 34px; }
 .jobs-media { position: relative; }
-.jobs-media img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 24px; box-shadow: var(--shadow-lg); }
-.jobs-media .glance { position: relative; width: min(390px, 100%); margin: -88px 0 0 -40px; }
+/* the hero clip: a short muted loop in the photo's frame, with its own pause button */
+.clip { position: relative; aspect-ratio: 4 / 3; border-radius: 24px; overflow: hidden; background: #2a2b2f; box-shadow: var(--shadow-lg); }
+.clip video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.clip-toggle {
+  position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border: 0; border-radius: 50%;
+  background: rgba(14,14,16,.62); color: #fff; display: grid; place-items: center; cursor: pointer;
+  backdrop-filter: blur(6px); transition: background .2s;
+}
+.clip-toggle:hover { background: rgba(14,14,16,.86); }
+.clip-toggle:focus-visible { outline-color: #fff; outline-offset: 2px; }
+.clip-toggle svg { width: 15px; height: 15px; fill: currentColor; }
+.clip-toggle .tg-play, .clip.is-paused .clip-toggle .tg-pause { display: none; }
+.clip.is-paused .clip-toggle .tg-play { display: block; }
+/* the vacancies card sits on the clip's corner, low enough to leave the work in view */
+.jobs-media .glance { position: relative; width: min(390px, 100%); margin: -52px 0 0 -40px; }
 .glance { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-lg); padding: 8px; }
 .glance-h { display: flex; align-items: center; gap: 9px; padding: 14px 16px 12px; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 .glance-dot { position: relative; width: 8px; height: 8px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 4px var(--orange-soft), 0 0 12px 2px rgba(254,80,0,.45); }
@@ -279,7 +298,7 @@ footer :focus-visible { outline-color: #fff; }
 @media (max-width: 1024px) {
   .jobs-grid { grid-template-columns: 1fr; gap: 44px; }
   .jobs-media { max-width: 600px; }
-  .jobs-media .glance { margin: -72px 0 0 16px; width: min(390px, calc(100% - 32px)); }
+  .jobs-media .glance { margin: -44px 0 0 16px; width: min(390px, calc(100% - 32px)); }
   .role-cols { grid-template-columns: 1fr; gap: 30px; }
   .steps { grid-template-columns: 1fr; }
 }
@@ -393,7 +412,19 @@ footer :focus-visible { outline-color: #fff; }
       </div>
     </div>
     <div class="jobs-media">
-    <img src="assets/jobs-team.jpg" width="426" height="320" alt="Two workers in hard hats and hi-vis vests giving each other a high five in front of solar panels" fetchpriority="high">
+    <!-- A short muted clip made with AI (see Terms of use). It plays while it is on screen; people who
+         ask for less motion, or whose browser can't play it, see its first frame as a still picture. -->
+    <div class="clip" id="crewClip">
+      <p class="sr-only">Video: two installers in orange Aura hi-vis vests, hard hats and harnesses carry a solar panel across a white metal roof and fix it to its rails.</p>
+      <video muted loop playsinline preload="none" poster="assets/jobs-crew-poster.jpg" width="960" height="720" aria-hidden="true" tabindex="-1">
+        <source src="assets/jobs-crew.mp4" type="video/mp4">
+      </video>
+      <span class="ai-tag">AI-generated</span>
+      <button type="button" class="clip-toggle" id="crewToggle" aria-label="Pause the video" hidden>
+        <svg class="tg-pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.6" height="12" rx="1"/><rect x="9.4" y="2" width="3.6" height="12" rx="1"/></svg>
+        <svg class="tg-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.2v11.6a.8.8 0 0 0 1.2.7l9-5.8a.8.8 0 0 0 0-1.4l-9-5.8a.8.8 0 0 0-1.2.7z"/></svg>
+      </button>
+    </div>
     <nav class="glance" aria-label="Current vacancies">
       <div class="glance-h"><span class="glance-dot" aria-hidden="true"></span>Current vacancies</div>
       <!-- one line per open role: when a role closes, delete its line here and its card further down -->
@@ -616,7 +647,7 @@ footer :focus-visible { outline-color: #fff; }
         <span class="foot-reg">Aura Energy Limited · Registered office: Dublin, Ireland</span>
       </div>
       <div class="foot-badges">
-        <span class="foot-badge"><svg class="ic"><use href="#i-shield"/></svg> SEAI Registered Installer</span>
+        <span class="foot-badge"><svg class="ic"><use href="#i-shield"/></svg> SEAI Registered Partner Installers</span>
         <span class="foot-badge"><svg class="ic"><use href="#i-grid"/></svg> ESB Networks Notified</span>
       </div>
     </div>
@@ -662,6 +693,29 @@ footer :focus-visible { outline-color: #fff; }
   });
   addEventListener('hashchange', () => openRole(location.hash.slice(1)));
   openRole(location.hash.slice(1));
+})();
+
+// ---- the hero clip: plays while it is on screen, and can be paused ----
+(() => {
+  const clip = document.getElementById('crewClip');
+  if (!clip) return;
+  const v = clip.querySelector('video'), btn = document.getElementById('crewToggle');
+  // people who ask for less motion, or to save data, keep the still picture until they press play
+  let wanted = !matchMedia('(prefers-reduced-motion: reduce)').matches && !(navigator.connection && navigator.connection.saveData);
+  const show = () => {
+    clip.classList.toggle('is-paused', v.paused);
+    btn.setAttribute('aria-label', v.paused ? 'Play the video' : 'Pause the video');
+  };
+  const play = () => { const p = v.play(); if (p) p.catch(() => {}); };
+  v.addEventListener('play', show);
+  v.addEventListener('pause', show);
+  btn.addEventListener('click', () => { wanted = v.paused; if (wanted) play(); else v.pause(); });
+  // a clip that can't load stays a still picture, without a button that does nothing
+  v.querySelector('source').addEventListener('error', () => { btn.hidden = true; });
+  btn.hidden = false;
+  show();
+  if (!('IntersectionObserver' in window)) { if (wanted) play(); return; }
+  new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) v.pause(); else if (wanted) play(); }), { threshold: 0.25 }).observe(clip);
 })();
 </script>
 <!-- ============================================================ COOKIE CHOICE

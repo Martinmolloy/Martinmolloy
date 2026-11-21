@@ -95,6 +95,12 @@ p  { color: var(--muted); }
 }
 .section-head { max-width: 720px; margin-bottom: 56px; }
 .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+/* a section heading with a picture beside it */
+.head-pic { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 56px; align-items: center; margin-bottom: 56px; }
+.head-pic .section-head { margin-bottom: 0; }
+.head-photo { position: relative; margin: 0; }
+.head-photo img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius); box-shadow: var(--shadow); }
+@media (max-width: 900px) { .head-pic { grid-template-columns: minmax(0, 1fr); gap: 28px; margin-bottom: 40px; } }
 .section-head h2 { margin-bottom: 16px; }
 
 /* ---------- buttons ---------- */
@@ -315,7 +321,22 @@ footer :focus-visible { outline-color: #fff; }
 .step h3 { font-size: 1.06rem; margin-bottom: 9px; }
 .step p { font-size: 14px; line-height: 1.6; }
 /* ---- the path, one step at a time ---- */
-.path { background: var(--ink); border-radius: 24px; padding: 36px 38px 40px; color: #fff; position: relative; overflow: hidden; }
+.path { background: var(--ink); border-radius: 24px; color: #fff; position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr) 42%; }
+.path-main { position: relative; z-index: 1; padding: 36px 38px 40px; }
+/* a picture for each step fills the card's right side and fades into it on the left */
+.path-media { position: relative; min-height: 300px; }
+.path-media figure { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity .6s var(--ease); }
+.path-media figure.is-on { opacity: 1; }
+.path-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.path-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--ink) 0%, rgba(17,17,19,.6) 18%, rgba(17,17,19,0) 52%); pointer-events: none; }
+.path-media .ai-tag { left: auto; top: auto; right: 14px; bottom: 14px; }
+@media (prefers-reduced-motion: reduce) { .path-media figure { transition: none; } }
+/* a small label on pictures made or changed with AI; the Terms of use say more */
+.ai-tag {
+  position: absolute; left: 12px; top: 12px; z-index: 2; padding: 4px 10px; border-radius: 999px;
+  background: rgba(14,14,16,.62); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .05em; line-height: 1.35;
+  backdrop-filter: blur(6px); pointer-events: none;
+}
 .path::before { content: ""; position: absolute; top: -220px; right: -160px; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(254,80,0,.22) 0%, rgba(254,80,0,0) 70%); pointer-events: none; }
 .path-rail { display: flex; gap: 4px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 999px; padding: 5px; width: max-content; max-width: 100%; position: relative; }
 .path-rail [role="tab"] { border: 0; background: transparent; color: rgba(255,255,255,.72); font: inherit; font-weight: 700; font-size: 14px; padding: 9px 18px 9px 10px; border-radius: 999px; cursor: pointer; display: flex; align-items: center; gap: 9px; transition: background .25s var(--ease), color .25s var(--ease); }
@@ -332,8 +353,18 @@ footer :focus-visible { outline-color: #fff; }
 .path-k { font-size: 12px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: #FFA477; margin-bottom: 9px; }
 .path-pane h3 { color: #fff; font-size: 1.3rem; margin-bottom: 10px; }
 .path-pane p { color: rgba(255,255,255,.72); font-size: 15.5px; line-height: 1.65; max-width: 62ch; }
+@media (max-width: 900px) {
+  /* on smaller screens the picture sits on top as a banner and fades into the card below it */
+  .path { grid-template-columns: minmax(0, 1fr); }
+  .path::before { display: none; }
+  .path-media { order: -1; min-height: 0; aspect-ratio: 2 / 1; }
+  .path-media::after { background: linear-gradient(180deg, rgba(17,17,19,0) 40%, var(--ink) 100%); }
+  .path-main { padding-top: 18px; }
+}
+@media (max-width: 560px) { .path-media { aspect-ratio: 16 / 9; } }
 @media (max-width: 760px) {
-  .path { padding: 24px 20px 28px; border-radius: 20px; }
+  .path { border-radius: 20px; }
+  .path-main { padding: 14px 20px 28px; }
   .path-rail { width: 100%; display: grid; grid-template-columns: 1fr 1fr; border-radius: 18px; }
   .path-rail [role="tab"] { border-radius: 13px; padding: 9px 12px; }
   .path-pane.is-on { flex-direction: column; gap: 18px; }
@@ -361,26 +392,21 @@ footer :focus-visible { outline-color: #fff; }
 
 /* ============================================================ PROJECTS */
 .projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
-.project { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: #fff; transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
+.project { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: #fff; transition: transform .25s var(--ease), box-shadow .25s var(--ease); display: flex; flex-direction: column; }
 .project:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
 .project-img {
-  height: 210px; position: relative; display: flex; align-items: center; justify-content: center;
-  background:
-    radial-gradient(120% 100% at 80% 0%, rgba(255,255,255,.35) 0%, rgba(255,255,255,0) 55%),
-    linear-gradient(150deg, #FF8B54 0%, var(--orange) 55%, #D8480F 100%);
+  height: 210px; flex: none; position: relative; display: flex; align-items: center; justify-content: center;
+  background: #2a2b2f;
 }
-/* Photos live in assets/ ; if a file is missing the branded placeholder shows instead */
 .project-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
 .project:hover .project-img img { transform: scale(1.06); }
-.project-img .ph { text-align: center; color: rgba(255,255,255,.95); }
-.project-img .ph svg { width: 44px; height: 44px; margin: 0 auto 8px; stroke-width: 1.5; }
-.project-img .ph span { font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .85; }
 .project-img .tag { position: absolute; top: 16px; left: 16px; z-index: 2; background: rgba(255,255,255,.94); color: var(--ink); font-size: 12px; font-weight: 800; padding: 6px 14px; border-radius: 999px; }
-.project-body { padding: 26px; }
+/* the figures sit along the bottom of every card, so they line up across a row whatever is above them */
+.project-body { padding: 26px; flex: 1; display: flex; flex-direction: column; align-items: flex-start; }
 .project-body .tag { display: inline-block; background: var(--orange-soft); color: var(--orange-text); border: 1px solid var(--orange-line); font-size: 12px; font-weight: 800; padding: 5px 13px; border-radius: 999px; margin-bottom: 16px; }
 .project-body h3 { font-size: 1.08rem; margin-bottom: 8px; }
 .project-body p { font-size: 14px; margin-bottom: 20px; }
-.project-meta { display: flex; border-top: 1px solid var(--line); padding-top: 18px; gap: 24px; }
+.project-meta { display: flex; border-top: 1px solid var(--line); padding-top: 18px; gap: 24px; margin-top: auto; align-self: stretch; }
 .project-meta .m .v { font-weight: 900; font-size: 1.05rem; letter-spacing:-0.01em; }
 .project-meta .m .v span { color: inherit; }
 .project-meta .m .l { font-size: 11.5px; color: var(--muted); font-weight: 600; }
@@ -1403,6 +1429,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
       <p class="lead">We handle everything: survey, design, funding, grid paperwork and installation. Most sites go live in 6 to 10 weeks. On a PPA, you don't pay a cent until the system is generating, and from then on you pay less per unit.</p>
     </div>
     <div class="path reveal" id="pathWay">
+      <div class="path-main">
       <div class="path-rail" role="tablist" aria-label="The four steps" id="pathRail">
         <button type="button" role="tab" id="pathTab0" aria-selected="true" aria-controls="pathPane0"><span class="pr-n">1</span>Survey</button>
         <button type="button" role="tab" id="pathTab1" aria-selected="false" tabindex="-1" aria-controls="pathPane1"><span class="pr-n">2</span>Design</button>
@@ -1442,6 +1469,38 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
             <p>From the moment we energise, every kWh from your roof costs less than the grid. Live monitoring shows your generation and savings in real time.</p>
           </div>
         </div>
+      </div>
+      </div>
+      <!-- One picture per step, shown with its step. They are decoration, so screen readers skip them.
+           Three were made with AI and say so; the second is the site's own 3D roof model. -->
+      <div class="path-media" id="pathMedia" aria-hidden="true">
+          <figure class="is-on">
+            <picture>
+              <source type="image/webp" srcset="assets/how-survey-640.webp 640w, assets/how-survey-1000.webp 1000w" sizes="(max-width: 900px) 92vw, 480px">
+              <img src="assets/how-survey-1000.jpg" width="1000" height="600" loading="lazy" decoding="async" alt="">
+            </picture>
+            <span class="ai-tag">AI-generated</span>
+          </figure>
+          <figure>
+            <picture>
+              <source type="image/webp" srcset="assets/how-design-640.webp 640w, assets/how-design-1000.webp 1000w" sizes="(max-width: 900px) 92vw, 480px">
+              <img src="assets/how-design-1000.jpg" width="1000" height="600" loading="lazy" decoding="async" alt="">
+            </picture>
+          </figure>
+          <figure>
+            <picture>
+              <source type="image/webp" srcset="assets/how-install-640.webp 640w, assets/how-install-1000.webp 1000w" sizes="(max-width: 900px) 92vw, 480px">
+              <img src="assets/how-install-1000.jpg" width="1000" height="600" loading="lazy" decoding="async" alt="">
+            </picture>
+            <span class="ai-tag">AI-generated</span>
+          </figure>
+          <figure>
+            <picture>
+              <source type="image/webp" srcset="assets/how-save-640.webp 640w, assets/how-save-922.webp 922w" sizes="(max-width: 900px) 92vw, 480px">
+              <img src="assets/how-save-922.jpg" width="922" height="553" loading="lazy" decoding="async" alt="">
+            </picture>
+            <span class="ai-tag">AI-generated</span>
+          </figure>
       </div>
     </div>
   </div>
@@ -1604,7 +1663,65 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
       <p class="lead">Irish businesses already cutting their bills with Aura Energy systems, from warehouses to farms, and more roofs are being built now.</p>
     </div>
     <div class="projects">
-      <!-- Photos removed for now. To bring one back, add a .project-img block above .project-body -->
+      <!-- The first three carry real photos of the installs. The others have no photo yet: to add one,
+           put a .project-img block above .project-body, as in the first three. Real photos only. -->
+      <article class="project reveal">
+        <div class="project-img">
+          <span class="tag">Industrial</span>
+          <picture>
+            <source type="image/webp" srcset="assets/work-industrial-480.webp 480w, assets/work-industrial-800.webp 800w" sizes="(max-width: 720px) 92vw, (max-width: 1024px) 46vw, 370px">
+            <img src="assets/work-industrial-800.jpg" width="800" height="533" loading="lazy" decoding="async" alt="Solar arrays along the standing-seam roof of an industrial unit in Co. Dublin, with houses and the city beyond">
+          </picture>
+        </div>
+        <div class="project-body">
+          <h3>Industrial Unit, Co. Dublin</h3>
+          <p>Clamp-mounted arrays on a standing-seam roof, no roof penetrations, with cabling sized for future expansion as demand grows.</p>
+          <!-- PLACEHOLDER metrics: verify against metered data before publishing (~900 kWh per kWp per year). -->
+          <div class="project-meta">
+            <div class="m"><div class="v">24<span> kW</span></div><div class="l">System size</div></div>
+            <div class="m"><div class="v">~21,500</div><div class="l">kWh per year</div></div>
+            <div class="m"><div class="v">~<span>€</span>3.5k</div><div class="l">Annual saving</div></div>
+          </div>
+        </div>
+      </article>
+      <article class="project reveal">
+        <div class="project-img">
+          <span class="tag">Agriculture</span>
+          <picture>
+            <source type="image/webp" srcset="assets/work-farm-480.webp 480w, assets/work-farm-800.webp 800w" sizes="(max-width: 720px) 92vw, (max-width: 1024px) 46vw, 370px">
+            <img src="assets/work-farm-800.jpg" width="800" height="468" loading="lazy" decoding="async" alt="Black solar panels along the roof of a concrete farm building">
+          </picture>
+        </div>
+        <div class="project-body">
+          <h3>Agricultural Enterprise, Co. Meath</h3>
+          <p>Pitched-roof system across two farm buildings, powering refrigeration and processing equipment year-round.</p>
+          <!-- PLACEHOLDER metrics: verify against metered data before publishing (~900 kWh per kWp per year). -->
+          <div class="project-meta">
+            <div class="m"><div class="v">60<span> kW</span></div><div class="l">System size</div></div>
+            <div class="m"><div class="v">~54,000</div><div class="l">kWh per year</div></div>
+            <div class="m"><div class="v">~<span>€</span>9k</div><div class="l">Annual saving</div></div>
+          </div>
+        </div>
+      </article>
+      <article class="project reveal">
+        <div class="project-img">
+          <span class="tag">Office</span>
+          <picture>
+            <source type="image/webp" srcset="assets/work-office-480.webp 480w, assets/work-office-800.webp 800w" sizes="(max-width: 720px) 92vw, (max-width: 1024px) 46vw, 370px">
+            <img src="assets/work-office-800.jpg" width="800" height="532" loading="lazy" decoding="async" alt="Solar panels on a flat roof and on the tiled roof beside it, seen from above">
+          </picture>
+        </div>
+        <div class="project-body">
+          <h3>Office Building, Co. Dublin</h3>
+          <p>Ballasted flat-roof system paired with a pitched-roof array, matched to daytime office loads for maximum self-consumption.</p>
+          <!-- PLACEHOLDER metrics: verify against metered data before publishing (~900 kWh per kWp per year). -->
+          <div class="project-meta">
+            <div class="m"><div class="v">12<span> kW</span></div><div class="l">System size</div></div>
+            <div class="m"><div class="v">~10,800</div><div class="l">kWh per year</div></div>
+            <div class="m"><div class="v">~<span>€</span>2k</div><div class="l">Annual saving</div></div>
+          </div>
+        </div>
+      </article>
       <article class="project reveal">
         <div class="project-body">
           <span class="tag">Logistics</span>
@@ -1628,44 +1745,6 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
             <div class="m"><div class="v">32<span> kW</span></div><div class="l">System size</div></div>
             <div class="m"><div class="v">~29,000</div><div class="l">kWh per year</div></div>
             <div class="m"><div class="v">~<span>€</span>5k</div><div class="l">Annual saving</div></div>
-          </div>
-        </div>
-      </article>
-      <article class="project reveal">
-        <div class="project-body">
-          <span class="tag">Agriculture</span>
-          <h3>Agricultural Enterprise, Co. Meath</h3>
-          <p>Pitched-roof system across two farm buildings, powering refrigeration and processing equipment year-round.</p>
-          <div class="project-meta">
-            <div class="m"><div class="v">60<span> kW</span></div><div class="l">System size</div></div>
-            <div class="m"><div class="v">~54,000</div><div class="l">kWh per year</div></div>
-            <div class="m"><div class="v">~<span>€</span>9k</div><div class="l">Annual saving</div></div>
-          </div>
-        </div>
-      </article>
-      <article class="project reveal">
-        <div class="project-body">
-          <span class="tag">Industrial</span>
-          <h3>Industrial Unit, Co. Dublin</h3>
-          <p>Clamp-mounted arrays on a standing-seam roof, no roof penetrations, with cabling sized for future expansion as demand grows.</p>
-          <!-- PLACEHOLDER metrics: verify against metered data before publishing (~900 kWh per kWp per year). -->
-          <div class="project-meta">
-            <div class="m"><div class="v">24<span> kW</span></div><div class="l">System size</div></div>
-            <div class="m"><div class="v">~21,500</div><div class="l">kWh per year</div></div>
-            <div class="m"><div class="v">~<span>€</span>3.5k</div><div class="l">Annual saving</div></div>
-          </div>
-        </div>
-      </article>
-      <article class="project reveal">
-        <div class="project-body">
-          <span class="tag">Office</span>
-          <h3>Office Building, Co. Dublin</h3>
-          <p>Ballasted flat-roof system paired with a pitched-roof array, matched to daytime office loads for maximum self-consumption.</p>
-          <!-- PLACEHOLDER metrics: verify against metered data before publishing (~900 kWh per kWp per year). -->
-          <div class="project-meta">
-            <div class="m"><div class="v">12<span> kW</span></div><div class="l">System size</div></div>
-            <div class="m"><div class="v">~10,800</div><div class="l">kWh per year</div></div>
-            <div class="m"><div class="v">~<span>€</span>2k</div><div class="l">Annual saving</div></div>
           </div>
         </div>
       </article>
@@ -1745,10 +1824,20 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
 <!-- ============================================================ WHY SOLAR -->
 <section class="section" id="why">
   <div class="container">
-    <div class="section-head reveal">
-      <div class="kicker">Why now</div>
-      <h2>Why Irish businesses are switching to solar</h2>
-      <p class="lead">Electricity is one of the few overheads you can permanently cut. With our PPA model, there's no capital barrier and no reason to wait.</p>
+    <div class="head-pic reveal">
+      <div class="section-head">
+        <div class="kicker">Why now</div>
+        <h2>Why Irish businesses are switching to solar</h2>
+        <p class="lead">Electricity is one of the few overheads you can permanently cut. With our PPA model, there's no capital barrier and no reason to wait.</p>
+      </div>
+      <!-- An illustration made with AI, and labelled as one. Swap in a real photo when there is a good one. -->
+      <figure class="head-photo">
+        <picture>
+          <source type="image/webp" srcset="assets/why-roof-640.webp 640w, assets/why-roof-1000.webp 1000w" sizes="(max-width: 900px) 92vw, 520px">
+          <img src="assets/why-roof-1000.jpg" width="1000" height="563" loading="lazy" decoding="async" alt="Rows of solar panels on the white roof of a commercial building, with a playing pitch and houses behind it">
+        </picture>
+        <span class="ai-tag">AI-generated</span>
+      </figure>
     </div>
     <div class="benefits">
       <div class="benefit reveal">
@@ -2314,12 +2403,13 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   const tabs = [...rail.querySelectorAll('[role="tab"]')];
   const panes = tabs.map(t => document.getElementById(t.getAttribute('aria-controls')));
   const body = document.getElementById('pathBody');
+  const shots = [...document.querySelectorAll('#pathMedia figure')];   // one picture per step
   let cur = 0, timer = null, manual = false, busy = false;
   const show = i => {
     cur = (i + tabs.length) % tabs.length;
     tabs.forEach((t, k) => { const on = k === cur;
       t.setAttribute('aria-selected', on); if (on) t.removeAttribute('tabindex'); else t.tabIndex = -1;
-      panes[k].classList.toggle('is-on', on); });
+      panes[k].classList.toggle('is-on', on); if (shots[k]) shots[k].classList.toggle('is-on', on); });
   };
   const stop = () => { manual = true; if (timer) { clearInterval(timer); timer = null; } };
   tabs.forEach((t, k) => t.addEventListener('click', () => { stop(); show(k); }));

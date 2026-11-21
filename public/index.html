@@ -392,21 +392,26 @@ footer :focus-visible { outline-color: #fff; }
 
 /* ============================================================ PROJECTS */
 .projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
-.project { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: #fff; transition: transform .25s var(--ease), box-shadow .25s var(--ease); display: flex; flex-direction: column; }
+.project { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: #fff; transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
 .project:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
 .project-img {
-  height: 210px; flex: none; position: relative; display: flex; align-items: center; justify-content: center;
-  background: #2a2b2f;
+  height: 210px; position: relative; display: flex; align-items: center; justify-content: center;
+  background:
+    radial-gradient(120% 100% at 80% 0%, rgba(255,255,255,.35) 0%, rgba(255,255,255,0) 55%),
+    linear-gradient(150deg, #FF8B54 0%, var(--orange) 55%, #D8480F 100%);
 }
+/* Photos live in assets/ ; if a file is missing the branded placeholder shows instead */
 .project-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
 .project:hover .project-img img { transform: scale(1.06); }
+.project-img .ph { text-align: center; color: rgba(255,255,255,.95); }
+.project-img .ph svg { width: 44px; height: 44px; margin: 0 auto 8px; stroke-width: 1.5; }
+.project-img .ph span { font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .85; }
 .project-img .tag { position: absolute; top: 16px; left: 16px; z-index: 2; background: rgba(255,255,255,.94); color: var(--ink); font-size: 12px; font-weight: 800; padding: 6px 14px; border-radius: 999px; }
-/* the figures sit along the bottom of every card, so they line up across a row whatever is above them */
-.project-body { padding: 26px; flex: 1; display: flex; flex-direction: column; align-items: flex-start; }
+.project-body { padding: 26px; }
 .project-body .tag { display: inline-block; background: var(--orange-soft); color: var(--orange-text); border: 1px solid var(--orange-line); font-size: 12px; font-weight: 800; padding: 5px 13px; border-radius: 999px; margin-bottom: 16px; }
 .project-body h3 { font-size: 1.08rem; margin-bottom: 8px; }
 .project-body p { font-size: 14px; margin-bottom: 20px; }
-.project-meta { display: flex; border-top: 1px solid var(--line); padding-top: 18px; gap: 24px; margin-top: auto; align-self: stretch; }
+.project-meta { display: flex; border-top: 1px solid var(--line); padding-top: 18px; gap: 24px; }
 .project-meta .m .v { font-weight: 900; font-size: 1.05rem; letter-spacing:-0.01em; }
 .project-meta .m .v span { color: inherit; }
 .project-meta .m .l { font-size: 11.5px; color: var(--muted); font-weight: 600; }
@@ -1663,65 +1668,7 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
       <p class="lead">Irish businesses already cutting their bills with Aura Energy systems, from warehouses to farms, and more roofs are being built now.</p>
     </div>
     <div class="projects">
-      <!-- The first three carry real photos of the installs. The others have no photo yet: to add one,
-           put a .project-img block above .project-body, as in the first three. Real photos only. -->
-      <article class="project reveal">
-        <div class="project-img">
-          <span class="tag">Industrial</span>
-          <picture>
-            <source type="image/webp" srcset="assets/work-industrial-480.webp 480w, assets/work-industrial-800.webp 800w" sizes="(max-width: 720px) 92vw, (max-width: 1024px) 46vw, 370px">
-            <img src="assets/work-industrial-800.jpg" width="800" height="533" loading="lazy" decoding="async" alt="Solar arrays along the standing-seam roof of an industrial unit in Co. Dublin, with houses and the city beyond">
-          </picture>
-        </div>
-        <div class="project-body">
-          <h3>Industrial Unit, Co. Dublin</h3>
-          <p>Clamp-mounted arrays on a standing-seam roof, no roof penetrations, with cabling sized for future expansion as demand grows.</p>
-          <!-- PLACEHOLDER metrics: verify against metered data before publishing (~900 kWh per kWp per year). -->
-          <div class="project-meta">
-            <div class="m"><div class="v">24<span> kW</span></div><div class="l">System size</div></div>
-            <div class="m"><div class="v">~21,500</div><div class="l">kWh per year</div></div>
-            <div class="m"><div class="v">~<span>€</span>3.5k</div><div class="l">Annual saving</div></div>
-          </div>
-        </div>
-      </article>
-      <article class="project reveal">
-        <div class="project-img">
-          <span class="tag">Agriculture</span>
-          <picture>
-            <source type="image/webp" srcset="assets/work-farm-480.webp 480w, assets/work-farm-800.webp 800w" sizes="(max-width: 720px) 92vw, (max-width: 1024px) 46vw, 370px">
-            <img src="assets/work-farm-800.jpg" width="800" height="468" loading="lazy" decoding="async" alt="Black solar panels along the roof of a concrete farm building">
-          </picture>
-        </div>
-        <div class="project-body">
-          <h3>Agricultural Enterprise, Co. Meath</h3>
-          <p>Pitched-roof system across two farm buildings, powering refrigeration and processing equipment year-round.</p>
-          <!-- PLACEHOLDER metrics: verify against metered data before publishing (~900 kWh per kWp per year). -->
-          <div class="project-meta">
-            <div class="m"><div class="v">60<span> kW</span></div><div class="l">System size</div></div>
-            <div class="m"><div class="v">~54,000</div><div class="l">kWh per year</div></div>
-            <div class="m"><div class="v">~<span>€</span>9k</div><div class="l">Annual saving</div></div>
-          </div>
-        </div>
-      </article>
-      <article class="project reveal">
-        <div class="project-img">
-          <span class="tag">Office</span>
-          <picture>
-            <source type="image/webp" srcset="assets/work-office-480.webp 480w, assets/work-office-800.webp 800w" sizes="(max-width: 720px) 92vw, (max-width: 1024px) 46vw, 370px">
-            <img src="assets/work-office-800.jpg" width="800" height="532" loading="lazy" decoding="async" alt="Solar panels on a flat roof and on the tiled roof beside it, seen from above">
-          </picture>
-        </div>
-        <div class="project-body">
-          <h3>Office Building, Co. Dublin</h3>
-          <p>Ballasted flat-roof system paired with a pitched-roof array, matched to daytime office loads for maximum self-consumption.</p>
-          <!-- PLACEHOLDER metrics: verify against metered data before publishing (~900 kWh per kWp per year). -->
-          <div class="project-meta">
-            <div class="m"><div class="v">12<span> kW</span></div><div class="l">System size</div></div>
-            <div class="m"><div class="v">~10,800</div><div class="l">kWh per year</div></div>
-            <div class="m"><div class="v">~<span>€</span>2k</div><div class="l">Annual saving</div></div>
-          </div>
-        </div>
-      </article>
+      <!-- Photos removed for now. To bring one back, add a .project-img block above .project-body -->
       <article class="project reveal">
         <div class="project-body">
           <span class="tag">Logistics</span>
@@ -1745,6 +1692,44 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
             <div class="m"><div class="v">32<span> kW</span></div><div class="l">System size</div></div>
             <div class="m"><div class="v">~29,000</div><div class="l">kWh per year</div></div>
             <div class="m"><div class="v">~<span>€</span>5k</div><div class="l">Annual saving</div></div>
+          </div>
+        </div>
+      </article>
+      <article class="project reveal">
+        <div class="project-body">
+          <span class="tag">Agriculture</span>
+          <h3>Agricultural Enterprise, Co. Meath</h3>
+          <p>Pitched-roof system across two farm buildings, powering refrigeration and processing equipment year-round.</p>
+          <div class="project-meta">
+            <div class="m"><div class="v">60<span> kW</span></div><div class="l">System size</div></div>
+            <div class="m"><div class="v">~54,000</div><div class="l">kWh per year</div></div>
+            <div class="m"><div class="v">~<span>€</span>9k</div><div class="l">Annual saving</div></div>
+          </div>
+        </div>
+      </article>
+      <article class="project reveal">
+        <div class="project-body">
+          <span class="tag">Industrial</span>
+          <h3>Industrial Unit, Co. Dublin</h3>
+          <p>Clamp-mounted arrays on a standing-seam roof, no roof penetrations, with cabling sized for future expansion as demand grows.</p>
+          <!-- PLACEHOLDER metrics: verify against metered data before publishing (~900 kWh per kWp per year). -->
+          <div class="project-meta">
+            <div class="m"><div class="v">24<span> kW</span></div><div class="l">System size</div></div>
+            <div class="m"><div class="v">~21,500</div><div class="l">kWh per year</div></div>
+            <div class="m"><div class="v">~<span>€</span>3.5k</div><div class="l">Annual saving</div></div>
+          </div>
+        </div>
+      </article>
+      <article class="project reveal">
+        <div class="project-body">
+          <span class="tag">Office</span>
+          <h3>Office Building, Co. Dublin</h3>
+          <p>Ballasted flat-roof system paired with a pitched-roof array, matched to daytime office loads for maximum self-consumption.</p>
+          <!-- PLACEHOLDER metrics: verify against metered data before publishing (~900 kWh per kWp per year). -->
+          <div class="project-meta">
+            <div class="m"><div class="v">12<span> kW</span></div><div class="l">System size</div></div>
+            <div class="m"><div class="v">~10,800</div><div class="l">kWh per year</div></div>
+            <div class="m"><div class="v">~<span>€</span>2k</div><div class="l">Annual saving</div></div>
           </div>
         </div>
       </article>

@@ -21,8 +21,14 @@ those are for real photos only.
 - `installer-kneeling.jpg`: the main picture on the About page, and step 3 of "How it works" on the
   home page.
 - `vest-back.jpg`: not used on the site right now.
-- `van-dublin-street.jpg`: step 1 of "How it works" on the home page. The site's copy is cropped
-  above the number plate, which looks like a real registration. Keep it cropped.
+- `surveyor-yard.jpg`: step 1 of "How it works" on the home page.
+- `design-desk.jpg`: step 2 of "How it works" on the home page.
+- `homeowners-driveway.jpg`: the main picture on the homes page. The site's copy is widened on the
+  left with a mirrored, blurred strip so the couple sits clear of the headline.
+- `homes-aerial.jpg`: the old main picture on the homes page (a photo enhanced with AI). Not used
+  on the site right now.
+- `van-dublin-street.jpg`: not used on the site right now. If it comes back, crop it above the
+  number plate, which looks like a real registration.
 - `roof-with-shop-sign.jpg`: step 4 of "How it works" and the picture beside "Why Irish businesses
   are switching to solar". The site's copies are cropped to leave out the shop sign, which names a
   business. Keep them cropped.

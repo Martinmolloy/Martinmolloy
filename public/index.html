@@ -329,14 +329,7 @@ footer :focus-visible { outline-color: #fff; }
 .path-media figure.is-on { opacity: 1; }
 .path-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .path-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--ink) 0%, rgba(17,17,19,.6) 18%, rgba(17,17,19,0) 52%); pointer-events: none; }
-.path-media .ai-tag { left: auto; top: auto; right: 14px; bottom: 14px; }
 @media (prefers-reduced-motion: reduce) { .path-media figure { transition: none; } }
-/* a small label on pictures made or changed with AI; the Terms of use say more */
-.ai-tag {
-  position: absolute; left: 12px; top: 12px; z-index: 2; padding: 4px 10px; border-radius: 999px;
-  background: rgba(14,14,16,.62); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .05em; line-height: 1.35;
-  backdrop-filter: blur(6px); pointer-events: none;
-}
 .path::before { content: ""; position: absolute; top: -220px; right: -160px; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(254,80,0,.22) 0%, rgba(254,80,0,0) 70%); pointer-events: none; }
 .path-rail { display: flex; gap: 4px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 999px; padding: 5px; width: max-content; max-width: 100%; position: relative; }
 .path-rail [role="tab"] { border: 0; background: transparent; color: rgba(255,255,255,.72); font: inherit; font-weight: 700; font-size: 14px; padding: 9px 18px 9px 10px; border-radius: 999px; cursor: pointer; display: flex; align-items: center; gap: 9px; transition: background .25s var(--ease), color .25s var(--ease); }
@@ -1484,7 +1477,6 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
               <source type="image/webp" srcset="assets/how-survey-640.webp 640w, assets/how-survey-1000.webp 1000w" sizes="(max-width: 900px) 92vw, 480px">
               <img src="assets/how-survey-1000.jpg" width="1000" height="600" loading="lazy" decoding="async" alt="">
             </picture>
-            <span class="ai-tag">AI-generated</span>
           </figure>
           <figure>
             <picture>
@@ -1497,14 +1489,12 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
               <source type="image/webp" srcset="assets/how-fit-640.webp 640w, assets/how-fit-1000.webp 1000w" sizes="(max-width: 900px) 92vw, 480px">
               <img src="assets/how-fit-1000.jpg" width="1000" height="600" loading="lazy" decoding="async" alt="">
             </picture>
-            <span class="ai-tag">AI-generated</span>
           </figure>
           <figure>
             <picture>
               <source type="image/webp" srcset="assets/how-save-640.webp 640w, assets/how-save-922.webp 922w" sizes="(max-width: 900px) 92vw, 480px">
               <img src="assets/how-save-922.jpg" width="922" height="553" loading="lazy" decoding="async" alt="">
             </picture>
-            <span class="ai-tag">AI-generated</span>
           </figure>
       </div>
     </div>
@@ -1821,7 +1811,6 @@ p.agent__note { font-size: 11.5px; color: rgba(241,238,231,.45); text-align: cen
           <source type="image/webp" srcset="assets/why-roof-640.webp 640w, assets/why-roof-1000.webp 1000w" sizes="(max-width: 900px) 92vw, 520px">
           <img src="assets/why-roof-1000.jpg" width="1000" height="563" loading="lazy" decoding="async" alt="Rows of solar panels on the white roof of a commercial building, with a playing pitch and houses behind it">
         </picture>
-        <span class="ai-tag">AI-generated</span>
       </figure>
     </div>
     <div class="benefits">

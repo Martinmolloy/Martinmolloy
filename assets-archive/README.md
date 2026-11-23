@@ -14,8 +14,8 @@ To use one again, make a web-sized copy in `public/assets/` and reference it.
 
 ## Pictures made with AI (`ai/`)
 
-The originals of the AI-made pictures on the site. Each one carries a small "AI-generated" label
-where it appears, and the Terms of use explain them. Never use these on the "Our work" cards:
+The originals of the AI-made pictures on the site. The Terms of use say that some pictures are
+made with AI. Never use these on the "Our work" cards:
 those are for real photos only.
 
 - `installer-kneeling.jpg`: the main picture on the About page, and step 3 of "How it works" on the

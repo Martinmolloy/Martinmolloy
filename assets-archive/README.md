@@ -23,8 +23,10 @@ those are for real photos only.
 - `vest-back.jpg`: not used on the site right now.
 - `surveyor-yard.jpg`: step 1 of "How it works" on the home page.
 - `design-desk.jpg`: step 2 of "How it works" on the home page.
-- `homeowners-driveway.jpg`: the main picture on the homes page. The site's copy is widened on the
-  left with a mirrored, blurred strip so the couple sits clear of the headline.
+- `homeowners-driveway.jpg`: the main picture on the homes page. Edited by hand after it was made:
+  the roof sits a little higher so there is wall between the upstairs windows and the gutter. The
+  site's copy is also widened on the left with a mirrored, blurred strip so the couple sits clear
+  of the headline.
 - `homes-aerial.jpg`: the old main picture on the homes page (a photo enhanced with AI). Not used
   on the site right now.
 - `van-dublin-street.jpg`: not used on the site right now. If it comes back, crop it above the
